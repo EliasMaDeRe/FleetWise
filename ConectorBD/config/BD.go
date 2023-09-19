@@ -1,10 +1,11 @@
 package config
 
 import (
+	ModelosVehiculos "example/fleetwise/modelos/vehiculos"
 	"log"
 
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 var DB *gorm.DB
@@ -12,10 +13,12 @@ var DB *gorm.DB
 func ConnectToDB() {
 	var err error
 
-	dsn := "root:@tcp(127.0.0.1:3307)/gestor_de_flotillas"
-	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	database, err := gorm.Open("mysql", "root:@tcp(127.0.0.1:3307)/gestor_de_flotillas")
 
 	if err != nil {
 		log.Fatal("Failed to connect DB")
 	}
+	database.AutoMigrate(&ModelosVehiculos.Vehiculo{})
+
+	DB = database
 }
