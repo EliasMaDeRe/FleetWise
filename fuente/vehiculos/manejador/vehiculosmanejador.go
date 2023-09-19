@@ -22,5 +22,5 @@ func NuevoManejador() (c *Manejador) {
 
 func (m *Manejador) AgregarVehiculo(contexto *gin.Context) *vehiculosModelos.AgregarVehiculoRespuesta {
 	solicitud := m.VehiculosMapeador.GinContextAAgregarVehiculoSolicitud(contexto)
-	return m.VehiculosControlador.AgregarVehiculo(&solicitud)
+	return m.VehiculosControlador.AgregarVehiculo(solicitud)
 }
