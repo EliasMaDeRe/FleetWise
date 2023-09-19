@@ -27,5 +27,5 @@ func (m *Manejador) AgregarVehiculo(contexto *gin.Context) {
 	if respuesta.ObtenerOk() == false {
 		status = http.StatusBadRequest
 	}
-	contexto.JSON(status, respuesta)
+	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk()})
 }

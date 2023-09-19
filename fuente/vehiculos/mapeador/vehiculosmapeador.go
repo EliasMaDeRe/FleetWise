@@ -2,6 +2,7 @@ package mapeador
 
 import (
 	vehiculosModelos "example/fleetwise/modelos/vehiculos"
+	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -12,24 +13,18 @@ type Mapeador struct {
 
 func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(contexto *gin.Context) *vehiculosModelos.AgregarVehiculosSolicitud {
 	solicitud := &vehiculosModelos.AgregarVehiculosSolicitud{}
-	if anualidad, err := strconv.Atoi(contexto.Param("id")); err == nil {
-		solicitud.AsignarAnualidad(anualidad)
-	}
-	marca := contexto.Param("marca")
-	solicitud.AsignarMarca(marca)
-	modelo := contexto.Param("modelo")
-	solicitud.AsignarModelo(modelo)
-	placas := contexto.Param("placas")
-	solicitud.AsignarPlacas(placas)
-	serie := contexto.Param("serie")
-	solicitud.AsignarSerie(serie)
-
+	contexto.BindJSON(solicitud)
+	fmt.Println(solicitud.ObtenerAnualidad())
 	return solicitud
 }
 
 func (m *Mapeador) AgregarVehiculosSolicitudAVehiculo(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) *vehiculosModelos.Vehiculo {
 	vehiculo := &vehiculosModelos.Vehiculo{}
-	vehiculo.AsignarAnualidad(solicitud.ObtenerAnualidad())
+	if anualidad, err := strconv.Atoi(solicitud.ObtenerAnualidad()); err != nil {
+		vehiculo.AsignarAnualidad(anualidad)
+	} else {
+		vehiculo.AsignarAnualidad(0)
+	}
 	vehiculo.AsignarMarca(solicitud.ObtenerMarca())
 	vehiculo.AsignarModelo(solicitud.ObtenerModelo())
 	vehiculo.AsignarPlacas(solicitud.ObtenerPlacas())

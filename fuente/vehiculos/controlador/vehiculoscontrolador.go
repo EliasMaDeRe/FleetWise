@@ -3,6 +3,7 @@ package controlador
 import (
 	"errors"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	"strconv"
 
 	"example/fleetwise/fuente/vehiculos/constantes"
 	vehiculosMapeador "example/fleetwise/fuente/vehiculos/mapeador"
@@ -46,7 +47,7 @@ func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehicul
 }
 
 func (c *Controlador) validarAgregarVehiculosSolicitud(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) error {
-	if solicitud.ObtenerAnualidad() <= 0 {
+	if anualidad, err := strconv.Atoi(solicitud.ObtenerAnualidad()); err != nil || anualidad <= 0 {
 		return errors.New(constantes.ERROR_ANUALIDAD_NO_NATURAL)
 	}
 	obtenerVehiculoPorPlacasSolicitud := &conectorbd.ObtenerVehiculoPorPlacasSolicitud{}
