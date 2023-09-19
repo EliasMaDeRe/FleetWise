@@ -10,18 +10,19 @@ import (
 type Mapeador struct {
 }
 
-func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(context *gin.Context) (o vehiculosModelos.AgregarVehiculosSolicitud) {
-	if anualidad, err := strconv.Atoi(context.Param("id")); err == nil {
-		o.AsignarAnualidad(anualidad)
+func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(contexto *gin.Context) *vehiculosModelos.AgregarVehiculosSolicitud {
+	solicitud := &vehiculosModelos.AgregarVehiculosSolicitud{}
+	if anualidad, err := strconv.Atoi(contexto.Param("id")); err == nil {
+		solicitud.AsignarAnualidad(anualidad)
 	}
-	marca := context.Param("marca")
-	o.AsignarMarca(marca)
-	modelo := context.Param("modelo")
-	o.AsignarModelo(modelo)
-	placas := context.Param("placas")
-	o.AsignarPlacas(placas)
-	serie := context.Param("serie")
-	o.AsignarSerie(serie)
+	marca := contexto.Param("marca")
+	solicitud.AsignarMarca(marca)
+	modelo := contexto.Param("modelo")
+	solicitud.AsignarModelo(modelo)
+	placas := contexto.Param("placas")
+	solicitud.AsignarPlacas(placas)
+	serie := contexto.Param("serie")
+	solicitud.AsignarSerie(serie)
 
-	return
+	return solicitud
 }
