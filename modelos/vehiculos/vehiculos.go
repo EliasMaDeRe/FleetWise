@@ -88,7 +88,7 @@ func (v *Vehiculo) AsignarSerie(serie string) {
 }
 
 type AgregarVehiculosSolicitud struct {
-	anualidad int
+	anualidad int // año del vehiculo
 	marca     string
 	modelo    string
 	placas    string
@@ -157,5 +157,36 @@ func (v *AgregarVehiculosSolicitud) ObtenerSerie() (o string) {
 func (v *AgregarVehiculosSolicitud) AsignarSerie(serie string) {
 	if v != nil {
 		v.serie = serie
+	}
+}
+
+type AgregarVehiculoRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *AgregarVehiculoRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *AgregarVehiculoRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *AgregarVehiculoRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *AgregarVehiculoRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
 	}
 }
