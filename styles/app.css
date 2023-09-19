@@ -185,7 +185,7 @@ INICIO FOOTER
 .footer {
   background-color: var(--primario);
   color: var(--blanco);
-  margin-top: 13rem;
+  margin-top: 2rem;
   padding-block: 6rem;
   font-size: 1.5rem;
 }
@@ -223,4 +223,33 @@ INICIO FOOTER
 
 .footer__copyright {
   font-size: 1rem;
+}
+
+/*
+=============================
+FIN FOOTER
+=============================
+*/
+
+/*
+=============================
+INICIO ALERTAS
+=============================
+*/
+
+.alerta {
+  margin: 0 auto;
+  width: 20%;
+  text-align: center;
+  color: white;
+  border-radius: 3rem;
+  padding: 2rem;
+}
+
+.alerta--exito {
+  background-color: green;
+}
+
+.alerta--error {
+  background-color: red;
 }
