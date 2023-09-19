@@ -66,3 +66,20 @@ func (v *ObtenerVehiculoPorPlacasSolicitud) AsignarPlacas(placa string) {
 		v.placa = placa
 	}
 }
+
+type ObtenerVehiculoPorSerieSolicitud struct {
+	serie string
+}
+
+func (v *ObtenerVehiculoPorSerieSolicitud) ObtenerSerie() (o string) {
+	if v != nil {
+		o = v.serie
+	}
+	return
+}
+
+func (v *ObtenerVehiculoPorSerieSolicitud) AsignarSerie(serie string) {
+	if v != nil {
+		v.serie = serie
+	}
+}
