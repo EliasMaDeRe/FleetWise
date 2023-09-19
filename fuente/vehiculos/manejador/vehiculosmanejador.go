@@ -10,17 +10,17 @@ import (
 
 type Manejador struct {
 	VehiculosControlador *vehiculosControlador.Controlador
-	VehiculosMapeador    *vehiculosMapeador.Mapeador
 }
 
 func NuevoManejador() (c *Manejador) {
 	return &Manejador{
-		VehiculosControlador: &vehiculosControlador.Controlador{},
-		VehiculosMapeador:    &vehiculosMapeador.Mapeador{},
+		VehiculosControlador: &vehiculosControlador.Controlador{
+			VehiculosMapeador: &vehiculosMapeador.Mapeador{},
+		},
 	}
 }
 
 func (m *Manejador) AgregarVehiculo(contexto *gin.Context) *vehiculosModelos.AgregarVehiculoRespuesta {
-	solicitud := m.VehiculosMapeador.GinContextAAgregarVehiculoSolicitud(contexto)
+	solicitud := m.VehiculosControlador.VehiculosMapeador.GinContextAAgregarVehiculoSolicitud(contexto)
 	return m.VehiculosControlador.AgregarVehiculo(solicitud)
 }

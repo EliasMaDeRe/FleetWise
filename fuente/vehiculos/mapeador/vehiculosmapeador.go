@@ -26,3 +26,13 @@ func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(contexto *gin.Context) *v
 
 	return solicitud
 }
+
+func (m *Mapeador) AgregarVehiculosSolicitudAVehiculo(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) *vehiculosModelos.Vehiculo {
+	vehiculo := &vehiculosModelos.Vehiculo{}
+	vehiculo.AsignarAnualidad(solicitud.ObtenerAnualidad())
+	vehiculo.AsignarMarca(solicitud.ObtenerMarca())
+	vehiculo.AsignarModelo(solicitud.ObtenerModelo())
+	vehiculo.AsignarPlacas(solicitud.ObtenerPlacas())
+	vehiculo.AsignarSerie(solicitud.ObtenerSerie())
+	return vehiculo
+}

@@ -3,13 +3,16 @@ package controlador
 import (
 	"errors"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+
 	"example/fleetwise/fuente/vehiculos/constantes"
+	vehiculosMapeador "example/fleetwise/fuente/vehiculos/mapeador"
 	"example/fleetwise/modelos/conectorbd"
 	vehiculosModelos "example/fleetwise/modelos/vehiculos"
 )
 
 type Controlador struct {
-	ConectorBDControlador conectorBDControlador.Controlador
+	ConectorBDControlador *conectorBDControlador.Controlador
+	VehiculosMapeador     *vehiculosMapeador.Mapeador
 }
 
 func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) *vehiculosModelos.AgregarVehiculoRespuesta {
@@ -21,10 +24,23 @@ func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehicul
 		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
 	}
 
-	if err := c.validarAgregarVehiculosSolicitud(solicitud); err != nil {
+	var err error
+	if err = c.validarAgregarVehiculosSolicitud(solicitud); err != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(err)
+		return respuesta
 	}
+
+	vehiculo := c.VehiculosMapeador.AgregarVehiculosSolicitudAVehiculo(solicitud)
+
+	if err = c.ConectorBDControlador.AgregarVehiculo(vehiculo); err != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(err)
+		return respuesta
+	}
+
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
 
 	return respuesta
 }
@@ -35,8 +51,13 @@ func (c *Controlador) validarAgregarVehiculosSolicitud(solicitud *vehiculosModel
 	}
 	obtenerVehiculoPorPlacasSolicitud := &conectorbd.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
-	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
-
+	obtenerVehiculoPorSerieSolicitud := &conectorbd.ObtenerVehiculoPorSerieSolicitud{}
+	obtenerVehiculoPorSerieSolicitud.AsignarSerie(solicitud.ObtenerSerie())
+	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) != nil {
+		return errors.New(constantes.ERROR_PLACAS_EXISTENTES_EN_BD)
+	}
+	if c.ConectorBDControlador.ObtenerVehiculoPorSerie(obtenerVehiculoPorSerieSolicitud) != nil {
+		return errors.New(constantes.ERROR_SERIE_EXISTENTE_EN_BD)
 	}
 	return nil
 }
