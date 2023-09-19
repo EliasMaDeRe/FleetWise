@@ -3,7 +3,7 @@ package manejador
 import (
 	vehiculosControlador "example/fleetwise/fuente/vehiculos/controlador"
 	vehiculosMapeador "example/fleetwise/fuente/vehiculos/mapeador"
-	vehiculosModelos "example/fleetwise/modelos/vehiculos"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +20,12 @@ func NuevoManejador() (c *Manejador) {
 	}
 }
 
-func (m *Manejador) AgregarVehiculo(contexto *gin.Context) *vehiculosModelos.AgregarVehiculoRespuesta {
+func (m *Manejador) AgregarVehiculo(contexto *gin.Context) {
 	solicitud := m.VehiculosControlador.VehiculosMapeador.GinContextAAgregarVehiculoSolicitud(contexto)
-	return m.VehiculosControlador.AgregarVehiculo(solicitud)
+	respuesta := m.VehiculosControlador.AgregarVehiculo(solicitud)
+	status := http.StatusOK
+	if respuesta.ObtenerOk() == false {
+		status = http.StatusBadRequest
+	}
+	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk()})
 }
