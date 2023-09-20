@@ -3,14 +3,14 @@ package main
 import (
 	"net/http"
 
-	conectorConfig "example/fleetwise/ConectorBD/config"
+	conectorControlador "example/fleetwise/ConectorBD/controlador"
 	rutas "example/fleetwise/Rutas"
 
 	"github.com/gin-gonic/gin"
 )
 
 func init() {
-	conectorConfig.ConnectToDB()
+	conectorControlador.GuardarVehiculo()
 }
 
 func main() {

@@ -1,26 +1,45 @@
 package controlador
 
 import (
-	conectorConfig "example/fleetwise/ConectorBD/config"
 	conectorModelos "example/fleetwise/modelos/conectorbd"
-	"net/http"
+	vehiculosModelos "example/fleetwise/modelos/vehiculos"
 
-	"github.com/gin-gonic/gin"
+	"log"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
+var DB *gorm.DB
+
 type Controlador struct {
-	flag bool
 }
 
-func GuardarVehiculo(contexto *gin.Context) {
-	nuevoVehiculo := &conectorModelos.GuardarVehiculoSolicitud{}
-	result := conectorConfig.DB.Create(nuevoVehiculo)
-	if result.Error != nil {
-		contexto.JSON(500, gin.H{"Error": "Failed to insert"})
-		return
+func GuardarVehiculo() {
+	var err error
+
+	database, err := gorm.Open("mysql", "root:@tcp(127.0.0.1:3307)/gestor_de_flotillas")
+
+	if err != nil {
+		log.Fatal("Failed to connect DB")
 	}
-	contexto.BindJSON(&nuevoVehiculo)
-	contexto.IndentedJSON(http.StatusCreated, &nuevoVehiculo)
+
+	VehiculoSolicitud := &conectorModelos.GuardarVehiculoSolicitud{}
+
+	nuevoVehiculo := vehiculosModelos.Vehiculo{}
+
+	nuevoVehiculo.AsignarAnualidad(1)
+	nuevoVehiculo.AsignarID("14")
+	nuevoVehiculo.AsignarMarca("a")
+	nuevoVehiculo.AsignarModelo("b")
+	nuevoVehiculo.AsignarPlacas("c")
+	nuevoVehiculo.AsignarSerie("d")
+
+	VehiculoSolicitud.AsignarVehiculo(nuevoVehiculo)
+
+	database.Create(VehiculoSolicitud.ObtenerVehiculo())
+
+	DB = database
 }
 
 func (c *Controlador) RespuestaGuardarVehiculo() {
