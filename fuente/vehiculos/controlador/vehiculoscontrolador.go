@@ -9,6 +9,7 @@ import (
 	vehiculosMapeador "example/fleetwise/fuente/vehiculos/mapeador"
 	"example/fleetwise/modelos/conectorbd"
 	vehiculosModelos "example/fleetwise/modelos/vehiculos"
+	//conectorControlador "example/fleetwise/ConectorBD/Controlador"
 )
 
 type Controlador struct {
@@ -17,7 +18,6 @@ type Controlador struct {
 }
 
 func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) *vehiculosModelos.AgregarVehiculoRespuesta {
-
 	respuesta := &vehiculosModelos.AgregarVehiculoRespuesta{}
 
 	if solicitud == nil {
