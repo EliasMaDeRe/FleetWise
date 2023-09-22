@@ -65,19 +65,21 @@ func (c *Controlador) AgregarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
-	/*	nuevoVehiculo := vehiculosModelos.Vehiculo{}
 
-		nuevoVehiculo.AsignarAnualidad(1)
-		nuevoVehiculo.AsignarID("14")
-		nuevoVehiculo.AsignarMarca("a")
-		nuevoVehiculo.AsignarModelo("b")
-		nuevoVehiculo.AsignarPlacas("c")
-		nuevoVehiculo.AsignarSerie("d")*/
 	database.AutoMigrate(&vehiculo)
 
-	c.conectorModelos.AsignarVehiculo(*vehiculo)
+	//c.conectorModelos.AsignarVehiculo(*vehiculo)
 
-	resultCrearCelda := database.Create(c.conectorModelos.ObtenerVehiculo())
+	//resultCrearCelda := database.Create(c.conectorModelos.ObtenerVehiculo())
+
+	resultCrearCelda := database.Create(
+		&vehiculosModelos.Vehiculo{Anualidad: vehiculo.ObtenerAnualidad(),
+			ID:     vehiculo.ObtenerID(),
+			Marca:  vehiculo.ObtenerMarca(),
+			Modelo: vehiculo.ObtenerModelo(),
+			Placas: vehiculo.ObtenerPlacas(),
+			Serie:  vehiculo.ObtenerSerie(),
+		})
 
 	if resultCrearCelda.Error != nil {
 		return resultCrearCelda.Error
