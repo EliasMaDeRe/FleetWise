@@ -1,24 +1,24 @@
 package vehiculos
 
 type Vehiculo struct {
-	anualidad int
+	Anualidad int
 	ID        string
-	marca     string
-	modelo    string
-	placas    string
-	serie     string
+	Marca     string
+	Modelo    string
+	Placas    string
+	Serie     string
 }
 
 func (v *Vehiculo) ObtenerAnualidad() (o int) {
 	if v != nil {
-		o = v.anualidad
+		o = v.Anualidad
 	}
 	return
 }
 
 func (v *Vehiculo) AsignarAnualidad(anualidad int) {
 	if v != nil {
-		v.anualidad = anualidad
+		v.Anualidad = anualidad
 	}
 }
 
@@ -37,53 +37,53 @@ func (v *Vehiculo) AsignarID(ID string) {
 
 func (v *Vehiculo) ObtenerMarca() (o string) {
 	if v != nil {
-		o = v.marca
+		o = v.Marca
 	}
 	return
 }
 
 func (v *Vehiculo) AsignarMarca(marca string) {
 	if v != nil {
-		v.marca = marca
+		v.Marca = marca
 	}
 }
 
 func (v *Vehiculo) ObtenerModelo() (o string) {
 	if v != nil {
-		o = v.modelo
+		o = v.Modelo
 	}
 	return
 }
 
 func (v *Vehiculo) AsignarModelo(modelo string) {
 	if v != nil {
-		v.modelo = modelo
+		v.Modelo = modelo
 	}
 }
 
 func (v *Vehiculo) ObtenerPlacas() (o string) {
 	if v != nil {
-		o = v.placas
+		o = v.Placas
 	}
 	return
 }
 
 func (v *Vehiculo) AsignarPlacas(placas string) {
 	if v != nil {
-		v.placas = placas
+		v.Placas = placas
 	}
 }
 
 func (v *Vehiculo) ObtenerSerie() (o string) {
 	if v != nil {
-		o = v.serie
+		o = v.Serie
 	}
 	return
 }
 
 func (v *Vehiculo) AsignarSerie(serie string) {
 	if v != nil {
-		v.serie = serie
+		v.Serie = serie
 	}
 }
 
