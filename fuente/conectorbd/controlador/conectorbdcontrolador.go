@@ -4,7 +4,6 @@ import (
 	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
 
-	"example/fleetwise/modelos/conectorbd"
 	conectorModelos "example/fleetwise/modelos/conectorbd"
 	vehiculosModelos "example/fleetwise/modelos/vehiculos"
 	"log"
@@ -16,7 +15,7 @@ import (
 type Controlador struct {
 }
 
-func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorbd.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
+func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
 	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
@@ -38,7 +37,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorbd.ObtenerVehi
 	return vehiculoEncontrado
 }
 
-func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorbd.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
+func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
 	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
