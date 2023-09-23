@@ -49,3 +49,37 @@ func (v *ObtenerCargoSoicitud) AsignarNombreUsuario(nombreUsuario string) {
 		v.nombreUsuario = nombreUsuario
 	}
 }
+
+type ObtenerVehiculoPorPlacasSolicitud struct {
+	placa string
+}
+
+func (v *ObtenerVehiculoPorPlacasSolicitud) ObtenerPlacas() (o string) {
+	if v != nil {
+		o = v.placa
+	}
+	return
+}
+
+func (v *ObtenerVehiculoPorPlacasSolicitud) AsignarPlacas(placa string) {
+	if v != nil {
+		v.placa = placa
+	}
+}
+
+type ObtenerVehiculoPorSerieSolicitud struct {
+	serie string
+}
+
+func (v *ObtenerVehiculoPorSerieSolicitud) ObtenerSerie() (o string) {
+	if v != nil {
+		o = v.serie
+	}
+	return
+}
+
+func (v *ObtenerVehiculoPorSerieSolicitud) AsignarSerie(serie string) {
+	if v != nil {
+		v.serie = serie
+	}
+}

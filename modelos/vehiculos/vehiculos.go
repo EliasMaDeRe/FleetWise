@@ -88,74 +88,105 @@ func (v *Vehiculo) AsignarSerie(serie string) {
 }
 
 type AgregarVehiculosSolicitud struct {
-	anualidad int
-	marca     string
-	modelo    string
-	placas    string
-	serie     string
+	Anualidad string `json:"anualidad"` // año del vehiculo
+	Marca     string
+	Modelo    string
+	Placas    string
+	Serie     string
 }
 
-func (v *AgregarVehiculosSolicitud) ObtenerAnualidad() (o int) {
+func (v *AgregarVehiculosSolicitud) ObtenerAnualidad() (o string) {
 	if v != nil {
-		o = v.anualidad
+		o = v.Anualidad
 	}
 	return
 }
 
-func (v *AgregarVehiculosSolicitud) AsignarAnualidad(anualidad int) {
+func (v *AgregarVehiculosSolicitud) AsignarAnualidad(anualidad string) {
 	if v != nil {
-		v.anualidad = anualidad
+		v.Anualidad = anualidad
 	}
 }
 
 func (v *AgregarVehiculosSolicitud) ObtenerMarca() (o string) {
 	if v != nil {
-		o = v.marca
+		o = v.Marca
 	}
 	return
 }
 
 func (v *AgregarVehiculosSolicitud) AsignarMarca(marca string) {
 	if v != nil {
-		v.marca = marca
+		v.Marca = marca
 	}
 }
 
 func (v *AgregarVehiculosSolicitud) ObtenerModelo() (o string) {
 	if v != nil {
-		o = v.modelo
+		o = v.Modelo
 	}
 	return
 }
 
 func (v *AgregarVehiculosSolicitud) AsignarModelo(modelo string) {
 	if v != nil {
-		v.modelo = modelo
+		v.Modelo = modelo
 	}
 }
 
 func (v *AgregarVehiculosSolicitud) ObtenerPlacas() (o string) {
 	if v != nil {
-		o = v.placas
+		o = v.Placas
 	}
 	return
 }
 
 func (v *AgregarVehiculosSolicitud) AsignarPlacas(placas string) {
 	if v != nil {
-		v.placas = placas
+		v.Placas = placas
 	}
 }
 
 func (v *AgregarVehiculosSolicitud) ObtenerSerie() (o string) {
 	if v != nil {
-		o = v.serie
+		o = v.Serie
 	}
 	return
 }
 
 func (v *AgregarVehiculosSolicitud) AsignarSerie(serie string) {
 	if v != nil {
-		v.serie = serie
+		v.Serie = serie
+	}
+}
+
+type AgregarVehiculoRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *AgregarVehiculoRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *AgregarVehiculoRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *AgregarVehiculoRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *AgregarVehiculoRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
 	}
 }

@@ -1,4 +1,4 @@
-package fleetwise
+package main
 
 import (
 	vehiculosManejador "example/fleetwise/fuente/vehiculos/manejador"
