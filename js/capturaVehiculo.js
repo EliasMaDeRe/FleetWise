@@ -22,7 +22,6 @@
         body: datosFormulario,
       });
       const respuesta = await peticion.json();
-      console.log(respuesta);
       if (!respuesta.OK) {
         desplegarAlerta("error", "Error al crear el vehículo");
       } else {
