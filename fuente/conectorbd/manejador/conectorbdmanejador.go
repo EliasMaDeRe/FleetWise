@@ -17,13 +17,13 @@ func NuevoManejador() (c *Manejador) {
 }
 
 func (m *Manejador) ObtenerVehiculoPorPlacas(contexto *gin.Context) {
-	//
+	//Se dejan vacíos para su futura implementación
 }
 
 func (m *Manejador) ObtenerVehiculoPorSerie(contexto *gin.Context) {
-	//
+	//Se dejan vacíos para su futura implementación
 }
 
 func (m *Manejador) GuardarVehiculo(contexto *gin.Context) {
-	//
+	//Se dejan vacíos para su futura implementación
 }
