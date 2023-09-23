@@ -69,10 +69,6 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error
 
 	database.AutoMigrate(&vehiculo)
 
-	//c.conectorModelos.AsignarVehiculo(*vehiculo)
-
-	//resultCrearCelda := database.Create(c.conectorModelos.ObtenerVehiculo())
-
 	resultCrearCelda := database.Create(
 		&vehiculosModelos.Vehiculo{Anualidad: vehiculo.ObtenerAnualidad(),
 			ID:     vehiculo.ObtenerID(),
