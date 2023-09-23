@@ -60,7 +60,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorbd.ObtenerVehic
 	return vehiculoEncontrado
 }
 
-func (c *Controlador) AgregarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error {
+func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error {
 	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
