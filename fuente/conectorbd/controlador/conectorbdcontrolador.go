@@ -1,17 +1,17 @@
 package controlador
 
 import (
+	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
 
 	"example/fleetwise/modelos/conectorbd"
+	conectorModelos "example/fleetwise/modelos/conectorbd"
 	vehiculosModelos "example/fleetwise/modelos/vehiculos"
 	"log"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
-
-var DB *gorm.DB
 
 type Controlador struct {
 }
@@ -60,7 +60,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorbd.ObtenerVehic
 	return vehiculoEncontrado
 }
 
-func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error {
+func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *conectorModelos.AgregarConectorBDRespuesta {
 	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
@@ -71,10 +71,6 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error
 
 	database.AutoMigrate(&vehiculo)
 
-	//c.conectorModelos.AsignarVehiculo(*vehiculo)
-
-	//resultCrearCelda := database.Create(c.conectorModelos.ObtenerVehiculo())
-
 	resultCrearCelda := database.Create(
 		&vehiculosModelos.Vehiculo{Anualidad: vehiculo.ObtenerAnualidad(),
 			ID:     vehiculo.ObtenerID(),
@@ -83,10 +79,14 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error
 			Placas: vehiculo.ObtenerPlacas(),
 			Serie:  vehiculo.ObtenerSerie(),
 		})
-
+	respuesta := &conectorModelos.AgregarConectorBDRespuesta{}
 	if resultCrearCelda.Error != nil {
-		return resultCrearCelda.Error
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
+		return respuesta
 	}
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
 
-	return nil
+	return respuesta
 }
