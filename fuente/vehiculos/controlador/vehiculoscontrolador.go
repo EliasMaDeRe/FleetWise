@@ -9,7 +9,6 @@ import (
 	vehiculosMapeador "example/fleetwise/fuente/vehiculos/mapeador"
 	"example/fleetwise/modelos/conectorbd"
 	vehiculosModelos "example/fleetwise/modelos/vehiculos"
-	//conectorControlador "example/fleetwise/ConectorBD/Controlador"
 )
 
 type Controlador struct {
