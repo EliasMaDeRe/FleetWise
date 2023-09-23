@@ -11,8 +11,6 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-var DB *gorm.DB
-
 type Controlador struct {
 }
 
