@@ -3,8 +3,8 @@ package Manejador
 import (
 	conectorControlador "example/fleetwise/fuente/conectorbd/controlador"
 	conectorMapeador "example/fleetwise/fuente/conectorbd/mapeador"
-	conectorModelos "example/fleetwise/modelos/conectorbd"
-	vehiculosModelos "example/fleetwise/modelos/vehiculos"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Manejador struct {
@@ -15,19 +15,18 @@ type Manejador struct {
 func NuevoManejador() (c *Manejador) {
 	return &Manejador{
 		ConectorControlador: &conectorControlador.Controlador{},
+		ConectorMapeador:    &conectorMapeador.Mapeador{},
 	}
 }
-func (m *Manejador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.GuardarVehiculoSolicitud) {
-	//m.ObtenerVehiculoPorPlacas(solicitud)
 
+func (m *Manejador) ObtenerVehiculoPorPlacas(contexto *gin.Context) {
+	//
 }
 
-func (m *Manejador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) {
-	//m.ObtenerVehiculoPorSerie(solicitud)
+func (m *Manejador) ObtenerVehiculoPorSerie(contexto *gin.Context) {
+	//
 }
 
-func (m *Manejador) AgregarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error {
-	respuesta := m.ConectorControlador.AgregarVehiculo(vehiculo)
-	return respuesta
-
+func (m *Manejador) AgregarVehiculo(contexto *gin.Context) {
+	//
 }

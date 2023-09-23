@@ -14,7 +14,6 @@ import (
 var DB *gorm.DB
 
 type Controlador struct {
-	conectorModelos conectorbd.GuardarVehiculoSolicitud
 }
 
 func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorbd.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
@@ -34,7 +33,9 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorbd.ObtenerVehi
 		log.Fatal(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
 	}
 
-	return nil
+	vehiculoEncontrado := &vehiculos[0]
+
+	return vehiculoEncontrado
 }
 
 func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorbd.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
@@ -54,7 +55,9 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorbd.ObtenerVehic
 		log.Fatal(constantes.ERROR_SERIE_INEXISTENTES_EN_BD)
 	}
 
-	return nil
+	vehiculoEncontrado := &vehiculos[0]
+
+	return vehiculoEncontrado
 }
 
 func (c *Controlador) AgregarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error {
