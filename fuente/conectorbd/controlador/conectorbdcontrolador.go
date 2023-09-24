@@ -70,7 +70,7 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 
 	database.AutoMigrate(&vehiculo)
 
-	resultCrearCelda := database.Create(
+	resultGuardarVehiculo := database.Create(
 		&vehiculosModelos.Vehiculo{Anualidad: vehiculo.ObtenerAnualidad(),
 			ID:     vehiculo.ObtenerID(),
 			Marca:  vehiculo.ObtenerMarca(),
@@ -79,7 +79,7 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 			Serie:  vehiculo.ObtenerSerie(),
 		})
 	respuesta := &conectorModelos.AgregarConectorBDRespuesta{}
-	if resultCrearCelda.Error != nil {
+	if resultGuardarVehiculo.Error != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
 		return respuesta
