@@ -33,7 +33,7 @@ func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehicul
 
 	vehiculo := c.VehiculosMapeador.AgregarVehiculosSolicitudAVehiculo(solicitud)
 
-	if err = c.ConectorBDControlador.GuardarVehiculo(vehiculo); err != nil {
+	if c.ConectorBDControlador.GuardarVehiculo(vehiculo).ObtenerErr() != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(err)
 		return respuesta

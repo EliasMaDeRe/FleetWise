@@ -83,3 +83,34 @@ func (v *ObtenerVehiculoPorSerieSolicitud) AsignarSerie(serie string) {
 		v.serie = serie
 	}
 }
+
+type AgregarConectorBDRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *AgregarConectorBDRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *AgregarConectorBDRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *AgregarConectorBDRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *AgregarConectorBDRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}

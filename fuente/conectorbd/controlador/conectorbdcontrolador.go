@@ -1,9 +1,10 @@
 package controlador
 
 import (
+	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
 
-	"example/fleetwise/modelos/conectorbd"
+	conectorModelos "example/fleetwise/modelos/conectorbd"
 	vehiculosModelos "example/fleetwise/modelos/vehiculos"
 	"log"
 
@@ -14,7 +15,7 @@ import (
 type Controlador struct {
 }
 
-func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorbd.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
+func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
 	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
@@ -36,7 +37,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorbd.ObtenerVehi
 	return vehiculoEncontrado
 }
 
-func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorbd.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
+func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
 	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
@@ -58,7 +59,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorbd.ObtenerVehic
 	return vehiculoEncontrado
 }
 
-func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error {
+func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *conectorModelos.AgregarConectorBDRespuesta {
 	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
@@ -69,7 +70,7 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error
 
 	database.AutoMigrate(&vehiculo)
 
-	resultCrearCelda := database.Create(
+	resultGuardarVehiculo := database.Create(
 		&vehiculosModelos.Vehiculo{Anualidad: vehiculo.ObtenerAnualidad(),
 			ID:     vehiculo.ObtenerID(),
 			Marca:  vehiculo.ObtenerMarca(),
@@ -77,10 +78,14 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) error
 			Placas: vehiculo.ObtenerPlacas(),
 			Serie:  vehiculo.ObtenerSerie(),
 		})
-
-	if resultCrearCelda.Error != nil {
-		return resultCrearCelda.Error
+	respuesta := &conectorModelos.AgregarConectorBDRespuesta{}
+	if resultGuardarVehiculo.Error != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
+		return respuesta
 	}
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
 
-	return nil
+	return respuesta
 }
