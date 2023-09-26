@@ -4,8 +4,8 @@ import (
 	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
 
+	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	conectorModelos "example/fleetwise/modelos/conectorbd"
-	vehiculosModelos "example/fleetwise/modelos/vehiculos"
 	"log"
 
 	"github.com/jinzhu/gorm"

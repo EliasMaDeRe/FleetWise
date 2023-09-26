@@ -5,10 +5,10 @@ import (
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	"strconv"
 
-	"example/fleetwise/fuente/vehiculos/constantes"
-	vehiculosMapeador "example/fleetwise/fuente/vehiculos/mapeador"
+	"example/fleetwise/fuente/capturavehiculos/constantes"
+	vehiculosMapeador "example/fleetwise/fuente/capturavehiculos/mapeador"
+	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	"example/fleetwise/modelos/conectorbd"
-	vehiculosModelos "example/fleetwise/modelos/vehiculos"
 )
 
 type Controlador struct {

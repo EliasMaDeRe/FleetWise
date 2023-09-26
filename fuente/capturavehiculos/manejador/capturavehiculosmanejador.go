@@ -1,8 +1,8 @@
 package manejador
 
 import (
-	vehiculosControlador "example/fleetwise/fuente/vehiculos/controlador"
-	vehiculosMapeador "example/fleetwise/fuente/vehiculos/mapeador"
+	vehiculosControlador "example/fleetwise/fuente/capturavehiculos/controlador"
+	vehiculosMapeador "example/fleetwise/fuente/capturavehiculos/mapeador"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
