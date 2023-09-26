@@ -1,7 +1,7 @@
 package mapeador
 
 import (
-	vehiculosModelos "example/fleetwise/modelos/vehiculos"
+	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	"fmt"
 	"strconv"
 

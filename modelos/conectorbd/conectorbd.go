@@ -1,19 +1,19 @@
 package conectorbd
 
-import "example/fleetwise/modelos/vehiculos"
+import vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 
 type GuardarVehiculoSolicitud struct {
-	vehiculo vehiculos.Vehiculo
+	vehiculo vehiculosModelos.Vehiculo
 }
 
-func (v *GuardarVehiculoSolicitud) ObtenerVehiculo() (o vehiculos.Vehiculo) {
+func (v *GuardarVehiculoSolicitud) ObtenerVehiculo() (o vehiculosModelos.Vehiculo) {
 	if v != nil {
 		o = v.vehiculo
 	}
 	return
 }
 
-func (v *GuardarVehiculoSolicitud) AsignarVehiculo(vehiculo vehiculos.Vehiculo) {
+func (v *GuardarVehiculoSolicitud) AsignarVehiculo(vehiculo vehiculosModelos.Vehiculo) {
 	if v != nil {
 		v.vehiculo = vehiculo
 	}
