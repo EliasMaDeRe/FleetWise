@@ -1,7 +1,7 @@
 package main
 
 import (
-	vehiculosManejador "example/fleetwise/fuente/vehiculos/manejador"
+	vehiculosManejador "example/fleetwise/fuente/capturavehiculos/manejador"
 
 	"net/http"
 

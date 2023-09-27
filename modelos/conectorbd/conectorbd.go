@@ -1,19 +1,19 @@
 package conectorbd
 
-import "example/fleetwise/modelos/vehiculos"
+import vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 
 type GuardarVehiculoSolicitud struct {
-	vehiculo vehiculos.Vehiculo
+	vehiculo vehiculosModelos.Vehiculo
 }
 
-func (v *GuardarVehiculoSolicitud) ObtenerVehiculo() (o vehiculos.Vehiculo) {
+func (v *GuardarVehiculoSolicitud) ObtenerVehiculo() (o vehiculosModelos.Vehiculo) {
 	if v != nil {
 		o = v.vehiculo
 	}
 	return
 }
 
-func (v *GuardarVehiculoSolicitud) AsignarVehiculo(vehiculo vehiculos.Vehiculo) {
+func (v *GuardarVehiculoSolicitud) AsignarVehiculo(vehiculo vehiculosModelos.Vehiculo) {
 	if v != nil {
 		v.vehiculo = vehiculo
 	}
@@ -81,5 +81,36 @@ func (v *ObtenerVehiculoPorSerieSolicitud) ObtenerSerie() (o string) {
 func (v *ObtenerVehiculoPorSerieSolicitud) AsignarSerie(serie string) {
 	if v != nil {
 		v.serie = serie
+	}
+}
+
+type AgregarConectorBDRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *AgregarConectorBDRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *AgregarConectorBDRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *AgregarConectorBDRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *AgregarConectorBDRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
 	}
 }
