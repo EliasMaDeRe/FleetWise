@@ -22,8 +22,8 @@
         body: datosFormulario,
       });
       const respuesta = await peticion.json();
-      if (respuesta.Mensaje) {
-        desplegarAlerta("error", respuesta.Mensaje);
+      if (!respuesta.OK) {
+        desplegarAlerta("error", "Error al crear el vehículo");
       } else {
         desplegarAlerta("exito", "Vehículo agregado exitosamente");
       }
@@ -32,10 +32,7 @@
     function construirPeticionFormulario(inputsFormulario) {
       const datosFormulario = new FormData();
       inputsFormulario.forEach((inputFormulario) => {
-        datosFormulario.append(
-          inputFormulario.name,
-          inputFormulario.textContent
-        );
+        datosFormulario.append(`${inputFormulario.id}`, inputFormulario.value);
       });
       return datosFormulario;
     }

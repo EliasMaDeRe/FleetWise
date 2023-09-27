@@ -89,10 +89,10 @@ func (v *Vehiculo) AsignarSerie(serie string) {
 
 type AgregarVehiculosSolicitud struct {
 	Anualidad string `json:"anualidad"` // año del vehiculo
-	Marca     string
-	Modelo    string
-	Placas    string
-	Serie     string
+	Marca     string `json:"marca"`
+	Modelo    string `json:"modelo"`
+	Placas    string `json:"placas"`
+	Serie     string `json:"serie"`
 }
 
 func (v *AgregarVehiculosSolicitud) ObtenerAnualidad() (o string) {
