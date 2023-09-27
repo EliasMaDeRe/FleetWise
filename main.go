@@ -3,8 +3,9 @@ package main
 import (
 	vehiculosManejador "example/fleetwise/fuente/vehiculos/manejador"
 
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type ControladorMain struct {
@@ -19,9 +20,11 @@ func main() {
 	router.LoadHTMLGlob("*.html")
 	router.Static("/styles", "./styles/")
 	router.Static("/js", "./js/")
-	router.POST("/AgregarVehiculo", controlador.VehiculosManejador.AgregarVehiculo)
+	router.POST("/AgregarVehiculo", func(ctx *gin.Context) {
+		controlador.VehiculosManejador.AgregarVehiculo(ctx)
+	})
 	router.GET("/AgregarVehiculo", func(c *gin.Context){
-		c.HTML(http.StatusOK,"index.html",gin.H{"title":"Agregar Vehículo"})
+		c.HTML(http.StatusOK,"index.html",gin.H{})
 	})
 	router.Run("localhost:8080")
 }

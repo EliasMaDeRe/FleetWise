@@ -13,7 +13,9 @@ type Mapeador struct {
 
 func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(contexto *gin.Context) *vehiculosModelos.AgregarVehiculosSolicitud {
 	solicitud := &vehiculosModelos.AgregarVehiculosSolicitud{}
+	fmt.Println(solicitud)
 	contexto.BindJSON(solicitud)
+	fmt.Println(solicitud.ObtenerAnualidad())
 	fmt.Println(solicitud.ObtenerAnualidad())
 	return solicitud
 }

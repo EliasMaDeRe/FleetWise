@@ -3,6 +3,7 @@ package manejador
 import (
 	vehiculosControlador "example/fleetwise/fuente/vehiculos/controlador"
 	vehiculosMapeador "example/fleetwise/fuente/vehiculos/mapeador"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -27,5 +28,6 @@ func (m *Manejador) AgregarVehiculo(contexto *gin.Context) {
 	if respuesta.ObtenerOk() == false {
 		status = http.StatusBadRequest
 	}
+	fmt.Println(respuesta.ObtenerErr().Error())
 	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk()})
 }

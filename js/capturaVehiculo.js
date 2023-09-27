@@ -32,7 +32,7 @@
     function construirPeticionFormulario(inputsFormulario) {
       const datosFormulario = new FormData();
       inputsFormulario.forEach((inputFormulario) => {
-        datosFormulario.append(inputFormulario.name, inputFormulario.value);
+        datosFormulario.append(`${inputFormulario.id}`, inputFormulario.value);
       });
       return datosFormulario;
     }
