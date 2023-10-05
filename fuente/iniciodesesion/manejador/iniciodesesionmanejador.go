@@ -1,9 +1,7 @@
 package manejadores
 
 import (
-	"net/http"
-	"tuaplicacion/controladores"
-	"github.com/gin-gonic/gin"
+	"errors"
 )
 
 type InicioDeSesionManejador struct {
@@ -14,10 +12,12 @@ func NuevoInicioDeSesionManejador(controlador *controladores.InicioDeSesionContr
 	return &InicioDeSesionManejador{Controlador: controlador}
 }
 
+var err error
+
 func (h *InicioDeSesionManejador) IniciarSesion(c *gin.Context) {
 	var solicitud modelos.InicioDeSesionSolicitud
 	if err := c.ShouldBindJSON(&solicitud); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{err.Error()})
 		return
 	}
 
