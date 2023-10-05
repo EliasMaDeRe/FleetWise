@@ -1,31 +1,51 @@
 package manejadores
 
 import (
-	"errors"
-	InicioDeSesionControlador "example/fleetwise/fuente/iniciodesesion/controlador"
+	"net/http"
+	"github.com/gin-gonic/gin"
+	"example/fleetwise/fuente/iniciodesesion/controladores"
 	"example/fleetwise/modelos/iniciodesesion"
 )
 
 type Manejador struct {
-	Controlador *controladores.InicioDeSesionControlador
+	Controlador *controladores.Controlador
 }
 
-func NuevoInicioDeSesionManejador(controlador *controladores.InicioDeSesionControlador) *Manejador {
+func NuevoInicioDeSesionManejador(controlador *controladores.Controlador) *Manejador {
 	return &Manejador{Controlador: controlador}
 }
 
-var err error
 func (h *Manejador) IniciarSesion(contexto *gin.Context) {
-	var solicitud := modelos.InicioDeSesionSolicitud
-	if err := c.ShouldBindJSON(&solicitud); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{err.Error()})
+	var solicitud modelos.InicioDeSesionSolicitud
+	if err := contexto.ShouldBindJSON(&solicitud); err != nil {
+		// Si la solicitud es incorrecta, asigna un mensaje de error a la respuesta
+		respuesta := modelos.NuevaInicioDeSesionRespuesta()
+		respuesta.AsignarError(err)
+		contexto.JSON(http.StatusBadRequest, respuesta)
 		return
 	}
 
-	h.InicioDeSesionControlador.IniciarSesion(c, solicitud)
+	// Llamar al controlador y obtener una respuesta
+	respuesta := h.Controlador.IniciarSesion(contexto, solicitud)
+
+	// Enviar la respuesta al cliente
+	status := http.StatusOK
+	if !respuesta.Ok {
+		status = http.StatusUnauthorized
+	}
+	contexto.JSON(status, respuesta)
 }
 
-func (h *Manejador) CerrarSesion(c *gin.Context) {
-	claveUsuario := c.Param("claveUsuario")
-	h.InicioDeSesionControlador.CerrarSesion(c, claveUsuario)
+func (h *Manejador) CerrarSesion(contexto *gin.Context) {
+	claveUsuario := contexto.Param("claveUsuario")
+
+	// Llamar al controlador y obtener una respuesta
+	respuesta := h.Controlador.CerrarSesion(contexto, claveUsuario)
+
+	// Enviar la respuesta al cliente
+	status := http.StatusOK
+	if !respuesta.Ok {
+		status = http.StatusUnauthorized
+	}
+	contexto.JSON(status, respuesta)
 }

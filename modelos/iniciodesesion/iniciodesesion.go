@@ -89,3 +89,19 @@ func (v *InicioDeSesionSolicitud) AsignarNombreUsuario(nombreUsuario string) {
 		v.nombreUsuario = nombreUsuario
 	}
 }
+
+type InicioDeSesionRespuesta struct {
+	ok  bool   
+	err string 
+}
+
+func NuevaInicioDeSesionRespuesta() *InicioDeSesionRespuesta {
+	return &InicioDeSesionRespuesta{
+		ok: true,
+	}
+}
+
+func (r *InicioDeSesionRespuesta) AsignarError(err error) {
+	r.ok = false
+	r.err = err.Error()
+}
