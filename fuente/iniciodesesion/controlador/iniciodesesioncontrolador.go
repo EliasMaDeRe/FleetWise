@@ -5,6 +5,8 @@ import (
 	"strconv"
 
 	"example/fleetwise/fuente/iniciodesesion/constantes"
+	iniciodesesionmodelos "example/fleetwise/modelos/iniciodesesion"
+	iniciodesesionmanejador "example/fleetwise/fuente/iniciodesesion/manejador"
 )
 
 type Controlador struct {
@@ -19,7 +21,8 @@ func NuevoInicioDeSesionControlador() *Controlador {
 	}
 }
 
-func (c *Controlador) IniciarSesion(c *gin.Context, solicitud modelos.InicioDeSesionSolicitud) {
+func (c *Controlador) IniciarSesion(c *gin.Context, solicitud iniciodesesionmodelos.InicioDeSesionSolicitud) *vehiculosModelos.AgregarVehiculoRespuesta {
+	// respuesta??
 	usuario, encontrado := c.Usuarios[solicitud.ClaveUsuario]
 
 	if !encontrado || usuario.ClaveUsuario != solicitud.ClaveUsuario {

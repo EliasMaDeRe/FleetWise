@@ -2,29 +2,30 @@ package manejadores
 
 import (
 	"errors"
+	InicioDeSesionControlador "example/fleetwise/fuente/iniciodesesion/controlador"
+	"example/fleetwise/modelos/iniciodesesion"
 )
 
-type InicioDeSesionManejador struct {
+type Manejador struct {
 	Controlador *controladores.InicioDeSesionControlador
 }
 
-func NuevoInicioDeSesionManejador(controlador *controladores.InicioDeSesionControlador) *InicioDeSesionManejador {
-	return &InicioDeSesionManejador{Controlador: controlador}
+func NuevoInicioDeSesionManejador(controlador *controladores.InicioDeSesionControlador) *Manejador {
+	return &Manejador{Controlador: controlador}
 }
 
 var err error
-
-func (h *InicioDeSesionManejador) IniciarSesion(c *gin.Context) {
-	var solicitud modelos.InicioDeSesionSolicitud
+func (h *Manejador) IniciarSesion(contexto *gin.Context) {
+	var solicitud := modelos.InicioDeSesionSolicitud
 	if err := c.ShouldBindJSON(&solicitud); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{err.Error()})
 		return
 	}
 
-	h.Controlador.IniciarSesion(c, solicitud)
+	h.InicioDeSesionControlador.IniciarSesion(c, solicitud)
 }
 
-func (h *InicioDeSesionManejador) CerrarSesion(c *gin.Context) {
+func (h *Manejador) CerrarSesion(c *gin.Context) {
 	claveUsuario := c.Param("claveUsuario")
-	h.Controlador.CerrarSesion(c, claveUsuario)
+	h.InicioDeSesionControlador.CerrarSesion(c, claveUsuario)
 }
