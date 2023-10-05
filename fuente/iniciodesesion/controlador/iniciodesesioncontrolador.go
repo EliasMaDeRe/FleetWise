@@ -6,23 +6,23 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type InicioDeSesionControlador struct {
+type Controlador struct {
 	Usuarios map[string]Usuario // Mapa para almacenar usuarios
 	Sesion   map[string]bool   // Mapa para gestionar sesiones de usuario
 }
 
-func NuevoInicioDeSesionControlador() *InicioDeSesionControlador {
-	return &InicioDeSesionControlador{
+func NuevoInicioDeSesionControlador() *Controlador {
+	return &Controlador{
 		Usuarios: make(map[string]Usuario),
 		Sesion:   make(map[string]bool),
 	}
 }
 
-func (c *InicioDeSesionControlador) IniciarSesion(c *gin.Context, solicitud modelos.InicioDeSesionSolicitud) {
+func (c *Controlador) IniciarSesion(c *gin.Context, solicitud modelos.InicioDeSesionSolicitud) {
 	usuario, encontrado := c.Usuarios[solicitud.ClaveUsuario]
 
 	if !encontrado || usuario.ClaveUsuario != solicitud.ClaveUsuario {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": constantes.ERROR_CREDENCIALES_INVALIDAS})
+		c.JSON(http.StatusUnauthorized, gin.H{constantes.ERROR_CREDENCIALES_INVALIDAS})
 		return
 	}
 
@@ -31,10 +31,10 @@ func (c *InicioDeSesionControlador) IniciarSesion(c *gin.Context, solicitud mode
 	c.JSON(http.StatusOK, gin.H{"mensaje": "Inicio de sesión exitoso"})
 }
 
-func (c *InicioDeSesionControlador) CerrarSesion(c *gin.Context, claveUsuario string) {
+func (c *Controlador) CerrarSesion(c *gin.Context, claveUsuario string) {
 	_, sesionIniciada := c.Sesion[claveUsuario]
 	if !sesionIniciada {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": constantes.ERROR_SESION_NO_INICIADA})
+		c.JSON(http.StatusUnauthorized, gin.H{constantes.ERROR_SESION_NO_INICIADA})
 		return
 	}
 
