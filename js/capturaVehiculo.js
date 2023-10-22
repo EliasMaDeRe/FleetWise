@@ -16,14 +16,14 @@
 
     async function enviarFormulario(inputsFormulario) {
       const datosFormulario = construirPeticionFormulario(inputsFormulario);
-      const agregarVehículoUrl = "/AgregarVehiculo";
-      const peticion = await fetch(agregarVehículoUrl, {
+      const agregarVehiculoURL = "/AgregarVehiculo";
+      const peticion = await fetch(agregarVehiculoURL, {
         method: "POST",
-        body: datosFormulario,
+        body: JSON.stringify(Object.fromEntries(datosFormulario)),
       });
       const respuesta = await peticion.json();
       if (!respuesta.OK) {
-        desplegarAlerta("error", "Error al crear el vehículo");
+        desplegarAlerta("error", respuesta.err);
       } else {
         desplegarAlerta("exito", "Vehículo agregado exitosamente");
       }
@@ -32,7 +32,7 @@
     function construirPeticionFormulario(inputsFormulario) {
       const datosFormulario = new FormData();
       inputsFormulario.forEach((inputFormulario) => {
-        datosFormulario.append(`${inputFormulario.id}`, inputFormulario.value);
+        datosFormulario.append(inputFormulario.id, inputFormulario.value);
       });
       return datosFormulario;
     }

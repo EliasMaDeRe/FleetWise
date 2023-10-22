@@ -2,7 +2,6 @@ package mapeador
 
 import (
 	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -13,16 +12,13 @@ type Mapeador struct {
 
 func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(contexto *gin.Context) *vehiculosModelos.AgregarVehiculosSolicitud {
 	solicitud := &vehiculosModelos.AgregarVehiculosSolicitud{}
-	fmt.Println(solicitud)
 	contexto.BindJSON(solicitud)
-	fmt.Println(solicitud.ObtenerAnualidad())
-	fmt.Println(solicitud.ObtenerAnualidad())
 	return solicitud
 }
 
 func (m *Mapeador) AgregarVehiculosSolicitudAVehiculo(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) *vehiculosModelos.Vehiculo {
 	vehiculo := &vehiculosModelos.Vehiculo{}
-	if anualidad, err := strconv.Atoi(solicitud.ObtenerAnualidad()); err != nil {
+	if anualidad, err := strconv.Atoi(solicitud.ObtenerAnualidad()); err == nil {
 		vehiculo.AsignarAnualidad(anualidad)
 	} else {
 		vehiculo.AsignarAnualidad(0)
