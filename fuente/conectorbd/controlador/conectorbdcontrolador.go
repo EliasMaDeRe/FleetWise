@@ -79,7 +79,7 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 	database.AutoMigrate(&vehiculo)
 
 	resultGuardarVehiculo := database.Create(
-		&vehiculosModelos.Vehiculo{Anualidad: vehiculo.ObtenerAnualidad(),
+		&vehiculosModelos.Vehiculo{FechaLanzamiento: vehiculo.ObtenerFechaLanzamiento(),
 			ID:     vehiculo.ObtenerID(),
 			Marca:  vehiculo.ObtenerMarca(),
 			Modelo: vehiculo.ObtenerModelo(),

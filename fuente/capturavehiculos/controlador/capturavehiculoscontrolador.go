@@ -46,8 +46,8 @@ func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehicul
 }
 
 func (c *Controlador) validarAgregarVehiculosSolicitud(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) error {
-	if anualidad, err := strconv.Atoi(solicitud.ObtenerAnualidad()); err != nil || anualidad <= 0 {
-		return errors.New(constantes.ERROR_ANUALIDAD_NO_NATURAL)
+	if fechalanzamiento, err := strconv.Atoi(solicitud.ObtenerFechaLanzamiento()); err != nil || fechalanzamiento <= 0 {
+		return errors.New(constantes.ERROR_FECHALANZAMIENTO_NO_NATURAL)
 	}
 	obtenerVehiculoPorPlacasSolicitud := &conectorbd.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
