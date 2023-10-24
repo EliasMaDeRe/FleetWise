@@ -32,7 +32,11 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 		log.Fatal(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
 	}
 
-	vehiculoEncontrado := &vehiculos[0]
+	var vehiculoEncontrado *vehiculosModelos.Vehiculo
+
+	if len(vehiculos) != 0 {
+		vehiculoEncontrado = &vehiculos[0]
+	}
 
 	return vehiculoEncontrado
 }
@@ -54,7 +58,11 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 		log.Fatal(constantes.ERROR_SERIE_INEXISTENTES_EN_BD)
 	}
 
-	vehiculoEncontrado := &vehiculos[0]
+	var vehiculoEncontrado *vehiculosModelos.Vehiculo
+
+	if len(vehiculos) != 0 {
+		vehiculoEncontrado = &vehiculos[0]
+	}
 
 	return vehiculoEncontrado
 }
