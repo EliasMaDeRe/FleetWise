@@ -16,10 +16,11 @@
 
     async function enviarFormulario(inputsFormulario) {
       const datosFormulario = construirPeticionFormulario(inputsFormulario);
+      const datosFormularioJSON = JSON.stringify(Object.fromEntries(datosFormulario));
       const agregarVehiculoURL = "/AgregarVehiculo";
       const peticion = await fetch(agregarVehiculoURL, {
         method: "POST",
-        body: JSON.stringify(Object.fromEntries(datosFormulario)),
+        body: datosFormularioJSON,
       });
       const respuesta = await peticion.json();
       if (!respuesta.OK) {
