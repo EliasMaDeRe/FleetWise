@@ -79,12 +79,13 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 	database.AutoMigrate(&vehiculo)
 
 	resultGuardarVehiculo := database.Create(
-		&vehiculosModelos.Vehiculo{FechaLanzamiento: vehiculo.ObtenerFechaLanzamiento(),
-			ID:     vehiculo.ObtenerID(),
-			Marca:  vehiculo.ObtenerMarca(),
-			Modelo: vehiculo.ObtenerModelo(),
-			Placas: vehiculo.ObtenerPlacas(),
-			Serie:  vehiculo.ObtenerSerie(),
+		&vehiculosModelos.Vehiculo{
+			FechaLanzamiento: vehiculo.ObtenerFechaLanzamiento(),
+			ID:               vehiculo.ObtenerID(),
+			Marca:            vehiculo.ObtenerMarca(),
+			Modelo:           vehiculo.ObtenerModelo(),
+			Placas:           vehiculo.ObtenerPlacas(),
+			Serie:            vehiculo.ObtenerSerie(),
 		})
 	respuesta := &conectorModelos.AgregarConectorBDRespuesta{}
 	if resultGuardarVehiculo.Error != nil {

@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `vehiculos` (
-  `fechalanzamiento` int(11) DEFAULT NULL,
+  `fecha_lanzamiento` int(11) DEFAULT NULL,
   `marca` varchar(255) DEFAULT NULL,
   `modelo` varchar(255) DEFAULT NULL,
   `placas` varchar(255) DEFAULT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE `vehiculos` (
 -- Volcado de datos para la tabla `vehiculos`
 --
 
-INSERT INTO `vehiculos` (`fechalanzamiento`, `marca`, `modelo`, `placas`, `serie`) VALUES
+INSERT INTO `vehiculos` (`fecha_lanzamiento`, `marca`, `modelo`, `placas`, `serie`) VALUES
 (1, 'a', 'b', 'c', 'd');
 
 --
