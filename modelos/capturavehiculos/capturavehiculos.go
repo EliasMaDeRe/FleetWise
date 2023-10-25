@@ -1,37 +1,23 @@
 package capturavehiculos
 
 type Vehiculo struct {
-	Anualidad int
-	ID        string
-	Marca     string
-	Modelo    string
-	Placas    string
-	Serie     string
+	FechaLanzamiento int
+	Marca            string
+	Modelo           string
+	Placas           string
+	Serie            string
 }
 
-func (v *Vehiculo) ObtenerAnualidad() (o int) {
+func (v *Vehiculo) ObtenerFechaLanzamiento() (o int) {
 	if v != nil {
-		o = v.Anualidad
+		o = v.FechaLanzamiento
 	}
 	return
 }
 
-func (v *Vehiculo) AsignarAnualidad(anualidad int) {
+func (v *Vehiculo) AsignarFechaLanzamiento(fechaLanzamiento int) {
 	if v != nil {
-		v.Anualidad = anualidad
-	}
-}
-
-func (v *Vehiculo) ObtenerID() (o string) {
-	if v != nil {
-		o = v.ID
-	}
-	return
-}
-
-func (v *Vehiculo) AsignarID(ID string) {
-	if v != nil {
-		v.ID = ID
+		v.FechaLanzamiento = fechaLanzamiento
 	}
 }
 
@@ -88,23 +74,23 @@ func (v *Vehiculo) AsignarSerie(serie string) {
 }
 
 type AgregarVehiculosSolicitud struct {
-	Anualidad string `json:"anualidad"` // año del vehiculo
-	Marca     string `json:"marca"`
-	Modelo    string `json:"modelo"`
-	Placas    string `json:"placas"`
-	Serie     string `json:"serie"`
+	FechaLanzamiento string `json:"fechalanzamiento"` // año del vehiculo
+	Marca            string `json:"marca"`
+	Modelo           string `json:"modelo"`
+	Placas           string `json:"placas"`
+	Serie            string `json:"serie"`
 }
 
-func (v *AgregarVehiculosSolicitud) ObtenerAnualidad() (o string) {
+func (v *AgregarVehiculosSolicitud) ObtenerFechaLanzamiento() (o string) {
 	if v != nil {
-		o = v.Anualidad
+		o = v.FechaLanzamiento
 	}
 	return
 }
 
-func (v *AgregarVehiculosSolicitud) AsignarAnualidad(anualidad string) {
+func (v *AgregarVehiculosSolicitud) AsignarFechaLanzamiento(fechaLanzamiento string) {
 	if v != nil {
-		v.Anualidad = anualidad
+		v.FechaLanzamiento = fechaLanzamiento
 	}
 }
 

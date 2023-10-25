@@ -18,10 +18,10 @@ func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(contexto *gin.Context) *v
 
 func (m *Mapeador) AgregarVehiculosSolicitudAVehiculo(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) *vehiculosModelos.Vehiculo {
 	vehiculo := &vehiculosModelos.Vehiculo{}
-	if anualidad, err := strconv.Atoi(solicitud.ObtenerAnualidad()); err == nil {
-		vehiculo.AsignarAnualidad(anualidad)
+	if fechaLanzamiento, err := strconv.Atoi(solicitud.ObtenerFechaLanzamiento()); err == nil {
+		vehiculo.AsignarFechaLanzamiento(fechaLanzamiento)
 	} else {
-		vehiculo.AsignarAnualidad(0)
+		vehiculo.AsignarFechaLanzamiento(0)
 	}
 	vehiculo.AsignarMarca(solicitud.ObtenerMarca())
 	vehiculo.AsignarModelo(solicitud.ObtenerModelo())

@@ -28,8 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `vehiculos` (
-  `anualidad` int(11) DEFAULT NULL,
-  `id` int(11) NOT NULL,
+  `fecha_lanzamiento` int(11) DEFAULT NULL,
   `marca` varchar(255) DEFAULT NULL,
   `modelo` varchar(255) DEFAULT NULL,
   `placas` varchar(255) DEFAULT NULL,
@@ -40,29 +39,17 @@ CREATE TABLE `vehiculos` (
 -- Volcado de datos para la tabla `vehiculos`
 --
 
-INSERT INTO `vehiculos` (`anualidad`, `id`, `marca`, `modelo`, `placas`, `serie`) VALUES
-(1, 2, 'a', 'b', 'c', 'd');
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `vehiculos`
---
 ALTER TABLE `vehiculos`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`placas`);
+
+INSERT INTO `vehiculos` (`fecha_lanzamiento`, `marca`, `modelo`, `placas`, `serie`) VALUES
+(1, 'a', 'b', 'c', 'd');
+
+
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
-
---
--- AUTO_INCREMENT de la tabla `vehiculos`
---
-ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
