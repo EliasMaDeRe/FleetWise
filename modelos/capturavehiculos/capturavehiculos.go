@@ -2,7 +2,6 @@ package capturavehiculos
 
 type Vehiculo struct {
 	FechaLanzamiento int
-	ID               string
 	Marca            string
 	Modelo           string
 	Placas           string
@@ -19,19 +18,6 @@ func (v *Vehiculo) ObtenerFechaLanzamiento() (o int) {
 func (v *Vehiculo) AsignarFechaLanzamiento(fechaLanzamiento int) {
 	if v != nil {
 		v.FechaLanzamiento = fechaLanzamiento
-	}
-}
-
-func (v *Vehiculo) ObtenerID() (o string) {
-	if v != nil {
-		o = v.ID
-	}
-	return
-}
-
-func (v *Vehiculo) AsignarID(ID string) {
-	if v != nil {
-		v.ID = ID
 	}
 }
 

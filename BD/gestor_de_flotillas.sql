@@ -39,12 +39,13 @@ CREATE TABLE `vehiculos` (
 -- Volcado de datos para la tabla `vehiculos`
 --
 
+ALTER TABLE `vehiculos`
+  ADD PRIMARY KEY (`placas`);
+
 INSERT INTO `vehiculos` (`fecha_lanzamiento`, `marca`, `modelo`, `placas`, `serie`) VALUES
 (1, 'a', 'b', 'c', 'd');
 
---
--- Índices para tablas volcadas
---
+
 
 --
 -- AUTO_INCREMENT de las tablas volcadas

@@ -81,7 +81,6 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 	resultGuardarVehiculo := database.Create(
 		&vehiculosModelos.Vehiculo{
 			FechaLanzamiento: vehiculo.ObtenerFechaLanzamiento(),
-			ID:               vehiculo.ObtenerID(),
 			Marca:            vehiculo.ObtenerMarca(),
 			Modelo:           vehiculo.ObtenerModelo(),
 			Placas:           vehiculo.ObtenerPlacas(),
