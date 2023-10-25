@@ -125,6 +125,37 @@ FIN CREAR-VEHÍCULO
 
 /*
 =============================
+INICIO CAPTURA-SERVICIO-VEHICULAR
+=============================
+*/
+
+.captura-servicio-vehicular__heading {
+  margin-bottom: 0;
+}
+
+.captura-servicio-vehicular__formulario-contenedor {
+  margin-block: 2rem;
+  background-color: var(--azul_claro);
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 4rem;
+  width: 70%;
+}
+
+.captura-servicio-vehicular__blank-space {
+  height: 250px;
+}
+
+/*
+=============================
+FIN CAPTURA-SERVICIO-VEHICULAR
+=============================
+*/
+
+/*
+=============================
 INICIO FORMULARIO
 =============================
 */
