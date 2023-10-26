@@ -3,6 +3,7 @@
   --azul_claro: #eaf5fe;
   --blanco: white;
   --fuente-principal: "Mooli", sans-serif;
+  --rgb_card: rgba(0, 0, 0, 0.2); 
 }
 
 /*
@@ -144,8 +145,28 @@ INICIO CAPTURA-SERVICIO-VEHICULAR
   width: 70%;
 }
 
-.captura-servicio-vehicular__blank-space {
-  height: 250px;
+.captura-servicio-vehicular__card-container {
+  width: 70%;
+  padding-block: 4rem;
+  margin: 3rem auto;
+  background: var(--azul_claro);
+  border-radius: 2rem;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  padding: 2rem;
+  box-shadow: 0 0 .4rem --rgb_card;
+  border-radius: 2rem;
+  transition: .2s ease-in;
+  gap: 2rem;
+}
+
+.card:hover {
+  background: rgb(199, 226, 249);
 }
 
 /*

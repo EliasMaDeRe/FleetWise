@@ -70,4 +70,32 @@
       return textoAlerta;
     }
   }
+
+  const contenedorTarjetas = document.querySelector(".captura-servicio-vehicular__card-container");
+
+  
+  obtenerDatosTarjetas().then(function(response){
+    datosTarjetasRespuesta = response.ServiciosVehiculares;
+    crearTarjetas(datosTarjetasRespuesta);
+  });
+  async function obtenerDatosTarjetas(){
+    const obtenerServiciosVehicularesURL = "/ObtenerServiciosVehiculares";
+    const peticion = await fetch(obtenerServiciosVehicularesURL, {
+      method: "GET",
+    });
+    const respuesta = await peticion.json();
+    return respuesta;
+  }
+
+  function crearTarjetas(datosTarjetas){
+    datosTarjetas.map((datosTarjeta)=>{
+      const elementoTarjeta = document.createElement('div');
+      elementoTarjeta.classList.add("card");
+      elementoTarjeta.innerHTML= `
+        <h3 class="card__heading">${datosTarjeta.Nombre}</h3>
+      `
+      contenedorTarjetas.appendChild(elementoTarjeta)
+    })
+  }
+  
 })();

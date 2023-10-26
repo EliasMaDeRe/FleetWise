@@ -84,32 +84,80 @@ func (v *ObtenerVehiculoPorSerieSolicitud) AsignarSerie(serie string) {
 	}
 }
 
-type AgregarConectorBDRespuesta struct {
+type GuardarVehiculoRespuesta struct {
 	ok  bool
 	err error
 }
 
-func (v *AgregarConectorBDRespuesta) ObtenerOk() (o bool) {
+func (v *GuardarVehiculoRespuesta) ObtenerOk() (o bool) {
 	if v != nil {
 		o = v.ok
 	}
 	return
 }
 
-func (v *AgregarConectorBDRespuesta) AsignarOk(ok bool) {
+func (v *GuardarVehiculoRespuesta) AsignarOk(ok bool) {
 	if v != nil {
 		v.ok = ok
 	}
 }
 
-func (v *AgregarConectorBDRespuesta) ObtenerErr() (o error) {
+func (v *GuardarVehiculoRespuesta) ObtenerErr() (o error) {
 	if v != nil {
 		o = v.err
 	}
 	return
 }
 
-func (v *AgregarConectorBDRespuesta) AsignarErr(err error) {
+func (v *GuardarVehiculoRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}
+
+type ObtenerServicioVehicularPorNombreSolicitud struct {
+	nombre string
+}
+
+func (v *ObtenerServicioVehicularPorNombreSolicitud) ObtenerNombre() (o string) {
+	if v != nil {
+		o = v.nombre
+	}
+	return
+}
+
+func (v *ObtenerServicioVehicularPorNombreSolicitud) AsignarNombre(nombre string) {
+	if v != nil {
+		v.nombre = nombre
+	}
+}
+
+type GuardarServicioVehicularRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *GuardarServicioVehicularRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *GuardarServicioVehicularRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *GuardarServicioVehicularRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *GuardarServicioVehicularRespuesta) AsignarErr(err error) {
 	if v != nil {
 		v.err = err
 	}

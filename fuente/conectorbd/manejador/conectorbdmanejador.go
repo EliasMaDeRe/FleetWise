@@ -27,3 +27,15 @@ func (m *Manejador) ObtenerVehiculoPorSerie(contexto *gin.Context) {
 func (m *Manejador) GuardarVehiculo(contexto *gin.Context) {
 	//Se dejan vacíos para su futura implementación
 }
+
+func (m *Manejador) GuardarServicioVehicular(contexto *gin.Context) {
+	//Se dejan vacíos para su futura implementación
+}
+
+func (m *Manejador) ObtenerServicioVehicularPorNombre(contexto *gin.Context) {
+	//Se dejan vacíos para su futura implementación
+}
+
+func (m *Manejador) ObtenerServiciosVehiculares(contexto *gin.Context) {
+	//Se dejan vacíos para su futura implementación
+}
