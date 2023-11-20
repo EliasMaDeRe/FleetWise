@@ -3,10 +3,11 @@ package controlador
 import (
 	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
-
 	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	conectorModelos "example/fleetwise/modelos/conectorbd"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -18,7 +19,7 @@ type Controlador struct {
 func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
 	var errConectarBD error
 
-	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
+	database, errConectarBD := gorm.Open("mysql", c.ConexionBd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -44,7 +45,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
 	var errConectarBD error
 
-	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
+	database, errConectarBD := gorm.Open("mysql", c.ConexionBd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -70,7 +71,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *conectorModelos.AgregarConectorBDRespuesta {
 	var errConectarBD error
 
-	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
+	database, errConectarBD := gorm.Open("mysql", c.ConexionBd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -97,3 +98,14 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 
 	return respuesta
 }
+
+func (c *Controlador) ConexionBd() string{
+	dbHost := os.Getenv("dbHost")
+	dbNombre := os.Getenv("dbNombre")
+	dbUsuario := os.Getenv("dbUsuario")
+	dbContrasena := os.Getenv("dbContrasena")
+	dbPuerto := os.Getenv("dbPuerto")
+	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",dbUsuario,dbContrasena,dbHost,dbPuerto,dbNombre)
+}
+
+
