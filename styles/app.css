@@ -148,25 +148,71 @@ INICIO CAPTURA-SERVICIO-VEHICULAR
 .captura-servicio-vehicular__card-container {
   width: 70%;
   padding-block: 4rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 3rem auto;
+  background: var(--azul_claro);
+  border-radius: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.captura-servicio-vehicular__card-editor {
+  width: 70%;
+  padding-block: 4rem;
+  padding-left: 20px;
+  padding-right: 20px;
   margin: 3rem auto;
   background: var(--azul_claro);
   border-radius: 2rem;
   justify-content: center;
   align-items: center;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  position: relative;
 }
 
 .card {
   padding: 2rem;
-  box-shadow: 0 0 .4rem --rgb_card;
+  box-shadow: 0 0 .4rem var(--rgb_card);
   border-radius: 2rem;
   transition: .2s ease-in;
   gap: 2rem;
+  position: relative;
+}
+
+.card__delete {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.card__edit {
+  position: absolute;
+  top: 12px;
+  right: 44px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 .card:hover {
   background: rgb(199, 226, 249);
+}
+
+.card-editor__delete {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }
 
 /*

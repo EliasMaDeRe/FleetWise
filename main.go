@@ -35,8 +35,14 @@ func main() {
 	router.GET("/AgregarServicioVehicular", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "serviciovehicular.html", gin.H{})
 	})
+	router.POST("/EliminarServicioVehicular", func(ctx *gin.Context) {
+		controlador.ServicioVehicularManejador.EliminarServicioVehicular(ctx)
+	})
 	router.GET("/ObtenerServiciosVehiculares", func(ctx *gin.Context) {
 		controlador.ServicioVehicularManejador.ObtenerServiciosVehiculares(ctx)
+	})
+	router.POST("/EditarServicioVehicular", func(ctx *gin.Context) {
+		controlador.ServicioVehicularManejador.EditarServicioVehicular(ctx)
 	})
 	router.Run("localhost:8080")
 }

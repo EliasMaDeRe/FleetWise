@@ -55,6 +55,44 @@ func (c *Controlador) validarAgregarServicioVehicularSolicitud(solicitud *captur
 	return nil
 }
 
+func (c *Controlador) EliminarServicioVehicular(solicitud *capturaserviciovehicular.EliminarServicioVehicularSolicitud) *capturaserviciovehicular.EliminarServicioVehicularRespuesta {
+	respuesta := &capturaserviciovehicular.EliminarServicioVehicularRespuesta{}
+
+	if solicitud == nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		return respuesta
+	}
+
+	servicioVehicular := c.ServicioVehicularMapeador.EliminarServicioVehicularSolicitudAServicioVehicular(solicitud)
+
+	c.ConectorBDControlador.EliminarServicioVehicular(servicioVehicular)
+
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
+}
+
+func (c *Controlador) EditarServicioVehicular(solicitud *capturaserviciovehicular.EditarServicioVehicularSolicitud) *capturaserviciovehicular.EditarServicioVehicularRespuesta {
+	respuesta := &capturaserviciovehicular.EditarServicioVehicularRespuesta{}
+
+	if solicitud == nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		return respuesta
+	}
+
+	editarServicioVehicularSolicitudDeConectorBD := c.ServicioVehicularMapeador.EditarServicioVehicularSolicitudAServicioVehicularDeConectorBD(solicitud)
+
+	c.ConectorBDControlador.EditarServicioVehicular(editarServicioVehicularSolicitudDeConectorBD)
+
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
+}
+
 func (c *Controlador) ObtenerServiciosVehiculares() []capturaserviciovehicular.ServicioVehicular {
 	return c.ConectorBDControlador.ObtenerServiciosVehiculares()
 }

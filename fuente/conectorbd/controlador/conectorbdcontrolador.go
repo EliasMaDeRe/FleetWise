@@ -17,7 +17,6 @@ type Controlador struct {
 }
 
 func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
-	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
 
@@ -43,7 +42,6 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 }
 
 func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
-	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
 
@@ -69,7 +67,6 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 }
 
 func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *conectorModelos.GuardarVehiculoRespuesta {
-	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
 
@@ -100,7 +97,6 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 }
 
 func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModelos.ObtenerServicioVehicularPorNombreSolicitud) *servicioVehicularModelos.ServicioVehicular {
-	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
 
@@ -126,7 +122,6 @@ func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModel
 }
 
 func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicularModelos.ServicioVehicular) *conectorModelos.GuardarServicioVehicularRespuesta {
-	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
 
@@ -153,7 +148,6 @@ func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicu
 }
 
 func (c *Controlador) ObtenerServiciosVehiculares() []servicioVehicularModelos.ServicioVehicular {
-	var errConectarBD error
 
 	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
 
@@ -170,4 +164,35 @@ func (c *Controlador) ObtenerServiciosVehiculares() []servicioVehicularModelos.S
 	}
 
 	return serviciosVehiculares
+}
+
+func (c *Controlador) EliminarServicioVehicular(servicioVehicular *servicioVehicularModelos.ServicioVehicular) {
+
+	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
+
+	database.AutoMigrate(&servicioVehicular)
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	database.Where("Nombre = ?", servicioVehicular.ObtenerNombre()).Delete(servicioVehicular)
+
+	return
+}
+
+func (c *Controlador) EditarServicioVehicular(solicitud *conectorModelos.EditarServicioVehicularSolicitud) error {
+
+	database, errConectarBD := gorm.Open("mysql", constantes.CONEXION_BD)
+
+	servicioVehicularNuevo := &servicioVehicularModelos.ServicioVehicular{}
+	servicioVehicularNuevo.AsignarNombre(solicitud.ObtenerNuevoNombre())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	database.Model(servicioVehicularNuevo).Where("Nombre = ?", solicitud.ObtenerNombreActual()).Update("nombre", servicioVehicularNuevo.ObtenerNombre())
+
+	return nil
 }

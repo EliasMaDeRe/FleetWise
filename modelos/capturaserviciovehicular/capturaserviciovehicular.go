@@ -116,3 +116,65 @@ func (v *AgregarServicioVehicularRespuesta) AsignarErr(err error) {
 		v.err = err
 	}
 }
+
+type EliminarServicioVehicularRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *EliminarServicioVehicularRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *EliminarServicioVehicularRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *EliminarServicioVehicularRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *EliminarServicioVehicularRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}
+
+type EditarServicioVehicularRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *EditarServicioVehicularRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *EditarServicioVehicularRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *EditarServicioVehicularRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *EditarServicioVehicularRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}
