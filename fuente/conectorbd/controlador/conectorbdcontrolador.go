@@ -19,7 +19,7 @@ type Controlador struct {
 func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
 	var errConectarBD error
 
-	database, errConectarBD := gorm.Open("mysql", c.ConexionBd())
+	database, errConectarBD := gorm.Open("mysql", c.conexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -45,7 +45,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
 	var errConectarBD error
 
-	database, errConectarBD := gorm.Open("mysql", c.ConexionBd())
+	database, errConectarBD := gorm.Open("mysql", c.conexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -71,7 +71,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *conectorModelos.AgregarConectorBDRespuesta {
 	var errConectarBD error
 
-	database, errConectarBD := gorm.Open("mysql", c.ConexionBd())
+	database, errConectarBD := gorm.Open("mysql", c.conexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -99,7 +99,7 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 	return respuesta
 }
 
-func (c *Controlador) ConexionBd() string{
+func (c *Controlador) conexionABd() string{
 	dbHost := os.Getenv("dbHost")
 	dbNombre := os.Getenv("dbNombre")
 	dbUsuario := os.Getenv("dbUsuario")
