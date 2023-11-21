@@ -99,13 +99,11 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 	return respuesta
 }
 
-func (c *Controlador) ConexionBd() string{
+func (c *Controlador) ConexionBd() string {
 	dbHost := os.Getenv("dbHost")
 	dbNombre := os.Getenv("dbNombre")
 	dbUsuario := os.Getenv("dbUsuario")
 	dbContrasena := os.Getenv("dbContrasena")
 	dbPuerto := os.Getenv("dbPuerto")
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s",dbUsuario,dbContrasena,dbHost,dbPuerto,dbNombre)
+	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUsuario, dbContrasena, dbHost, dbPuerto, dbNombre)
 }
-
-
