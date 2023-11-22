@@ -1,35 +1,35 @@
 package iniciodesesion
 
 type Usuario struct {
-	cargo         string
-	claveUsuario  string
+	Cargo         string
+	ClaveUsuario  string
 	ID            string
-	nombreUsuario string
+	NombreUsuario string
 }
 
 func (v *Usuario) ObtenerCargo() (o string) {
 	if v != nil {
-		o = v.cargo
+		o = v.Cargo
 	}
 	return
 }
 
 func (v *Usuario) AsignarCargo(cargo string) {
 	if v != nil {
-		v.cargo = cargo
+		v.Cargo = cargo
 	}
 }
 
-func (v *Usuario) ObtenerMarca() (o string) {
+func (v *Usuario) ObtenerClaveUsuario() (o string) {
 	if v != nil {
-		o = v.claveUsuario
+		o = v.ClaveUsuario
 	}
 	return
 }
 
-func (v *Usuario) AsignarMarca(claveUsuario string) {
+func (v *Usuario) AsignarClaveUsuario(claveUsuario string) {
 	if v != nil {
-		v.claveUsuario = claveUsuario
+		v.ClaveUsuario = claveUsuario
 	}
 }
 
@@ -48,14 +48,14 @@ func (v *Usuario) AsignarID(ID string) {
 
 func (v *Usuario) ObtenerNombreUsuario() (o string) {
 	if v != nil {
-		o = v.nombreUsuario
+		o = v.NombreUsuario
 	}
 	return
 }
 
 func (v *Usuario) AsignarNombreUsuario(nombreUsuario string) {
 	if v != nil {
-		v.nombreUsuario = nombreUsuario
+		v.NombreUsuario = nombreUsuario
 	}
 }
 
@@ -91,8 +91,8 @@ func (v *InicioDeSesionSolicitud) AsignarNombreUsuario(nombreUsuario string) {
 }
 
 type InicioDeSesionRespuesta struct {
-	ok  bool   
-	err string 
+	ok  bool
+	err string
 }
 
 func NuevaInicioDeSesionRespuesta() *InicioDeSesionRespuesta {
