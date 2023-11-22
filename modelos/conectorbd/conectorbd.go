@@ -163,6 +163,37 @@ func (v *GuardarServicioVehicularRespuesta) AsignarErr(err error) {
 	}
 }
 
+type GuardarRegistroMantenimientoVehiculoRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *GuardarRegistroMantenimientoVehiculoRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *GuardarRegistroMantenimientoVehiculoRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *GuardarRegistroMantenimientoVehiculoRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *GuardarRegistroMantenimientoVehiculoRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}
+
 type EditarServicioVehicularSolicitud struct {
 	nombreActual string
 	nuevoNombre  string
