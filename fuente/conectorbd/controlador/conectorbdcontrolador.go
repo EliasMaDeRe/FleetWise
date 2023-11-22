@@ -132,12 +132,12 @@ func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicu
 
 	database.AutoMigrate(&servicioVehicular)
 
-	resultGuardarServicioVehicular := database.Create(
+	resultadoGuardarServicioVehicular := database.Create(
 		&servicioVehicularModelos.ServicioVehicular{
 			Nombre: servicioVehicular.ObtenerNombre(),
 		})
 	respuesta := &conectorModelos.GuardarServicioVehicularRespuesta{}
-	if resultGuardarServicioVehicular.Error != nil {
+	if resultadoGuardarServicioVehicular.Error != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
 		return respuesta
