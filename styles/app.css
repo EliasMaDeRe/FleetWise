@@ -235,6 +235,7 @@ INICIO FORMULARIO
   background-color: var(--azul_claro);
 }
 
+
 .formulario__campo {
   display: flex;
   flex-direction: column;
