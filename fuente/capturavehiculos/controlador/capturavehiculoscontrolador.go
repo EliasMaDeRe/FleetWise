@@ -22,10 +22,10 @@ func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehicul
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		return respuesta
 	}
 
-	var err error
-	if err = c.validarAgregarVehiculosSolicitud(solicitud); err != nil {
+	if err := c.validarAgregarVehiculosSolicitud(solicitud); err != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(err)
 		return respuesta
@@ -33,9 +33,9 @@ func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehicul
 
 	vehiculo := c.VehiculosMapeador.AgregarVehiculosSolicitudAVehiculo(solicitud)
 
-	if c.ConectorBDControlador.GuardarVehiculo(vehiculo).ObtenerErr() != nil {
+	if guardarVehiculoRespuesta := c.ConectorBDControlador.GuardarVehiculo(vehiculo); guardarVehiculoRespuesta.ObtenerErr() != nil {
 		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(err)
+		respuesta.AsignarErr(guardarVehiculoRespuesta.ObtenerErr())
 		return respuesta
 	}
 

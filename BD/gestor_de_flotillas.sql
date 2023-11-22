@@ -31,7 +31,7 @@ CREATE TABLE `vehiculos` (
   `fecha_lanzamiento` int(11) DEFAULT NULL,
   `marca` varchar(255) DEFAULT NULL,
   `modelo` varchar(255) DEFAULT NULL,
-  `placas` varchar(255) DEFAULT NULL,
+  `placas` varchar(255),
   `serie` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -45,6 +45,15 @@ ALTER TABLE `vehiculos`
 INSERT INTO `vehiculos` (`fecha_lanzamiento`, `marca`, `modelo`, `placas`, `serie`) VALUES
 (1, 'a', 'b', 'c', 'd');
 
+CREATE TABLE `servicios_vehiculares` (
+  `nombre` varchar(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `servicios_vehiculares`
+  ADD PRIMARY KEY (`nombre`);
+
+INSERT INTO `servicios_vehiculares` (`nombre`) VALUES
+('Llantas');
 
 
 --
