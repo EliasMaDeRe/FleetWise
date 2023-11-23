@@ -359,6 +359,12 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 =============================================
 */
 
+.historial-registros__titulo {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
 .filtros {
   display: flex;
   flex-direction: column;
@@ -383,7 +389,7 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 }
 
 .filtros__enviar {
-  margin-top: 4rem;
+  margin-top: 3rem;
   padding: 1rem 4rem;
   border-radius: 3rem;
   border: none;
@@ -392,6 +398,13 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   font-size: 1.5rem;
   font-weight: 600;
   align-self: center;
+  transition: 0.5s;
+}
+
+.filtros__enviar:hover {
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+  transition: 0.5s;
 }
 
 .filtros__desplegable {
@@ -399,6 +412,12 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   padding: 0.5rem 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
+  transition: 0.5s;
+}
+
+.filtros__desplegable:hover {
+  transform: scale(1.05);
+  transition: 0.5s;
 }
 
 .filtros__desplegable option {
