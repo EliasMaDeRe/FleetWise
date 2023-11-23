@@ -6,6 +6,7 @@ import (
 	servicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
 	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	conectorModelos "example/fleetwise/modelos/conectorbd"
+	sesionModelos "example/fleetwise/modelos/iniciosesion"
 	"fmt"
 	"log"
 	"os"
@@ -196,6 +197,52 @@ func (c *Controlador) EditarServicioVehicular(solicitud *conectorModelos.EditarS
 	database.Model(servicioVehicularNuevo).Where("Nombre = ?", solicitud.ObtenerNombreActual()).Update("nombre", servicioVehicularNuevo.ObtenerNombre())
 
 	return nil
+}
+
+func (c *Controlador) GuardarUsuario(usuario *sesionModelos.Usuario) *conectorModelos.GuardarUsuarioRespuesta {
+
+	database, errConectarBD := gorm.Open("mysql", c.ConexionBd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	database.AutoMigrate(&usuario)
+
+	resultadoGuardarUsuario := database.Create(usuario)
+	respuesta := &conectorModelos.GuardarUsuarioRespuesta{}
+	if resultadoGuardarUsuario.Error != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
+		return respuesta
+	}
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
+}
+
+func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorModelos.ObtenerUsuarioPorNombreUsuarioSolicitud) *sesionModelos.Usuario {
+
+	database, errConectarBD := gorm.Open("mysql", c.ConexionBd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	usuario := sesionModelos.Usuario{}
+
+	resultadoBusqueda := database.Where(&sesionModelos.Usuario{NombreUsuario: solicitud.ObtenerNombre()}).Find(&usuario)
+
+	if resultadoBusqueda.Error != nil {
+		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+	}
+
+	if (usuario == sesionModelos.Usuario{}) {
+		return nil
+	}
+
+	return &usuario
 }
 
 func (c *Controlador) ConexionBd() string {
