@@ -26,13 +26,13 @@
 
         <h1>Editar Registros</h1>
 
-        <div class="editar-registro__contenedor">
+        <form action="">
 
-            <p class="editar-registro__contenedor-texto">Datos Vehículo</p>
+            <div class="editar-registro__contenedor">
 
-            <form action="" class="registros-formulario">
+                <p class="editar-registro__contenedor-texto">Datos Vehículo</p>
 
-                <div class="registros__campos">
+                <fieldset class="registros__campos">
 
                     <div class="registros__campo">
                         <label for="placa" class="registros__etiqueta">Placa</label>
@@ -54,19 +54,15 @@
                         <input type="number" id="anio" name="anio" class="registros__entrada">
                     </div>
 
-                </div>
+                </fieldset>
 
-            </form>
+            </div>
 
-        </div>
+            <div class="editar-registro__contenedor">
 
-        <div class="editar-registro__contenedor">
+                <p class="editar-registro__contenedor-texto">Datos Registro</p>
 
-            <p class="editar-registro__contenedor-texto">Datos Registro</p>
-
-            <form action="" class="registros">
-
-                <div class="registros__campos">
+                <fieldset class="registros__campos">
 
                     <div class="registros__campo">
                         <label for="fecha" class="registros__etiqueta">Fecha</label>
@@ -79,8 +75,8 @@
                     </div>
 
                     <div class="registros__campo">
-                      <label for="kilometraje" class="registros__etiqueta">Kilometraje</label>
-                      <input type="number" id="kilometraje" name="kilometraje" class="registros__entrada">
+                    <label for="kilometraje" class="registros__etiqueta">Kilometraje</label>
+                    <input type="number" id="kilometraje" name="kilometraje" class="registros__entrada">
                     </div>
 
                     <div class="registros__campo">
@@ -99,25 +95,23 @@
                     </div>
 
                     <div class="registros__campo">
-                      <label for="observaciones" class="registros__etiqueta">Observaciones</label>
-                      <input type="text" id="observaciones" name="observaciones" class="registros__entrada">
+                    <label for="observaciones" class="registros__etiqueta">Observaciones</label>
+                    <input type="text" id="observaciones" name="observaciones" class="registros__entrada">
                     </div>
 
-                </div>
+                </fieldset>
 
-            </form>
+            </div>
 
-        </div>
+            <div class="editar-registro__contenedor-botones">
 
-        <div class="editar-registro__contenedor-botones">
+                <a href="historialRegistros.html" class="editar-registro__volver"> Volver </a>
 
-            <a href="historialRegistros.html" class="editar-registro__volver"> Volver </a>
-
-            <form action="">
                 <input type="submit" class="registros__enviar" value="Enviar" />
-            </form>
 
-        </div>
+            </div>
+
+        </form>
 
     </main>
 

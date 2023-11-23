@@ -476,9 +476,7 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 }
 
 .registros-formulario {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  border: none;
 }
 
 .registros__campos {
@@ -487,6 +485,7 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   row-gap: 2rem;
   align-items: center;
   width: 25rem;
+  border: none;
 }
 
 .registros__campo {
