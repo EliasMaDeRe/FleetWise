@@ -284,7 +284,7 @@ INICIO FOOTER
 .footer {
   background-color: var(--primario);
   color: var(--blanco);
-  margin-top: 2rem;
+  margin-top: 6.5rem;
   padding-block: 6rem;
   font-size: 1.5rem;
 }
@@ -353,6 +353,8 @@ INICIO ALERTAS
   background-color: red;
 }
 
+
+
 /*
 =============================================
 HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
@@ -385,7 +387,26 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 }
 
 .filtros__etiqueta {
+  text-align: center;
   font-size: 1.5rem;
+}
+
+.filtros__desplegable {
+  border: none;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  transition: 0.5s;
+}
+
+.filtros__desplegable:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.15);
+  transition: 0.5s;
+}
+
+.filtros__desplegable option {
+  background-color: var(--blanco);
 }
 
 .filtros__enviar {
@@ -402,26 +423,9 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 }
 
 .filtros__enviar:hover {
-  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.15);
   transform: scale(1.1);
   transition: 0.5s;
-}
-
-.filtros__desplegable {
-  border: none;
-  padding: 0.5rem 1rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
-  transition: 0.5s;
-}
-
-.filtros__desplegable:hover {
-  transform: scale(1.05);
-  transition: 0.5s;
-}
-
-.filtros__desplegable option {
-  background-color: var(--blanco);
 }
 
 .historial-registros__contenedor-registros {
@@ -436,4 +440,116 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 .registros td {
   text-align: center;
   font-size: 1.7rem;
+}
+
+
+
+/*
+==================================================
+EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
+==================================================
+*/
+
+.editar-registro {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.editar-registro__contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--azul_claro);
+  padding: 4rem 15rem;
+  border-radius: 3rem;
+  margin-bottom: 4rem;
+  width: auto;
+}
+
+.editar-registro__contenedor-texto {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.registros-formulario {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.registros__campos {
+  display: grid;
+  grid-template-rows: repeat(auto, 1fr);
+  row-gap: 2rem;
+  align-items: center;
+  width: 25rem;
+}
+
+.registros__campo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.registros__etiqueta {
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+.registros__entrada {
+
+  border: none;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+  transition: 0.5s;
+}
+
+
+.editar-registro__contenedor-botones {
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 5rem;
+}
+
+.editar-registro__volver {
+  margin-right: 5rem;
+  padding: 0.725rem 4rem;
+  border-radius: 3rem;
+  border: none;
+  background-color: var(--primario);
+  color: var(--blanco);
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+.editar-registro__volver:hover {
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+
+.registros__enviar {
+  padding: 1rem 4rem;
+  border-radius: 3rem;
+  border: none;
+  background-color: var(--primario);
+  color: var(--blanco);
+  font-size: 1.5rem;
+  font-weight: 600;
+  align-self: center;
+  transition: 0.5s;
+}
+
+.registros__enviar:hover {
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+  transition: 0.5s;
 }
