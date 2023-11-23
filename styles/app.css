@@ -2,8 +2,8 @@
   --primario: rgb(16, 155, 253);
   --azul_claro: #eaf5fe;
   --blanco: white;
-  --fuente-principal: "Mooli", sans-serif;
-  --rgb_card: rgba(0, 0, 0, 0.2); 
+  --fuente-principal: "Poppins", sans-serif;
+  --rgb_card: rgba(0, 0, 0, 0.2);
 }
 
 /*
@@ -27,6 +27,7 @@ body {
   font-size: 2rem;
   line-height: 1.5;
   font-family: var(--fuente-principal);
+  margin: 0;
 }
 
 a {
@@ -177,9 +178,9 @@ INICIO CAPTURA-SERVICIO-VEHICULAR
 
 .card {
   padding: 2rem;
-  box-shadow: 0 0 .4rem var(--rgb_card);
+  box-shadow: 0 0 0.4rem var(--rgb_card);
   border-radius: 2rem;
-  transition: .2s ease-in;
+  transition: 0.2s ease-in;
   gap: 2rem;
   position: relative;
 }
@@ -350,4 +351,70 @@ INICIO ALERTAS
 
 .alerta--error {
   background-color: red;
+}
+
+/*
+=============================================
+HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
+=============================================
+*/
+
+.filtros {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.filtros__campos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 5rem;
+  align-items: center;
+}
+
+.filtros__campo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.filtros__etiqueta {
+  font-size: 1.5rem;
+}
+
+.filtros__enviar {
+  margin-top: 4rem;
+  padding: 1rem 4rem;
+  border-radius: 3rem;
+  border: none;
+  background-color: var(--primario);
+  color: var(--blanco);
+  font-size: 1.5rem;
+  font-weight: 600;
+  align-self: center;
+}
+
+.filtros__desplegable {
+  border: none;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+.filtros__desplegable option {
+  background-color: var(--blanco);
+}
+
+.historial-registros__contenedor-registros {
+  margin-top: 5rem;
+}
+
+.registros th {
+  font-weight: 600;
+  font-size: 1.7rem;
+}
+
+.registros td {
+  text-align: center;
+  font-size: 1.7rem;
 }

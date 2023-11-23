@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/normalize.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap"
       rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"
     />
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise | Capturar Vehículo</title>
+    <title>FleetWise | Historial Registros</title>
   </head>
   <body>
     <header class="header">
@@ -26,68 +23,105 @@
         <a href="#" class="navbar__enlace--logout">Cerrar Sesión</a>
       </nav>
     </header>
-    <main class="captura-vehiculo__contenedor">
-      <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
-      <div class="captura-vehiculo__formulario-contenedor">
-        <form action="index.html" class="formulario">
-          <div class="formulario__campo">
-            <label for="marca" class="formulario__label">*Marca:</label>
-            <input
-              class="formulario__input"
-              type="text"
-              name="marca"
-              id="marca"
-              placeholder="Marca"
-            />
+
+    <main class="historial-registros">
+      <h1 class="historial-registros__heading">
+        Historial de Registros de Mantenimientos
+      </h1>
+
+      <div class="historial-registros__contenedor-filtros">
+        <form action="" class="filtros">
+          <div class="filtros__campos">
+            <div class="filtros__campo">
+              <label for="placa" class="filtros__etiqueta">Placa</label>
+              <select id="placa" name="placa" class="filtros__desplegable">
+                <option selected disabled>Selecciones</option>
+                <option value="placa1">placa1</option>
+                <option value="placa2">placa2</option>
+              </select>
+            </div>
+            <div class="filtros__campo">
+              <label for="marca" class="filtros__etiqueta">Marca</label>
+              <select id="marca" name="marca" class="filtros__desplegable">
+                <option selected disabled>Seleccione</option>
+                <option value="marca1">marca1</option>
+                <option value="marca2">marca2</option>
+              </select>
+            </div>
+            <div class="filtros__campo">
+              <label for="modelo" class="filtros__etiqueta">Modelo</label>
+              <select id="modelo" name="modelo" class="filtros__desplegable">
+                <option selected disabled>Seleccione</option>
+                <option value="modelo1">modelo1</option>
+                <option value="modelo2">modelo2</option>
+              </select>
+            </div>
+            <div class="filtros__campo">
+              <label for="anio" class="filtros__etiqueta">Año</label>
+              <select id="anio" name="anio" class="filtros__desplegable">
+                <option selected disabled>Seleccione</option>
+                <option value="anio1">año1</option>
+                <option value="anio">año2</option>
+              </select>
+            </div>
+            <div class="filtros__campo">
+              <label for="tipoDeRegistro" class="filtros__etiqueta">
+                Tipo De Registro
+              </label>
+              <select
+                id="tipoDeRegistro"
+                name="tipoDeRegistro"
+                class="filtros__desplegable"
+              >
+                <option selected disabled>Selecciones</option>
+                <option value="tipoDeRegistro1">tipoDeRegistro1</option>
+                <option value="tipoDeRegistro2">tipoDeRegistro2</option>
+              </select>
+            </div>
           </div>
-          <div class="formulario__campo">
-            <label for="modelo" class="formulario__label">*Modelo:</label>
-            <input
-              class="formulario__input"
-              type="text"
-              name="modelo"
-              id="modelo"
-              placeholder="Modelo"
-            />
-          </div>
-          <div class="formulario__campo">
-            <label for="fechalanzamiento" class="formulario__label"
-              >*Año:</label
-            >
-            <input
-              class="formulario__input"
-              type="text"
-              name="fechalanzamiento"
-              id="fechalanzamiento"
-              placeholder="Año"
-            />
-          </div>
-          <div class="formulario__campo">
-            <label for="serie" class="formulario__label">*Serie:</label>
-            <input
-              class="formulario__input"
-              type="text"
-              name="serie"
-              id="serie"
-              placeholder="Serie"
-            />
-          </div>
-          <div class="formulario__campo">
-            <label for="placas" class="formulario__label">*Placas:</label>
-            <input
-              class="formulario__input"
-              type="text"
-              name="placas"
-              id="placas"
-              placeholder="Placas"
-            />
-          </div>
-          <input type="submit" class="formulario__submit" value="Enviar" />
+
+          <input type="submit" class="filtros__enviar" value="Enviar" />
         </form>
       </div>
-    </main>
 
-    <script src="js/capturaVehiculo.js"></script>
+      <div class="historial-registros__contenedor-registros">
+        <table
+          class="registros hover row-border order-column stripe"
+          id="tabla-registros"
+        >
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Año</th>
+              <th>Tipo de Registro</th>
+              <th>Kilometraje</th>
+              <th>Litros</th>
+              <th>Importe</th>
+              <th>Concepto</th>
+              <th>Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+              <td>test1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
 
     <footer class="footer">
       <div class="footer__contenedor">
@@ -215,5 +249,12 @@
         </div>
       </div>
     </footer>
+
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-latest.min.js"
+    ></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="js/historialregistros.js"></script>
   </body>
 </html>
