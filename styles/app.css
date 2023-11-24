@@ -552,3 +552,59 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   transform: scale(1.1);
   transition: 0.5s;
 }
+
+
+
+/*
+===============================================================
+CONFIRMACIÖN EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
+===============================================================
+*/
+
+.confirmacion-edicion {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 7rem;
+}
+
+.confirmacion-edicion__contenedor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--azul_claro);
+  padding: 4rem 10rem;
+  border-radius: 3rem;
+  margin-bottom: 4rem;
+  width: auto;
+}
+
+.confirmacion-edicion__titulo {
+
+  margin-top: 0rem;
+}
+
+.confirmacion-edicion__texto {
+
+  margin-bottom: 2rem;
+}
+
+.confirmacion-edicion__volver {
+  margin-top: 2rem;
+  padding: 0.725rem 4rem;
+  border-radius: 3rem;
+  border: none;
+  background-color: var(--primario);
+  color: var(--blanco);
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+.confirmacion-edicion__volver:hover {
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+  transition: 0.5s;
+}
