@@ -36,7 +36,7 @@ func (c *Controlador) IniciarSesion(solicitud *inicioSesionModelos.IniciarSesion
 		return tokenCadena, errors.New(constantes.ERROR_CREDENCIALES_INVALIDAS)
 	}
 
-	if err := bcrypt.CompareHashAndPassword([]byte(usuarioEncontrado.ClaveUsuario), []byte(solicitud.ClaveUsuario)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(usuarioEncontrado.ClaveUsuario), []byte(solicitud.ObtenerClaveUsuario())); err != nil {
 		return tokenCadena, errors.New(constantes.ERROR_CREDENCIALES_INVALIDAS)
 	}
 
@@ -45,9 +45,23 @@ func (c *Controlador) IniciarSesion(solicitud *inicioSesionModelos.IniciarSesion
 	return tokenCadena, nil
 }
 
-func (c *Controlador) RegistrarUsuario(nombreUsuario string, contrasena string) bool {
+func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *inicioSesionModelos.ObtenerUsuarioPorNombreUsuario) *inicioSesionModelos.Usuario {
 
-	contrasenaEncriptada, err := bcrypt.GenerateFromPassword([]byte(contrasena), 10)
+	if solicitud == nil {
+		return nil
+	}
+
+	obtenerUsuarioPorNombreUsuarioSolicitud := &conectorBDModelos.ObtenerUsuarioPorNombreUsuarioSolicitud{}
+	obtenerUsuarioPorNombreUsuarioSolicitud.AsignarNombre(solicitud.ObtenerNombreUsuario())
+
+	usuarioEncontrado := c.ConectorBDControlador.ObtenerUsuarioPorNombreUsuario(obtenerUsuarioPorNombreUsuarioSolicitud)
+
+	return usuarioEncontrado
+}
+
+func (c *Controlador) RegistrarUsuario(nombreUsuario string, claveUsuario string) bool {
+
+	claveUsuarioEncriptada, err := bcrypt.GenerateFromPassword([]byte(claveUsuario), 10)
 	if err != nil {
 		return false
 	}
@@ -55,7 +69,7 @@ func (c *Controlador) RegistrarUsuario(nombreUsuario string, contrasena string) 
 	usuarioARegistrar := &inicioSesionModelos.Usuario{
 		Cargo:         "administrador",
 		NombreUsuario: nombreUsuario,
-		ClaveUsuario:  string(contrasenaEncriptada),
+		ClaveUsuario:  string(claveUsuarioEncriptada),
 	}
 
 	guardarUsuarioRespuesta := c.ConectorBDControlador.GuardarUsuario(usuarioARegistrar)
@@ -64,14 +78,14 @@ func (c *Controlador) RegistrarUsuario(nombreUsuario string, contrasena string) 
 }
 
 func (c *Controlador) crearJSONWebToken(usuario *inicioSesionModelos.Usuario) (string, error) {
-	token := jwt.New(jwt.SigningMethodES256)
+	token := jwt.New(jwt.SigningMethodHS256)
 	claims := token.Claims.(jwt.MapClaims)
 
-	claims["expiracion"] = time.Now().Add(time.Hour).Unix()
+	claims["expiracion"] = time.Now().Add(time.Hour * 2).Unix()
 	claims["nombreUsuario"] = usuario.NombreUsuario
 	claims["cargo"] = usuario.Cargo
 
-	tokenCadena, err := token.SignedString(os.Getenv("llaveSecretaDeAutenticacion"))
+	tokenCadena, err := token.SignedString([]byte(os.Getenv("llaveSecretaDeAutenticacion")))
 
 	if err != nil {
 		return "", err

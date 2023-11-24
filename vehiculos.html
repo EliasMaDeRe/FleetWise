@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise | Capturar Tipos de Servicios Vehiculares</title>
+    <title>FleetWise | Capturar Vehículo</title>
   </head>
   <body>
     <header class="header">
@@ -19,28 +19,66 @@
       <nav class="navbar"></nav>
     </header>
     <body>
-      <main class="captura-servicio-vehicular__contenedor">
-        <h1 class="captura-servicio-vehicular__heading">Capturar Tipos de Servicios Vehiculares</h1>
-        <div class="captura-servicio-vehicular__formulario-contenedor">
-          <form action="serviciovehicular.html" class="formulario">
+      <main class="captura-vehiculo__contenedor">
+        <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
+        <div class="captura-vehiculo__formulario-contenedor">
+          <form action="vehiculos.html" class="formulario">
             <div class="formulario__campo">
-              <label for="nombre" class="formulario__label">*Nombre:</label>
+              <label for="marca" class="formulario__label">*Marca:</label>
               <input
                 class="formulario__input"
                 type="text"
-                name="nombre"
-                id="nombre"
-                placeholder="Nombre"
+                name="marca"
+                id="marca"
+                placeholder="Marca"
+              />
+            </div>
+            <div class="formulario__campo">
+              <label for="modelo" class="formulario__label">*Modelo:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="modelo"
+                id="modelo"
+                placeholder="Modelo"
+              />
+            </div>
+            <div class="formulario__campo">
+              <label for="fechalanzamiento" class="formulario__label">*Año:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="fechalanzamiento"
+                id="fechalanzamiento"
+                placeholder="Año"
+              />
+            </div>
+            <div class="formulario__campo">
+              <label for="serie" class="formulario__label">*Serie:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="serie"
+                id="serie"
+                placeholder="Serie"
+              />
+            </div>
+            <div class="formulario__campo">
+              <label for="placas" class="formulario__label">*Placas:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="placas"
+                id="placas"
+                placeholder="Placas"
               />
             </div>
             <input type="submit" class="formulario__submit" value="Enviar" />
           </form>
         </div>
-        <div class="captura-servicio-vehicular__card-container">    
-        </div>
       </main>
 
-      <script src="js/capturaServicioVehicular.js"></script>
+      <script src="js/capturaVehiculo.js"></script>
     </body>
 
     <footer class="footer">

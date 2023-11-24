@@ -106,3 +106,20 @@ func (v *IniciarSesionRespuesta) AsignarErr(err error) {
 		v.err = err
 	}
 }
+
+type ObtenerUsuarioPorNombreUsuario struct {
+	NombreUsuario string `json:"nombreusuario"`
+}
+
+func (v *ObtenerUsuarioPorNombreUsuario) ObtenerNombreUsuario() (o string) {
+	if v != nil {
+		o = v.NombreUsuario
+	}
+	return
+}
+
+func (v *ObtenerUsuarioPorNombreUsuario) AsignarNombreUsuario(nombreUsuario string) {
+	if v != nil {
+		v.NombreUsuario = nombreUsuario
+	}
+}
