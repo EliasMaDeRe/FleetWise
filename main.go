@@ -57,5 +57,14 @@ func main() {
 	router.POST("/EditarServicioVehicular", func(ctx *gin.Context) {
 		controlador.ServicioVehicularManejador.EditarServicioVehicular(ctx)
 	})
+
+	router.GET("/HistorialRegistrosMantenimientoVehicular",func(c *gin.Context) {
+		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
+	})
+	
+	router.GET("/EditarRegistroMantenimientoVehicular",func(c *gin.Context) {
+		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
+	})
+
 	router.Run("localhost:8080")
 }

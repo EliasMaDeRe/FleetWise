@@ -3,13 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"
-    />
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise | Historial Registros</title>
+    <title>FleetWise | Editar Historial Registros</title>
   </head>
+
   <body>
     <header class="header">
       <div class="header__logo">
@@ -24,122 +21,149 @@
       </nav>
     </header>
 
-    <main class="historial-registros">
-      <h1 class="historial-registros__titulo">
-        Historial de Registros de Mantenimientos
-      </h1>
+    <main class="editar-registro">
+      <h1>Editar Registros</h1>
 
-      <div class="historial-registros__contenedor-filtros">
-        <form action="" class="filtros">
-          <div class="filtros__campos">
-            <div class="filtros__campo">
-              <label for="placa" class="filtros__etiqueta">Placa</label>
-              <select id="placa" name="placa" class="filtros__desplegable">
-                <option selected disabled>Selecciones</option>
-                <option value="placa1">placa1</option>
-                <option value="placa2">placa2</option>
-              </select>
+      <form action="">
+        <div class="editar-registro__contenedor">
+          <p class="editar-registro__contenedor-texto">Datos Vehículo</p>
+
+          <fieldset class="registros__campos">
+            <div class="registros__campo">
+              <label for="placa" class="registros__etiqueta">Placa</label>
+              <input
+                type="text"
+                id="placa"
+                name="placa"
+                class="registros__entrada"
+              />
             </div>
-            <div class="filtros__campo">
-              <label for="marca" class="filtros__etiqueta">Marca</label>
-              <select id="marca" name="marca" class="filtros__desplegable">
-                <option selected disabled>Seleccione</option>
-                <option value="marca1">marca1</option>
-                <option value="marca2">marca2</option>
-              </select>
+
+            <div class="registros__campo">
+              <label for="marca" class="registros__etiqueta">Marca</label>
+              <input
+                type="text"
+                id="marca"
+                name="marca"
+                class="registros__entrada"
+              />
             </div>
-            <div class="filtros__campo">
-              <label for="modelo" class="filtros__etiqueta">Modelo</label>
-              <select id="modelo" name="modelo" class="filtros__desplegable">
-                <option selected disabled>Seleccione</option>
-                <option value="modelo1">modelo1</option>
-                <option value="modelo2">modelo2</option>
-              </select>
+
+            <div class="registros__campo">
+              <label for="modelo" class="registros__etiqueta">Modelo</label>
+              <input
+                type="text"
+                id="modelo"
+                name="modelo"
+                class="registros__entrada"
+              />
             </div>
-            <div class="filtros__campo">
-              <label for="anio" class="filtros__etiqueta">Año</label>
-              <select id="anio" name="anio" class="filtros__desplegable">
-                <option selected disabled>Seleccione</option>
-                <option value="anio1">año1</option>
-                <option value="anio">año2</option>
-              </select>
+
+            <div class="registros__campo">
+              <label for="anio" class="registros__etiqueta">Año</label>
+              <input
+                type="number"
+                id="anio"
+                name="anio"
+                class="registros__entrada"
+              />
             </div>
-            <div class="filtros__campo">
-              <label for="tipoDeRegistro" class="filtros__etiqueta">
-                Tipo De Registro
-              </label>
-              <select
+          </fieldset>
+        </div>
+
+        <div class="editar-registro__contenedor">
+          <p class="editar-registro__contenedor-texto">Datos Registro</p>
+
+          <fieldset class="registros__campos">
+            <div class="registros__campo">
+              <label for="fecha" class="registros__etiqueta">Fecha</label>
+              <input
+                type="date"
+                id="fecha"
+                name="fecha"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="tipoDeRegistro" class="registros__etiqueta"
+                >Tipo de Registro</label
+              >
+              <input
+                type="text"
                 id="tipoDeRegistro"
                 name="tipoDeRegistro"
-                class="filtros__desplegable"
-              >
-                <option selected disabled>Selecciones</option>
-                <option value="tipoDeRegistro1">tipoDeRegistro1</option>
-                <option value="tipoDeRegistro2">tipoDeRegistro2</option>
-              </select>
+                class="registros__entrada"
+              />
             </div>
-          </div>
 
-          <input type="submit" class="filtros__enviar" value="Enviar" />
-        </form>
-      </div>
+            <div class="registros__campo">
+              <label for="kilometraje" class="registros__etiqueta"
+                >Kilometraje</label
+              >
+              <input
+                type="number"
+                id="kilometraje"
+                name="kilometraje"
+                class="registros__entrada"
+              />
+            </div>
 
-      <div class="historial-registros__contenedor-registros">
-        <table
-          class="registros hover row-border order-column stripe"
-          id="tabla-registros"
-        >
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Placa</th>
-              <th>Marca</th>
-              <th>Modelo</th>
-              <th>Año</th>
-              <th>Tipo de Registro</th>
-              <th>Kilometraje</th>
-              <th>Litros</th>
-              <th>Importe</th>
-              <th>Concepto</th>
-              <th>Editar</th>
-            </tr>
-          </thead>
+            <div class="registros__campo">
+              <label for="litros" class="registros__etiqueta">Litros</label>
+              <input
+                type="number"
+                id="litros"
+                name="litros"
+                class="registros__entrada"
+              />
+            </div>
 
-          <tbody>
-            <tr>
-              <td>test1</td>
-              <td>test1</td>
-              <td>test1</td>
-              <td>test1</td>
-              <td>test1</td>
-              <td>test1</td>
-              <td>test1</td>
-              <td>test1</td>
-              <td>test1</td>
-              <td>test1</td>
-              <td>
-                <a href="/EditarRegistroMantenimientoVehicular">Editar</a>
-              </td>
-            </tr>
+            <div class="registros__campo">
+              <label for="importe" class="registros__etiqueta">Importe</label>
+              <input
+                type="number"
+                id="importe"
+                name="importe"
+                class="registros__entrada"
+              />
+            </div>
 
-            <tr>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>
-                <a href="/EditarRegistroMantenimientoVehicular">Editar</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            <div class="registros__campo">
+              <label for="concepto" class="registros__etiqueta">Concepto</label>
+              <input
+                type="text"
+                id="concepto"
+                name="concepto"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="observaciones" class="registros__etiqueta"
+                >Observaciones</label
+              >
+              <input
+                type="text"
+                id="observaciones"
+                name="observaciones"
+                class="registros__entrada"
+              />
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="editar-registro__contenedor-botones">
+          <a
+            href="/HistorialRegistrosMantenimientoVehicular"
+            class="editar-registro__volver"
+          >
+            Volver
+          </a>
+
+          <input type="submit" class="registros__enviar" value="Enviar" />
+        </div>
+      </form>
     </main>
 
     <footer class="footer">
