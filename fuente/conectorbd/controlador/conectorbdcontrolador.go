@@ -20,7 +20,7 @@ type Controlador struct {
 
 func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -28,7 +28,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 
 	vehiculos := []vehiculosModelos.Vehiculo{}
 
-	resultadoBusqueda := database.Where(&vehiculosModelos.Vehiculo{Placas: solicitud.ObtenerPlacas()}).Find(&vehiculos)
+	resultadoBusqueda := baseDeDatos.Where(&vehiculosModelos.Vehiculo{Placas: solicitud.ObtenerPlacas()}).Find(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
@@ -45,7 +45,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 
 func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -53,7 +53,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 
 	vehiculos := []vehiculosModelos.Vehiculo{}
 
-	resultadoBusqueda := database.Where(&vehiculosModelos.Vehiculo{Serie: solicitud.ObtenerSerie()}).Find(&vehiculos)
+	resultadoBusqueda := baseDeDatos.Where(&vehiculosModelos.Vehiculo{Serie: solicitud.ObtenerSerie()}).Find(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
@@ -70,15 +70,15 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 
 func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *conectorModelos.GuardarVehiculoRespuesta {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	database.AutoMigrate(&vehiculo)
+	baseDeDatos.AutoMigrate(&vehiculo)
 
-	resultGuardarVehiculo := database.Create(
+	resultGuardarVehiculo := baseDeDatos.Create(
 		&vehiculosModelos.Vehiculo{
 			FechaLanzamiento: vehiculo.ObtenerFechaLanzamiento(),
 			Marca:            vehiculo.ObtenerMarca(),
@@ -100,7 +100,7 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 
 func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModelos.ObtenerServicioVehicularPorNombreSolicitud) *servicioVehicularModelos.ServicioVehicular {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -108,7 +108,7 @@ func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModel
 
 	serviciosVehiculares := []servicioVehicularModelos.ServicioVehicular{}
 
-	resultadoBusqueda := database.Where(&servicioVehicularModelos.ServicioVehicular{Nombre: solicitud.ObtenerNombre()}).Find(&serviciosVehiculares)
+	resultadoBusqueda := baseDeDatos.Where(&servicioVehicularModelos.ServicioVehicular{Nombre: solicitud.ObtenerNombre()}).Find(&serviciosVehiculares)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
@@ -125,15 +125,15 @@ func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModel
 
 func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicularModelos.ServicioVehicular) *conectorModelos.GuardarServicioVehicularRespuesta {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	database.AutoMigrate(&servicioVehicular)
+	baseDeDatos.AutoMigrate(&servicioVehicular)
 
-	resultadoGuardarServicioVehicular := database.Create(
+	resultadoGuardarServicioVehicular := baseDeDatos.Create(
 		&servicioVehicularModelos.ServicioVehicular{
 			Nombre: servicioVehicular.ObtenerNombre(),
 		})
@@ -151,7 +151,7 @@ func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicu
 
 func (c *Controlador) ObtenerServiciosVehiculares() []servicioVehicularModelos.ServicioVehicular {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -159,7 +159,7 @@ func (c *Controlador) ObtenerServiciosVehiculares() []servicioVehicularModelos.S
 
 	serviciosVehiculares := []servicioVehicularModelos.ServicioVehicular{}
 
-	resultadoBusqueda := database.Find(&serviciosVehiculares)
+	resultadoBusqueda := baseDeDatos.Find(&serviciosVehiculares)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
@@ -170,22 +170,22 @@ func (c *Controlador) ObtenerServiciosVehiculares() []servicioVehicularModelos.S
 
 func (c *Controlador) EliminarServicioVehicular(servicioVehicular *servicioVehicularModelos.ServicioVehicular) {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
-	database.AutoMigrate(&servicioVehicular)
+	baseDeDatos.AutoMigrate(&servicioVehicular)
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	database.Where("Nombre = ?", servicioVehicular.ObtenerNombre()).Delete(servicioVehicular)
+	baseDeDatos.Where("Nombre = ?", servicioVehicular.ObtenerNombre()).Delete(servicioVehicular)
 
 	return
 }
 
 func (c *Controlador) EditarServicioVehicular(solicitud *conectorModelos.EditarServicioVehicularSolicitud) error {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	servicioVehicularNuevo := &servicioVehicularModelos.ServicioVehicular{}
 	servicioVehicularNuevo.AsignarNombre(solicitud.ObtenerNuevoNombre())
@@ -194,22 +194,22 @@ func (c *Controlador) EditarServicioVehicular(solicitud *conectorModelos.EditarS
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	database.Model(servicioVehicularNuevo).Where("Nombre = ?", solicitud.ObtenerNombreActual()).Update("nombre", servicioVehicularNuevo.ObtenerNombre())
+	baseDeDatos.Model(servicioVehicularNuevo).Where("Nombre = ?", solicitud.ObtenerNombreActual()).Update("nombre", servicioVehicularNuevo.ObtenerNombre())
 
 	return nil
 }
 
 func (c *Controlador) GuardarUsuario(usuario *sesionModelos.Usuario) *conectorModelos.GuardarUsuarioRespuesta {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	database.AutoMigrate(&usuario)
+	baseDeDatos.AutoMigrate(&usuario)
 
-	resultadoGuardarUsuario := database.Create(usuario)
+	resultadoGuardarUsuario := baseDeDatos.Create(usuario)
 	respuesta := &conectorModelos.GuardarUsuarioRespuesta{}
 	if resultadoGuardarUsuario.Error != nil {
 		respuesta.AsignarOk(false)
@@ -224,7 +224,7 @@ func (c *Controlador) GuardarUsuario(usuario *sesionModelos.Usuario) *conectorMo
 
 func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorModelos.ObtenerUsuarioPorNombreUsuarioSolicitud) *sesionModelos.Usuario {
 
-	database, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
@@ -232,7 +232,7 @@ func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorModelos.
 
 	usuario := sesionModelos.Usuario{}
 
-	resultadoBusqueda := database.Where(&sesionModelos.Usuario{NombreUsuario: solicitud.ObtenerNombre()}).Find(&usuario)
+	resultadoBusqueda := baseDeDatos.Where(&sesionModelos.Usuario{NombreUsuario: solicitud.ObtenerNombre()}).Find(&usuario)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)

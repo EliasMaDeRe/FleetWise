@@ -47,7 +47,7 @@ func (m *Manejador) IniciarSesion(contexto *gin.Context) {
 	contexto.IndentedJSON(status, gin.H{"OK": ok, "err": mensajeError})
 }
 
-func (m *Manejador) ValidarJSONWebToken(contexto *gin.Context) {
+func (m *Manejador) ValidarSesion(contexto *gin.Context) {
 
 	tokenCadena, err := contexto.Cookie("autorizacion")
 
