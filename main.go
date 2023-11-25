@@ -17,7 +17,7 @@ type ControladorMain struct {
 	VehiculosManejador                      *vehiculosManejador.Manejador
 	ServicioVehicularManejador              *servicioVehicularManejador.Manejador
 	RegistroMantenimientoVehicularManejador *registroMantenimientoVehicularManejador.Manejador
-	SesionManejador            *sesionManejador.Manejador
+	SesionManejador                         *sesionManejador.Manejador
 }
 
 func loadEnvFile() {
@@ -34,10 +34,12 @@ func main() {
 		VehiculosManejador:                      vehiculosManejador.NuevoManejador(),
 		ServicioVehicularManejador:              servicioVehicularManejador.NuevoManejador(),
 		RegistroMantenimientoVehicularManejador: registroMantenimientoVehicularManejador.NuevoManejador(),
-		SesionManejador:            sesionManejador.NuevoManejador(),
+		SesionManejador:                         sesionManejador.NuevoManejador(),
 	}
 
 	router := gin.Default()
+
+	controlador.SesionManejador.InicioSesionControlador.RegistrarUsuario("Fer", "123")
 
 	router.LoadHTMLGlob("*.html")
 	router.Static("/styles", "./styles/")

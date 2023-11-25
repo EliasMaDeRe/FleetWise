@@ -4,6 +4,7 @@ import (
 	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
 	registroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
+	servicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
 	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	conectorModelos "example/fleetwise/modelos/conectorbd"
 	sesionModelos "example/fleetwise/modelos/iniciosesion"
@@ -110,7 +111,40 @@ func (c *Controlador) GuardarRegistro(registro *registroMantenimientoVehiculoMod
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	database.AutoMigrate(&registro)
+	baseDeDatos.AutoMigrate(&registro)
+
+	resultadoGuardarRegistro := baseDeDatos.Create(
+		&registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
+			NumeroDeRegistro: registro.ObtenerNumeroDeRegistro(),
+			Tipo:             registro.ObtenerTipo(),
+			Fecha:            registro.ObtenerFecha(),
+			LitrosDeGasolina: registro.ObtenerLitrosDeGasolina(),
+			Kilometraje:      registro.ObtenerKilometraje(),
+			Importe:          registro.ObtenerImporte(),
+			Observaciones:    registro.ObtenerObservaciones(),
+			Concepto:         registro.ObtenerConcepto(),
+		})
+	respuesta := &conectorModelos.GuardarRegistroMantenimientoVehiculoRespuesta{}
+	if resultadoGuardarRegistro.Error != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
+		return respuesta
+	}
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
+}
+
+func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModelos.ObtenerServicioVehicularPorNombreSolicitud) *servicioVehicularModelos.ServicioVehicular {
+
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	serviciosVehiculares := []servicioVehicularModelos.ServicioVehicular{}
 
 	resultadoBusqueda := baseDeDatos.Where(&servicioVehicularModelos.ServicioVehicular{Nombre: solicitud.ObtenerNombre()}).Find(&serviciosVehiculares)
 
@@ -141,8 +175,8 @@ func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicu
 		&servicioVehicularModelos.ServicioVehicular{
 			Nombre: servicioVehicular.ObtenerNombre(),
 		})
-	respuesta := &conectorModelos.GuardarRegistroMantenimientoVehiculoRespuesta{}
-	if resultadoGuardarRegistro.Error != nil {
+	respuesta := &conectorModelos.GuardarServicioVehicularRespuesta{}
+	if resultadoGuardarServicioVehicular.Error != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
 		return respuesta
