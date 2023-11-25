@@ -221,6 +221,12 @@ INICIO CAPTURA-SERVICIO-VEHICULAR
 FIN CAPTURA-SERVICIO-VEHICULAR
 =============================
 */
+
+/*
+=============================
+INICIO SELECCINOAR-VEHICULO
+=============================
+*/
 .seleccionar_vehiculo__heading {
   margin-bottom: 0;
 }
@@ -235,6 +241,38 @@ FIN CAPTURA-SERVICIO-VEHICULAR
   padding-block: 4rem;
   width: 70%;
 }
+
+/*
+=============================
+FIN SELECCINOAR-VEHICULO
+=============================
+*/
+
+/*
+==============================================
+INICIO CAPTURA-REGISTRO-MANTENIMIENTO-VEHICULO
+==============================================
+*/
+
+.captura-registro-mantenimiento-vehiculo__heading {
+  margin-bottom: 0;
+}
+
+.captura-registro-mantenimiento-vehiculo__formulario-contenedor {
+  margin-block: 2rem;
+  background-color: var(--azul_claro);
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 4rem;
+  width: 70%;
+}
+/*
+==============================================
+FIN CAPTURA-REGISTRO-MANTENIMIENTO-VEHICULO
+==============================================
+*/
 
 /*
 =============================

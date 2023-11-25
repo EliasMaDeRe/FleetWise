@@ -45,7 +45,7 @@
     });
 
     const botonEnviarFormulariRegistroMantenimientoVehiculo = document.querySelector(
-      ".captura-registro__formulario-contenedor .formulario__submit"
+      "captura-registro-mantenimiento-vehiculo__formulario-contenedor .formulario__submit"
     );
   
     if (botonEnviarFormulariRegistroMantenimientoVehiculo) {
@@ -85,7 +85,7 @@
   
       function desplegarAlerta(tipoDeAlerta, mensajeAlerta) {
         const contenedorPrincipal = document.querySelector(
-          ".captura-vehiculo__contenedor"
+          ".captura-registro-mantenimiento-vehiculo__contenedor"
         );
         const alertaExistente = contenedorPrincipal.querySelector(".alerta");
         if (alertaExistente) {
