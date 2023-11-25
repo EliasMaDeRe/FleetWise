@@ -113,13 +113,13 @@ func (c *Controlador) GuardarRegistro(registro *registroMantenimientoVehiculoMod
 
 	resultadoGuardarRegistro := database.Create(
 		&registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
-			Tipo:           registro.ObtenerTipo(),
-			Fecha:          registro.ObtenerFecha(),
-			LitrosGasolina: registro.ObtenerLitrosGasolina(),
-			Kilometraje:    registro.ObtenerKilometraje(),
-			Importe:        registro.ObtenerImporte(),
-			Observaciones:  registro.ObtenerObservaciones(),
-			Concepto:       registro.ObtenerConcepto(),
+			Tipo:             registro.ObtenerTipo(),
+			Fecha:            registro.ObtenerFecha(),
+			LitrosDeGasolina: registro.ObtenerLitrosDeGasolina(),
+			Kilometraje:      registro.ObtenerKilometraje(),
+			Importe:          registro.ObtenerImporte(),
+			Observaciones:    registro.ObtenerObservaciones(),
+			Concepto:         registro.ObtenerConcepto(),
 		})
 	respuesta := &conectorModelos.GuardarRegistroMantenimientoVehiculoRespuesta{}
 	if resultadoGuardarRegistro.Error != nil {
