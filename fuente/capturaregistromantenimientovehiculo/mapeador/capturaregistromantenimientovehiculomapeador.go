@@ -24,13 +24,22 @@ func (m *Mapeador) GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contex
 
 func (m *Mapeador) AgregaRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud *registroMantenimientoVehiculo.AgregarRegistroMantenimientoVehiculoSolicitud) *registroMantenimientoVehiculo.RegistroMantenimientoVehiculo {
 	registro := &registroMantenimientoVehiculo.RegistroMantenimientoVehiculo{}
+
+	// Validación y conversión de la fecha
 	if fecha, err := strconv.Atoi(solicitud.ObtenerFecha()); err == nil {
-		registro.AsignarFecha(fecha)
+		registro.AsignarFecha(strconv.Itoa(fecha))
 	} else {
-		registro.AsignarFecha(0)
+		registro.AsignarFecha("0")
 	}
-	//implementacion pablo
-	//vehiculo.AsignarMarca(solicitud.ObtenerMarca())
+
+	kilometraje := solicitud.ObtenerKilometraje()
+	registro.AsignarKilometraje(kilometraje)
+
+	litrosGasolina := solicitud.ObtenerLitrosDeGasolina()
+	registro.AsignarLitrosDeGasolina(litrosGasolina)
+
+	importe := solicitud.ObtenerImporte()
+	registro.AsignarImporte(importe)
 
 	return registro
 }
