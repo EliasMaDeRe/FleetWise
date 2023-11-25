@@ -36,8 +36,8 @@ func (m *Manejador) SeleccionarVehiculoParaNuevoRegistro(contexto *gin.Context) 
 }
 
 func (m *Manejador) AgregarRegistroMantemientoVehiculo(contexto *gin.Context) {
-	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextASeleccionarVehiculoParaNuevoRegistroSolicitud(contexto)
-	respuesta := m.RegistroMantenimientoVehiculoControlador.SeleccionarVehiculoParaNuevoRegistro(solicitud)
+	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contexto)
+	respuesta := m.RegistroMantenimientoVehiculoControlador.AgregarRegistroMantemientoVehiculo(solicitud)
 	status := http.StatusOK
 	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
