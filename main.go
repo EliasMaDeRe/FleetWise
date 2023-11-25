@@ -113,13 +113,18 @@ func main() {
 	
 
 	// Captura registro mantenimiento vehicular
-	router.GET("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
+	router.GET("/AgregarRegistroMantenimientoVehicular", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "registromantenimientovehiculo.html",gin.H{})
+	})
+
+	router.POST("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
 		controlador.RegistroMantenimientoVehicularManejador.AgregarRegistroMantemientoVehiculo(ctx)
 	})
 	
 	router.GET("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
 		controlador.RegistroMantenimientoVehicularManejador.SeleccionarVehiculoParaNuevoRegistro(ctx)
 	})
+	
 	router.POST("/ObtenerServiciosVehicularesParaNuevoRegistro", func(ctx *gin.Context) {
 		controlador.RegistroMantenimientoVehicularManejador.ObtenerServiciosVehiculares(ctx)
 	})
@@ -130,7 +135,7 @@ func main() {
 	router.GET("/HistorialRegistrosMantenimientoVehicular", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
 	})
-	
+
 	router.POST("/HistorialRegistrosServicioVehicular", func(ctx *gin.Context) {
 		controlador.HistorialRegistrosManejador.ObtenerRegistrosYVehiculosFiltrados(ctx);
 	})

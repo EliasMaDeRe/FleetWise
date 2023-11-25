@@ -15,8 +15,11 @@ type Controlador struct{
 
 func (c *Controlador) ObtenerRegistrosFiltradosConVehiculos(solicitud *historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud) ([]capturaRegistrosModelo.RegistroMantenimientoVehiculo, []capturaVehiculosModelo.Vehiculo){
 
-	obtenerRegistrosConVehiculosFiltradosSolicitud := c.HistorialRegistrosMapeador.ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud(solicitud)
+	if(solicitud == nil || validarSolicitudSinFiltros(solicitud)){
+		return c.conectorBDControlador.ObtenerRegistrosYVehiculosAsociados()
+	}
 
+	obtenerRegistrosConVehiculosFiltradosSolicitud := c.HistorialRegistrosMapeador.ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud(solicitud)
 
 	return c.conectorBDControlador.ObtenerRegistrosYVehiculosAsociadosFiltrados(obtenerRegistrosConVehiculosFiltradosSolicitud)
 } 

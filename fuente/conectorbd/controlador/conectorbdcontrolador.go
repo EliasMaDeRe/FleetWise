@@ -283,6 +283,29 @@ func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorModelos.
 	return &usuario
 }
 
+func (c *Controlador) ObtenerRegistrosYVehiculosAsociados() ([]registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, []vehiculosModelos.Vehiculo){
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	registros := []registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}
+	vehiculos := []vehiculosModelos.Vehiculo{}
+
+	tablaDeRegistrosConVehiculosFiltrados:= baseDeDatos.Select("*").Table("registros_mantenimiento_vehicular").Joins("JOIN vehiculos on vehiculos.placas = registros_mantenimiento_vehicular.placas_vehiculo")
+
+	if(tablaDeRegistrosConVehiculosFiltrados.Error != nil){
+		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+	}
+
+	tablaDeRegistrosConVehiculosFiltrados.Find(&registros)
+	tablaDeRegistrosConVehiculosFiltrados.Find(&vehiculos)
+
+ 	return registros, vehiculos;
+}
+
+
 func (c *Controlador) ObtenerRegistrosYVehiculosAsociadosFiltrados(solicitud *conectorModelos.ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud)  ([]registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, []vehiculosModelos.Vehiculo) {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())

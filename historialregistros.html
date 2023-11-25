@@ -35,33 +35,31 @@
             <div class="filtros__campo">
               <label for="placa" class="filtros__etiqueta">Placa</label>
               <select id="placa" name="placa" class="filtros__desplegable">
-                <option selected disabled>Selecciones</option>
-                <option value="placa1">placa1</option>
-                <option value="placa2">placa2</option>
+                <option value="" selected>No Filtrar</option>
               </select>
             </div>
             <div class="filtros__campo">
               <label for="marca" class="filtros__etiqueta">Marca</label>
               <select id="marca" name="marca" class="filtros__desplegable">
-                <option selected disabled>Seleccione</option>
-                <option value="marca1">marca1</option>
-                <option value="marca2">marca2</option>
+                <option value="" selected>No Filtrar</option>
               </select>
             </div>
             <div class="filtros__campo">
               <label for="modelo" class="filtros__etiqueta">Modelo</label>
               <select id="modelo" name="modelo" class="filtros__desplegable">
-                <option selected disabled>Seleccione</option>
-                <option value="modelo1">modelo1</option>
-                <option value="modelo2">modelo2</option>
+                <option value="" selected>No Filtrar</option>
               </select>
             </div>
             <div class="filtros__campo">
-              <label for="anio" class="filtros__etiqueta">Año</label>
-              <select id="anio" name="anio" class="filtros__desplegable">
-                <option selected disabled>Seleccione</option>
-                <option value="anio1">año1</option>
-                <option value="anio">año2</option>
+              <label for="fechaDeLanzamiento" class="filtros__etiqueta">
+                Año
+              </label>
+              <select
+                id="fechaDeLanzamiento"
+                name="fechaDeLanzamiento"
+                class="filtros__desplegable"
+              >
+                <option value="" selected>No Filtrar</option>
               </select>
             </div>
             <div class="filtros__campo">
@@ -73,14 +71,21 @@
                 name="tipoDeRegistro"
                 class="filtros__desplegable"
               >
-                <option selected disabled>Selecciones</option>
-                <option value="tipoDeRegistro1">tipoDeRegistro1</option>
-                <option value="tipoDeRegistro2">tipoDeRegistro2</option>
+                <option value="" selected>No Filtrar</option>
+                <option value="carga_combustible">Carga de Combustible</option>
+                <option value="afinacion">Afinación</option>
+                <option value="reaparacion">Reparaci&oacute;n</option>
+                <option value="reemplazo">Reemplazo</option>
               </select>
             </div>
           </div>
 
-          <input type="submit" class="filtros__enviar" value="Enviar" />
+          <input
+            type="submit"
+            id="botonEnviarFiltros"
+            class="filtros__enviar"
+            value="Enviar"
+          />
         </form>
       </div>
 
