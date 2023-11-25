@@ -4,6 +4,7 @@ import (
 	servicioVehicularManejador "example/fleetwise/fuente/capturaserviciovehicular/manejador"
 	vehiculosManejador "example/fleetwise/fuente/capturavehiculos/manejador"
 	sesionManejador "example/fleetwise/fuente/iniciosesion/manejador"
+	historialRegistrosManejador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehicular/manejador"
 	"log"
 
 	"net/http"
@@ -16,6 +17,7 @@ type ControladorMain struct {
 	VehiculosManejador         *vehiculosManejador.Manejador
 	ServicioVehicularManejador *servicioVehicularManejador.Manejador
 	SesionManejador            *sesionManejador.Manejador
+	HistorialRegistrosManejador *historialRegistrosManejador.Manejador
 }
 
 func loadEnvFile() {
@@ -32,6 +34,7 @@ func main() {
 		VehiculosManejador:         vehiculosManejador.NuevoManejador(),
 		ServicioVehicularManejador: servicioVehicularManejador.NuevoManejador(),
 		SesionManejador:            sesionManejador.NuevoManejador(),
+		HistorialRegistrosManejador: historialRegistrosManejador.NuevoManejador(),
 	}
 
 	router := gin.Default()
@@ -65,11 +68,13 @@ func main() {
 	}, func(ctx *gin.Context) {
 		controlador.ServicioVehicularManejador.EliminarServicioVehicular(ctx)
 	})
+
 	router.GET("/ObtenerServiciosVehiculares", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)
 	}, func(ctx *gin.Context) {
 		controlador.ServicioVehicularManejador.ObtenerServiciosVehiculares(ctx)
 	})
+
 	router.POST("/EditarServicioVehicular", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)
 	}, func(ctx *gin.Context) {
@@ -95,5 +100,10 @@ func main() {
 	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "login.html", gin.H{})
 	})
+	
+	router.POST("/HistorialRegistrosServicioVehicular", func(ctx *gin.Context) {
+		controlador.HistorialRegistrosManejador.ObtenerRegistrosYVehiculosFiltrados(ctx);
+	})
+
 	router.Run("localhost:8080")
 }

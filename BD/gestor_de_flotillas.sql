@@ -69,12 +69,31 @@ INSERT INTO `usuarios` (`cargo`, `clave_usuario`, `nombre_usuario`) VALUES
 
 
 --
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `registros_mantenimiento_vehicular`
+--
+ALTER TABLE `registros_mantenimiento_vehicular`
+  ADD PRIMARY KEY (`numero_registro`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `registros_mantenimiento_vehicular`
+--
+ALTER TABLE `registros_mantenimiento_vehicular`
+  MODIFY `numero_registro` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+ALTER TABLE `registros_mantenimiento_vehicular`
+ADD COLUMN `placasVehiculo` varchar(255) NOT NULL AFTER `concepto`;
+ALTER TABLE `registros_mantenimiento_vehicular` ADD FOREIGN KEY (`placas`) REFERENCES `vehiculos` (`placas`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
 

@@ -3,8 +3,10 @@ package controlador
 import (
 	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
+	registrosModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	servicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
 	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
+
 	conectorModelos "example/fleetwise/modelos/conectorbd"
 	sesionModelos "example/fleetwise/modelos/iniciosesion"
 	"fmt"
@@ -245,11 +247,61 @@ func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorModelos.
 	return &usuario
 }
 
+func (c *Controlador) ObtenerRegistrosConVehiculosFiltrados(solicitud *conectorModelos.ObtenerRegistrosConVehiculosFiltradosSolicitud)  ([]registrosModelos.RegistroMantenimientoVehiculo, []vehiculosModelos.Vehiculo) {
+
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	registrosFiltrados := []registrosModelos.RegistroMantenimientoVehiculo{}
+	vehiculosFiltrados := []vehiculosModelos.Vehiculo{}
+
+	filtroRegistro := &registrosModelos.RegistroMantenimientoVehiculo{TipoRegistro: solicitud.ObtenerFiltroTipoDeRegistro(),PlacasVehiculo: solicitud.ObtenerFiltroPlaca()}
+	filtroVehiculo := &vehiculosModelos.Vehiculo{FechaLanzamiento: solicitud.ObtenerFiltroFechaDeLanzamiento(), Marca: solicitud.ObtenerFiltroMarca(), Modelo: solicitud.ObtenerFiltroModelo()}
+
+	tablaDeRegistrosConVehiculosFiltrados:= baseDeDatos.Select("*").Table("registros_mantenimiento_vehicular").Joins("JOIN vehiculos on vehiculos.placas = registros_mantenimiento_vehicular.placas_vehiculo").Where(&filtroRegistro).Where(&filtroVehiculo)
+
+	if(tablaDeRegistrosConVehiculosFiltrados.Error != nil){
+		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+	}
+
+	tablaDeRegistrosConVehiculosFiltrados.Find(&registrosFiltrados)
+	tablaDeRegistrosConVehiculosFiltrados.Find(&vehiculosFiltrados)
+
+ 	return registrosFiltrados, vehiculosFiltrados;
+}
+
+func (c *Controlador) ObtenerRegistrosConVehiculos() ([]registrosModelos.RegistroMantenimientoVehiculo, []vehiculosModelos.Vehiculo) {
+	
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	registros := []registrosModelos.RegistroMantenimientoVehiculo{}
+	vehiculos := []vehiculosModelos.Vehiculo{}
+
+	tablaDeRegistrosConVehiculos := baseDeDatos.Select("*").Table("registros_mantenimiento_vehicular").Joins("Left join vehiculos on placas_vehiculo = vehiculos.placas")
+
+	if(tablaDeRegistrosConVehiculos.Error != nil){
+		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+	}
+
+	tablaDeRegistrosConVehiculos.Find(&vehiculos)
+	tablaDeRegistrosConVehiculos.Find(&registros)
+
+	return registros,vehiculos
+}
+
 func (c *Controlador) obtenerConexionABd() string {
 	dbHost := os.Getenv("dbHost")
 	dbNombre := os.Getenv("dbNombre")
 	dbUsuario := os.Getenv("dbUsuario")
 	dbContrasena := os.Getenv("dbContrasena")
 	dbPuerto := os.Getenv("dbPuerto")
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUsuario, dbContrasena, dbHost, dbPuerto, dbNombre)
+	conexionDb := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUsuario, dbContrasena, dbHost, dbPuerto, dbNombre)
+	return conexionDb
 }
