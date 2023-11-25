@@ -221,6 +221,20 @@ INICIO CAPTURA-SERVICIO-VEHICULAR
 FIN CAPTURA-SERVICIO-VEHICULAR
 =============================
 */
+.seleccionar_vehiculo__heading {
+  margin-bottom: 0;
+}
+
+.seleccionar_vehiculo__formulario-contenedor {
+  margin-block: 2rem;
+  background-color: var(--azul_claro);
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 4rem;
+  width: 70%;
+}
 
 /*
 =============================

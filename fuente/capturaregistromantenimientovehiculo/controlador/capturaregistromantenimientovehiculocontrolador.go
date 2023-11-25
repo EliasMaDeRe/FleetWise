@@ -34,6 +34,7 @@ func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *registroMa
 		respuesta.AsignarErr(err)
 		return respuesta
 	}
+	// To-do logica para seleccionar
 
 	respuesta.AsignarOk(true)
 	respuesta.AsignarErr(nil)
@@ -87,17 +88,14 @@ func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *regis
 		return errors.New(constantes.ERROR_FECHA_FORMATO_INVALIDO)
 	}
 
-	tipo := solicitud.ObtenerTipo()
-	if tipo == "cargadecombustible" { // verificar como llega del json
-		gasolina := solicitud.ObtenerLitrosDeGasolina()
-		if gasolina <= 0 {
-			return errors.New(constantes.ERROR_LITROS_GASOLINA_NO_ES_NUMERO)
-		}
-	}
-
 	kilometraje := solicitud.ObtenerKilometraje()
 	if kilometraje <= 0 {
 		return errors.New(constantes.ERROR_KILOMETRAJE_NO_VALIDO)
+	}
+
+	gasolina := solicitud.ObtenerLitrosDeGasolina()
+	if gasolina <= 0 {
+		return errors.New(constantes.ERROR_LITROS_GASOLINA_NO_ES_NUMERO)
 	}
 
 	importe := solicitud.ObtenerImporte()
