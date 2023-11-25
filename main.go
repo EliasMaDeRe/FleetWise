@@ -48,61 +48,13 @@ func main() {
 	router.Static("/styles", "./styles/")
 	router.Static("/js", "./js/")
 	router.Static("/img", "./img/")
-	router.POST("/AgregarVehiculo", func(ctx *gin.Context) {
-		controlador.SesionManejador.ValidarSesion(ctx)
-	}, func(ctx *gin.Context) {
-		controlador.VehiculosManejador.AgregarVehiculo(ctx)
-	})
-	router.GET("/AgregarVehiculo", func(ctx *gin.Context) {
+
+	//Login
+	router.GET("/", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "vehiculos.html", gin.H{})
+		c.HTML(http.StatusOK, "index.html", gin.H{})
 	})
-	router.POST("/AgregarServicioVehicular", func(ctx *gin.Context) {
-		controlador.SesionManejador.ValidarSesion(ctx)
-	}, func(ctx *gin.Context) {
-		controlador.ServicioVehicularManejador.AgregarServicioVehicular(ctx)
-	})
-	router.GET("/AgregarServicioVehicular", func(ctx *gin.Context) {
-		controlador.SesionManejador.ValidarSesion(ctx)
-	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "serviciovehicular.html", gin.H{})
-	})
-	router.POST("/EliminarServicioVehicular", func(ctx *gin.Context) {
-		controlador.SesionManejador.ValidarSesion(ctx)
-	}, func(ctx *gin.Context) {
-		controlador.ServicioVehicularManejador.EliminarServicioVehicular(ctx)
-	})
-
-	router.GET("/ObtenerServiciosVehiculares", func(ctx *gin.Context) {
-		controlador.SesionManejador.ValidarSesion(ctx)
-	}, func(ctx *gin.Context) {
-		controlador.ServicioVehicularManejador.ObtenerServiciosVehiculares(ctx)
-	})
-
-	router.POST("/EditarServicioVehicular", func(ctx *gin.Context) {
-		controlador.SesionManejador.ValidarSesion(ctx)
-	}, func(ctx *gin.Context) {
-		controlador.ServicioVehicularManejador.EditarServicioVehicular(ctx)
-	})
-
-	router.GET("/HistorialRegistrosMantenimientoVehicular", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
-	})
-
-	router.GET("/EditarRegistroMantenimientoVehicular", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
-	})
-	router.GET("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
-		controlador.RegistroMantenimientoVehicularManejador.AgregarRegistroMantemientoVehiculo(ctx)
-	})
-	router.GET("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
-		controlador.RegistroMantenimientoVehicularManejador.SeleccionarVehiculoParaNuevoRegistro(ctx)
-	})
-	router.POST("/ObtenerServiciosVehiculareParaNuevoRegistro", func(ctx *gin.Context) {
-		controlador.RegistroMantenimientoVehicularManejador.ObtenerServiciosVehiculares(ctx)
-	})
-
 	router.GET("/Login", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)
 	}, func(c *gin.Context) {
@@ -111,11 +63,6 @@ func main() {
 	router.POST("/Login", func(ctx *gin.Context) {
 		controlador.SesionManejador.IniciarSesion(ctx)
 	})
-	router.GET("/", func(ctx *gin.Context) {
-		controlador.SesionManejador.ValidarSesion(ctx)
-	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", gin.H{})
-	})
 	router.GET("/Logout", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)
 	}, func(ctx *gin.Context) {
@@ -123,10 +70,75 @@ func main() {
 	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "login.html", gin.H{})
 	})
+
+	//Captura vehiculos
+	router.GET("/AgregarVehiculo", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(c *gin.Context) {
+		c.HTML(http.StatusOK, "vehiculos.html", gin.H{})
+	})
+	router.POST("/AgregarVehiculo", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(ctx *gin.Context) {
+		controlador.VehiculosManejador.AgregarVehiculo(ctx)
+	})
+	
+	// Captura servicio vehicular
+	router.GET("/AgregarServicioVehicular", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(c *gin.Context) {
+		c.HTML(http.StatusOK, "serviciovehicular.html", gin.H{})
+	})
+	router.POST("/AgregarServicioVehicular", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(ctx *gin.Context) {
+		controlador.ServicioVehicularManejador.AgregarServicioVehicular(ctx)
+	})
+	router.GET("/ObtenerServiciosVehiculares", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(ctx *gin.Context) {
+		controlador.ServicioVehicularManejador.ObtenerServiciosVehiculares(ctx)
+	})
+	router.POST("/EditarServicioVehicular", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(ctx *gin.Context) {
+		controlador.ServicioVehicularManejador.EditarServicioVehicular(ctx)
+	})
+	router.POST("/EliminarServicioVehicular", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(ctx *gin.Context) {
+		controlador.ServicioVehicularManejador.EliminarServicioVehicular(ctx)
+	})
+
+	
+
+	// Captura registro mantenimiento vehicular
+	router.GET("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.AgregarRegistroMantemientoVehiculo(ctx)
+	})
+	
+	router.GET("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.SeleccionarVehiculoParaNuevoRegistro(ctx)
+	})
+	router.POST("/ObtenerServiciosVehicularesParaNuevoRegistro", func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.ObtenerServiciosVehiculares(ctx)
+	})
+
+	
+
+	// Visualizar historial registros mantenimiento vehicular
+	router.GET("/HistorialRegistrosMantenimientoVehicular", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
+	})
 	
 	router.POST("/HistorialRegistrosServicioVehicular", func(ctx *gin.Context) {
 		controlador.HistorialRegistrosManejador.ObtenerRegistrosYVehiculosFiltrados(ctx);
 	})
+
+	router.GET("/EditarRegistroMantenimientoVehicular", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
+	})
+
 
 	router.Run("localhost:8080")
 }
