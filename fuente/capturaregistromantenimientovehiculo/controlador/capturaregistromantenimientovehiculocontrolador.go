@@ -3,7 +3,7 @@ package controlador
 import (
 	"errors"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
-	"strconv"
+	"time"
 
 	"example/fleetwise/fuente/capturaregistromantenimientovehiculo/constantes"
 	registroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
@@ -21,15 +21,17 @@ func (c *Controlador) SeleccionarVehiculoDeNuevoRegistro(solicitud *registroMant
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		respuesta.AsignarErr(errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD))
+		return respuesta
 	}
 
 	var err error
-	if err = c.validarSeleccionarVehiculoParaRegistro(solicitud); err != nil {
+	if err = c.SeleccionarVehiculoDeNuevoRegistro(solicitud); err != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(err)
 		return respuesta
 	}
+	// To-do logica para seleccionar
 
 	respuesta.AsignarOk(true)
 	respuesta.AsignarErr(nil)
@@ -40,7 +42,7 @@ func (c *Controlador) SeleccionarVehiculoDeNuevoRegistro(solicitud *registroMant
 func (c *Controlador) validarSeleccionarVehiculoParaRegistro(solicitud *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroSolicitud) error {
 	obtenerVehiculoPorPlacasSolicitud := &conectorbd.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
-	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) != nil {
+	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
 		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
 	}
 	return nil
@@ -51,7 +53,8 @@ func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *registroMant
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		respuesta.AsignarErr(errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD))
+		return respuesta
 	}
 
 	var err error
@@ -76,38 +79,91 @@ func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *registroMant
 }
 
 func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *registroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) error {
-	if fecha, err := strconv.Atoi(solicitud.ObtenerFecha()); err != nil || fecha <= 0 {
-		return errors.New(constantes.ERROR_NO_NATURAL)
+
+	_, err := time.Parse("02/01/2006", solicitud.ObtenerFecha()) // DD/MM/AAAA
+	if err != nil {
+		return errors.New(constantes.ERROR_FECHA_FORMATO_INVALIDO)
 	}
-	if kilometraje, err := strconv.Atoi(solicitud.ObtenerKilometraje()); err != nil || kilometraje <= 0 {
-		return errors.New(constantes.ERROR_NO_NATURAL)
+
+	kilometraje := solicitud.ObtenerKilometraje()
+	if kilometraje <= 0 {
+		return errors.New(constantes.ERROR_KILOMETRAJE_NO_VALIDO)
 	}
-	if gasolina, err := strconv.Atoi(solicitud.ObtenerLitrosGasolina()); err != nil || gasolina <= 0 {
-		return errors.New(constantes.ERROR_NO_NATURAL)
+
+	gasolina := solicitud.ObtenerLitrosDeGasolina()
+	if gasolina <= 0 {
+		return errors.New(constantes.ERROR_LITROS_GASOLINA_NO_ES_NUMERO)
 	}
-	if importe, err := strconv.Atoi(solicitud.ObtenerImporte()); err != nil || importe <= 0 {
-		return errors.New(constantes.ERROR_NO_NATURAL)
+
+	importe := solicitud.ObtenerImporte()
+	if importe <= 0 {
+		return errors.New(constantes.ERROR_IMPORTE_NO_VALIDO)
 	}
+
 	return nil
 }
 
 /*
-func (c *Controlador) EditarRegistroMantemientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.EditaregistroMantenimientoVehiculo) *registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta {
-	//implementacipon futura por Pablo
+func (c *Controlador) EditarRegistroMantenimientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.EditarRegistroMantenimientoVehiculo) *registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta {
+	respuesta := &registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
+
+	if solicitud == nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		return respuesta
+	}
+
+	if err := c.validarEditarRegistroMantenimientoVehiculoSolicitud(solicitud); err != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(err)
+		return respuesta
+	}
+
+	// Implementación para editar el registro de mantenimiento vehicular en la bd
+	// Usar el mapeador para transformar la solicitud a la estructura correspondiente
+
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
+}
+
+func (c *Controlador) validarEditarRegistroMantenimientoVehiculoSolicitud(solicitud *visualizacionHistorialRegistrosControlador.EditarRegistroMantenimientoVehiculo) error {
+	// Por hacer: Validaciones para asegurar la edición exitosa de registros de mantenimiento vehicular
+
+	// ...
+
 	return nil
 }
 
-func (c *Controlador) validarEditarRegistroMantemientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.EditaregistroMantenimientoVehiculo) error {
-	//implementacipon futura por Pablo
-	return nil
+func (c *Controlador) BorrarRegistroMantenimientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.BorrarRegistroMantenimientoVehiculo) *registroMantenimientoVehiculoModelos.BorrarRegistroMantenimientoVehiculoRespuesta {
+	respuesta := &registroMantenimientoVehiculoModelos.BorrarRegistroMantenimientoVehiculoRespuesta{}
+
+	if solicitud == nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		return respuesta
+	}
+
+	if err := c.validarBorrarRegistroMantenimientoVehiculoSolicitud(solicitud); err != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(err)
+		return respuesta
+	}
+
+	// Por hacer: Implementación para borrar el registro de mantenimiento vehicular en la base de datos
+	// Usar el mapeador para transformar la solicitud a la estructura correspondiente
+
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
 }
 
-func (c *Controlador) BorrarRegistroMantemientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.BorrarRegistroMantenimientoVehiculo) *registroMantenimientoVehiculoModelos.BorrarRegistroMantenimientoVehiculoRespuesta {
-	//implementacipon futura por Pablo
+func (c *Controlador) validarBorrarRegistroMantenimientoVehiculoSolicitud(solicitud *visualizacionHistorialRegistrosControlador.BorrarRegistroMantenimientoVehiculo) error {
+
+	// Por hacer: Validaciones específicas para el borrado exitoso de registros de mantenimiento vehicular
+
 	return nil
 }
-
-func (c *Controlador) validarBorrarRegistroMantemientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.BorrarRegistroMantenimientoVehiculo) error {
-	//implementacipon futura por Pablo
-	return nil
-}*/
+*/

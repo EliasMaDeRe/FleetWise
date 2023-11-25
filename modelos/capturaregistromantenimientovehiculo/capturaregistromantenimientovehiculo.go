@@ -1,26 +1,26 @@
 package capturavehiculos
 
 type RegistroMantenimientoVehiculo struct {
-	NumRegistro    int
-	Tipo           string
-	Fecha          int
-	LitrosGasolina string
-	Kilometraje    string
-	Importe        string
-	Observaciones  string
-	Concepto       string
+	NumeroDeRegistro int
+	Tipo             string
+	Fecha            string
+	LitrosDeGasolina float64
+	Kilometraje      int
+	Importe          float64
+	Observaciones    string
+	Concepto         string
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerNumRegistro() (o int) {
+func (r *RegistroMantenimientoVehiculo) ObtenerNumeroDeRegistro() (o int) {
 	if r != nil {
-		o = r.NumRegistro
+		o = r.NumeroDeRegistro
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarNumRegistro(numRegistro int) {
+func (r *RegistroMantenimientoVehiculo) AsignarNumeroDeRegistro(NumeroDeRegistro int) {
 	if r != nil {
-		r.NumRegistro = numRegistro
+		r.NumeroDeRegistro = NumeroDeRegistro
 	}
 }
 
@@ -37,53 +37,53 @@ func (r *RegistroMantenimientoVehiculo) AsignarTipo(tipo string) {
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerFecha() (o int) {
+func (r *RegistroMantenimientoVehiculo) ObtenerFecha() (o string) {
 	if r != nil {
 		o = r.Fecha
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarFecha(fecha int) {
+func (r *RegistroMantenimientoVehiculo) AsignarFecha(fecha string) {
 	if r != nil {
 		r.Fecha = fecha
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerLitrosGasolina() (o string) {
+func (r *RegistroMantenimientoVehiculo) ObtenerLitrosDeGasolina() (o float64) {
 	if r != nil {
-		o = r.LitrosGasolina
+		o = r.LitrosDeGasolina
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarLitrosGasolina(LitrosGasolina string) {
+func (r *RegistroMantenimientoVehiculo) AsignarLitrosDeGasolina(LitrosDeGasolina float64) {
 	if r != nil {
-		r.LitrosGasolina = LitrosGasolina
+		r.LitrosDeGasolina = LitrosDeGasolina
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerKilometraje() (o string) {
+func (r *RegistroMantenimientoVehiculo) ObtenerKilometraje() (o int) {
 	if r != nil {
 		o = r.Kilometraje
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarKilometraje(kilometraje string) {
+func (r *RegistroMantenimientoVehiculo) AsignarKilometraje(kilometraje int) {
 	if r != nil {
 		r.Kilometraje = kilometraje
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerImporte() (o string) {
+func (r *RegistroMantenimientoVehiculo) ObtenerImporte() (o float64) {
 	if r != nil {
 		o = r.Importe
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarImporte(importe string) {
+func (r *RegistroMantenimientoVehiculo) AsignarImporte(importe float64) {
 	if r != nil {
 		r.Importe = importe
 	}
@@ -116,26 +116,26 @@ func (r *RegistroMantenimientoVehiculo) AsignarConcepto(concepto string) {
 }
 
 type AgregarRegistroMantenimientoVehiculoSolicitud struct {
-	NumRegistro    int    `json:"numregistro"`
-	Tipo           string `json:"tipo"`
-	Fecha          string `json:"fecha"`
-	LitrosGasolina string `json:"litrosgasolina"`
-	Kilometraje    string `json:"kilometraje"`
-	Importe        string `json:"importe"`
-	Observaciones  string `json:"observaciones"`
-	Concepto       string `json:"concepto"`
+	NumeroDeRegistro int     `json:"numeroderegistro"`
+	Tipo             string  `json:"tipo"`
+	Fecha            string  `json:"fecha"`
+	LitrosDeGasolina float64 `json:"litrosdegasolina"`
+	Kilometraje      int     `json:"kilometraje"`
+	Importe          float64 `json:"importe"`
+	Observaciones    string  `json:"observaciones"`
+	Concepto         string  `json:"concepto"`
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerNumRegistro() (o int) {
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerNumeroDeRegistro() (o int) {
 	if r != nil {
-		o = r.NumRegistro
+		o = r.NumeroDeRegistro
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarNumRegistro(numRegistro int) {
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarNumeroDeRegistro(NumeroDeRegistro int) {
 	if r != nil {
-		r.NumRegistro = numRegistro
+		r.NumeroDeRegistro = NumeroDeRegistro
 	}
 }
 
@@ -165,40 +165,40 @@ func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarFecha(fecha strin
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerLitrosGasolina() (o string) {
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerLitrosDeGasolina() (o float64) {
 	if r != nil {
-		o = r.LitrosGasolina
+		o = r.LitrosDeGasolina
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarLitrosGasolina(LitrosGasolina string) {
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarLitrosDeGasolina(LitrosDeGasolina float64) {
 	if r != nil {
-		r.LitrosGasolina = LitrosGasolina
+		r.LitrosDeGasolina = LitrosDeGasolina
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerKilometraje() (o string) {
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerKilometraje() (o int) {
 	if r != nil {
 		o = r.Kilometraje
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarKilometraje(kilometraje string) {
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarKilometraje(kilometraje int) {
 	if r != nil {
 		r.Kilometraje = kilometraje
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerImporte() (o string) {
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerImporte() (o float64) {
 	if r != nil {
 		o = r.Importe
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarImporte(importe string) {
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarImporte(importe float64) {
 	if r != nil {
 		r.Importe = importe
 	}
@@ -343,6 +343,11 @@ func (s *SeleccionarVehiculoParaNuevoRegistroSolicitud) AsignarPlacas(placas str
 type SeleccionarVehiculoParaNuevoRegistroRespuesta struct {
 	ok  bool
 	err error
+}
+
+// Error implements error.
+func (*SeleccionarVehiculoParaNuevoRegistroRespuesta) Error() string {
+	panic("unimplemented")
 }
 
 func (s *SeleccionarVehiculoParaNuevoRegistroRespuesta) ObtenerOk() (o bool) {
