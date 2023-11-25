@@ -7,27 +7,78 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Mooli&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise</title>
+    <title>FleetWise | Capturar Vehículo</title>
   </head>
   <body>
     <header class="header">
       <div class="header__logo"></div>
-      <nav class="navbar">
-        
-      </nav>
+      <nav class="navbar"></nav>
     </header>
     <body>
-      <main class="menu__contenedor">
-        <div class="menu__blank"></div>
-        <h1 class="menu__heading"></h1>
-        <div class="menu__blank"></div>
+      <main class="captura-vehiculo__contenedor">
+        <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
+        <div class="captura-vehiculo__formulario-contenedor">
+          <form action="vehiculos.html" class="formulario">
+            <div class="formulario__campo">
+              <label for="marca" class="formulario__label">*Marca:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="marca"
+                id="marca"
+                placeholder="Marca"
+              />
+            </div>
+            <div class="formulario__campo">
+              <label for="modelo" class="formulario__label">*Modelo:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="modelo"
+                id="modelo"
+                placeholder="Modelo"
+              />
+            </div>
+            <div class="formulario__campo">
+              <label for="fechalanzamiento" class="formulario__label">*Año:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="fechalanzamiento"
+                id="fechalanzamiento"
+                placeholder="Año"
+              />
+            </div>
+            <div class="formulario__campo">
+              <label for="serie" class="formulario__label">*Serie:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="serie"
+                id="serie"
+                placeholder="Serie"
+              />
+            </div>
+            <div class="formulario__campo">
+              <label for="placas" class="formulario__label">*Placas:</label>
+              <input
+                class="formulario__input"
+                type="text"
+                name="placas"
+                id="placas"
+                placeholder="Placas"
+              />
+            </div>
+            <input type="submit" class="formulario__submit" value="Enviar" />
+          </form>
+        </div>
       </main>
 
-      <script src="js/index.js"></script>
+      <script src="js/capturaVehiculo.js"></script>
     </body>
 
     <footer class="footer">

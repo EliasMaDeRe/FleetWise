@@ -1,6 +1,6 @@
 (function () {
-  const botonEnviarFormularioCapturarVehiculo = document.querySelector(
-    ".captura-vehiculo__formulario-contenedor .formulario__submit"
+  const botonEnviarFormularioLogin = document.querySelector(
+    ".login__formulario-contenedor .formulario__submit"
   );
 
   const logoHeader = document.querySelector(".header__logo");
@@ -20,48 +20,8 @@
       logoHeader.appendChild(imagen);
   }
 
-  const barraNavegacion = document.querySelector(".navbar");
-
-  const textoBotones = {
-      Vehiculos: 'Capturar Vehiculos',
-      Servicios: 'Capturar Conceptos',
-  }
-
-  const urlBotones = {
-      Vehiculos: "/AgregarVehiculo",
-      Servicios: "/AgregarServicioVehicular",
-  }
-
-  if(barraNavegacion){
-      crearBoton("Vehiculos");
-      crearBoton("Servicios");
-      crearBotonCerrarSesion();
-  }
-
-  function crearBoton(servicio){
-      const boton = document.createElement("a");
-      boton.classList.add("navbar__enlace");
-      boton.textContent = textoBotones[servicio];
-      boton.addEventListener("click", (e) =>{
-          e.preventDefault();
-          solicitarWeb(urlBotones[servicio])
-      })
-      barraNavegacion.appendChild(boton);
-  }
-
-  function crearBotonCerrarSesion(){
-      const boton = document.createElement("a");
-      boton.classList.add("navbar__enlace--logout");
-      boton.textContent = "Cerrar Sesión";
-      boton.addEventListener("click", (e) =>{
-          e.preventDefault();
-          solicitarWeb("/Logout")
-      })
-      barraNavegacion.appendChild(boton);
-  }
-
-  if (botonEnviarFormularioCapturarVehiculo) {
-    botonEnviarFormularioCapturarVehiculo.addEventListener("click", (e) => {
+  if (botonEnviarFormularioLogin) {
+    botonEnviarFormularioLogin.addEventListener("click", (e) => {
       e.preventDefault();
       const inputsFormulario = obtenerInputsDelFormulario();
       enviarFormulario(inputsFormulario);
@@ -74,30 +34,36 @@
     async function enviarFormulario(inputsFormulario) {
       const datosFormulario = construirPeticionFormulario(inputsFormulario);
       const datosFormularioJSON = JSON.stringify(Object.fromEntries(datosFormulario));
-      const agregarVehiculoURL = "/AgregarVehiculo";
-      const peticion = await fetch(agregarVehiculoURL, {
+      const peticion = await fetch("/Login", {
         method: "POST",
         body: datosFormularioJSON,
       });
       const respuesta = await peticion.json();
       if (!respuesta.OK) {
-        desplegarAlerta("error", respuesta.err);
+        desplegarAlerta("error", "Acceso no autorizado");
       } else {
-        desplegarAlerta("exito", "Vehículo agregado exitosamente");
+        desplegarAlerta("exito", "Sesion iniciada con exito");
+        setTimeout(async() => {
+          window.location.href = "/";
+        },1500);
+
+
       }
     }
 
     function construirPeticionFormulario(inputsFormulario) {
       const datosFormulario = new FormData();
+
       inputsFormulario.forEach((inputFormulario) => {
         datosFormulario.append(inputFormulario.id, inputFormulario.value);
       });
+      
       return datosFormulario;
     }
 
     function desplegarAlerta(tipoDeAlerta, mensajeAlerta) {
       const contenedorPrincipal = document.querySelector(
-        ".captura-vehiculo__contenedor"
+        ".formulario"
       );
       const alertaExistente = contenedorPrincipal.querySelector(".alerta");
       if (alertaExistente) {
@@ -127,8 +93,9 @@
       return textoAlerta;
     }
   }
+
   function solicitarWeb(url){
     window.location.href = url;
   }
-
+  
 })();
