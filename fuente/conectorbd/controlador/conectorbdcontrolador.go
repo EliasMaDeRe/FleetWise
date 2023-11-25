@@ -3,7 +3,7 @@ package controlador
 import (
 	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
-	registrosModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
+	registroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	servicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
 	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 
@@ -21,6 +21,7 @@ type Controlador struct {
 }
 
 func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
+	var errConectarBD error
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -46,6 +47,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 }
 
 func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
+	var errConectarBD error
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -58,7 +60,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 	resultadoBusqueda := baseDeDatos.Where(&vehiculosModelos.Vehiculo{Serie: solicitud.ObtenerSerie()}).Find(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
-		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+		log.Fatal(constantes.ERROR_SERIE_INEXISTENTES_EN_BD)
 	}
 
 	var vehiculoEncontrado *vehiculosModelos.Vehiculo
@@ -71,6 +73,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 }
 
 func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *conectorModelos.GuardarVehiculoRespuesta {
+	var errConectarBD error
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -90,6 +93,40 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 		})
 	respuesta := &conectorModelos.GuardarVehiculoRespuesta{}
 	if resultGuardarVehiculo.Error != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
+		return respuesta
+	}
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
+}
+
+func (c *Controlador) GuardarRegistro(registro *registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) *conectorModelos.GuardarRegistroMantenimientoVehiculoRespuesta {
+	var errConectarBD error
+
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	baseDeDatos.AutoMigrate(&registro)
+
+	resultadoGuardarRegistro := baseDeDatos.Create(
+		&registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
+			NumeroDeRegistro: registro.ObtenerNumeroDeRegistro(),
+			Tipo:             registro.ObtenerTipo(),
+			Fecha:            registro.ObtenerFecha(),
+			LitrosDeGasolina: registro.ObtenerLitrosDeGasolina(),
+			Kilometraje:      registro.ObtenerKilometraje(),
+			Importe:          registro.ObtenerImporte(),
+			Observaciones:    registro.ObtenerObservaciones(),
+			Concepto:         registro.ObtenerConcepto(),
+		})
+	respuesta := &conectorModelos.GuardarRegistroMantenimientoVehiculoRespuesta{}
+	if resultadoGuardarRegistro.Error != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
 		return respuesta
