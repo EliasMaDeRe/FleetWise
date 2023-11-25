@@ -11,25 +11,25 @@ import (
 type Mapeador struct{
 }
 
-func (m *Mapeador) GinContextAObtenerRegistrosYVehiculosFiltradosSolicitud(contexto *gin.Context) *historialRegistrosModelo.ObtenerRegistrosYVehiculosFiltradosSolicitud{
-	solicitud := &historialRegistrosModelo.ObtenerRegistrosYVehiculosFiltradosSolicitud{}
+func (m *Mapeador) GinContextAObtenerRegistrosYVehiculosFiltradosSolicitud(contexto *gin.Context) *historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud{
+	solicitud := &historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud{}
 	contexto.BindJSON(solicitud)
 	return solicitud
 }
 
-func (m *Mapeador) ObtenerRegistrosYVehiculosFiltradosSolicitudAObtenerRegistrosConVehiculosFiltradosSolicitud (solicitud *historialRegistrosModelo.ObtenerRegistrosYVehiculosFiltradosSolicitud) *modelosBd.ObtenerRegistrosConVehiculosFiltradosSolicitud{
+func (m *Mapeador) ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud (solicitud *historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud) *modelosBd.ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud{
 	
-	solicitudBd:= &modelosBd.ObtenerRegistrosConVehiculosFiltradosSolicitud{}
+	obtenerRegistrosConVehiculosFiltradosSolicitud:= &modelosBd.ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud{}
 
-	solicitudBd.AsignarFiltroPlaca(solicitud.ObtenerPlacas())
-	solicitudBd.AsignarFiltroMarca(solicitud.ObtenerMarca())
-	solicitudBd.AsignarFiltroModelo(solicitud.ObtenerModelo())
+	obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroPlaca(solicitud.ObtenerPlacas())
+	obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroMarca(solicitud.ObtenerMarca())
+	obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroModelo(solicitud.ObtenerModelo())
 
 	if fechaLanzamiento, err := strconv.Atoi(solicitud.ObtenerFechaDeLanzamiento()); err == nil {
-		solicitudBd.AsignarFiltroFechaDeLanzamiento(fechaLanzamiento)
+		obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroFechaDeLanzamiento(fechaLanzamiento)
 	} else {
-		solicitudBd.AsignarFiltroFechaDeLanzamiento(0)
+		obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroFechaDeLanzamiento(0)
 	}	
 
-	return solicitudBd
+	return obtenerRegistrosConVehiculosFiltradosSolicitud
 }

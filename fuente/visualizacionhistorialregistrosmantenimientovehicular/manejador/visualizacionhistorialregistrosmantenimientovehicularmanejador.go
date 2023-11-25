@@ -23,7 +23,7 @@ func NuevoManejador() (m *Manejador){
 
 func (m *Manejador) ObtenerRegistrosYVehiculosFiltrados(contexto *gin.Context){
 	solicitud:= m.HistorialRegistrosControlador.HistorialRegistrosMapeador.GinContextAObtenerRegistrosYVehiculosFiltradosSolicitud(contexto)
-	registrosFiltrados, vehiculosFiltrados:= m.HistorialRegistrosControlador.ObtenerRegistrosYVehiculosFiltrados(solicitud);
+	registrosFiltrados, vehiculosFiltrados:= m.HistorialRegistrosControlador.ObtenerRegistrosFiltradosConVehiculos(solicitud);
 
 	contexto.IndentedJSON(http.StatusOK, gin.H{"registrosFiltrados":registrosFiltrados, "vehiculosFiltrados":vehiculosFiltrados})
 

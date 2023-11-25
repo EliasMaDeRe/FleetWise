@@ -1,6 +1,6 @@
 package visualizacionhistorialregistrosmantenimientovehicular
 
-type ObtenerRegistrosYVehiculosFiltradosSolicitud struct{
+type ObtenerRegistrosFiltradosConVehiculosSolicitud struct{
 	Placas string `json:"placas"`
 	Marca string `json:"marca"`
 	Modelo string `json:"modelo"`
@@ -8,35 +8,35 @@ type ObtenerRegistrosYVehiculosFiltradosSolicitud struct{
 	TipoDeRegistro string `json:"tipoDeRegistro"`
 }
 
-func (registrosSolicitud *ObtenerRegistrosYVehiculosFiltradosSolicitud) ObtenerPlacas() (placa string){
+func (registrosSolicitud *ObtenerRegistrosFiltradosConVehiculosSolicitud) ObtenerPlacas() (placa string){
 	if(registrosSolicitud != nil){
 		placa = registrosSolicitud.Placas;
 	}
 	return
 }
 
-func (registrosSolicitud *ObtenerRegistrosYVehiculosFiltradosSolicitud) ObtenerMarca() (marca string){
+func (registrosSolicitud *ObtenerRegistrosFiltradosConVehiculosSolicitud) ObtenerMarca() (marca string){
 	if(registrosSolicitud != nil){
 		marca = registrosSolicitud.Marca;
 	}
 	return
 }
 
-func (registrosSolicitud *ObtenerRegistrosYVehiculosFiltradosSolicitud) ObtenerModelo() (modelo string){
+func (registrosSolicitud *ObtenerRegistrosFiltradosConVehiculosSolicitud) ObtenerModelo() (modelo string){
 	if(registrosSolicitud != nil){
 		modelo = registrosSolicitud.Modelo;
 	}
 	return
 }
 
-func (registrosSolicitud *ObtenerRegistrosYVehiculosFiltradosSolicitud) ObtenerFechaDeLanzamiento() (fechaDeLanzamiento string){
+func (registrosSolicitud *ObtenerRegistrosFiltradosConVehiculosSolicitud) ObtenerFechaDeLanzamiento() (fechaDeLanzamiento string){
 	if(registrosSolicitud != nil){
 		fechaDeLanzamiento = registrosSolicitud.FechaLanzamiento;
 	}
 	return
 }
 
-func (registrosSolicitud *ObtenerRegistrosYVehiculosFiltradosSolicitud) ObtenerTipoDeRegistro() (tipoDeRegistro string){
+func (registrosSolicitud *ObtenerRegistrosFiltradosConVehiculosSolicitud) ObtenerTipoDeRegistro() (tipoDeRegistro string){
 	if(registrosSolicitud != nil){
 		tipoDeRegistro = registrosSolicitud.TipoDeRegistro;
 	}

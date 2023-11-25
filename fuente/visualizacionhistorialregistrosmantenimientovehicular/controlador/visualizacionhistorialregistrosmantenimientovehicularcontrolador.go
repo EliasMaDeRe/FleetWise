@@ -13,18 +13,14 @@ type Controlador struct{
 	conectorBDControlador *conectorBDControlador.Controlador 
 }
 
-func (c *Controlador) ObtenerRegistrosYVehiculosFiltrados(solicitud *historialRegistrosModelo.ObtenerRegistrosYVehiculosFiltradosSolicitud) ([]capturaRegistrosModelo.RegistroMantenimientoVehiculo, []capturaVehiculosModelo.Vehiculo){
-	
-	if (solicitud == nil || validarSolicitudSinFiltros(solicitud)){
-		return c.conectorBDControlador.ObtenerRegistrosConVehiculos()
-	}
+func (c *Controlador) ObtenerRegistrosFiltradosConVehiculos(solicitud *historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud) ([]capturaRegistrosModelo.RegistroMantenimientoVehiculo, []capturaVehiculosModelo.Vehiculo){
 
-	solicitudDb := c.HistorialRegistrosMapeador.ObtenerRegistrosYVehiculosFiltradosSolicitudAObtenerRegistrosConVehiculosFiltradosSolicitud(solicitud)
+	obtenerRegistrosConVehiculosFiltradosSolicitud := c.HistorialRegistrosMapeador.ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud(solicitud)
 
 
-	return c.conectorBDControlador.ObtenerRegistrosConVehiculosFiltrados(solicitudDb)
+	return c.conectorBDControlador.ObtenerRegistrosYVehiculosAsociadosFiltrados(obtenerRegistrosConVehiculosFiltradosSolicitud)
 } 
 
-func validarSolicitudSinFiltros(solicitud *historialRegistrosModelo.ObtenerRegistrosYVehiculosFiltradosSolicitud) bool{
-	return solicitud == &historialRegistrosModelo.ObtenerRegistrosYVehiculosFiltradosSolicitud{}
+func validarSolicitudSinFiltros(solicitud *historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud) bool{
+	return solicitud == &historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud{}
 }

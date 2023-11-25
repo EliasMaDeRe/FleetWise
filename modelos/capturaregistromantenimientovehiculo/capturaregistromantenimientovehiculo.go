@@ -2,13 +2,14 @@ package capturaregistromantenimientovehiculo
 
 type RegistroMantenimientoVehiculo struct {
 	NumeroDeRegistro int
-	Tipo             string
+	TipoRegistro             string
 	Fecha            string
-	LitrosDeGasolina float64
+	LitrosGasolina float64
 	Kilometraje      int
 	Importe          float64
 	Observaciones    string
 	Concepto         string
+	PlacasVehiculo string
 }
 
 func (RegistroMantenimientoVehiculo) TableName() string {
@@ -56,14 +57,14 @@ func (r *RegistroMantenimientoVehiculo) AsignarFecha(fecha string) {
 
 func (r *RegistroMantenimientoVehiculo) ObtenerLitrosDeGasolina() (o float64) {
 	if r != nil {
-		o = r.LitrosDeGasolina
+		o = r.LitrosGasolina
 	}
 	return
 }
 
 func (r *RegistroMantenimientoVehiculo) AsignarLitrosDeGasolina(LitrosDeGasolina float64) {
 	if r != nil {
-		r.LitrosDeGasolina = LitrosDeGasolina
+		r.LitrosGasolina = LitrosDeGasolina
 	}
 }
 
@@ -380,6 +381,8 @@ type SeleccionarRegistroMantenimientoVehicularRespuesta struct{
 
 type SeleccionarVehiculoSolicitud struct {
 	Placas string
+}
+
 type SeleccionarVehiculoParaNuevoRegistroSolicitud struct {
 	Placas string `json:"placas"`
 }

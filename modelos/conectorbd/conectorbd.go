@@ -275,7 +275,7 @@ func (v *ObtenerUsuarioPorNombreUsuarioSolicitud) AsignarNombre(nombre string) {
 	}
 }
 
-type ObtenerRegistrosConVehiculosFiltradosSolicitud struct{
+type ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud struct{
 	filtroPlaca string
 	filtroMarca string
 	filtroModelo string
@@ -283,61 +283,60 @@ type ObtenerRegistrosConVehiculosFiltradosSolicitud struct{
 	filtroTipoDeRegistro string
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) ObtenerFiltroPlaca() (filtroPlaca string){
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroPlaca() (filtroPlaca string){
 	if registrosFiltradosSolicitud != nil{
 		filtroPlaca = registrosFiltradosSolicitud.filtroPlaca
 	}
 	return
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) ObtenerFiltroMarca() (filtroMarca string){
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroMarca() (filtroMarca string){
 	if registrosFiltradosSolicitud != nil{
 		filtroMarca = registrosFiltradosSolicitud.filtroMarca
 	}
 	return
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) ObtenerFiltroModelo() (filtroModelo string){
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroModelo() (filtroModelo string){
 	if registrosFiltradosSolicitud != nil{
 		filtroModelo = registrosFiltradosSolicitud.filtroModelo
 	}
 	return
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) ObtenerFiltroFechaDeLanzamiento() (filtroFechaDeLanzamiento int){
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroFechaDeLanzamiento() (filtroFechaDeLanzamiento int){
 	if registrosFiltradosSolicitud != nil{
 		filtroFechaDeLanzamiento = registrosFiltradosSolicitud.filtroFechaDeLanzamiento
 	}
 	return
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) ObtenerFiltroTipoDeRegistro() (tipoDeRegistro string){
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroTipoDeRegistro() (tipoDeRegistro string){
 	if registrosFiltradosSolicitud != nil{
 		tipoDeRegistro = registrosFiltradosSolicitud.filtroTipoDeRegistro
 	}
 	return
 }
 
-
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) AsignarFiltroPlaca(filtroPlaca string) {
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroPlaca(filtroPlaca string) {
 	if registrosFiltradosSolicitud != nil{
 		registrosFiltradosSolicitud.filtroPlaca = filtroPlaca 
 	}
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) AsignarFiltroMarca(filtroMarca string) {
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroMarca(filtroMarca string) {
 	if registrosFiltradosSolicitud != nil{
 		registrosFiltradosSolicitud.filtroMarca = filtroMarca 
 	}
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) AsignarFiltroModelo(filtroModelo string) {
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroModelo(filtroModelo string) {
 	if registrosFiltradosSolicitud != nil{
 		registrosFiltradosSolicitud.filtroModelo = filtroModelo 
 	}
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosConVehiculosFiltradosSolicitud) AsignarFiltroFechaDeLanzamiento(filtroFechaDeLanzamiento int) {
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroFechaDeLanzamiento(filtroFechaDeLanzamiento int) {
 	if registrosFiltradosSolicitud != nil{
 		registrosFiltradosSolicitud.filtroFechaDeLanzamiento = filtroFechaDeLanzamiento 
 	}

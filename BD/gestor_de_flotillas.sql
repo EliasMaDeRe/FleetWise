@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.3.0-dev+20220510.314f251104
--- https://www.phpmyadmin.net/
---
--- Servidor: localhost:3307
--- Tiempo de generación: 02-10-2023 a las 05:36:50
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.4
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -35,15 +26,18 @@ CREATE TABLE `vehiculos` (
   `serie` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+ALTER TABLE `vehiculos`
+  ADD PRIMARY KEY (`placas`);
 --
 -- Volcado de datos para la tabla `vehiculos`
 --
 
-ALTER TABLE `vehiculos`
-  ADD PRIMARY KEY (`placas`);
-
 INSERT INTO `vehiculos` (`fecha_lanzamiento`, `marca`, `modelo`, `placas`, `serie`) VALUES
-(1, 'a', 'b', 'c', 'd');
+(2010, 'marca1', 'modelo1', 'placas1', 'numSerie1');
+
+--
+-- Estructura de tabla para la tabla `servicios_vehiculares`
+--
 
 CREATE TABLE `servicios_vehiculares` (
   `nombre` varchar(255)
@@ -54,6 +48,10 @@ ALTER TABLE `servicios_vehiculares`
 
 INSERT INTO `servicios_vehiculares` (`nombre`) VALUES
 ('Llantas');
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
 
 CREATE TABLE `usuarios` (
   `cargo` varchar(255) DEFAULT NULL,
@@ -67,34 +65,12 @@ ALTER TABLE `usuarios`
 INSERT INTO `usuarios` (`cargo`, `clave_usuario`, `nombre_usuario`) VALUES
 ('administrador','admin','admin');
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `gestor_de_flotillas`
---
-
--- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `registros_mantenimiento_vehicular`
 --
 
 CREATE TABLE `registros_mantenimiento_vehicular` (
-  `numero_registro` int(11) NOT NULL,
+  `numero_de_registro` int(11) NOT NULL AUTO_INCREMENT,
   `placas_vehiculo` varchar(255) NOT NULL,
   `tipo_registro` varchar(255) NOT NULL,
   `fecha` varchar(255) NOT NULL,
@@ -105,9 +81,6 @@ CREATE TABLE `registros_mantenimiento_vehicular` (
   `concepto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Índices para tablas volcadas
---
 
 --
 -- Indices de la tabla `registros_mantenimiento_vehicular`
@@ -115,20 +88,6 @@ CREATE TABLE `registros_mantenimiento_vehicular` (
 ALTER TABLE `registros_mantenimiento_vehicular`
   ADD PRIMARY KEY (`numero_registro`),
   ADD KEY `placas` (`placas_vehiculo`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `registros_mantenimiento_vehicular`
---
-ALTER TABLE `registros_mantenimiento_vehicular`
-  MODIFY `numero_registro` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
 
 --
 -- Filtros para la tabla `registros_mantenimiento_vehicular`
