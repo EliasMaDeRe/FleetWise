@@ -95,7 +95,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `registros_mantenimiento_vehicular` (
   `numero_registro` int(11) NOT NULL,
-  `placas_vehiculos` varchar(255) NOT NULL,
+  `placas_vehiculo` varchar(255) NOT NULL,
   `tipo_registro` varchar(255) NOT NULL,
   `fecha` varchar(255) NOT NULL,
   `litros_gasolina` float DEFAULT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE `registros_mantenimiento_vehicular` (
 --
 ALTER TABLE `registros_mantenimiento_vehicular`
   ADD PRIMARY KEY (`numero_registro`),
-  ADD KEY `placas` (`placas_vehiculos`);
+  ADD KEY `placas` (`placas_vehiculo`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -134,7 +134,7 @@ ALTER TABLE `registros_mantenimiento_vehicular`
 -- Filtros para la tabla `registros_mantenimiento_vehicular`
 --
 ALTER TABLE `registros_mantenimiento_vehicular`
-  ADD CONSTRAINT `registros_mantenimiento_vehicular_ibfk_1` FOREIGN KEY (`placas_vehiculos`) REFERENCES `vehiculos` (`placas`);
+  ADD CONSTRAINT `registros_mantenimiento_vehicular_ibfk_1` FOREIGN KEY (`placas_vehiculo`) REFERENCES `vehiculos` (`placas`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

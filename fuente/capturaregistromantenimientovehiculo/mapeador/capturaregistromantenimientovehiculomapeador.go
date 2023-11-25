@@ -22,10 +22,12 @@ func (m *Mapeador) GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contex
 	return solicitud
 }
 
-func (m *Mapeador) AgregaRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud *registroMantenimientoVehiculo.AgregarRegistroMantenimientoVehiculoSolicitud) *registroMantenimientoVehiculo.RegistroMantenimientoVehiculo {
+func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud *registroMantenimientoVehiculo.AgregarRegistroMantenimientoVehiculoSolicitud) *registroMantenimientoVehiculo.RegistroMantenimientoVehiculo {
 	registro := &registroMantenimientoVehiculo.RegistroMantenimientoVehiculo{}
 
-	// Validación y conversión de la fecha
+	tipo := solicitud.ObtenerTipo()
+	registro.AsignarTipo(tipo)
+
 	if fecha, err := strconv.Atoi(solicitud.ObtenerFecha()); err == nil {
 		registro.AsignarFecha(strconv.Itoa(fecha))
 	} else {
@@ -40,6 +42,9 @@ func (m *Mapeador) AgregaRegistroMantemientoVehiculoSolicitudARegistroMantemient
 
 	importe := solicitud.ObtenerImporte()
 	registro.AsignarImporte(importe)
+
+	concepto := solicitud.ObtenerConcepto()
+	registro.AsignarConcepto(concepto)
 
 	return registro
 }

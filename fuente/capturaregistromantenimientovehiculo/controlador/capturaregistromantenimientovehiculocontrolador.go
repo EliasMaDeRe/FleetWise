@@ -28,8 +28,7 @@ func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *registroMa
 		return respuesta
 	}
 
-	var err error
-	if err = c.SeleccionarVehiculoParaNuevoRegistro(solicitud); err != nil {
+	if err := c.validarSeleccionarVehiculoParaRegistro(solicitud); err != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(err)
 		return respuesta
@@ -59,18 +58,17 @@ func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *registroMant
 		return respuesta
 	}
 
-	var err error
-	if err = c.validarAgregarRegistroMantemientoVehiculo(solicitud); err != nil {
+	if err := c.validarAgregarRegistroMantemientoVehiculo(solicitud); err != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(err)
 		return respuesta
 	}
 
-	registro := c.RegistroMantenimientoVehiculoMapeador.AgregaRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud)
+	registro := c.RegistroMantenimientoVehiculoMapeador.AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud)
 
-	if c.ConectorBDControlador.GuardarRegistro(registro).ObtenerErr() != nil {
+	if guardarRegistroMantenimientoVehiculoRespuesta := c.ConectorBDControlador.GuardarRegistro(registro); guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr() != nil {
 		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(err)
+		respuesta.AsignarErr(guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr())
 		return respuesta
 	}
 
