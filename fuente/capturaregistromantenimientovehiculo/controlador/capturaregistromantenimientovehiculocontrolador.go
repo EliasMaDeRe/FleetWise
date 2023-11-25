@@ -2,21 +2,24 @@ package controlador
 
 import (
 	"errors"
+	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	"strconv"
 
 	"example/fleetwise/fuente/capturaregistromantenimientovehiculo/constantes"
 	registroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
 	registroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
+	"example/fleetwise/modelos/capturaserviciovehicular"
 	"example/fleetwise/modelos/conectorbd"
 )
 
 type Controlador struct {
 	ConectorBDControlador                 *conectorBDControlador.Controlador
 	RegistroMantenimientoVehiculoMapeador *registroMantenimientoVehiculoMapeador.Mapeador
+	ServicioVehicularControlador          *servicioVehicularControlador.Controlador
 }
 
-func (c *Controlador) SeleccionarVehiculoDeNuevoRegistro(solicitud *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroSolicitud) *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroRespuesta {
+func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroSolicitud) *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroRespuesta {
 	respuesta := &registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroRespuesta{}
 
 	if solicitud == nil {
@@ -89,6 +92,10 @@ func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *regis
 		return errors.New(constantes.ERROR_NO_NATURAL)
 	}
 	return nil
+}
+
+func (c *Controlador) ObtenerServiciosVehicularesParaNuevoRegistro() []capturaserviciovehicular.ServicioVehicular {
+	return c.ServicioVehicularControlador.ObtenerServiciosVehiculares()
 }
 
 /*

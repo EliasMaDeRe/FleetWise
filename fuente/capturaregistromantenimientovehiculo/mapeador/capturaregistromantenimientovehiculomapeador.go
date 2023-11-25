@@ -10,7 +10,7 @@ import (
 type Mapeador struct {
 }
 
-func (m *Mapeador) GinContextASeleccionarVehiculoDeNuevoRegistroSolicitud(contexto *gin.Context) *registroMantenimientoVehiculo.SeleccionarVehiculoParaNuevoRegistroSolicitud {
+func (m *Mapeador) GinContextASeleccionarVehiculoParaNuevoRegistroSolicitud(contexto *gin.Context) *registroMantenimientoVehiculo.SeleccionarVehiculoParaNuevoRegistroSolicitud {
 	solicitud := &registroMantenimientoVehiculo.SeleccionarVehiculoParaNuevoRegistroSolicitud{}
 	contexto.BindJSON(solicitud)
 	return solicitud

@@ -1,22 +1,32 @@
 (function () {
-    /*window.addEventListener('DOMContentLoaded',() => {
-      //pedir los tiposDeRegistro al servidor
-
-      //recibir los tipos de registro
+    window.addEventListener('DOMContentLoaded',() => {
+      const selectConcepto = document.getElementById("concepto");
+      obtenerServicios();
       
-      //construir los tipos de registro
-
+      function obtenerServicios(){
+        obtenerDatosServicios().then(function(response){
+          const datosServiciosRespuesta = response.ServiciosVehiculares;
+          crearSelectorConcepto(datosServiciosRespuesta);
+        });
+      } 
+      async function obtenerDatosServicios(){
+        const obtenerServiciosVehicularesParNuevoRegistroURL = "/ObtenerServiciosVehiculareParaNuevoRegistro";
+        const peticion = await fetch(obtenerServiciosVehicularesParNuevoRegistroURL, {
+          method: "GET",
+        });
+        const respuesta = await peticion.json();
+        return respuesta;
+      }
     
-      // const optionTipoDeRegistro = document.createElement('OPTION');
-
-      // optionTipoDeRegistro.value = tipoDeServicio;
-
-      // optionTipoDeRegistro.innerText = tipoDeServicio;
-
-      // selectConcepto.appendChild(optionTipoDeRegistro);
-    
-        
-    })*/
+      function crearSelectorConcepto(datosServicios){
+        datosServicios.forEach((datoServicio) =>{
+          const optionTipoDeRegistro = document.createElement('OPTION');
+          optionTipoDeRegistro.value = datoServicio;
+          optionTipoDeRegistro.innerText = datoServicio;
+          selectConcepto.appendChild(optionTipoDeRegistro);
+        });
+      }
+    })
 
     const selectTipoServicioVehicular = document.getElementById('select_tipo_registro');
     selectTipoServicioVehicular.addEventListener('change', function (){
@@ -34,12 +44,12 @@
         }
     });
 
-    const botonEnviarFormularioCapturarVehiculo = document.querySelector(
+    const botonEnviarFormulariRegistroMantenimientoVehiculo = document.querySelector(
       ".captura-registro__formulario-contenedor .formulario__submit"
     );
   
-    if (botonEnviarFormularioCapturarVehiculo) {
-      botonEnviarFormularioCapturarVehiculo.addEventListener("click", (e) => {
+    if (botonEnviarFormulariRegistroMantenimientoVehiculo) {
+      botonEnviarFormulariRegistroMantenimientoVehiculo.addEventListener("click", (e) => {
         e.preventDefault();
         const inputsFormulario = obtenerInputsDelFormulario();
         enviarFormulario(inputsFormulario);
