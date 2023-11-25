@@ -55,6 +55,18 @@ ALTER TABLE `servicios_vehiculares`
 INSERT INTO `servicios_vehiculares` (`nombre`) VALUES
 ('Llantas');
 
+CREATE TABLE `usuarios` (
+  `cargo` varchar(255) DEFAULT NULL,
+  `clave_usuario` varchar(255) DEFAULT NULL,
+  `nombre_usuario` varchar(255)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`nombre_usuario`);
+
+INSERT INTO `usuarios` (`cargo`, `clave_usuario`, `nombre_usuario`) VALUES
+('administrador','admin','admin');
+
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
