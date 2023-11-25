@@ -9,6 +9,8 @@
         const inputsFormulario = obtenerInputsDelFormulario();
         enviarFormulario(inputsFormulario);
       });
+
+  
   
       function obtenerInputsDelFormulario() {
         return document.querySelectorAll(".formulario__input");
@@ -27,6 +29,7 @@
           desplegarAlerta("error", respuesta.err);
         } else {
           desplegarAlerta("exito", "Vehículo encontrado exitosamente");
+          window.location.href = 'registromantenimientovehiculo.html';
         }
       }
   
@@ -40,7 +43,7 @@
   
       function desplegarAlerta(tipoDeAlerta, mensajeAlerta) {
         const contenedorPrincipal = document.querySelector(
-          ".captura-registro-mantenimiento-vehiculo__contenedor"
+          ".seleccionar_vehiculo__contenedor"
         );
         const alertaExistente = contenedorPrincipal.querySelector(".alerta");
         if (alertaExistente) {

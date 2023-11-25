@@ -7,11 +7,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Mooli&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise | Añadir Tipo de Servicio Vehicular</title>
+    <title>FleetWise | Seleeción Vehiculo</title>
   </head>
   <body>
     <header class="header">
@@ -26,30 +26,26 @@
         <a href="#" class="navbar__enlace--logout">Cerrar Sesión</a>
       </nav>
     </header>
-    <body>
-      <main class="seleccionar_vehiculo__contenedor">
-        <h1 class="seleccionar_vehiculo__heading">Seleccionar Veh&iacute;culo para nuevo Registro</h1>
-        <div class="seleccionar_vehiculo__formulario-contenedor">
-          <form action="seleccionarVehiculo.html" class="formulario">
-            <div class="formulario__campo">
-              <label for="Placas" class="formulario__label">*Placas:</label>
-              <input
-                class="formulario__input"
-                type="text"
-                name="placas"
-                id="placas"
-                placeholder="Placas"
-              />
-            </div>
-            <input type="submit" class="formulario__submit" value="Enviar" />
-          </form>
-        </div>
-        <div class="seleccionar_vehiculo__blank-space">
-        </div>
-      </main>
+    <main class="seleccionar_vehiculo__contenedor">
+      <h1 class="seleccionar_vehiculo__heading">Selecciona Vehiculo Para Nuevo Registro</h1>
+      <div class="seleccionar_vehiculo__formulario-contenedor">
+        <form action="seleccionarvehiculo.html" class="formulario">
+          <div class="formulario__campo">
+            <label for="placas" class="formulario__label">*Placas:</label>
+            <input
+              class="formulario__input"
+              type="text"
+              name="placas"
+              id="placas"
+              placeholder="Placas"
+            />
+          </div>
+          <input type="submit" class="formulario__submit" value="Enviar" />
+        </form>
+      </div>
+    </main>
 
-      <script src="js/seleccionarVehiculoParaNuevoRegistro.js"></script>
-    </body>
+    <script src="js/seleccionarVehiculoParaNuevoRegistro.js"></script>
 
     <footer class="footer">
       <div class="footer__contenedor">
