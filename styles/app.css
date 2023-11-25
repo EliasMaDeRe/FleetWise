@@ -63,11 +63,12 @@ INICIO HEADER
   align-items: center;
   justify-content: space-between;
   padding: 2rem;
+  height: 100px;
 }
 
-.header__logo {
-  color: var(--blanco);
-  font-size: 3rem;
+.header__logo img {
+  transform: scale(0.5);
+  cursor: pointer;
 }
 
 .navbar {
@@ -77,7 +78,16 @@ INICIO HEADER
 }
 
 .navbar__enlace {
-  color: var(--blanco);
+  color: var(--primario);
+  font-size: 14px;
+  background-color: var(--blanco);
+  padding: 1rem 4rem;
+  border-radius: 3rem;
+}
+
+.navbar__enlace:hover {
+  background-color: rgb(238, 238, 238);
+  cursor: pointer;
 }
 
 .navbar__enlace--logout {
@@ -89,6 +99,7 @@ INICIO HEADER
 
 .navbar__enlace--logout:hover {
   background-color: rgb(238, 238, 238);
+  cursor: pointer;
 }
 
 /*
@@ -218,6 +229,22 @@ INICIO CAPTURA-SERVICIO-VEHICULAR
 /*
 =============================
 FIN CAPTURA-SERVICIO-VEHICULAR
+=============================
+*/
+
+/*
+=============================
+INICIO MENU
+=============================
+*/
+
+.menu__blank {
+  height: 12em;
+}
+
+/*
+=============================
+FIN MENU
 =============================
 */
 
