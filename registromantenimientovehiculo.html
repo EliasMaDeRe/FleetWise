@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise | Capturar Vehículo</title>
+    <title>FleetWise | Registro Mantenimiento Vehículo</title>
   </head>
   <body>
     <header class="header">
@@ -27,47 +27,19 @@
       </nav>
     </header>
     <body>
-      <main class="captura-vehiculo__contenedor">
-        <h1 class="captura-vehiculo__heading">Nuevo Registro de Mantenimiento del Veh&iacute;culo</h1>
-        <div class="captura-vehiculo__formulario-contenedor">
-          <form action="index.html" class="formulario">
+      <main class="captura-registro-mantenimiento-vehiculo__contenedor">
+        <h1 class="captura-registro-mantenimiento-vehiculo__heading">Nuevo Registro de Mantenimiento del Veh&iacute;culo</h1>
+        <div class="captura-registro-mantenimiento-vehiculo__formulario-contenedor">
+          <form action="registromantenimientovehiculo.html" class="formulario">
             <div class="formulario__campo">
-              <p>Tipo de Registro:</p>
-              <input
-                class="formulario__input"
-                type="radio"
-                name="combustible"
-                id="combustible"
-              />
-              <label for="tipoRegistro" class="formulario__label">*Carga de Combustible:</label>
-              <input
-                class="formulario__input"
-                type="radio"
-                name="servicio"
-                id="servicio"
-              />
-              <label for="tipoRegistro" class="formulario__label">*Servicio:</label>
-              <input
-                class="formulario__input"
-                type="radio"
-                name="afinación"
-                id="afinación"
-              />
-              <label for="tipoRegistro" class="formulario__label">*Afinación:</label>
-              <input
-                class="formulario__input"
-                type="radio"
-                name="reparacion"
-                id="reparacion"
-              />
-              <label for="tipoRegistro" class="formulario__label">*Reparaci&oacute;n:</label>
-              <input
-                class="formulario__input"
-                type="radio"
-                name="reemplazo"
-                id="reemplazo"
-              />
-              <label for="tipoRegistro" class="formulario__label">*Reemplazo:</label>
+              <p>Tipo de Registro:
+                <select id="select_tipo_registro">
+                <option value="servicio" selected="selected">Servicio</option>
+                <option value="carga_combustible">Carga de Combustible</option>
+                <option value="afinacion">Afinación</option>
+                <option value="reaparacion">Reparaci&oacute;n</option>
+                <option value="reemplazo">Reemplazo</option>
+              </select></p>
             </div>
             <div class="formulario__campo">
               <label for="fecha" class="formulario__label">*Fecha:</label>
@@ -90,13 +62,14 @@
               />
             </div>
             <div class="formulario__campo">
-              <label for="gasolina" class="formulario__label">*Litros de Gasolina:</label>
+              <label for="litros_gasolina" class="formulario__label" id="litros_gasolina_label" hidden>*Litros de Gasolina:</label>
               <input
                 class="formulario__input"
                 type="text"
-                name="gasolina"
-                id="gasolina"
+                name="litros_gasolina"
+                id="litros_gasolina_input"
                 placeholder="Litros de Gasolina"
+                hidden
               />
             </div>
             <div class="formulario__campo">
@@ -119,12 +92,17 @@
                   placeholder="Observaciones"
                 />
               </div>
+            <div class="formulario__campo">
+              <p id="concepto">Concepto:
+                <select name="select_concepto" id="select_concepto">
+                <option></option>
+              </select></p>
+            </div>
               <input type="submit" class="formulario__submit" value="Enviar" />
           </form>
         </div>
       </main>
-
-      <script src="js/capturaVehiculo.js"></script>
+      <script src="js/capturaRegistroMantenimientoVehiculo.js"></script>
     </body>
 
     <footer class="footer">

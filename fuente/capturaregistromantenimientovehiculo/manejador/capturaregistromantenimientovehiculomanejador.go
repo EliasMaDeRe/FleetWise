@@ -21,9 +21,9 @@ func NuevoManejador() (c *Manejador) {
 	}
 }
 
-func (m *Manejador) SeleccionarVehiculoDeNuevoRegistro(contexto *gin.Context) {
-	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextASeleccionarVehiculoDeNuevoRegistroSolicitud(contexto)
-	respuesta := m.RegistroMantenimientoVehiculoControlador.SeleccionarVehiculoDeNuevoRegistro(solicitud)
+func (m *Manejador) SeleccionarVehiculoParaNuevoRegistro(contexto *gin.Context) {
+	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextASeleccionarVehiculoParaNuevoRegistroSolicitud(contexto)
+	respuesta := m.RegistroMantenimientoVehiculoControlador.SeleccionarVehiculoParaNuevoRegistro(solicitud)
 	status := http.StatusOK
 	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
@@ -36,8 +36,8 @@ func (m *Manejador) SeleccionarVehiculoDeNuevoRegistro(contexto *gin.Context) {
 }
 
 func (m *Manejador) AgregarRegistroMantemientoVehiculo(contexto *gin.Context) {
-	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextASeleccionarVehiculoDeNuevoRegistroSolicitud(contexto)
-	respuesta := m.RegistroMantenimientoVehiculoControlador.SeleccionarVehiculoDeNuevoRegistro(solicitud)
+	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contexto)
+	respuesta := m.RegistroMantenimientoVehiculoControlador.AgregarRegistroMantemientoVehiculo(solicitud)
 	status := http.StatusOK
 	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
@@ -47,4 +47,9 @@ func (m *Manejador) AgregarRegistroMantemientoVehiculo(contexto *gin.Context) {
 		mensajeError = respuesta.ObtenerErr().Error()
 	}
 	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk(), "err": mensajeError})
+}
+
+func (m *Manejador) ObtenerServiciosVehiculares(contexto *gin.Context) {
+	respuesta := m.RegistroMantenimientoVehiculoControlador.ObtenerServiciosVehicularesParaNuevoRegistro()
+	contexto.IndentedJSON(http.StatusOK, gin.H{"ServiciosVehiculares": respuesta})
 }

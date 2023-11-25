@@ -1,6 +1,7 @@
 package main
 
 import (
+	registroMantenimientoVehicularManejador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/manejador"
 	servicioVehicularManejador "example/fleetwise/fuente/capturaserviciovehicular/manejador"
 	vehiculosManejador "example/fleetwise/fuente/capturavehiculos/manejador"
 	"log"
@@ -12,12 +13,13 @@ import (
 )
 
 type ControladorMain struct {
-	VehiculosManejador         *vehiculosManejador.Manejador
-	ServicioVehicularManejador *servicioVehicularManejador.Manejador
+	VehiculosManejador                      *vehiculosManejador.Manejador
+	ServicioVehicularManejador              *servicioVehicularManejador.Manejador
+	RegistroMantenimientoVehicularManejador *registroMantenimientoVehicularManejador.Manejador
 }
 
-func loadEnvFile(){
-	err := godotenv.Load();
+func loadEnvFile() {
+	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file:", err)
 	}
@@ -25,14 +27,14 @@ func loadEnvFile(){
 
 func main() {
 	godotenv.Load()
-	
 
 	controlador := &ControladorMain{
-		VehiculosManejador:         vehiculosManejador.NuevoManejador(),
-		ServicioVehicularManejador: servicioVehicularManejador.NuevoManejador(),
+		VehiculosManejador:                      vehiculosManejador.NuevoManejador(),
+		ServicioVehicularManejador:              servicioVehicularManejador.NuevoManejador(),
+		RegistroMantenimientoVehicularManejador: registroMantenimientoVehicularManejador.NuevoManejador(),
 	}
 	router := gin.Default()
-	
+
 	router.LoadHTMLGlob("*.html")
 	router.Static("/styles", "./styles/")
 	router.Static("/js", "./js/")
@@ -57,5 +59,23 @@ func main() {
 	router.POST("/EditarServicioVehicular", func(ctx *gin.Context) {
 		controlador.ServicioVehicularManejador.EditarServicioVehicular(ctx)
 	})
+
+	router.GET("/HistorialRegistrosMantenimientoVehicular", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
+	})
+
+	router.GET("/EditarRegistroMantenimientoVehicular", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
+	})
+	router.GET("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.AgregarRegistroMantemientoVehiculo(ctx)
+	})
+	router.GET("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.SeleccionarVehiculoParaNuevoRegistro(ctx)
+	})
+	router.POST("/ObtenerServiciosVehiculareParaNuevoRegistro", func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.ObtenerServiciosVehiculares(ctx)
+	})
+
 	router.Run("localhost:8080")
 }

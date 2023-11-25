@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/normalize.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise | Capturar Vehículo</title>
+    <title>FleetWise | Editar Historial Registros</title>
   </head>
+
   <body>
     <header class="header">
       <div class="header__logo">
@@ -26,68 +20,151 @@
         <a href="#" class="navbar__enlace--logout">Cerrar Sesión</a>
       </nav>
     </header>
-    <main class="captura-vehiculo__contenedor">
-      <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
-      <div class="captura-vehiculo__formulario-contenedor">
-        <form action="index.html" class="formulario">
-          <div class="formulario__campo">
-            <label for="marca" class="formulario__label">*Marca:</label>
-            <input
-              class="formulario__input"
-              type="text"
-              name="marca"
-              id="marca"
-              placeholder="Marca"
-            />
-          </div>
-          <div class="formulario__campo">
-            <label for="modelo" class="formulario__label">*Modelo:</label>
-            <input
-              class="formulario__input"
-              type="text"
-              name="modelo"
-              id="modelo"
-              placeholder="Modelo"
-            />
-          </div>
-          <div class="formulario__campo">
-            <label for="fechalanzamiento" class="formulario__label"
-              >*Año:</label
-            >
-            <input
-              class="formulario__input"
-              type="text"
-              name="fechalanzamiento"
-              id="fechalanzamiento"
-              placeholder="Año"
-            />
-          </div>
-          <div class="formulario__campo">
-            <label for="serie" class="formulario__label">*Serie:</label>
-            <input
-              class="formulario__input"
-              type="text"
-              name="serie"
-              id="serie"
-              placeholder="Serie"
-            />
-          </div>
-          <div class="formulario__campo">
-            <label for="placas" class="formulario__label">*Placas:</label>
-            <input
-              class="formulario__input"
-              type="text"
-              name="placas"
-              id="placas"
-              placeholder="Placas"
-            />
-          </div>
-          <input type="submit" class="formulario__submit" value="Enviar" />
-        </form>
-      </div>
-    </main>
 
-    <script src="js/capturaVehiculo.js"></script>
+    <main class="editar-registro">
+      <h1>Editar Registros</h1>
+
+      <form action="">
+        <div class="editar-registro__contenedor">
+          <p class="editar-registro__contenedor-texto">Datos Vehículo</p>
+
+          <fieldset class="registros__campos">
+            <div class="registros__campo">
+              <label for="placa" class="registros__etiqueta">Placa</label>
+              <input
+                type="text"
+                id="placa"
+                name="placa"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="marca" class="registros__etiqueta">Marca</label>
+              <input
+                type="text"
+                id="marca"
+                name="marca"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="modelo" class="registros__etiqueta">Modelo</label>
+              <input
+                type="text"
+                id="modelo"
+                name="modelo"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="anio" class="registros__etiqueta">Año</label>
+              <input
+                type="number"
+                id="anio"
+                name="anio"
+                class="registros__entrada"
+              />
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="editar-registro__contenedor">
+          <p class="editar-registro__contenedor-texto">Datos Registro</p>
+
+          <fieldset class="registros__campos">
+            <div class="registros__campo">
+              <label for="fecha" class="registros__etiqueta">Fecha</label>
+              <input
+                type="date"
+                id="fecha"
+                name="fecha"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="tipoDeRegistro" class="registros__etiqueta"
+                >Tipo de Registro</label
+              >
+              <input
+                type="text"
+                id="tipoDeRegistro"
+                name="tipoDeRegistro"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="kilometraje" class="registros__etiqueta"
+                >Kilometraje</label
+              >
+              <input
+                type="number"
+                id="kilometraje"
+                name="kilometraje"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="litros" class="registros__etiqueta">Litros</label>
+              <input
+                type="number"
+                id="litros"
+                name="litros"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="importe" class="registros__etiqueta">Importe</label>
+              <input
+                type="number"
+                id="importe"
+                name="importe"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="concepto" class="registros__etiqueta">Concepto</label>
+              <input
+                type="text"
+                id="concepto"
+                name="concepto"
+                class="registros__entrada"
+              />
+            </div>
+
+            <div class="registros__campo">
+              <label for="observaciones" class="registros__etiqueta"
+                >Observaciones</label
+              >
+              <input
+                type="text"
+                id="observaciones"
+                name="observaciones"
+                class="registros__entrada"
+              />
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="editar-registro__contenedor-botones">
+          <a
+            href="/HistorialRegistrosMantenimientoVehicular"
+            class="editar-registro__volver"
+          >
+            Volver
+          </a>
+
+          <input type="submit" class="registros__enviar" value="Enviar" />
+        </div>
+      </form>
+    </main>
 
     <footer class="footer">
       <div class="footer__contenedor">
@@ -215,5 +292,12 @@
         </div>
       </div>
     </footer>
+
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-latest.min.js"
+    ></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="js/historialregistros.js"></script>
   </body>
 </html>
