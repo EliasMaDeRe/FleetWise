@@ -29,7 +29,7 @@ func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *registroMa
 	}
 
 	var err error
-	if err = c.SeleccionarVehiculoDeNuevoRegistro(solicitud); err != nil {
+	if err = c.validarSeleccionarVehiculoParaRegistro(solicitud); err != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(err)
 		return respuesta
