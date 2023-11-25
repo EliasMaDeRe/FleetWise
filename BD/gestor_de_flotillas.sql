@@ -56,6 +56,11 @@ INSERT INTO `servicios_vehiculares` (`nombre`) VALUES
 ('Llantas');
 
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -78,6 +83,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `registros_mantenimiento_vehicular` (
   `numero_registro` int(11) NOT NULL,
+  `placas_vehiculos` varchar(255) NOT NULL,
   `tipo_registro` varchar(255) NOT NULL,
   `fecha` varchar(255) NOT NULL,
   `litros_gasolina` float DEFAULT NULL,
@@ -95,7 +101,8 @@ CREATE TABLE `registros_mantenimiento_vehicular` (
 -- Indices de la tabla `registros_mantenimiento_vehicular`
 --
 ALTER TABLE `registros_mantenimiento_vehicular`
-  ADD PRIMARY KEY (`numero_registro`);
+  ADD PRIMARY KEY (`numero_registro`),
+  ADD KEY `placas` (`placas_vehiculos`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -106,12 +113,21 @@ ALTER TABLE `registros_mantenimiento_vehicular`
 --
 ALTER TABLE `registros_mantenimiento_vehicular`
   MODIFY `numero_registro` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `registros_mantenimiento_vehicular`
+--
+ALTER TABLE `registros_mantenimiento_vehicular`
+  ADD CONSTRAINT `registros_mantenimiento_vehicular_ibfk_1` FOREIGN KEY (`placas_vehiculos`) REFERENCES `vehiculos` (`placas`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
 
 
 
