@@ -7,12 +7,10 @@ import (
 	inicioSesionMapeador "example/fleetwise/fuente/iniciosesion/mapeador"
 	conectorBDModelos "example/fleetwise/modelos/conectorbd"
 	inicioSesionModelos "example/fleetwise/modelos/iniciosesion"
-	"net/http"
 	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -92,28 +90,4 @@ func (c *Controlador) crearJSONWebToken(usuario *inicioSesionModelos.Usuario) (s
 	}
 
 	return tokenCadena, nil
-}
-
-func (c *Controlador) validarJSONWebToken(siguienteManejador gin.HandlerFunc) gin.HandlerFunc {
-	return func(contexto *gin.Context) {
-		if contexto.Request.Header.Get("Token") != "" {
-			token, err := jwt.Parse(contexto.Request.Header.Get("Token"), func(t *jwt.Token) (interface{}, error) {
-				_, ok := t.Method.(*jwt.SigningMethodHMAC)
-				if !ok {
-					contexto.IndentedJSON(http.StatusUnauthorized, gin.H{"OK": false, "err": "Usuario no autorizado"})
-				}
-				return os.Getenv("llaveSecretaDeAutenticacion"), nil
-			})
-
-			if err != nil {
-				contexto.IndentedJSON(http.StatusUnauthorized, gin.H{"OK": false, "err": err.Error()})
-			}
-
-			if token.Valid {
-				siguienteManejador(contexto)
-			}
-		} else {
-			contexto.IndentedJSON(http.StatusUnauthorized, gin.H{"OK": false, "err": "Usuario no autorizado"})
-		}
-	}
 }
