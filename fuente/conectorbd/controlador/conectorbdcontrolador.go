@@ -332,7 +332,7 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociadosFiltrados(solicitud *co
  	return registrosFiltrados, vehiculosFiltrados;
 }
 
-func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro (solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
+func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro (solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {

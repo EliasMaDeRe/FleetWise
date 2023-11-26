@@ -438,24 +438,30 @@ func (s *SeleccionarVehiculoParaNuevoRegistroRespuesta) AsignarErr(err error) {
 	}
 }
 
-type ObtenerRegistroMantenimientoVehicularSolicitud struct {
+type ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud struct {
 	NumDeRegistro int `json:"NumDeRegistro"`
 }
 
-func (obtenerRegistroSolicitud *ObtenerRegistroMantenimientoVehicularSolicitud) ObtenerNumDeRegistro()  (numDeRegistro int){
+func (obtenerRegistroSolicitud *ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud) ObtenerNumDeRegistro()  (numDeRegistro int){
 	if(obtenerRegistroSolicitud != nil){
 		numDeRegistro = obtenerRegistroSolicitud.NumDeRegistro
 	}
 	return
 }
 
-type ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro struct {
+type ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud struct {
 	NumDeRegistro int
 }
 
-func (obtenerRegistroYVehiculoAsociadoSolicitud *ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro) ObtenerNumDeRegistro()  (numDeRegistro int){
+func (obtenerRegistroYVehiculoAsociadoSolicitud *ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) ObtenerNumDeRegistro()  (numDeRegistro int){
 	if(obtenerRegistroYVehiculoAsociadoSolicitud != nil){
 		numDeRegistro = obtenerRegistroYVehiculoAsociadoSolicitud.NumDeRegistro
 	}
 	return
+}
+
+func (obtenerRegistroYVehiculoAsociadoSolicitud *ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) AsignarNumDeRegistro(numDeRegistro int){
+	if(obtenerRegistroYVehiculoAsociadoSolicitud != nil){
+		obtenerRegistroYVehiculoAsociadoSolicitud.NumDeRegistro = numDeRegistro
+	}
 }

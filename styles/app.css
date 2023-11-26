@@ -315,7 +315,6 @@ INICIO FORMULARIO
   background-color: var(--azul_claro);
 }
 
-
 .formulario__campo {
   display: flex;
   flex-direction: column;
@@ -433,8 +432,6 @@ INICIO ALERTAS
   background-color: red;
 }
 
-
-
 /*
 =============================================
 HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
@@ -471,7 +468,8 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   font-size: 1.5rem;
 }
 
-.filtros__desplegable {
+.filtros__desplegable,
+.campo__desplegable {
   border: none;
   padding: 0.5rem 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
@@ -522,8 +520,6 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   font-size: 1.7rem;
 }
 
-
-
 /*
 ==================================================
 EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
@@ -531,7 +527,6 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 */
 
 .editar-registro {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -580,7 +575,6 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 }
 
 .registros__entrada {
-
   border: none;
   padding: 0.5rem 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
@@ -588,9 +582,7 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   transition: 0.5s;
 }
 
-
 .editar-registro__contenedor-botones {
-
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -633,8 +625,6 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   transition: 0.5s;
 }
 
-
-
 /*
 ===============================================================
 CONFIRMACIÖN EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
@@ -642,7 +632,6 @@ CONFIRMACIÖN EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 */
 
 .confirmacion-edicion {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -662,12 +651,10 @@ CONFIRMACIÖN EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 }
 
 .confirmacion-edicion__titulo {
-
   margin-top: 0rem;
 }
 
 .confirmacion-edicion__texto {
-
   margin-bottom: 2rem;
 }
 

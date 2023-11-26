@@ -145,7 +145,7 @@ func main() {
 	})
 
 	router.POST("/ObtenerRegistroPorNumeroDeRegistro", func(ctx *gin.Context) {
-		controlador.RegistroMantenimientoVehicularManejador.ObtenerRegistroMantenimientoVehicular(ctx)
+		controlador.RegistroMantenimientoVehicularManejador.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistro(ctx)
 	})
 
 

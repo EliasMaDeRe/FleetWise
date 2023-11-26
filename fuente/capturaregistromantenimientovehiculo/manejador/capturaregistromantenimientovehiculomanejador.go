@@ -3,6 +3,8 @@ package manejador
 import (
 	registroMantenimientoVehiculoControlador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/controlador"
 	registroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
+	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 
 	"net/http"
 
@@ -17,6 +19,8 @@ func NuevoManejador() (c *Manejador) {
 	return &Manejador{
 		RegistroMantenimientoVehiculoControlador: &registroMantenimientoVehiculoControlador.Controlador{
 			RegistroMantenimientoVehiculoMapeador: &registroMantenimientoVehiculoMapeador.Mapeador{},
+			ConectorBDControlador: &conectorBDControlador.Controlador{},
+			ServicioVehicularControlador: &servicioVehicularControlador.Controlador{},
 		},
 	}
 }
@@ -54,8 +58,8 @@ func (m *Manejador) ObtenerServiciosVehiculares(contexto *gin.Context) {
 	contexto.IndentedJSON(http.StatusOK, gin.H{"ServiciosVehiculares": respuesta})
 }
 
-func (m *Manejador) ObtenerRegistroMantenimientoVehicular(contexto *gin.Context){
-	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextAObtenerRegistroMantenimientoVehiculoSolicitud(contexto)
+func (m *Manejador) ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistro(contexto *gin.Context){
+	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextAObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud(contexto)
 	registro, vehiculo := m.RegistroMantenimientoVehiculoControlador.ObtenerRegistroMantenimientoVehicular(solicitud)
 	
 	contexto.IndentedJSON(http.StatusOK,gin.H{"registro": registro, "vehiculo": vehiculo})

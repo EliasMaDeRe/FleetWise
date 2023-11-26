@@ -112,7 +112,7 @@ func (c *Controlador) ObtenerServiciosVehicularesParaNuevoRegistro() []capturase
 	return c.ServicioVehicularControlador.ObtenerServiciosVehiculares()
 }
 
-func (c *Controlador) ObtenerRegistroMantenimientoVehicular(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularSolicitud) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
+func (c *Controlador) ObtenerRegistroMantenimientoVehicular(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
 	if(solicitud == nil || solicitudVacia(solicitud)){
 		return &registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}, &capturavehiculos.Vehiculo{}
 	}
@@ -123,6 +123,6 @@ func (c *Controlador) ObtenerRegistroMantenimientoVehicular(solicitud *registroM
 
 }
 
-func solicitudVacia(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularSolicitud) bool {
-	return solicitud == &registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularSolicitud{}
+func solicitudVacia(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud) bool {
+	return solicitud == &registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud{}
 }

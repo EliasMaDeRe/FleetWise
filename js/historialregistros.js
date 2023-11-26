@@ -9,8 +9,7 @@
 	};
 
 	document.addEventListener("DOMContentLoaded", (e) => {
-		cargarOpcionesDeFiltros();
-		obtenerRegistrosConFiltros(filtros);
+		cargarPaginaHistorialDeRegistros();
 	});
 
 	const botonEnviarFiltros = document.getElementById("botonEnviarFiltros");
@@ -18,9 +17,7 @@
 	botonEnviarFiltros.addEventListener("click", (e) => {
 		e.preventDefault();
 
-		obtenerFiltros();
-
-		obtenerRegistrosConFiltros(filtros);
+		cargarRegistrosConFiltros();
 	});
 
 	function cargarPluginDataTable() {
@@ -34,7 +31,7 @@
 		return table;
 	}
 
-	async function cargarOpcionesDeFiltros() {
+	async function cargarPaginaHistorialDeRegistros() {
 		const filtrosDeCamposDeVehiculo = {
 			placas: [],
 			marcas: [],
@@ -42,45 +39,49 @@
 			fechasLanzamiento: [],
 		};
 
-		const vehiculosExistentes = await obtenerVehiculosExistentes();
+		const registrosConVehiculosAsociadosExistentes = await obtenerRegistrosConVehiculosAsociadosFiltrados();
 
-		Array.from(vehiculosExistentes).forEach((vehiculo) => {
-			insertarFiltroNuevo(filtrosDeCamposDeVehiculo.placas, vehiculo.Placas);
-			insertarFiltroNuevo(filtrosDeCamposDeVehiculo.marcas, vehiculo.Marca);
-			insertarFiltroNuevo(filtrosDeCamposDeVehiculo.modelos, vehiculo.Modelo);
-			insertarFiltroNuevo(filtrosDeCamposDeVehiculo.fechasLanzamiento, vehiculo.FechaLanzamiento);
+		const registrosExistentes = registrosConVehiculosAsociadosExistentes.registrosFiltrados;
+		const vehiculosAsociados = registrosConVehiculosAsociadosExistentes.vehiculosFiltrados;
+
+		Array.from(vehiculosAsociados).forEach((vehiculo) => {
+			insertarOpcionDeFiltro(filtrosDeCamposDeVehiculo.placas, vehiculo.Placas);
+			insertarOpcionDeFiltro(filtrosDeCamposDeVehiculo.marcas, vehiculo.Marca);
+			insertarOpcionDeFiltro(filtrosDeCamposDeVehiculo.modelos, vehiculo.Modelo);
+			insertarOpcionDeFiltro(filtrosDeCamposDeVehiculo.fechasLanzamiento, vehiculo.FechaLanzamiento);
 		});
 
-		cargarFiltrosEnLaVista(filtrosDeCamposDeVehiculo);
+		cargarOpcionesDeFiltros(filtrosDeCamposDeVehiculo);
+		cargarInformacionRegistros(registrosExistentes, vehiculosAsociados);
 	}
 
-	async function obtenerVehiculosExistentes() {
-		const urlPeticion = "/HistorialRegistrosMantenimientoVehicular";
+	async function obtenerRegistrosConVehiculosAsociadosFiltrados() {
+		const peticionUrl = "/HistorialRegistrosMantenimientoVehicular";
 
-		const respuesta = await fetch(urlPeticion, {
+		const resultado = await fetch(peticionUrl, {
 			method: "POST",
 			body: JSON.stringify(filtros),
 		});
 
-		const registrosYVehiculos = await respuesta.json();
+		const respuesta = await resultado.json();
 
-		return registrosYVehiculos.vehiculosFiltrados;
+		return respuesta;
 	}
 
-	function insertarFiltroNuevo(arregloFiltros, valorExistente) {
+	function insertarOpcionDeFiltro(arregloFiltros, valorExistente) {
 		if (!arregloFiltros.includes(valorExistente)) {
 			arregloFiltros.push(valorExistente);
 		}
 	}
 
-	function cargarFiltrosEnLaVista(filtrosDeCamposDeVehiculo) {
-		cargarFiltro("placa", filtrosDeCamposDeVehiculo.placas);
-		cargarFiltro("marca", filtrosDeCamposDeVehiculo.marcas);
-		cargarFiltro("modelo", filtrosDeCamposDeVehiculo.modelos);
-		cargarFiltro("fechaDeLanzamiento", filtrosDeCamposDeVehiculo.fechasLanzamiento);
+	function cargarOpcionesDeFiltros(filtrosDeCamposDeVehiculo) {
+		desplegarFiltroEnLaVista("placa", filtrosDeCamposDeVehiculo.placas);
+		desplegarFiltroEnLaVista("marca", filtrosDeCamposDeVehiculo.marcas);
+		desplegarFiltroEnLaVista("modelo", filtrosDeCamposDeVehiculo.modelos);
+		desplegarFiltroEnLaVista("fechaDeLanzamiento", filtrosDeCamposDeVehiculo.fechasLanzamiento);
 	}
 
-	function cargarFiltro(nombreFiltro, valoresFiltro) {
+	function desplegarFiltroEnLaVista(nombreFiltro, valoresFiltro) {
 		const selectFiltro = document.getElementById(nombreFiltro);
 		selectFiltro.innerHTML = "";
 
@@ -98,26 +99,9 @@
 		});
 	}
 
-	function obtenerFiltros() {
-		filtros.placas = document.getElementById("placa").value;
-		filtros.marca = document.getElementById("marca").value;
-		filtros.modelo = document.getElementById("modelo").value;
-		filtros.fechaDeLanzamiento = document.getElementById("fechaDeLanzamiento").value;
-		filtros.tipoDeRegistro = document.getElementById("tipoDeRegistro").value;
-	}
-
-	async function obtenerRegistrosConFiltros(filtros) {
-		const peticionUrl = "/HistorialRegistrosMantenimientoVehicular";
-
-		const resultado = await fetch(peticionUrl, {
-			method: "POST",
-			body: JSON.stringify(filtros),
-		});
-
-		const respuesta = await resultado.json();
-
-		if (respuesta.registrosFiltrados.length > 0) {
-			desplegarRegistrosConVehiculosAsociadosFiltrados(respuesta.registrosFiltrados, respuesta.vehiculosFiltrados);
+	function cargarInformacionRegistros(registros, vehiculos) {
+		if (registros.length > 0) {
+			desplegarRegistrosConVehiculosAsociadosFiltrados(registros, vehiculos);
 		} else {
 			desplegarMensajeVacioTablaRegistros();
 		}
@@ -156,5 +140,23 @@
 
 	function desplegarMensajeVacioTablaRegistros() {
 		tablaRegistros.clear().draw();
+	}
+
+	async function cargarRegistrosConFiltros() {
+		obtenerFiltros();
+
+		const registrosConVehiculosAsociadosFiltrados = await obtenerRegistrosConVehiculosAsociadosFiltrados();
+
+		const registrosFiltrados = registrosConVehiculosAsociadosFiltrados.registrosFiltrados;
+		const vehiculosAsociadosFiltrados = registrosConVehiculosAsociadosFiltrados.vehiculosFiltrados;
+		cargarInformacionRegistros(registrosFiltrados, vehiculosAsociadosFiltrados);
+	}
+
+	function obtenerFiltros() {
+		filtros.placas = document.getElementById("placa").value;
+		filtros.marca = document.getElementById("marca").value;
+		filtros.modelo = document.getElementById("modelo").value;
+		filtros.fechaDeLanzamiento = document.getElementById("fechaDeLanzamiento").value;
+		filtros.tipoDeRegistro = document.getElementById("tipoDeRegistro").value;
 	}
 })();
