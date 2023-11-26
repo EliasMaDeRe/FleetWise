@@ -11,7 +11,3 @@ type Controlador struct {
 func (c *Controlador) CalcularMetricasVehiculares(){
 
 }
-
-func (c *Controlador) ObtenerResumenMantenimientoVehiculos(){
-	
-}

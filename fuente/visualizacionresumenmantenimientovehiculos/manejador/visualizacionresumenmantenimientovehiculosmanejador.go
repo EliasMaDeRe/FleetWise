@@ -19,7 +19,3 @@ func NuevoManejador() (c *Manejador) {
 func (m *Manejador) CalcularMetricasVehiculares(contexto *gin.Context) {
 
 }
-
-func (m *Manejador) ObtenerResumenMantenimientoVehiculos(contexto *gin.Context) {
-	
-}
