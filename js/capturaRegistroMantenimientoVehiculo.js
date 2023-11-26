@@ -1,9 +1,12 @@
 (function () {
     window.addEventListener('DOMContentLoaded',() => {
-      const selectConcepto = document.getElementById("concepto");
-      obtenerServicios();
-      
-      function obtenerServicios(){
+      const selectConcepto = document.getElementById("select_concepto");
+      //obtenerServicios();
+
+      const placasVehiculo = document.querySelector(".captura-registro-mantenimiento-vehiculo__plascas-contenerdor")
+      obtenerPlacasVehiculo();
+
+      /*function obtenerServicios(){
         obtenerDatosServicios().then(function(response){
           const datosServiciosRespuesta = response.ServiciosVehiculares;
           crearSelectorConcepto(datosServiciosRespuesta);
@@ -11,20 +14,34 @@
       } 
       async function obtenerDatosServicios(){
         const obtenerServiciosVehicularesParNuevoRegistroURL = "/ObtenerServiciosVehiculareParaNuevoRegistro";
+        console.log("antes");
         const peticion = await fetch(obtenerServiciosVehicularesParNuevoRegistroURL, {
           method: "GET",
         });
         const respuesta = await peticion.json();
         return respuesta;
-      }
+      }*/
     
       function crearSelectorConcepto(datosServicios){
         datosServicios.forEach((datoServicio) =>{
           const optionTipoDeRegistro = document.createElement('OPTION');
-          optionTipoDeRegistro.value = datoServicio;
-          optionTipoDeRegistro.innerText = datoServicio;
+          console.log(datoServicio)
+          optionTipoDeRegistro.innerText = datoServicio.Nombre;
+          console.log(optionTipoDeRegistro)
           selectConcepto.appendChild(optionTipoDeRegistro);
         });
+      }
+          
+      function obtenerPlacasVehiculo(){
+        var urlActual = new URL(window.location.href);
+        console.log(urlActual);
+        var params = new URLSearchParams(urlActual.search);
+        var placas = params.get("placas");
+        console.log(placas)
+        const elementoTarjeta = document.createElement('p');
+        elementoTarjeta.textContent="Placas del vehiculo a registrar: "+placas
+        placasVehiculo.appendChild(elementoTarjeta)
+
       }
     })
 
@@ -62,12 +79,14 @@
       async function enviarFormulario(inputsFormulario) {
         const datosFormulario = construirPeticionFormulario(inputsFormulario);
         const datosFormularioJSON = JSON.stringify(Object.fromEntries(datosFormulario));
-        const agregarRegistroURL = "/AgregarRegistroMantenimientoVehiculo";
+        const agregarRegistroURL = "/AgregarRegistroMantenimientoVehicular";
         const peticion = await fetch(agregarRegistroURL, {
           method: "POST",
           body: datosFormularioJSON,
         });
+        console.log(datosFormularioJSON)
         const respuesta = await peticion.json();
+        console.log(respuesta)
         if (!respuesta.OK) {
           desplegarAlerta("error", respuesta.err);
         } else {
