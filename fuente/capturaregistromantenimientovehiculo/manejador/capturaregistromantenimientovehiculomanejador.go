@@ -3,6 +3,8 @@ package manejador
 import (
 	registroMantenimientoVehiculoControlador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/controlador"
 	registroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
+	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
+	"strings"
 
 	"net/http"
 
@@ -17,6 +19,7 @@ func NuevoManejador() (c *Manejador) {
 	return &Manejador{
 		RegistroMantenimientoVehiculoControlador: &registroMantenimientoVehiculoControlador.Controlador{
 			RegistroMantenimientoVehiculoMapeador: &registroMantenimientoVehiculoMapeador.Mapeador{},
+			ServicioVehicularControlador:          &servicioVehicularControlador.Controlador{},
 		},
 	}
 }
@@ -27,6 +30,16 @@ func (m *Manejador) SeleccionarVehiculoParaNuevoRegistro(contexto *gin.Context) 
 	status := http.StatusOK
 	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
+	}
+	if strings.Contains(contexto.Request.URL.String(), "AgregarRegistroMantenimientoVehicular") {
+		if respuesta.ObtenerOk() {
+			contexto.Next()
+			return
+		} else {
+			contexto.HTML(http.StatusOK, "seleccionarvehiculo.html", gin.H{})
+			contexto.Abort()
+			return
+		}
 	}
 	var mensajeError string
 	if respuesta.ObtenerErr() != nil {
