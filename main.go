@@ -5,6 +5,7 @@ import (
 	servicioVehicularManejador "example/fleetwise/fuente/capturaserviciovehicular/manejador"
 	vehiculosManejador "example/fleetwise/fuente/capturavehiculos/manejador"
 	sesionManejador "example/fleetwise/fuente/iniciosesion/manejador"
+	"fmt"
 	"log"
 
 	"net/http"
@@ -91,7 +92,7 @@ func main() {
 		c.HTML(http.StatusOK, "registromantenimientovehiculo.html", gin.H{})
 	})
 
-	router.GET("/ObtenerServiciosVehiculareParaNuevoRegistro", func(ctx *gin.Context) {
+	router.GET("/ObtenerServiciosVehicularesParaNuevoRegistro", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)
 	}, func(ctx *gin.Context) {
 		controlador.RegistroMantenimientoVehicularManejador.ObtenerServiciosVehiculares(ctx)
@@ -100,12 +101,24 @@ func main() {
 	router.POST("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)
 	}, func(ctx *gin.Context) {
+		rawJSON, err := ctx.GetRawData()
+		if err != nil {
+			ctx.JSON(500, gin.H{"error": "Error al obtener los datos JSON"})
+			return
+		}
+		fmt.Println("Datos JSON sin procesar:", string(rawJSON))
 		controlador.RegistroMantenimientoVehicularManejador.SeleccionarVehiculoParaNuevoRegistro(ctx)
 	})
 
 	router.POST("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)
 	}, func(ctx *gin.Context) {
+		rawJSON, err := ctx.GetRawData()
+		if err != nil {
+			ctx.JSON(500, gin.H{"error": "Error al obtener los datos JSON"})
+			return
+		}
+		fmt.Println("Datos JSON sin procesar:", string(rawJSON))
 		controlador.RegistroMantenimientoVehicularManejador.AgregarRegistroMantemientoVehiculo(ctx)
 	})
 

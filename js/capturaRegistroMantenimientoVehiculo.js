@@ -1,26 +1,25 @@
 (function () {
     window.addEventListener('DOMContentLoaded',() => {
       const selectConcepto = document.getElementById("select_concepto");
-      //obtenerServicios();
+      obtenerServicios();
 
-      const placasVehiculo = document.querySelector(".captura-registro-mantenimiento-vehiculo__plascas-contenerdor")
+      const placasVehiculo = document.querySelector(".captura-registro-mantenimiento-vehiculo__placas-contenedor")
       obtenerPlacasVehiculo();
 
-      /*function obtenerServicios(){
+      function obtenerServicios(){
         obtenerDatosServicios().then(function(response){
           const datosServiciosRespuesta = response.ServiciosVehiculares;
           crearSelectorConcepto(datosServiciosRespuesta);
         });
       } 
       async function obtenerDatosServicios(){
-        const obtenerServiciosVehicularesParNuevoRegistroURL = "/ObtenerServiciosVehiculareParaNuevoRegistro";
-        console.log("antes");
+        const obtenerServiciosVehicularesParNuevoRegistroURL = "/ObtenerServiciosVehicularesParaNuevoRegistro";
         const peticion = await fetch(obtenerServiciosVehicularesParNuevoRegistroURL, {
           method: "GET",
         });
         const respuesta = await peticion.json();
         return respuesta;
-      }*/
+      }
     
       function crearSelectorConcepto(datosServicios){
         datosServicios.forEach((datoServicio) =>{
@@ -62,7 +61,7 @@
     });
 
     const botonEnviarFormulariRegistroMantenimientoVehiculo = document.querySelector(
-      "captura-registro-mantenimiento-vehiculo__formulario-contenedor .formulario__submit"
+      ".captura-registro-mantenimiento-vehiculo__formulario-contenedor .formulario__submit"
     );
   
     if (botonEnviarFormulariRegistroMantenimientoVehiculo) {

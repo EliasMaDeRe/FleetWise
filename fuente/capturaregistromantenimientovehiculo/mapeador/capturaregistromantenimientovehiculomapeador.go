@@ -2,6 +2,7 @@ package mapeador
 
 import (
 	registroMantenimientoVehiculo "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -23,6 +24,11 @@ func (m *Mapeador) GinContextASeleccionarVehiculoParaNuevoRegistroSolicitud(cont
 }
 
 func (m *Mapeador) GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contexto *gin.Context) *registroMantenimientoVehiculo.AgregarRegistroMantenimientoVehiculoSolicitud {
+	rawJSON, err := contexto.GetRawData()
+	if err != nil {
+		contexto.JSON(500, gin.H{"error": "Error al obtener los datos JSON"})
+	}
+	fmt.Println("Datos JSON sin procesar:", string(rawJSON))
 	solicitud := &registroMantenimientoVehiculo.AgregarRegistroMantenimientoVehiculoSolicitud{}
 	contexto.BindJSON(solicitud)
 	return solicitud
