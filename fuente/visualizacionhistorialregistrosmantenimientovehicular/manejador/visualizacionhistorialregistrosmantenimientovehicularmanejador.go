@@ -1,6 +1,7 @@
 package manejador
 
 import (
+	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	historialRegistrosControlador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehicular/controlador"
 	historialRegistrosMapeador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehicular/mapeador"
 	"net/http"
@@ -17,6 +18,7 @@ func NuevoManejador() (m *Manejador){
 	return &Manejador{
 		HistorialRegistrosControlador: &historialRegistrosControlador.Controlador{
 			HistorialRegistrosMapeador: &historialRegistrosMapeador.Mapeador{},
+			ConectorBDControlador: &conectorBDControlador.Controlador{},
 		},
 	}
 }

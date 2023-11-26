@@ -136,7 +136,7 @@ func main() {
 		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
 	})
 
-	router.POST("/HistorialRegistrosServicioVehicular", func(ctx *gin.Context) {
+	router.POST("/HistorialRegistrosMantenimientoVehicular", func(ctx *gin.Context) {
 		controlador.HistorialRegistrosManejador.ObtenerRegistrosYVehiculosFiltrados(ctx);
 	})
 

@@ -10,18 +10,18 @@ import (
 
 type Controlador struct{
 	HistorialRegistrosMapeador *historialRegistrosMapeador.Mapeador
-	conectorBDControlador *conectorBDControlador.Controlador 
+	ConectorBDControlador *conectorBDControlador.Controlador 
 }
 
 func (c *Controlador) ObtenerRegistrosFiltradosConVehiculos(solicitud *historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud) ([]capturaRegistrosModelo.RegistroMantenimientoVehiculo, []capturaVehiculosModelo.Vehiculo){
 
 	if(solicitud == nil || validarSolicitudSinFiltros(solicitud)){
-		return c.conectorBDControlador.ObtenerRegistrosYVehiculosAsociados()
+		return c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociados()
 	}
 
 	obtenerRegistrosConVehiculosFiltradosSolicitud := c.HistorialRegistrosMapeador.ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud(solicitud)
 
-	return c.conectorBDControlador.ObtenerRegistrosYVehiculosAsociadosFiltrados(obtenerRegistrosConVehiculosFiltradosSolicitud)
+	return c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociadosFiltrados(obtenerRegistrosConVehiculosFiltradosSolicitud)
 } 
 
 func validarSolicitudSinFiltros(solicitud *historialRegistrosModelo.ObtenerRegistrosFiltradosConVehiculosSolicitud) bool{
