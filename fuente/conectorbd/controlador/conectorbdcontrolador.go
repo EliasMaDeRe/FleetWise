@@ -5,6 +5,7 @@ import (
 	"example/fleetwise/fuente/conectorbd/constantes"
 	registroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	servicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
+	"example/fleetwise/modelos/capturavehiculos"
 	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	conectorModelos "example/fleetwise/modelos/conectorbd"
 	sesionModelos "example/fleetwise/modelos/iniciosesion"
@@ -305,7 +306,6 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociados() ([]registroMantenimi
  	return registros, vehiculos;
 }
 
-
 func (c *Controlador) ObtenerRegistrosYVehiculosAsociadosFiltrados(solicitud *conectorModelos.ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud)  ([]registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, []vehiculosModelos.Vehiculo) {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
@@ -330,6 +330,28 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociadosFiltrados(solicitud *co
 	tablaDeRegistrosConVehiculosFiltrados.Find(&vehiculosFiltrados)
 
  	return registrosFiltrados, vehiculosFiltrados;
+}
+
+func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro (solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	registro := &registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{NumeroDeRegistro: solicitud.ObtenerNumDeRegistro()}
+	vehiculoAsociado := &vehiculosModelos.Vehiculo{}
+
+	consultaRegistroConNumeroDeRegistro:= baseDeDatos.Select("*").Table("registros_mantenimiento_vehicular").Joins("JOIN vehiculos on vehiculos.placas = registros_mantenimiento_vehicular.placas_vehiculo").Where(registro)
+
+	if(consultaRegistroConNumeroDeRegistro.Error != nil){
+		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+	}
+
+	consultaRegistroConNumeroDeRegistro.Find(&registro)
+	consultaRegistroConNumeroDeRegistro.Find(&vehiculoAsociado)
+
+ 	return registro, vehiculoAsociado;
 }
 
 

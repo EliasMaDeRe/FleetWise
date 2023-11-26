@@ -48,3 +48,16 @@ func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemien
 
 	return registro
 }
+
+func (m *Mapeador) GinContextAObtenerRegistroMantenimientoVehiculoSolicitud(contexto *gin.Context) *registroMantenimientoVehiculo.ObtenerRegistroMantenimientoVehicularSolicitud{
+	solicitud := &registroMantenimientoVehiculo.ObtenerRegistroMantenimientoVehicularSolicitud{}
+
+	contexto.BindJSON(solicitud)
+
+	return solicitud
+}
+
+func(m *Mapeador) ObtenerRegistroMantenimientoVehiculoSolicitudAObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud(solicitud *registroMantenimientoVehiculo.ObtenerRegistroMantenimientoVehicularSolicitud) *registroMantenimientoVehiculo.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro{
+	solicitudBD := &registroMantenimientoVehiculo.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro{NumDeRegistro: solicitud.ObtenerNumDeRegistro()}
+	return solicitudBD
+}

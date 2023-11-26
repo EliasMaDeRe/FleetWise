@@ -10,6 +10,7 @@ import (
 	registroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
 	registroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	"example/fleetwise/modelos/capturaserviciovehicular"
+	"example/fleetwise/modelos/capturavehiculos"
 	"example/fleetwise/modelos/conectorbd"
 )
 
@@ -109,4 +110,19 @@ func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *regis
 
 func (c *Controlador) ObtenerServiciosVehicularesParaNuevoRegistro() []capturaserviciovehicular.ServicioVehicular {
 	return c.ServicioVehicularControlador.ObtenerServiciosVehiculares()
+}
+
+func (c *Controlador) ObtenerRegistroMantenimientoVehicular(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularSolicitud) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
+	if(solicitud == nil || solicitudVacia(solicitud)){
+		return &registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}, &capturavehiculos.Vehiculo{}
+	}
+	
+	ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud := c.RegistroMantenimientoVehiculoMapeador.ObtenerRegistroMantenimientoVehiculoSolicitudAObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud(solicitud)
+
+	return c.ConectorBDControlador.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro(ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud)
+
+}
+
+func solicitudVacia(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularSolicitud) bool {
+	return solicitud == &registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularSolicitud{}
 }

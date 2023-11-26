@@ -437,3 +437,25 @@ func (s *SeleccionarVehiculoParaNuevoRegistroRespuesta) AsignarErr(err error) {
 		s.err = err
 	}
 }
+
+type ObtenerRegistroMantenimientoVehicularSolicitud struct {
+	NumDeRegistro int `json:"NumDeRegistro"`
+}
+
+func (obtenerRegistroSolicitud *ObtenerRegistroMantenimientoVehicularSolicitud) ObtenerNumDeRegistro()  (numDeRegistro int){
+	if(obtenerRegistroSolicitud != nil){
+		numDeRegistro = obtenerRegistroSolicitud.NumDeRegistro
+	}
+	return
+}
+
+type ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro struct {
+	NumDeRegistro int
+}
+
+func (obtenerRegistroYVehiculoAsociadoSolicitud *ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro) ObtenerNumDeRegistro()  (numDeRegistro int){
+	if(obtenerRegistroYVehiculoAsociadoSolicitud != nil){
+		numDeRegistro = obtenerRegistroYVehiculoAsociadoSolicitud.NumDeRegistro
+	}
+	return
+}

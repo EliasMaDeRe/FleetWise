@@ -53,3 +53,10 @@ func (m *Manejador) ObtenerServiciosVehiculares(contexto *gin.Context) {
 	respuesta := m.RegistroMantenimientoVehiculoControlador.ObtenerServiciosVehicularesParaNuevoRegistro()
 	contexto.IndentedJSON(http.StatusOK, gin.H{"ServiciosVehiculares": respuesta})
 }
+
+func (m *Manejador) ObtenerRegistroMantenimientoVehicular(contexto *gin.Context){
+	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextAObtenerRegistroMantenimientoVehiculoSolicitud(contexto)
+	registro, vehiculo := m.RegistroMantenimientoVehiculoControlador.ObtenerRegistroMantenimientoVehicular(solicitud)
+	
+	contexto.IndentedJSON(http.StatusOK,gin.H{"registro": registro, "vehiculo": vehiculo})
+}

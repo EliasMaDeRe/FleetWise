@@ -144,6 +144,10 @@ func main() {
 		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
 	})
 
+	router.POST("/ObtenerRegistroPorNumeroDeRegistro", func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.ObtenerRegistroMantenimientoVehicular(ctx)
+	})
+
 
 	router.Run("localhost:8080")
 }

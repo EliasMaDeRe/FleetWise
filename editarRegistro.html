@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/app.css" />
     <title>FleetWise | Editar Historial Registros</title>
   </head>
@@ -60,11 +61,13 @@
             </div>
 
             <div class="registros__campo">
-              <label for="anio" class="registros__etiqueta">Año</label>
+              <label for="fechaDeLanzamiento" class="registros__etiqueta">
+                Año
+              </label>
               <input
                 type="number"
-                id="anio"
-                name="anio"
+                id="fechaDeLanzamiento"
+                name="fechaDeLanzamiento"
                 class="registros__entrada"
               />
             </div>
@@ -89,12 +92,18 @@
               <label for="tipoDeRegistro" class="registros__etiqueta"
                 >Tipo de Registro</label
               >
-              <input
-                type="text"
+              <select
                 id="tipoDeRegistro"
                 name="tipoDeRegistro"
-                class="registros__entrada"
-              />
+                class="filtros__desplegable"
+              >
+                <option value="carga de combustible">
+                  Carga de Combustible
+                </option>
+                <option value="afinación">Afinación</option>
+                <option value="reparación">Reparaci&oacute;n</option>
+                <option value="reemplazo">Reemplazo</option>
+              </select>
             </div>
 
             <div class="registros__campo">
@@ -105,16 +114,6 @@
                 type="number"
                 id="kilometraje"
                 name="kilometraje"
-                class="registros__entrada"
-              />
-            </div>
-
-            <div class="registros__campo">
-              <label for="litros" class="registros__etiqueta">Litros</label>
-              <input
-                type="number"
-                id="litros"
-                name="litros"
                 class="registros__entrada"
               />
             </div>
@@ -150,6 +149,18 @@
                 class="registros__entrada"
               />
             </div>
+
+            <div class="registros__campo">
+              <div id="campoCambiable">
+                <label for="litros" class="registros__etiqueta">Litros</label>
+                <input
+                  type="number"
+                  id="litros"
+                  name="litros"
+                  class="registros__entrada"
+                />
+              </div>
+            </div>
           </fieldset>
         </div>
 
@@ -161,7 +172,12 @@
             Volver
           </a>
 
-          <input type="submit" class="registros__enviar" value="Enviar" />
+          <input
+            type="submit"
+            id="editar-registro"
+            class="registros__enviar"
+            value="Enviar"
+          />
         </div>
       </form>
     </main>
@@ -293,11 +309,6 @@
       </div>
     </footer>
 
-    <script
-      type="text/javascript"
-      src="http://code.jquery.com/jquery-latest.min.js"
-    ></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-    <script src="js/historialregistros.js"></script>
+    <script src="js/editarregistro.js"></script>
   </body>
 </html>

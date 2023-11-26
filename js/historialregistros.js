@@ -1,11 +1,5 @@
 (function () {
-	const tablaRegistros = new DataTable("#tabla-registros", {
-		responsive: true,
-		language: {
-			url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json",
-			emptyTable: "Ningun registro coincide con los filtros seleccionados",
-		},
-	});
+	const tablaRegistros = cargarPluginDataTable();
 	const filtros = {
 		placas: "",
 		marca: "",
@@ -141,7 +135,6 @@
 				let enlaceEditarRegistro = document.createElement("A");
 				enlaceEditarRegistro.innerText = "Editar";
 				enlaceEditarRegistro.href = `/EditarRegistroMantenimientoVehicular?numRegistro=${registro.NumeroDeRegistro}`;
-				console.log(enlaceEditarRegistro.innerHTML);
 				let filaNueva = [
 					registro.Fecha,
 					vehiculo.Placas,
