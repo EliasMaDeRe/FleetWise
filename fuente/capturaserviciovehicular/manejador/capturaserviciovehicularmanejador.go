@@ -3,6 +3,7 @@ package manejador
 import (
 	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
 	servicioVehicularMapeador "example/fleetwise/fuente/capturaserviciovehicular/mapeador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,7 @@ func NuevoManejador() (c *Manejador) {
 	return &Manejador{
 		ServicioVehicularControlador: &servicioVehicularControlador.Controlador{
 			ServicioVehicularMapeador: &servicioVehicularMapeador.Mapeador{},
+			ConectorBDControlador:     &conectorBDControlador.Controlador{},
 		},
 	}
 }

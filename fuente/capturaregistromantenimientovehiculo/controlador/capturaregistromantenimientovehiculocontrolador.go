@@ -1,59 +1,110 @@
 package controlador
 
 import (
-	//"errors"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
-	//"strconv"
+	"errors"
+	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
+	"time"
 
-	//"example/fleetwise/fuente/capturaregistromantenimientovehiculo/constantes"
+	"example/fleetwise/fuente/capturaregistromantenimientovehiculo/constantes"
 	registroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
 	registroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
-	//visualizacionHistorialRegistrosControlador "example/fleetwise/modelos/visualizacionhistorialregistros"
-	//"example/fleetwise/modelos/conectorbd"
+	"example/fleetwise/modelos/capturaserviciovehicular"
+	"example/fleetwise/modelos/conectorbd"
 )
 
 type Controlador struct {
-	ConectorBDControlador                 *conectorBDControlador.Controlador
 	RegistroMantenimientoVehiculoMapeador *registroMantenimientoVehiculoMapeador.Mapeador
+	ServicioVehicularControlador          *servicioVehicularControlador.Controlador
 }
 
-func (c *Controlador) SeleccionarVehiculo(solicitud *registroMantenimientoVehiculoModelos.SeleccionarVehiculoSolicitud) *registroMantenimientoVehiculoModelos.SeleccionarVehiculoRespuesta {
-	//implementacipon futura por Pablo
-	return nil
+func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroSolicitud) *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroRespuesta {
+	respuesta := &registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroRespuesta{}
+
+	if solicitud == nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		return respuesta
+	}
+
+	if err := c.validarSeleccionarVehiculoParaRegistro(solicitud); err != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(err)
+		return respuesta
+	}
+
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
 }
 
-func (c *Controlador) validarSeleccionarVehiculo(solicitud *registroMantenimientoVehiculoModelos.SeleccionarVehiculoSolicitud) error {
-	//implementacipon futura por Pablo
+func (c *Controlador) validarSeleccionarVehiculoParaRegistro(solicitud *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroSolicitud) error {
+	obtenerVehiculoPorPlacasSolicitud := &conectorbd.ObtenerVehiculoPorPlacasSolicitud{}
+	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
+	if c.ServicioVehicularControlador.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
+		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
+	}
 	return nil
 }
 
 func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *registroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) *registroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoRespuesta {
-	//implementacipon futura por Pablo
-	return nil
+	respuesta := &registroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoRespuesta{}
+
+	if solicitud == nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD))
+		return respuesta
+	}
+
+	if err := c.validarAgregarRegistroMantemientoVehiculo(solicitud); err != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(err)
+		return respuesta
+	}
+
+	registro := c.RegistroMantenimientoVehiculoMapeador.AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud)
+
+	if guardarRegistroMantenimientoVehiculoRespuesta := c.ServicioVehicularControlador.ConectorBDControlador.GuardarRegistro(registro); guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr() != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr())
+		return respuesta
+	}
+
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
 }
 
 func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *registroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) error {
-	//implementacipon futura por Pablo
+
+	_, err := time.Parse("02/01/2006", solicitud.ObtenerFecha()) // DD/MM/AAAA
+	if err != nil {
+		return errors.New(constantes.ERROR_FECHA_FORMATO_INVALIDO)
+	}
+
+	tipo := solicitud.ObtenerTipo()
+
+	if tipo == "Carga de Combustible" {
+		gasolina := solicitud.ObtenerLitrosDeGasolina()
+		if gasolina <= 0 {
+			return errors.New(constantes.ERROR_LITROS_GASOLINA_NO_ES_NUMERO)
+		}
+	}
+
+	kilometraje := solicitud.ObtenerKilometraje()
+	if kilometraje <= 0 {
+		return errors.New(constantes.ERROR_KILOMETRAJE_NO_VALIDO)
+	}
+
+	importe := solicitud.ObtenerImporte()
+	if importe <= 0 {
+		return errors.New(constantes.ERROR_IMPORTE_NO_VALIDO)
+	}
+
 	return nil
 }
 
-/*
-func (c *Controlador) EditarRegistroMantemientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.EditaregistroMantenimientoVehiculo) *registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta {
-	//implementacipon futura por Pablo
-	return nil
+func (c *Controlador) ObtenerServiciosVehicularesParaNuevoRegistro() []capturaserviciovehicular.ServicioVehicular {
+	return c.ServicioVehicularControlador.ObtenerServiciosVehiculares()
 }
-
-func (c *Controlador) validarEditarRegistroMantemientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.EditaregistroMantenimientoVehiculo) error {
-	//implementacipon futura por Pablo
-	return nil
-}
-
-func (c *Controlador) BorrarRegistroMantemientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.BorrarRegistroMantenimientoVehiculo) *registroMantenimientoVehiculoModelos.BorrarRegistroMantenimientoVehiculoRespuesta {
-	//implementacipon futura por Pablo
-	return nil
-}
-
-func (c *Controlador) validarBorrarRegistroMantemientoVehiculo(solicitud *visualizacionHistorialRegistrosControlador.BorrarRegistroMantenimientoVehiculo) error {
-	//implementacipon futura por Pablo
-	return nil
-}*/

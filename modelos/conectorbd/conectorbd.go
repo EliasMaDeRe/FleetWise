@@ -163,6 +163,37 @@ func (v *GuardarServicioVehicularRespuesta) AsignarErr(err error) {
 	}
 }
 
+type GuardarRegistroMantenimientoVehiculoRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *GuardarRegistroMantenimientoVehiculoRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *GuardarRegistroMantenimientoVehiculoRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *GuardarRegistroMantenimientoVehiculoRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *GuardarRegistroMantenimientoVehiculoRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}
+
 type EditarServicioVehicularSolicitud struct {
 	nombreActual string
 	nuevoNombre  string
@@ -191,5 +222,53 @@ func (v *EditarServicioVehicularSolicitud) ObtenerNuevoNombre() (o string) {
 func (v *EditarServicioVehicularSolicitud) AsignarNuevoNombre(nuevoNombre string) {
 	if v != nil {
 		v.nuevoNombre = nuevoNombre
+	}
+}
+
+type GuardarUsuarioRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *GuardarUsuarioRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *GuardarUsuarioRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *GuardarUsuarioRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *GuardarUsuarioRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}
+
+type ObtenerUsuarioPorNombreUsuarioSolicitud struct {
+	nombre string
+}
+
+func (v *ObtenerUsuarioPorNombreUsuarioSolicitud) ObtenerNombre() (o string) {
+	if v != nil {
+		o = v.nombre
+	}
+	return
+}
+
+func (v *ObtenerUsuarioPorNombreUsuarioSolicitud) AsignarNombre(nombre string) {
+	if v != nil {
+		v.nombre = nombre
 	}
 }
