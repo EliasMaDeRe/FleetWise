@@ -39,8 +39,6 @@ func main() {
 
 	router := gin.Default()
 
-	controlador.SesionManejador.InicioSesionControlador.RegistrarUsuario("Fer", "123")
-
 	router.LoadHTMLGlob("*.html")
 	router.Static("/styles", "./styles/")
 	router.Static("/js", "./js/")
@@ -85,7 +83,33 @@ func main() {
 		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
 	})
 
-	router.GET("/EditarRegistroMantenimientoVehicular", func(c *gin.Context) {
+	router.GET("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.SeleccionarVehiculoParaNuevoRegistro(ctx)
+	}, func(c *gin.Context) {
+		c.HTML(http.StatusOK, "registromantenimientovehiculo.html", gin.H{})
+	})
+
+	router.GET("/ObtenerServiciosVehiculareParaNuevoRegistro", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.ObtenerServiciosVehiculares(ctx)
+	})
+
+	router.POST("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.SeleccionarVehiculoParaNuevoRegistro(ctx)
+	})
+
+	router.GET("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
+		controlador.SesionManejador.ValidarSesion(ctx)
+	}, func(c *gin.Context) {
+		c.HTML(http.StatusOK, "seleccionarvehiculo.html", gin.H{})
+	})
+
+	/*router.GET("/EditarRegistroMantenimientoVehicular", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
 	})
 	router.GET("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
@@ -96,7 +120,7 @@ func main() {
 	})
 	router.POST("/ObtenerServiciosVehiculareParaNuevoRegistro", func(ctx *gin.Context) {
 		controlador.RegistroMantenimientoVehicularManejador.ObtenerServiciosVehiculares(ctx)
-	})
+	})*/
 
 	router.GET("/Login", func(ctx *gin.Context) {
 		controlador.SesionManejador.ValidarSesion(ctx)

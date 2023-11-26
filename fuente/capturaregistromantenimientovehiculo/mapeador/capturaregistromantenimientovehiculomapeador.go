@@ -3,6 +3,7 @@ package mapeador
 import (
 	registroMantenimientoVehiculo "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +13,11 @@ type Mapeador struct {
 
 func (m *Mapeador) GinContextASeleccionarVehiculoParaNuevoRegistroSolicitud(contexto *gin.Context) *registroMantenimientoVehiculo.SeleccionarVehiculoParaNuevoRegistroSolicitud {
 	solicitud := &registroMantenimientoVehiculo.SeleccionarVehiculoParaNuevoRegistroSolicitud{}
+	if strings.Contains(contexto.Request.URL.String(), "?placas=") {
+		divisionesURL := strings.SplitAfter(contexto.Request.URL.String(), "?placas=")
+		solicitud.AsignarPlacas(divisionesURL[1])
+		return solicitud
+	}
 	contexto.BindJSON(solicitud)
 	return solicitud
 }

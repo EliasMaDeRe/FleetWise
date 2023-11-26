@@ -3,7 +3,6 @@ package controlador
 import (
 	"errors"
 	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	"time"
 
 	"example/fleetwise/fuente/capturaregistromantenimientovehiculo/constantes"
@@ -14,7 +13,6 @@ import (
 )
 
 type Controlador struct {
-	ConectorBDControlador                 *conectorBDControlador.Controlador
 	RegistroMantenimientoVehiculoMapeador *registroMantenimientoVehiculoMapeador.Mapeador
 	ServicioVehicularControlador          *servicioVehicularControlador.Controlador
 }
@@ -24,7 +22,7 @@ func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *registroMa
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD))
+		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
 		return respuesta
 	}
 
@@ -43,7 +41,7 @@ func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *registroMa
 func (c *Controlador) validarSeleccionarVehiculoParaRegistro(solicitud *registroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroSolicitud) error {
 	obtenerVehiculoPorPlacasSolicitud := &conectorbd.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
-	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
+	if c.ServicioVehicularControlador.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
 		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
 	}
 	return nil
@@ -66,7 +64,7 @@ func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *registroMant
 
 	registro := c.RegistroMantenimientoVehiculoMapeador.AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud)
 
-	if guardarRegistroMantenimientoVehiculoRespuesta := c.ConectorBDControlador.GuardarRegistro(registro); guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr() != nil {
+	if guardarRegistroMantenimientoVehiculoRespuesta := c.ServicioVehicularControlador.ConectorBDControlador.GuardarRegistro(registro); guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr() != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr())
 		return respuesta
