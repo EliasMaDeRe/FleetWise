@@ -47,7 +47,7 @@ func (m *Manejador) IniciarSesion(contexto *gin.Context) {
 	contexto.IndentedJSON(status, gin.H{"OK": ok, "err": mensajeError})
 }
 
-func (m *Manejador) ValidarSesion(contexto *gin.Context) {
+func (m *Manejador) ValidarSesion(contexto *gin.Context, cargoRequerido string) {
 
 	tokenCadena, err := contexto.Cookie("autorizacion")
 
@@ -85,6 +85,12 @@ func (m *Manejador) ValidarSesion(contexto *gin.Context) {
 			contexto.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
+
+		if !m.InicioSesionControlador.UsuarioTieneAutorizacion(usuarioEncontrado, cargoRequerido) {
+			contexto.AbortWithStatus(http.StatusUnauthorized)
+			return
+		}
+
 		contexto.Set("usuario", usuarioEncontrado)
 	} else {
 		contexto.HTML(http.StatusUnauthorized, "login.html", gin.H{})
