@@ -116,7 +116,7 @@ func (c *Controlador) GuardarRegistro(registro *registroMantenimientoVehiculoMod
 	resultadoGuardarRegistro := baseDeDatos.Create(
 		&registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
 			NumeroDeRegistro: registro.ObtenerNumeroDeRegistro(),
-			Tipo:             registro.ObtenerTipo(),
+			TipoDeRegistro:   registro.ObtenerTipo(),
 			Fecha:            registro.ObtenerFecha(),
 			LitrosDeGasolina: registro.ObtenerLitrosDeGasolina(),
 			Kilometraje:      registro.ObtenerKilometraje(),
