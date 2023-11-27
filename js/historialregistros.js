@@ -119,6 +119,8 @@
 				let enlaceEditarRegistro = document.createElement("A");
 				enlaceEditarRegistro.innerText = "Editar";
 				enlaceEditarRegistro.href = `/EditarRegistroMantenimientoVehicular?numRegistro=${registro.NumeroDeRegistro}`;
+				enlaceEditarRegistro.target = "_blank";
+
 				let filaNueva = [
 					registro.Fecha,
 					vehiculo.Placas,

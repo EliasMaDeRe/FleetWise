@@ -1,21 +1,21 @@
 package conectorbd
 
 import (
-	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
+	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 )
 
 type GuardarVehiculoSolicitud struct {
-	vehiculo vehiculosModelos.Vehiculo
+	vehiculo capturaVehiculosModelos.Vehiculo
 }
 
-func (v *GuardarVehiculoSolicitud) ObtenerVehiculo() (o vehiculosModelos.Vehiculo) {
+func (v *GuardarVehiculoSolicitud) ObtenerVehiculo() (o capturaVehiculosModelos.Vehiculo) {
 	if v != nil {
 		o = v.vehiculo
 	}
 	return
 }
 
-func (v *GuardarVehiculoSolicitud) AsignarVehiculo(vehiculo vehiculosModelos.Vehiculo) {
+func (v *GuardarVehiculoSolicitud) AsignarVehiculo(vehiculo capturaVehiculosModelos.Vehiculo) {
 	if v != nil {
 		v.vehiculo = vehiculo
 	}
@@ -343,7 +343,7 @@ func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosS
 }
 
 
-type ActualizarRegistroMantenimientoVehicularSolicitud struct {
+type ActualizarRegistroDeMantenimientoDelVehiculoSolicitud struct {
 	NumeroDeRegistro int     
 	Tipo             string  
 	Fecha            string  
@@ -356,118 +356,118 @@ type ActualizarRegistroMantenimientoVehicularSolicitud struct {
 }
 
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerNumeroDeRegistro() (numeroDeRegistro int) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerNumeroDeRegistro() (numeroDeRegistro int) {
 	if actualizarRegistroSolicitud != nil {
 		numeroDeRegistro = actualizarRegistroSolicitud.NumeroDeRegistro
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarNumeroDeRegistro(NumeroDeRegistro int) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarNumeroDeRegistro(NumeroDeRegistro int) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.NumeroDeRegistro = NumeroDeRegistro
 	}
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerTipo() (tipo string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerTipo() (tipo string) {
 	if actualizarRegistroSolicitud != nil {
 		tipo = actualizarRegistroSolicitud.Tipo
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarTipo(tipo string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarTipo(tipo string) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.Tipo = tipo
 	}
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerFecha() (fecha string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerFecha() (fecha string) {
 	if actualizarRegistroSolicitud != nil {
 		fecha = actualizarRegistroSolicitud.Fecha
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarFecha(fecha string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarFecha(fecha string) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.Fecha = fecha
 	}
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerLitrosDeGasolina() (litrosGasolina float64) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerLitrosDeGasolina() (litrosGasolina float64) {
 	if actualizarRegistroSolicitud != nil {
 		litrosGasolina = actualizarRegistroSolicitud.LitrosDeGasolina
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarLitrosDeGasolina(LitrosDeGasolina float64) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarLitrosDeGasolina(LitrosDeGasolina float64) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.LitrosDeGasolina = LitrosDeGasolina
 	}
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerKilometraje() (kilometraje int) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerKilometraje() (kilometraje int) {
 	if actualizarRegistroSolicitud != nil {
 		kilometraje = actualizarRegistroSolicitud.Kilometraje
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarKilometraje(kilometraje int) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarKilometraje(kilometraje int) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.Kilometraje = kilometraje
 	}
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerImporte() (importe float64) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerImporte() (importe float64) {
 	if actualizarRegistroSolicitud != nil {
 		importe = actualizarRegistroSolicitud.Importe
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarImporte(importe float64) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarImporte(importe float64) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.Importe = importe
 	}
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerObservaciones() (observaciones string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerObservaciones() (observaciones string) {
 	if actualizarRegistroSolicitud != nil {
 		observaciones = actualizarRegistroSolicitud.Observaciones
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarObservaciones(observaciones string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarObservaciones(observaciones string) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.Observaciones = observaciones
 	}
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerConcepto() (concepto string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerConcepto() (concepto string) {
 	if actualizarRegistroSolicitud != nil {
 		concepto = actualizarRegistroSolicitud.Concepto
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarConcepto(concepto string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarConcepto(concepto string) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.Concepto = concepto
 	}
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) ObtenerPlacasVehiculo() (placasVehiculo string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerPlacasVehiculo() (placasVehiculo string) {
 	if actualizarRegistroSolicitud != nil {
 		placasVehiculo = actualizarRegistroSolicitud.PlacasVehiculo
 	}
 	return
 }
 
-func (actualizarRegistroSolicitud *ActualizarRegistroMantenimientoVehicularSolicitud) AsignarPlacasVehiculo(placasVehiculo string) {
+func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarPlacasVehiculo(placasVehiculo string) {
 	if actualizarRegistroSolicitud != nil {
 		actualizarRegistroSolicitud.PlacasVehiculo = placasVehiculo
 	}

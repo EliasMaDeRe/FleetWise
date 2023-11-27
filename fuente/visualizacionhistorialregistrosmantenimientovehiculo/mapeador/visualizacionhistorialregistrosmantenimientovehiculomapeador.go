@@ -2,7 +2,7 @@ package mapeador
 
 import (
 	modelosBd "example/fleetwise/modelos/conectorbd"
-	historialRegistrosModelo "example/fleetwise/modelos/visualizacionhistorialregistrosmantenimientovehicular"
+	historialRegistrosModelo "example/fleetwise/modelos/visualizacionhistorialregistrosmantenimientovehiculo"
 	"strconv"
 
 	"github.com/gin-gonic/gin"

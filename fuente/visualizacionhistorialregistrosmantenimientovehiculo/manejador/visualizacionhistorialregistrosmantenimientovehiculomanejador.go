@@ -2,22 +2,22 @@ package manejador
 
 import (
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
-	historialRegistrosControlador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehicular/controlador"
-	historialRegistrosMapeador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehicular/mapeador"
+	visualizacionHistorialRegistrosControlador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehiculo/controlador"
+	visualizacionHistorialRegistrosMapeador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehiculo/mapeador"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Manejador struct{
-	HistorialRegistrosControlador *historialRegistrosControlador.Controlador
+	HistorialRegistrosControlador *visualizacionHistorialRegistrosControlador.Controlador
 
 }
 
 func NuevoManejador() (m *Manejador){
 	return &Manejador{
-		HistorialRegistrosControlador: &historialRegistrosControlador.Controlador{
-			HistorialRegistrosMapeador: &historialRegistrosMapeador.Mapeador{},
+		HistorialRegistrosControlador: &visualizacionHistorialRegistrosControlador.Controlador{
+			HistorialRegistrosMapeador: &visualizacionHistorialRegistrosMapeador.Mapeador{},
 			ConectorBDControlador: &conectorBDControlador.Controlador{},
 		},
 	}
