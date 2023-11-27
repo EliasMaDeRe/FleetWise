@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise | Editar Historial Registros</title>
+    <title>FleetWise | Editar Resumen Vehicular</title>
   </head>
 
   <body>
@@ -23,7 +22,7 @@
     </header>
 
     <main class="editar-registro">
-      <h1>Editar Registros</h1>
+      <h1>Editar Resumen</h1>
 
       <form action="">
         <div class="editar-registro__contenedor">
@@ -47,7 +46,6 @@
                 id="marca"
                 name="marca"
                 class="registros__entrada"
-                disabled
               />
             </div>
 
@@ -58,97 +56,17 @@
                 id="modelo"
                 name="modelo"
                 class="registros__entrada"
-                disabled
               />
             </div>
 
             <div class="registros__campo">
-              <label for="fechaDeLanzamiento" class="registros__etiqueta">
-                Año
-              </label>
+              <label for="anio" class="registros__etiqueta">Año</label>
               <input
                 type="number"
-                id="fechaDeLanzamiento"
-                name="fechaDeLanzamiento"
-                class="registros__entrada"
-                disabled
-              />
-            </div>
-          </fieldset>
-        </div>
-
-        <div class="editar-registro__contenedor">
-          <p class="editar-registro__contenedor-texto">Datos Registro</p>
-
-          <fieldset class="registros__campos">
-            <div class="registros__campo">
-              <label for="fecha" class="registros__etiqueta">Fecha</label>
-              <input
-                type="date"
-                id="fecha"
-                name="fecha"
+                id="anio"
+                name="anio"
                 class="registros__entrada"
               />
-            </div>
-
-            <div class="registros__campo">
-              <label for="tipoDeRegistro" class="registros__etiqueta">
-                Tipo de Registro
-              </label>
-              <select
-                id="tipoDeRegistro"
-                name="tipoDeRegistro"
-                class="filtros__desplegable"
-              >
-                <option value="carga de combustible">
-                  Carga de Combustible
-                </option>
-                <option value="afinacion">Afinación</option>
-                <option value="reparacion">Reparaci&oacute;n</option>
-                <option value="reemplazo">Reemplazo</option>
-              </select>
-            </div>
-
-            <div class="registros__campo">
-              <label for="kilometraje" class="registros__etiqueta"
-                >Kilometraje</label
-              >
-              <input
-                type="number"
-                id="kilometraje"
-                name="kilometraje"
-                class="registros__entrada"
-              />
-            </div>
-
-            <div class="registros__campo">
-              <label for="importe" class="registros__etiqueta">Importe</label>
-              <input
-                type="number"
-                id="importe"
-                name="importe"
-                class="registros__entrada"
-              />
-            </div>
-
-            <div class="registros__campo">
-              <label for="observaciones" class="registros__etiqueta">
-                Observaciones
-              </label>
-              <input
-                type="text"
-                id="observaciones"
-                class="registros__entrada"
-              />
-            </div>
-
-            <div class="registros__campo">
-              <div id="campoCambiable">
-                <label for="litros" class="registros__etiqueta">
-                  Litros de Gasolina
-                </label>
-                <input type="number" id="litros" class="registros__entrada" />
-              </div>
             </div>
           </fieldset>
         </div>
@@ -161,12 +79,7 @@
             Volver
           </a>
 
-          <input
-            type="submit"
-            id="editar-registro"
-            class="registros__enviar"
-            value="Guardar Cambios"
-          />
+          <input type="submit" class="registros__enviar" value="Enviar" />
         </div>
       </form>
     </main>
@@ -298,6 +211,11 @@
       </div>
     </footer>
 
-    <script src="js/editarRegistro.js"></script>
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-latest.min.js"
+    ></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="js/historialregistros.js"></script>
   </body>
 </html>

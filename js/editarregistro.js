@@ -66,15 +66,15 @@
 
 		cargarCampoEnElFormulario("fecha", registro.Fecha);
 
-		document.querySelector(`option[value="${registro.TipoRegistro}"]`).selected = true;
+		document.querySelector(`option[value="${registro.TipoDeRegistro}"]`).selected = true;
 
 		cargarCampoEnElFormulario("kilometraje", registro.Kilometraje);
 		cargarCampoEnElFormulario("importe", registro.Importe);
 		cargarCampoEnElFormulario("observaciones", registro.Observaciones);
 
-		if (registro.TipoRegistro === "carga de combustible") {
+		if (registro.TipoDeRegistro === "carga de combustible") {
 			mostrarCampoLitrosGasolina();
-			cargarCampoEnElFormulario("litros", registro.LitrosGasolina);
+			cargarCampoEnElFormulario("litros", registro.LitrosDeGasolina);
 		} else {
 			await mostrarCampoConcepto();
 			cargarCampoEnElFormulario("concepto", registro.Concepto);

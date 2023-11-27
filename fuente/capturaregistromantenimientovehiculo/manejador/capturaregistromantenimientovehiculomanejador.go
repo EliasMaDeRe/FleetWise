@@ -5,6 +5,7 @@ import (
 	capturaRegistroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
 	capturaServicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	"strings"
 
 	"net/http"
 
@@ -31,6 +32,16 @@ func (m *Manejador) SeleccionarVehiculoParaNuevoRegistro(contexto *gin.Context) 
 	status := http.StatusOK
 	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
+	}
+	if strings.Contains(contexto.Request.URL.String(), "AgregarRegistroMantenimientoVehiculo") {
+		if respuesta.ObtenerOk() {
+			contexto.Next()
+			return
+		} else {
+			contexto.HTML(http.StatusOK, "seleccionarvehiculo.html", gin.H{})
+			contexto.Abort()
+			return
+		}
 	}
 	var mensajeError string
 	if respuesta.ObtenerErr() != nil {

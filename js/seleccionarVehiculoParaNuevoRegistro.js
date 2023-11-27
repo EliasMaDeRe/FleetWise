@@ -4,7 +4,7 @@
     );
   
     if (botonEnviarFormularioSeleccionarVehiculo) {
-      botonEnviarFormularioCapturarVehiculo.addEventListener("click", (e) => {
+      botonEnviarFormularioSeleccionarVehiculo.addEventListener("click", (e) => {
         e.preventDefault();
         const inputsFormulario = obtenerInputsDelFormulario();
         enviarFormulario(inputsFormulario);
@@ -19,8 +19,8 @@
       async function enviarFormulario(inputsFormulario) {
         const datosFormulario = construirPeticionFormulario(inputsFormulario);
         const datosFormularioJSON = JSON.stringify(Object.fromEntries(datosFormulario));
-        const agregarVehiculoURL = "/SeleccionarVehiculoParaNuevoRegistro";
-        const peticion = await fetch(agregarVehiculoURL, {
+        const seleccionarVehiculoParaNuevoRegistroURL = "/SeleccionarVehiculoParaNuevoRegistro";
+        const peticion = await fetch(seleccionarVehiculoParaNuevoRegistroURL, {
           method: "POST",
           body: datosFormularioJSON,
         });
@@ -29,7 +29,9 @@
           desplegarAlerta("error", respuesta.err);
         } else {
           desplegarAlerta("exito", "Vehículo encontrado exitosamente");
-          window.location.href = 'registromantenimientovehiculo.html';
+          setTimeout(() => {
+            window.location.href = '/AgregarRegistroMantenimientoVehiculo?placas='+datosFormulario.get("placas");
+          },1000);
         }
       }
   

@@ -72,9 +72,9 @@ INSERT INTO `usuarios` (`cargo`, `clave_usuario`, `nombre_usuario`) VALUES
 CREATE TABLE `registros_mantenimiento_vehicular` (
   `numero_de_registro` int(11) NOT NULL AUTO_INCREMENT,
   `placas_vehiculo` varchar(255) NOT NULL,
-  `tipo_registro` varchar(255) NOT NULL,
+  `tipo_de_registro` varchar(255) NOT NULL,
   `fecha` varchar(255) NOT NULL,
-  `litros_gasolina` float DEFAULT NULL,
+  `litros_de_gasolina` float DEFAULT NULL,
   `kilometraje` int(11) NOT NULL,
   `importe` float NOT NULL,
   `observaciones` varchar(255) DEFAULT NULL,

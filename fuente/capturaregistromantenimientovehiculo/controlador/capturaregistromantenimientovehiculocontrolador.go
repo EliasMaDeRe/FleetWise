@@ -4,6 +4,7 @@ import (
 	"errors"
 	capturaServicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	"strconv"
 	"time"
 
 	"example/fleetwise/fuente/capturaregistromantenimientovehiculo/constantes"
@@ -25,7 +26,7 @@ func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *capturaReg
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD))
+		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
 		return respuesta
 	}
 
@@ -44,7 +45,7 @@ func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *capturaReg
 func (c *Controlador) validarSeleccionarVehiculoParaRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroSolicitud) error {
 	obtenerVehiculoPorPlacasSolicitud := &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
-	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
+	if c.CapturaServicioVehicularControlador.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
 		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
 	}
 	return nil
@@ -67,7 +68,7 @@ func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *capturaRegis
 
 	registro := c.CapturaRegistroMantenimientoVehiculoMapeador.AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud)
 
-	if guardarRegistroMantenimientoVehiculoRespuesta := c.ConectorBDControlador.GuardarRegistro(registro); guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr() != nil {
+	if guardarRegistroMantenimientoVehiculoRespuesta := c.CapturaServicioVehicularControlador.ConectorBDControlador.GuardarRegistro(registro); guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr() != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr())
 		return respuesta
@@ -86,22 +87,19 @@ func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *captu
 		return errors.New(constantes.ERROR_FECHA_FORMATO_INVALIDO)
 	}
 
-	tipo := solicitud.ObtenerTipo()
+	tipoDeRegistro := solicitud.ObtenerTipo()
 
-	if tipo == "Carga de Combustible" {
-		gasolina := solicitud.ObtenerLitrosDeGasolina()
-		if gasolina <= 0 {
+	if tipoDeRegistro == "carga_combustible" {
+		if litrosDeGasolina, err := strconv.ParseFloat(solicitud.ObtenerLitrosDeGasolina(), 64); err != nil || litrosDeGasolina <= 0 {
 			return errors.New(constantes.ERROR_LITROS_GASOLINA_NO_ES_NUMERO)
 		}
 	}
 
-	kilometraje := solicitud.ObtenerKilometraje()
-	if kilometraje <= 0 {
+	if kilometraje, err := strconv.Atoi(solicitud.ObtenerKilometraje()); err != nil || kilometraje <= 0 {
 		return errors.New(constantes.ERROR_KILOMETRAJE_NO_VALIDO)
 	}
 
-	importe := solicitud.ObtenerImporte()
-	if importe <= 0 {
+	if importe, err := strconv.ParseFloat(solicitud.ObtenerImporte(), 64); err != nil || importe <= 0 {
 		return errors.New(constantes.ERROR_IMPORTE_NO_VALIDO)
 	}
 
