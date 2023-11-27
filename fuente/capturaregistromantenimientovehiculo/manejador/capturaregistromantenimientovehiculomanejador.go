@@ -24,7 +24,7 @@ func NuevoManejador() (c *Manejador) {
 	}
 }
 
-func (m *Manejador) SeleccionarVehiculoParaNuevoRegistStatusOKfmmro(contexto *gin.Context) {
+func (m *Manejador) SeleccionarVehiculoParaNuevoRegistro(contexto *gin.Context) {
 	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextASeleccionarVehiculoParaNuevoRegistroSolicitud(contexto)
 	respuesta := m.RegistroMantenimientoVehiculoControlador.SeleccionarVehiculoParaNuevoRegistro(solicitud)
 	status := http.StatusOK

@@ -1,4 +1,4 @@
-package capturavehiculos
+package capturRegistroMantenimientoVehiculo
 
 type RegistroMantenimientoVehiculo struct {
 	NumeroDeRegistro int
