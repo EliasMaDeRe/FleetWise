@@ -3,7 +3,6 @@ package controlador
 import (
 	"errors"
 	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
-	"fmt"
 	"strconv"
 	"time"
 
@@ -94,12 +93,10 @@ func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *regis
 	}
 
 	if kilometraje, err := strconv.Atoi(solicitud.ObtenerKilometraje()); err != nil || kilometraje <= 0 {
-		fmt.Println(kilometraje)
 		return errors.New(constantes.ERROR_KILOMETRAJE_NO_VALIDO)
 	}
 
 	if importe, err := strconv.ParseFloat(solicitud.ObtenerImporte(), 64); err != nil || importe <= 0 {
-		fmt.Println(importe)
 		return errors.New(constantes.ERROR_IMPORTE_NO_VALIDO)
 	}
 
