@@ -1,6 +1,6 @@
 (function () {
     window.addEventListener('DOMContentLoaded',() => {
-      const selectConcepto = document.getElementById("select_concepto");
+      const selectConcepto = document.getElementById("conceptoregistro");
       obtenerServicios();
 
       const placasVehiculo = document.querySelector(".captura-registro-mantenimiento-vehiculo__placas-contenedor")
@@ -44,10 +44,10 @@
       }
     })
 
-    const selectTipoServicioVehicular = document.getElementById('select_tipo_registro');
+    const selectTipoServicioVehicular = document.getElementById('tiporegistro');
     selectTipoServicioVehicular.addEventListener('change', function (){
         const gasolina_label = document.getElementById('litros_gasolina_label');
-        const gasolina_input = document.getElementById('litros_gasolina_input');
+        const gasolina_input = document.getElementById('litrosdegasolina');
         const concepto = document.getElementById('concepto');
         if(selectTipoServicioVehicular.value == 'carga_combustible'){
             gasolina_label.removeAttribute("hidden"); 

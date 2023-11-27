@@ -2,7 +2,6 @@ package mapeador
 
 import (
 	registroMantenimientoVehiculo "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -24,11 +23,6 @@ func (m *Mapeador) GinContextASeleccionarVehiculoParaNuevoRegistroSolicitud(cont
 }
 
 func (m *Mapeador) GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contexto *gin.Context) *registroMantenimientoVehiculo.AgregarRegistroMantenimientoVehiculoSolicitud {
-	rawJSON, err := contexto.GetRawData()
-	if err != nil {
-		contexto.JSON(500, gin.H{"error": "Error al obtener los datos JSON"})
-	}
-	fmt.Println("Datos JSON sin procesar:", string(rawJSON))
 	solicitud := &registroMantenimientoVehiculo.AgregarRegistroMantenimientoVehiculoSolicitud{}
 	contexto.BindJSON(solicitud)
 	return solicitud
@@ -37,23 +31,29 @@ func (m *Mapeador) GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contex
 func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud *registroMantenimientoVehiculo.AgregarRegistroMantenimientoVehiculoSolicitud) *registroMantenimientoVehiculo.RegistroMantenimientoVehiculo {
 	registro := &registroMantenimientoVehiculo.RegistroMantenimientoVehiculo{}
 
-	tipo := solicitud.ObtenerTipo()
-	registro.AsignarTipo(tipo)
+	tipoDeRegistro := solicitud.ObtenerTipo()
+	registro.AsignarTipo(tipoDeRegistro)
 
-	if fecha, err := strconv.Atoi(solicitud.ObtenerFecha()); err == nil {
-		registro.AsignarFecha(strconv.Itoa(fecha))
+	fecha := solicitud.ObtenerFecha()
+	registro.AsignarFecha(fecha)
+
+	if kilometraje, err := strconv.Atoi(solicitud.ObtenerKilometraje()); err == nil {
+		registro.AsignarKilometraje(kilometraje)
 	} else {
-		registro.AsignarFecha("0")
+		registro.AsignarKilometraje(0)
 	}
 
-	kilometraje := solicitud.ObtenerKilometraje()
-	registro.AsignarKilometraje(kilometraje)
+	if litrosDeGasolina, err := strconv.ParseFloat(solicitud.ObtenerLitrosDeGasolina(), 64); err == nil {
+		registro.AsignarLitrosDeGasolina(litrosDeGasolina)
+	} else {
+		registro.AsignarLitrosDeGasolina(0)
+	}
 
-	litrosGasolina := solicitud.ObtenerLitrosDeGasolina()
-	registro.AsignarLitrosDeGasolina(litrosGasolina)
-
-	importe := solicitud.ObtenerImporte()
-	registro.AsignarImporte(importe)
+	if importe, err := strconv.ParseFloat(solicitud.ObtenerImporte(), 64); err == nil {
+		registro.AsignarImporte(importe)
+	} else {
+		registro.AsignarImporte(0)
+	}
 
 	concepto := solicitud.ObtenerConcepto()
 	registro.AsignarConcepto(concepto)

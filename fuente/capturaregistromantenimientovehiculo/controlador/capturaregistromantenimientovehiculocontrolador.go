@@ -4,6 +4,7 @@ import (
 	"errors"
 	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
 	"fmt"
+	"strconv"
 	"time"
 
 	"example/fleetwise/fuente/capturaregistromantenimientovehiculo/constantes"
@@ -86,22 +87,19 @@ func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *regis
 
 	tipo := solicitud.ObtenerTipo()
 
-	if tipo == "Carga de Combustible" {
-		gasolina := solicitud.ObtenerLitrosDeGasolina()
-		if gasolina <= 0 {
+	if tipo == "carga_combustible" {
+		if gasolina, err := strconv.ParseFloat(solicitud.ObtenerLitrosDeGasolina(), 64); err != nil || gasolina <= 0 {
 			return errors.New(constantes.ERROR_LITROS_GASOLINA_NO_ES_NUMERO)
 		}
 	}
 
-	kilometraje := solicitud.ObtenerKilometraje()
-	fmt.Println(kilometraje)
-	if kilometraje <= 0 {
+	if kilometraje, err := strconv.Atoi(solicitud.ObtenerKilometraje()); err != nil || kilometraje <= 0 {
+		fmt.Println(kilometraje)
 		return errors.New(constantes.ERROR_KILOMETRAJE_NO_VALIDO)
 	}
 
-	importe := solicitud.ObtenerImporte()
-	fmt.Println(importe)
-	if importe <= 0 {
+	if importe, err := strconv.ParseFloat(solicitud.ObtenerImporte(), 64); err != nil || importe <= 0 {
+		fmt.Println(importe)
 		return errors.New(constantes.ERROR_IMPORTE_NO_VALIDO)
 	}
 

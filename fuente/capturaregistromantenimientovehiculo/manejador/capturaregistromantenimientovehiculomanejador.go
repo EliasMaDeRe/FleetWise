@@ -56,13 +56,8 @@ func (m *Manejador) SeleccionarVehiculoParaNuevoRegistro(contexto *gin.Context) 
 }
 
 func (m *Manejador) AgregarRegistroMantemientoVehiculo(contexto *gin.Context) {
-	rawJSON, err := contexto.GetRawData()
-	if err != nil {
-		contexto.JSON(500, gin.H{"error": "Error al obtener los datos JSON"})
-		return
-	}
-	fmt.Println("Datos JSON sin procesar:", string(rawJSON))
 	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contexto)
+	fmt.Println(solicitud)
 	respuesta := m.RegistroMantenimientoVehiculoControlador.AgregarRegistroMantemientoVehiculo(solicitud)
 	status := http.StatusOK
 	if !respuesta.ObtenerOk() {

@@ -34,7 +34,7 @@
             <div class="captura-registro-mantenimiento-vehiculo__placas-contenedor"></div>
             <div class="formulario__campo">
               <p>Tipo de Registro:
-                <select id="select_tipo_registro">
+                <select id="tiporegistro" class="formulario__input">
                 <option value="servicio" selected="selected">Servicio</option>
                 <option value="carga_combustible">Carga de Combustible</option>
                 <option value="afinacion">Afinación</option>
@@ -67,8 +67,8 @@
               <input
                 class="formulario__input"
                 type="text"
-                name="litros_gasolina"
-                id="litros_gasolina_input"
+                name="litrosdegasolina"
+                id="litrosdegasolina"
                 placeholder="Litros de Gasolina"
                 hidden
               />
@@ -95,7 +95,7 @@
               </div>
             <div class="formulario__campo">
               <p id="concepto">Concepto:
-                <select name="select_concepto" id="select_concepto">
+                <select name="conceptoregistro" id="conceptoregistro" class="formulario__input">
               </select></p>
             </div>
               <input type="submit" class="formulario__submit" value="Enviar" />
