@@ -253,6 +253,10 @@ INICIO SELECCIONAR-VEHICULO
   width: 70%;
 }
 
+.captura-registro-mantenimiento-vehiculo__plascas-contenerdor{
+  justify-content: center;
+}
+
 /*
 =============================
 FIN SELECCIONAR-VEHICULO
