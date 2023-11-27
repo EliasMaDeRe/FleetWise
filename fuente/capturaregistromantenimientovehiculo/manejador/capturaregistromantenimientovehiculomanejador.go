@@ -31,7 +31,7 @@ func (m *Manejador) SeleccionarVehiculoParaNuevoRegistro(contexto *gin.Context) 
 	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
 	}
-	if strings.Contains(contexto.Request.URL.String(), "AgregarRegistroMantenimientoVehicular") {
+	if strings.Contains(contexto.Request.URL.String(), "AgregarRegistroMantenimientoVehiculo") {
 		if respuesta.ObtenerOk() {
 			contexto.Next()
 			return
