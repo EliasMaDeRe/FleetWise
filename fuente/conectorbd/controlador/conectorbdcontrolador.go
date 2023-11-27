@@ -332,7 +332,7 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociadosFiltrados(solicitud *co
  	return registrosFiltrados, vehiculosFiltrados;
 }
 
-func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro (solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
+func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
 	if errConectarBD != nil {
@@ -354,6 +354,44 @@ func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro (solic
  	return registro, vehiculoAsociado;
 }
 
+func (c *Controlador) ActualizarRegistroMantenimientoVehicular(solicitud *conectorModelos.ActualizarRegistroMantenimientoVehicularSolicitud) *conectorModelos.ActualizarRegistroMantenimientoVehicularRespuesta{
+	
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	fmt.Println(solicitud)
+
+	registroMantenimientoVehicularActualizado := &registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
+		TipoRegistro: 	solicitud.ObtenerTipo(),
+		Fecha: 			solicitud.ObtenerFecha(),
+		LitrosGasolina: solicitud.ObtenerLitrosDeGasolina(),	
+		Kilometraje: 	solicitud.ObtenerKilometraje(),
+		Importe: 		solicitud.ObtenerImporte(),
+		Observaciones:  solicitud.ObtenerObservaciones(),
+		Concepto:       solicitud.ObtenerConcepto(),
+		PlacasVehiculo: solicitud.ObtenerPlacasVehiculo(),	
+	}
+	
+	respuesta := &conectorModelos.ActualizarRegistroMantenimientoVehicularRespuesta{}
+
+	if errConectarBD != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarError(errConectarBD)
+		return respuesta
+	}
+
+	respuestaActualizacionRegistro := baseDeDatos.Table("registros_mantenimiento_vehicular").Where("numero_de_registro = ?", solicitud.ObtenerNumeroDeRegistro()).Update(registroMantenimientoVehicularActualizado)
+
+	if(respuestaActualizacionRegistro.Error != nil){
+		respuesta.AsignarOk(false)
+		respuesta.AsignarError(respuestaActualizacionRegistro.Error)
+		return respuesta
+	}
+
+	respuesta.AsignarOk(true);
+	respuesta.AsignarError(nil)
+
+	return respuesta
+}
 
 func (c *Controlador) obtenerConexionABd() string {
 	dbHost := os.Getenv("dbHost")

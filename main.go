@@ -30,7 +30,7 @@ func loadEnvFile() {
 }
 
 func main() {
-	godotenv.Load()
+	loadEnvFile()
 
 	controlador := &ControladorMain{
 		VehiculosManejador:                      vehiculosManejador.NuevoManejador(),
@@ -144,10 +144,17 @@ func main() {
 		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
 	})
 
+	router.POST("/EditarRegistroMantenimientoVehicular",func(ctx *gin.Context) {
+		controlador.RegistroMantenimientoVehicularManejador.EditarRegistroMantenimientoVehicular(ctx)
+	})
+
 	router.POST("/ObtenerRegistroPorNumeroDeRegistro", func(ctx *gin.Context) {
 		controlador.RegistroMantenimientoVehicularManejador.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistro(ctx)
 	})
 
+	router.GET("/RegistroEditado", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "registroEditado.html", gin.H{})
+	})
 
 	router.Run("localhost:8080")
 }

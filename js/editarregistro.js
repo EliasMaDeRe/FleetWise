@@ -12,6 +12,37 @@
 		}
 	});
 
+	document.getElementById("editar-registro").addEventListener("click", async (e) => {
+		e.preventDefault();
+
+		const tipoDeRegistro = obtenerCampoDelFormulario("tipoDeRegistro");
+		const registro = {
+			numeroDeRegistro: obtenerNumDeRegistro(),
+			tipoDeRegistro: tipoDeRegistro,
+			fecha: obtenerCampoDelFormulario("fecha"),
+			kilometraje: parseInt(obtenerCampoDelFormulario("kilometraje")),
+			importe: parseFloat(obtenerCampoDelFormulario("importe")),
+			observaciones: obtenerCampoDelFormulario("observaciones"),
+			placaVehiculo: obtenerCampoDelFormulario("placa"),
+		};
+
+		if (tipoDeRegistro === "carga de combustible") {
+			registro["litrosDeGasolina"] = parseFloat(obtenerCampoDelFormulario("litros"));
+			registro["concepto"] = "";
+		} else {
+			registro["litrosDeGasolina"] = 0;
+			registro["concepto"] = obtenerCampoDelFormulario("concepto");
+		}
+
+		const respuestaEditarRegistro = await enviarSolicitudEditarRegistro("/EditarRegistroMantenimientoVehicular", registro);
+
+		if (respuestaEditarRegistro.OK) {
+			window.location.href = "/RegistroEditado?numRegistro=" + obtenerNumDeRegistro();
+		} else {
+			desplegarAlertaError(respuestaEditarRegistro.mensajeError);
+		}
+	});
+
 	async function cargarDatosDelRegistroEnElFormulario() {
 		const registroYVehiculoAsociado = await ObtenerDatosDelRegistro();
 
@@ -43,7 +74,7 @@
 
 		if (registro.TipoRegistro === "carga de combustible") {
 			mostrarCampoLitrosGasolina();
-			cargarCampoEnElFormulario("litrosGasolina", registro.LitrosGasolina);
+			cargarCampoEnElFormulario("litros", registro.LitrosGasolina);
 		} else {
 			await mostrarCampoConcepto();
 			cargarCampoEnElFormulario("concepto", registro.Concepto);
@@ -134,5 +165,42 @@
 	function obtenerNumDeRegistro() {
 		const params = new URLSearchParams(window.location.search);
 		return parseInt(params.get("numRegistro"));
+	}
+
+	function obtenerCampoDelFormulario(idCampo) {
+		return document.getElementById(idCampo).value;
+	}
+
+	async function enviarSolicitudEditarRegistro(url, contenidoPeticion) {
+		const respuesta = await fetch(url, {
+			method: "POST",
+			body: JSON.stringify(contenidoPeticion),
+		});
+
+		const resultado = await respuesta.json();
+
+		return resultado;
+	}
+
+	function desplegarAlertaError(mensajeError) {
+		const contenedorPrincipal = document.querySelector("main.editar-registro");
+
+		const contenedorAlerta = document.querySelector("div.alerta");
+
+		if (contenedorAlerta) {
+			const textoAlerta = contenedorAlerta.querySelector("p");
+			textoAlerta.textContent = mensajeError;
+		} else {
+			const contenedorAlerta = document.createElement("DIV");
+			contenedorAlerta.classList.add("alerta");
+			contenedorAlerta.classList.add("alerta--error");
+
+			const textoAlerta = document.createElement("P");
+			textoAlerta.textContent = mensajeError;
+
+			contenedorAlerta.appendChild(textoAlerta);
+
+			contenedorPrincipal.appendChild(contenedorAlerta);
+		}
 	}
 })();

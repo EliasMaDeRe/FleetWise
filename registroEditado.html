@@ -3,7 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/app.css" />
     <title>FleetWise | Editar Historial Registros</title>
   </head>
@@ -11,7 +10,7 @@
   <body>
     <header class="header">
       <div class="header__logo">
-        <p>Logo</p>
+        <a href="/"><img src="img/Logo.png" alt="Logo" /></a>
       </div>
       <nav class="navbar">
         <a href="#" class="navbar__enlace">Texto</a>
@@ -22,154 +21,58 @@
       </nav>
     </header>
 
-    <main class="editar-registro">
-      <h1>Editar Registros</h1>
+    <div class="confirmacion-edicion">
+      <div class="confirmacion-edicion__contenedor">
+        <h1 class="confirmacion-edicion__titulo">
+          ¡Registro Editado con Éxito!
+        </h1>
 
-      <form action="">
-        <div class="editar-registro__contenedor">
-          <p class="editar-registro__contenedor-texto">Datos Vehículo</p>
+        <p class="confirmacion-edicion__texto">
+          Placa: <span id="placa"></span>
+        </p>
 
-          <fieldset class="registros__campos">
-            <div class="registros__campo">
-              <label for="placa" class="registros__etiqueta">Placa</label>
-              <input
-                type="text"
-                id="placa"
-                name="placa"
-                class="registros__entrada"
-              />
-            </div>
+        <p class="confirmacion-edicion__texto">
+          Marca: <span id="marca"></span>
+        </p>
 
-            <div class="registros__campo">
-              <label for="marca" class="registros__etiqueta">Marca</label>
-              <input
-                type="text"
-                id="marca"
-                name="marca"
-                class="registros__entrada"
-                disabled
-              />
-            </div>
+        <p class="confirmacion-edicion__texto">
+          Modelo: <span id="modelo"></span>
+        </p>
 
-            <div class="registros__campo">
-              <label for="modelo" class="registros__etiqueta">Modelo</label>
-              <input
-                type="text"
-                id="modelo"
-                name="modelo"
-                class="registros__entrada"
-                disabled
-              />
-            </div>
+        <p class="confirmacion-edicion__texto">
+          Año: <span id="fechaDeLanzamiento"></span>
+        </p>
 
-            <div class="registros__campo">
-              <label for="fechaDeLanzamiento" class="registros__etiqueta">
-                Año
-              </label>
-              <input
-                type="number"
-                id="fechaDeLanzamiento"
-                name="fechaDeLanzamiento"
-                class="registros__entrada"
-                disabled
-              />
-            </div>
-          </fieldset>
-        </div>
+        <p class="confirmacion-edicion__texto">
+          Fecha: <span id="fecha"></span>
+        </p>
 
-        <div class="editar-registro__contenedor">
-          <p class="editar-registro__contenedor-texto">Datos Registro</p>
+        <p class="confirmacion-edicion__texto">
+          Tipo de Registro: <span id="tipoRegistro"></span>
+        </p>
 
-          <fieldset class="registros__campos">
-            <div class="registros__campo">
-              <label for="fecha" class="registros__etiqueta">Fecha</label>
-              <input
-                type="date"
-                id="fecha"
-                name="fecha"
-                class="registros__entrada"
-              />
-            </div>
+        <p class="confirmacion-edicion__texto">
+          Kilometraje: <span id="kilometraje"></span>
+        </p>
 
-            <div class="registros__campo">
-              <label for="tipoDeRegistro" class="registros__etiqueta">
-                Tipo de Registro
-              </label>
-              <select
-                id="tipoDeRegistro"
-                name="tipoDeRegistro"
-                class="filtros__desplegable"
-              >
-                <option value="carga de combustible">
-                  Carga de Combustible
-                </option>
-                <option value="afinacion">Afinación</option>
-                <option value="reparacion">Reparaci&oacute;n</option>
-                <option value="reemplazo">Reemplazo</option>
-              </select>
-            </div>
+        <p id="campo-cambiante" class="confirmacion-edicion__texto"></p>
 
-            <div class="registros__campo">
-              <label for="kilometraje" class="registros__etiqueta"
-                >Kilometraje</label
-              >
-              <input
-                type="number"
-                id="kilometraje"
-                name="kilometraje"
-                class="registros__entrada"
-              />
-            </div>
+        <p class="confirmacion-edicion__texto">
+          Importe: <span id="importe"></span>
+        </p>
 
-            <div class="registros__campo">
-              <label for="importe" class="registros__etiqueta">Importe</label>
-              <input
-                type="number"
-                id="importe"
-                name="importe"
-                class="registros__entrada"
-              />
-            </div>
+        <p class="confirmacion-edicion__texto">
+          Observaciones: <span id="observaciones"></span>
+        </p>
 
-            <div class="registros__campo">
-              <label for="observaciones" class="registros__etiqueta">
-                Observaciones
-              </label>
-              <input
-                type="text"
-                id="observaciones"
-                class="registros__entrada"
-              />
-            </div>
-
-            <div class="registros__campo">
-              <div id="campoCambiable">
-                <label for="litros" class="registros__etiqueta">
-                  Litros de Gasolina
-                </label>
-                <input type="number" id="litros" class="registros__entrada" />
-              </div>
-            </div>
-          </fieldset>
-        </div>
-
-        <div class="editar-registro__contenedor-botones">
-          <a
-            href="/HistorialRegistrosMantenimientoVehicular"
-            class="editar-registro__volver"
-          >
-            Volver
-          </a>
-
-          <input
-            type="submit"
-            id="editar-registro"
-            class="registros__enviar"
-            value="Guardar Cambios"
-          />
-        </div>
-      </form>
-    </main>
+        <a
+          href="/HistorialRegistrosMantenimientoVehicular"
+          class="confirmacion-edicion__volver"
+        >
+          Volver
+        </a>
+      </div>
+    </div>
 
     <footer class="footer">
       <div class="footer__contenedor">
@@ -187,7 +90,9 @@
         </nav>
 
         <div class="footer__barra">
-          <p class="footer__logo">Logo</p>
+          <div class="footer__logo">
+            <a href="/"><img src="img/Logo.png" alt="Logo" /></a>
+          </div>
 
           <div class="footer__redes">
             <a href="https://facebook.com" class="footer__social--logo">
@@ -298,6 +203,6 @@
       </div>
     </footer>
 
-    <script src="js/editarRegistro.js"></script>
+    <script src="js/registroEditado.js"></script>
   </body>
 </html>

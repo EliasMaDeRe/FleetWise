@@ -1,7 +1,9 @@
 package mapeador
 
 import (
+	capturaRegistroModelo "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	registroMantenimientoVehiculo "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
+	conectorBdModelo "example/fleetwise/modelos/conectorbd"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -60,4 +62,33 @@ func (m *Mapeador) GinContextAObtenerRegistroMantenimientoVehicularPorNumeroDeRe
 func(m *Mapeador) ObtenerRegistroMantenimientoVehiculoSolicitudAObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud(solicitud *registroMantenimientoVehiculo.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud) *registroMantenimientoVehiculo.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud{
 	solicitudBD := &registroMantenimientoVehiculo.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud{NumDeRegistro: solicitud.ObtenerNumDeRegistro()}
 	return solicitudBD
+}
+
+func (m *Mapeador) GinContextAEditarRegistroMantenimientoVehicularSolicitud(contexto *gin.Context)  *capturaRegistroModelo.EditarRegistroMantenimientoVehicularSolicitud{
+	solicitud := &capturaRegistroModelo.EditarRegistroMantenimientoVehicularSolicitud{}
+	contexto.BindJSON(solicitud)
+	return solicitud
+}
+
+func (m *Mapeador) EditarRegistroMantenimientoVehicularSolicitudAActualizarRegistroMantenimientoVehicularSolicitud(solicitud *capturaRegistroModelo.EditarRegistroMantenimientoVehicularSolicitud) (*conectorBdModelo.ActualizarRegistroMantenimientoVehicularSolicitud){
+	actualizarRegistroSolicitud := &conectorBdModelo.ActualizarRegistroMantenimientoVehicularSolicitud{
+		NumeroDeRegistro : solicitud.ObtenerNumeroDeRegistro(),
+		Tipo: solicitud.ObtenerTipo(),
+		Fecha: solicitud.ObtenerFecha(),
+		LitrosDeGasolina: solicitud.ObtenerLitrosDeGasolina(),
+		Kilometraje: solicitud.ObtenerKilometraje(),
+		Importe: solicitud.ObtenerImporte(),
+		Observaciones: solicitud.ObtenerObservaciones(),
+		Concepto: solicitud.ObtenerConcepto(),
+		PlacasVehiculo: solicitud.ObtenerPlacasVehiculo(),
+	}
+	return actualizarRegistroSolicitud
+}
+
+func (m *Mapeador) ActualizarRegistroMantenimientoVehicularRespuestaAEditarRegistroMantenimientoVehicularRespuesta(actualizarRegistroRespuesta *conectorBdModelo.ActualizarRegistroMantenimientoVehicularRespuesta) *capturaRegistroModelo.EditarRegistroMantenimientoVehicularRespuesta{
+	editarRegistroRespuesta := &capturaRegistroModelo.EditarRegistroMantenimientoVehicularRespuesta{
+		Ok: actualizarRegistroRespuesta.ObtenerOk(),
+		Err: actualizarRegistroRespuesta.ObtenerError(),
+	}
+	return editarRegistroRespuesta;
 }

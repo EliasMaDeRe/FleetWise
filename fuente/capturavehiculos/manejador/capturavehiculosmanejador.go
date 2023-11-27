@@ -33,3 +33,5 @@ func (m *Manejador) AgregarVehiculo(contexto *gin.Context) {
 	}
 	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk(), "err": mensajeError})
 }
+
+

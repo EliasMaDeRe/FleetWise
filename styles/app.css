@@ -468,8 +468,7 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   font-size: 1.5rem;
 }
 
-.filtros__desplegable,
-.campo__desplegable {
+.filtros__desplegable {
   border: none;
   padding: 0.5rem 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
@@ -504,6 +503,7 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.15);
   transform: scale(1.1);
   transition: 0.5s;
+  cursor: pointer;
 }
 
 .historial-registros__contenedor-registros {
@@ -574,7 +574,8 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   font-size: 1.5rem;
 }
 
-.registros__entrada {
+.registros__entrada,
+.campo__desplegable {
   border: none;
   padding: 0.5rem 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05);
@@ -623,6 +624,7 @@ EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.15);
   transform: scale(1.1);
   transition: 0.5s;
+  cursor: pointer;
 }
 
 /*
@@ -656,6 +658,11 @@ CONFIRMACIÖN EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 
 .confirmacion-edicion__texto {
   margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.confirmacion-edicion__texto span {
+  font-weight: 400;
 }
 
 .confirmacion-edicion__volver {

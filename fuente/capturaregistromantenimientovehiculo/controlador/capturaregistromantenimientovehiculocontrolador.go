@@ -4,6 +4,7 @@ import (
 	"errors"
 	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	"fmt"
 	"time"
 
 	"example/fleetwise/fuente/capturaregistromantenimientovehiculo/constantes"
@@ -113,16 +114,115 @@ func (c *Controlador) ObtenerServiciosVehicularesParaNuevoRegistro() []capturase
 }
 
 func (c *Controlador) ObtenerRegistroMantenimientoVehicular(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud) (*registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturavehiculos.Vehiculo){
-	if(solicitud == nil || solicitudVacia(solicitud)){
+	if(solicitud == nil || c.solicitudVacia(solicitud)){
 		return &registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}, &capturavehiculos.Vehiculo{}
 	}
 	
 	ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud := c.RegistroMantenimientoVehiculoMapeador.ObtenerRegistroMantenimientoVehiculoSolicitudAObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud(solicitud)
 
 	return c.ConectorBDControlador.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro(ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud)
-
 }
 
-func solicitudVacia(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud) bool {
+func (c *Controlador) solicitudVacia(solicitud *registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud) bool {
 	return solicitud == &registroMantenimientoVehiculoModelos.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud{}
+}
+
+func (c *Controlador) EditarRegistroMantenimientoVehicular(solicitud *registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularSolicitud) *registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularRespuesta{
+
+	if(c.solicitudEditarRegistroVacia(solicitud)){
+		respuesta := &registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularRespuesta{}
+		respuesta.AsignarOk(false)
+		respuesta.AsignarError(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		return respuesta
+	}
+	
+	if(! c.placaExistente(solicitud.ObtenerPlacasVehiculo())){
+		respuesta := &registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularRespuesta{}
+		respuesta.AsignarOk(false)
+		respuesta.AsignarError(errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD))
+		return respuesta
+	}
+
+	if(! c.numeroDeRegistroExistente(solicitud.ObtenerNumeroDeRegistro())){
+		respuesta := &registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularRespuesta{}
+		respuesta.AsignarOk(false)
+		respuesta.AsignarError(errors.New(constantes.ERROR_NUMERO_REGISTRO_NO_EXISTENTE))
+		return respuesta
+	}
+
+	mensajeError, solicitudValida := c.validarSolicitudEditarRegistro(solicitud);
+	
+	if(!solicitudValida){
+		respuesta := &registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularRespuesta{}
+		respuesta.AsignarOk(false)
+		respuesta.AsignarError(errors.New(mensajeError))
+		return respuesta;
+	}
+
+	actualizarRegistroSolicitud := c.RegistroMantenimientoVehiculoMapeador.EditarRegistroMantenimientoVehicularSolicitudAActualizarRegistroMantenimientoVehicularSolicitud(solicitud)
+
+	actualizarRegistroRespuesta := c.ConectorBDControlador.ActualizarRegistroMantenimientoVehicular(actualizarRegistroSolicitud)
+	
+	fmt.Println(actualizarRegistroRespuesta)
+	
+	editarRegistroRespuesta := c.RegistroMantenimientoVehiculoMapeador.ActualizarRegistroMantenimientoVehicularRespuestaAEditarRegistroMantenimientoVehicularRespuesta(actualizarRegistroRespuesta)
+
+	return editarRegistroRespuesta
+}
+
+func (c *Controlador) solicitudEditarRegistroVacia(solicitud *registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularSolicitud) bool{
+	return solicitud == nil || solicitud == &registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularSolicitud{}
+}
+
+func (c *Controlador) placaExistente(placa string) bool{
+	solicitudObtenerVehiculoPorPlaca := &conectorbd.ObtenerVehiculoPorPlacasSolicitud{}
+	solicitudObtenerVehiculoPorPlaca.AsignarPlacas(placa)
+
+	vehiculo := c.ConectorBDControlador.ObtenerVehiculoPorPlacas(solicitudObtenerVehiculoPorPlaca)
+
+	return vehiculo != nil && vehiculo != &capturavehiculos.Vehiculo{}
+}
+
+func (c *Controlador) numeroDeRegistroExistente(numeroDeRegistro int) bool{
+	solicitud := &registroMantenimientoVehiculoModelos.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud{
+		NumDeRegistro: numeroDeRegistro,
+	}
+	
+	registro, vehiculo := c.ConectorBDControlador.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro(solicitud)
+	
+	return registro != &registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{} && vehiculo != &capturavehiculos.Vehiculo{}
+}
+
+func (c *Controlador) validarSolicitudEditarRegistro(solicitud *registroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehicularSolicitud) (string, bool){
+	
+	if(solicitud.ObtenerFecha() == "" ){
+		return constantes.ERROR_FECHA_VACIA, false
+	}
+
+	if(solicitud.ObtenerTipo() == ""){
+		return constantes.ERROR_TIPO_REGISTRO_VACIO, false
+	}
+
+	if(solicitud.ObtenerKilometraje() == 0){
+		return constantes.ERROR_KILOMETRAJE_NO_VALIDO, false
+	}
+
+	if(solicitud.ObtenerImporte() == 0){
+		return constantes.ERROR_IMPORTE_NO_VALIDO, false
+	}
+
+	if(solicitud.ObtenerObservaciones() == ""){
+		return constantes.ERROR_OBSERVACIONES_VACIO, false
+	}
+
+	if(solicitud.ObtenerTipo() == "carga de combustible" && solicitud.ObtenerLitrosDeGasolina() == 0){
+		
+		return constantes.ERROR_LIBROS_GASOLINA_VACIO, false
+	}
+
+	if(solicitud.ObtenerTipo() != "carga de combustible" && solicitud.ObtenerConcepto() == ""){
+		return constantes.ERROR_CONCEPTO_VACIO, false
+	}
+
+	return "", true
 }

@@ -64,3 +64,21 @@ func (m *Manejador) ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistro(con
 	
 	contexto.IndentedJSON(http.StatusOK,gin.H{"registro": registro, "vehiculo": vehiculo})
 }
+
+func (m *Manejador) EditarRegistroMantenimientoVehicular(contexto *gin.Context){
+	solicitud := m.RegistroMantenimientoVehiculoControlador.RegistroMantenimientoVehiculoMapeador.GinContextAEditarRegistroMantenimientoVehicularSolicitud(contexto);
+	
+	respuesta := m.RegistroMantenimientoVehiculoControlador.EditarRegistroMantenimientoVehicular(solicitud)
+	
+	status := http.StatusOK
+	if !respuesta.ObtenerOk() {
+		status = http.StatusBadRequest
+	}
+
+	mensajeError := ""
+	if respuesta.ObtenerError() != nil {
+		mensajeError = respuesta.ObtenerError().Error()
+	}
+	
+	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk(), "mensajeError": mensajeError})
+}

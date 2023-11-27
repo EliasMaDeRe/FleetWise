@@ -25,7 +25,7 @@
 			responsive: true,
 			language: {
 				url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json",
-				emptyTable: "Seleccione los filtros deseados y de click en enviar para obtener los registros.",
+				emptyTable: "Ningún registro coincide con los filtros establecidos.",
 			},
 		});
 		return table;
@@ -127,7 +127,7 @@
 					vehiculo.FechaLanzamiento,
 					registro.TipoRegistro,
 					registro.Kilometraje,
-					registro.TipoRegistro == "Carga de Combustible" ? registro.LitrosGasolina : "N/A",
+					registro.TipoRegistro == "carga de combustible" ? registro.LitrosGasolina : "N/A",
 					registro.Importe,
 					registro.Concepto,
 					enlaceEditarRegistro.outerHTML,
