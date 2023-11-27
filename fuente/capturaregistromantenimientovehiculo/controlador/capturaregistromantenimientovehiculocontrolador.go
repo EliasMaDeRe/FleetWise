@@ -85,10 +85,10 @@ func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *regis
 		return errors.New(constantes.ERROR_FECHA_FORMATO_INVALIDO)
 	}
 
-	tipo := solicitud.ObtenerTipo()
+	tipoDeRegistro := solicitud.ObtenerTipo()
 
-	if tipo == "carga_combustible" {
-		if gasolina, err := strconv.ParseFloat(solicitud.ObtenerLitrosDeGasolina(), 64); err != nil || gasolina <= 0 {
+	if tipoDeRegistro == "carga_combustible" {
+		if litrosDeGasolina, err := strconv.ParseFloat(solicitud.ObtenerLitrosDeGasolina(), 64); err != nil || litrosDeGasolina <= 0 {
 			return errors.New(constantes.ERROR_LITROS_GASOLINA_NO_ES_NUMERO)
 		}
 	}
