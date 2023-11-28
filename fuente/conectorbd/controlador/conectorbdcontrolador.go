@@ -366,7 +366,7 @@ func (c *Controlador) ActualizarRegistroMantenimientoVehicular(solicitud *conect
 		return respuesta
 	}
 
-	respuestaActualizacionRegistro := baseDeDatos.Table("registros_mantenimiento_vehicular").Where("numero_de_registro = ?", solicitud.ObtenerNumeroDeRegistro()).Update(registroMantenimientoVehicularActualizado)
+	respuestaActualizacionRegistro := baseDeDatos.Model(registroMantenimientoVehiculoActualizado).Where("numero_de_registro = ?", solicitud.ObtenerNumeroDeRegistro()).Update(registroMantenimientoVehiculoActualizado)
 
 	if respuestaActualizacionRegistro.Error != nil {
 		respuesta.AsignarOk(false)
