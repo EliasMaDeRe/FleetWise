@@ -178,5 +178,10 @@ func main() {
 		c.HTML(http.StatusOK, "registroEditado.html", gin.H{})
 	})
 
+	// Visualizacion Resumen Mantenimiento Vehiculos
+	router.GET("/ResumenMantenimientoVehiculos", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "resumenmantenimientovehiculos.html", gin.H{})
+	})
+	
 	router.Run("localhost:8080")
 }

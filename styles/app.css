@@ -253,7 +253,7 @@ INICIO SELECCIONAR-VEHICULO
   width: 70%;
 }
 
-.captura-registro-mantenimiento-vehiculo__plascas-contenerdor{
+.captura-registro-mantenimiento-vehiculo__plascas-contenerdor {
   justify-content: center;
 }
 
@@ -687,8 +687,6 @@ CONFIRMACIÖN EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
   transition: 0.5s;
 }
 
-
-
 /*
 =============================================
 RESUMEN MANTENIMIENTO VEHICULOS
@@ -699,4 +697,11 @@ RESUMEN MANTENIMIENTO VEHICULOS
   margin-top: 5rem;
   margin-bottom: 5rem;
   text-align: center;
+}
+
+.encabezado-tabla-flotillas tr th {
+  font-size: 1rem;
+}
+.flotillas {
+  width: 80%;
 }

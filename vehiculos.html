@@ -16,78 +16,89 @@
   <body>
     <header class="header">
       <div class="header__logo">
-        <a href="/"><img src="img/Logo.png"></a>
+        <a href="/"><img src="img/Logo.png" /></a>
       </div>
       <nav class="navbar">
         <a href="/AgregarVehiculo" class="navbar__enlace">Capturar Vehiculos</a>
-        <a href="/AgregarServicioVehicular" class="navbar__enlace">Capturar Conceptos</a>
-        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace">Agregar Registro</a>
-        <a href="/HistorialRegistrosMantenimientoVehicular" class="navbar__enlace">Historial Registro</a>
+        <a href="/AgregarServicioVehicular" class="navbar__enlace">
+          Capturar Conceptos
+        </a>
+        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace">
+          Agregar Registro
+        </a>
+        <a
+          href="/HistorialRegistrosMantenimientoVehicular"
+          class="navbar__enlace"
+        >
+          Historial Registro
+        </a>
+        <a href="/ResumenMantenimientoVehiculos" class="navbar__enlace">
+          Resumen Flotillas
+        </a>
         <a href="/Logout" class="navbar__enlace--logout">Cerrar Sesión</a>
       </nav>
     </header>
-    <body>
-      <main class="captura-vehiculo__contenedor">
-        <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
-        <div class="captura-vehiculo__formulario-contenedor">
-          <form action="vehiculos.html" class="formulario">
-            <div class="formulario__campo">
-              <label for="marca" class="formulario__label">*Marca:</label>
-              <input
-                class="formulario__input"
-                type="text"
-                name="marca"
-                id="marca"
-                placeholder="Marca"
-              />
-            </div>
-            <div class="formulario__campo">
-              <label for="modelo" class="formulario__label">*Modelo:</label>
-              <input
-                class="formulario__input"
-                type="text"
-                name="modelo"
-                id="modelo"
-                placeholder="Modelo"
-              />
-            </div>
-            <div class="formulario__campo">
-              <label for="fechalanzamiento" class="formulario__label">*Año:</label>
-              <input
-                class="formulario__input"
-                type="text"
-                name="fechalanzamiento"
-                id="fechalanzamiento"
-                placeholder="Año"
-              />
-            </div>
-            <div class="formulario__campo">
-              <label for="serie" class="formulario__label">*Serie:</label>
-              <input
-                class="formulario__input"
-                type="text"
-                name="serie"
-                id="serie"
-                placeholder="Serie"
-              />
-            </div>
-            <div class="formulario__campo">
-              <label for="placas" class="formulario__label">*Placas:</label>
-              <input
-                class="formulario__input"
-                type="text"
-                name="placas"
-                id="placas"
-                placeholder="Placas"
-              />
-            </div>
-            <input type="submit" class="formulario__submit" value="Enviar" />
-          </form>
-        </div>
-      </main>
 
-      <script src="js/capturaVehiculo.js"></script>
-    </body>
+    <main class="captura-vehiculo__contenedor">
+      <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
+      <div class="captura-vehiculo__formulario-contenedor">
+        <form action="vehiculos.html" class="formulario">
+          <div class="formulario__campo">
+            <label for="marca" class="formulario__label">*Marca:</label>
+            <input
+              class="formulario__input"
+              type="text"
+              name="marca"
+              id="marca"
+              placeholder="Marca"
+            />
+          </div>
+          <div class="formulario__campo">
+            <label for="modelo" class="formulario__label">*Modelo:</label>
+            <input
+              class="formulario__input"
+              type="text"
+              name="modelo"
+              id="modelo"
+              placeholder="Modelo"
+            />
+          </div>
+          <div class="formulario__campo">
+            <label for="fechalanzamiento" class="formulario__label"
+              >*Año:</label
+            >
+            <input
+              class="formulario__input"
+              type="text"
+              name="fechalanzamiento"
+              id="fechalanzamiento"
+              placeholder="Año"
+            />
+          </div>
+          <div class="formulario__campo">
+            <label for="serie" class="formulario__label">*Serie:</label>
+            <input
+              class="formulario__input"
+              type="text"
+              name="serie"
+              id="serie"
+              placeholder="Serie"
+            />
+          </div>
+          <div class="formulario__campo">
+            <label for="placas" class="formulario__label">*Placas:</label>
+            <input
+              class="formulario__input"
+              type="text"
+              name="placas"
+              id="placas"
+              placeholder="Placas"
+            />
+          </div>
+          <input type="submit" class="formulario__submit" value="Enviar" />
+        </form>
+      </div>
+    </main>
 
     <footer class="footer">
       <div class="footer__contenedor">
@@ -215,5 +226,6 @@
         </div>
       </div>
     </footer>
+    <script src="js/capturaVehiculo.js"></script>
   </body>
 </html>
