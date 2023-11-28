@@ -117,3 +117,27 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *capturaVehiculosModelo
 
 	return c.ConectorBDControlador.ObtenerVehiculoPorPlacas(solicitudConectorBD)
 }
+
+func (c *Controlador) EliminarVehiculo(solicitud *capturavehiculos.EliminarVehiculoSolicitud) *capturavehiculos.EliminarVehiculoRespuesta {
+	respuesta := &capturavehiculos.EliminarVehiculoRespuesta{}
+
+	if solicitud == nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
+		return respuesta
+	}
+
+	solicitudConectorBD := &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
+	solicitudConectorBD.AsignarPlacas(solicitud.ObtenerPlacas())
+
+	vehiculo := c.ConectorBDControlador.ObtenerVehiculoPorPlacas(solicitudConectorBD)
+
+	if vehiculo != nil {
+		c.ConectorBDControlador.EliminarVehiculo(vehiculo)
+	}
+
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+
+	return respuesta
+}

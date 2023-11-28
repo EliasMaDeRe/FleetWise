@@ -57,3 +57,9 @@ func (m *Mapeador) GinContextAObtenerVehiculoPorPlacasSolicitud(contexto *gin.Co
 	contexto.BindJSON(solicitud)
 	return solicitud
 }
+
+func (m *Mapeador) GinContextAEliminarVehiculoSolicitud(contexto *gin.Context) *CapturaVehiculosModelos.EliminarVehiculoSolicitud {
+	solicitud := &CapturaVehiculosModelos.EliminarVehiculoSolicitud{}
+	contexto.BindJSON(solicitud)
+	return solicitud
+}
