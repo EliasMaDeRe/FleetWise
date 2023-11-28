@@ -70,7 +70,7 @@ INSERT INTO `usuarios` (`cargo`, `clave_usuario`, `nombre_usuario`) VALUES
 --
 
 CREATE TABLE `registros_de_mantenimiento_de_vehiculo` (
-  `numero_de_registro` int(11) NOT NULL AUTO_INCREMENT,
+  `numero_de_registro` int(11) NOT NULL,
   `placas_de_vehiculo` varchar(255) NOT NULL,
   `tipo_de_registro` varchar(255) NOT NULL,
   `fecha` varchar(255) NOT NULL,
@@ -93,7 +93,7 @@ ALTER TABLE `registros_de_mantenimiento_de_vehiculo`
 -- Filtros para la tabla `registros_mantenimiento_vehicular`
 --
 ALTER TABLE `registros_de_mantenimiento_de_vehiculo`
-  ADD CONSTRAINT `registros_de_mantenimiento_de_vehiculo_ibfk_1` FOREIGN KEY (`placas_de_vehiculo`) REFERENCES `vehiculos` (`placas`);
+  ADD CONSTRAINT `registros_de_mantenimiento_de_vehiculo_ibfk_1` FOREIGN KEY (`placas_de_vehiculo`) REFERENCES `vehiculos` (`placas`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
