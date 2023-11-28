@@ -69,9 +69,9 @@ INSERT INTO `usuarios` (`cargo`, `clave_usuario`, `nombre_usuario`) VALUES
 -- Estructura de tabla para la tabla `registros_mantenimiento_vehicular`
 --
 
-CREATE TABLE `registros_mantenimiento_vehicular` (
-  `numero_de_registro` int(11) NOT NULL AUTO_INCREMENT,
-  `placas_vehiculo` varchar(255) NOT NULL,
+CREATE TABLE `registros_de_mantenimiento_de_vehiculo` (
+  `numero_de_registro` int(11) NOT NULL,
+  `placas_de_vehiculo` varchar(255) NOT NULL,
   `tipo_de_registro` varchar(255) NOT NULL,
   `fecha` varchar(255) NOT NULL,
   `litros_de_gasolina` float DEFAULT NULL,
@@ -85,15 +85,18 @@ CREATE TABLE `registros_mantenimiento_vehicular` (
 --
 -- Indices de la tabla `registros_mantenimiento_vehicular`
 --
-ALTER TABLE `registros_mantenimiento_vehicular`
-  ADD PRIMARY KEY (`numero_registro`),
-  ADD KEY `placas` (`placas_vehiculo`);
+ALTER TABLE `registros_de_mantenimiento_de_vehiculo`
+  ADD PRIMARY KEY (`numero_de_registro`),
+  ADD KEY `placas` (`placas_de_vehiculo`);
+
+ALTER TABLE `registros_de_mantenimiento_de_vehiculo`
+  MODIFY `numero_de_registro` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Filtros para la tabla `registros_mantenimiento_vehicular`
 --
-ALTER TABLE `registros_mantenimiento_vehicular`
-  ADD CONSTRAINT `registros_mantenimiento_vehicular_ibfk_1` FOREIGN KEY (`placas_vehiculo`) REFERENCES `vehiculos` (`placas`);
+ALTER TABLE `registros_de_mantenimiento_de_vehiculo`
+  ADD CONSTRAINT `registros_de_mantenimiento_de_vehiculo_ibfk_1` FOREIGN KEY (`placas_de_vehiculo`) REFERENCES `vehiculos` (`placas`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

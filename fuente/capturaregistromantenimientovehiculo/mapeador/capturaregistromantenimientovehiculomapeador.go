@@ -29,9 +29,8 @@ func (m *Mapeador) GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contex
 	return solicitud
 }
 
-func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo {
-	registro := &capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}
-
+func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo {
+	registro := &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
 	tipoDeRegistro := solicitud.ObtenerTipo()
 	registro.AsignarTipo(tipoDeRegistro)
 
@@ -56,8 +55,8 @@ func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemien
 		registro.AsignarImporte(0)
 	}
 
-	concepto := solicitud.ObtenerConcepto()
-	registro.AsignarConcepto(concepto)
+	registro.AsignarObservaciones(solicitud.ObtenerObservaciones())
+	registro.AsignarConcepto(solicitud.ObtenerConcepto())
 	registro.AsignarPlacasVehiculo(solicitud.ObtenerPlacasVehiculo())
 
 	return registro
