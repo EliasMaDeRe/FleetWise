@@ -701,20 +701,27 @@ CONFIRMACIÖN EDITAR HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 }
 
 /*
-=============================================
-RESUMEN MANTENIMIENTO VEHICULOS
-=============================================
+================
+RESUMEN FLOTILLA
+================
 */
 
-.resumen__titulo {
+.resumen-flotilla__titulo {
   margin-top: 5rem;
   margin-bottom: 5rem;
   text-align: center;
 }
 
-.encabezado-tabla-flotillas tr th {
-  font-size: 1rem;
+.resumen-flotilla__contenedor-registros {
+  margin: 1rem;
 }
-.flotillas {
-  width: 80%;
+
+.resumen th {
+  font-weight: 600;
+  font-size: 1.7rem;
+}
+
+.resumen td {
+  text-align: center;
+  font-size: 1.7rem;
 }
