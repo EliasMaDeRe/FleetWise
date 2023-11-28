@@ -271,7 +271,7 @@ INICIO CAPTURA-REGISTRO-MANTENIMIENTO-VEHICULO
 .captura-registro-mantenimiento-vehiculo__placas-contenedor{
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 70%;
   border-radius: 2rem;
   font-size: large;
   font-weight: bold;
