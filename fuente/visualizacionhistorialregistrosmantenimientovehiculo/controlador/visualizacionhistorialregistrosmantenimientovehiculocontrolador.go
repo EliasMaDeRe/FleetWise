@@ -6,7 +6,6 @@ import (
 	capturaRegistrosMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	visualizacionHistorialRegistrosMantenimientoVehiculoModelos "example/fleetwise/modelos/visualizacionhistorialregistrosmantenimientovehiculo"
-	"fmt"
 )
 
 type Controlador struct {
@@ -17,11 +16,9 @@ type Controlador struct {
 func (c *Controlador) ObtenerRegistrosFiltradosConVehiculos(solicitud *visualizacionHistorialRegistrosMantenimientoVehiculoModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud) ([]capturaRegistrosMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo, []capturaVehiculosModelos.Vehiculo) {
 
 	if solicitud == nil || validarSolicitudSinFiltros(solicitud) {
-		fmt.Println(c.ConectorBDControlador == nil)
 		return c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociados()
 	}
 	
-	fmt.Println("solicitud no vacia")
 	obtenerRegistrosConVehiculosFiltradosSolicitud := c.HistorialRegistrosMapeador.ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud(solicitud)
 
 	return c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociadosFiltrados(obtenerRegistrosConVehiculosFiltradosSolicitud)
