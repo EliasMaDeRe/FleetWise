@@ -86,8 +86,11 @@ CREATE TABLE `registros_de_mantenimiento_de_vehiculo` (
 -- Indices de la tabla `registros_mantenimiento_vehicular`
 --
 ALTER TABLE `registros_de_mantenimiento_de_vehiculo`
-  ADD PRIMARY KEY (`numero_registro`),
+  ADD PRIMARY KEY (`numero_de_registro`),
   ADD KEY `placas` (`placas_de_vehiculo`);
+
+ALTER TABLE `registros_de_mantenimiento_de_vehiculo`
+  MODIFY `numero_de_registro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Filtros para la tabla `registros_mantenimiento_vehicular`
