@@ -342,6 +342,12 @@ func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosS
 	}
 }
 
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroTipoDeRegistro(filtroTipoDeRegistro string) {
+	if registrosFiltradosSolicitud != nil{
+		registrosFiltradosSolicitud.filtroTipoDeRegistro = filtroTipoDeRegistro 
+	}
+}
+
 
 type ActualizarRegistroDeMantenimientoDelVehiculoSolicitud struct {
 	NumeroDeRegistro int     

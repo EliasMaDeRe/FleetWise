@@ -4,7 +4,6 @@
 	});
 
 	document.getElementById("tipoDeRegistro").addEventListener("change", (e) => {
-		console.log(e.target.value === "carga de combustible");
 		if (e.target.value === "carga de combustible") {
 			mostrarCampoLitrosGasolina();
 		} else {

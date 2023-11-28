@@ -24,7 +24,8 @@ func (m *Mapeador) ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistr
 	obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroPlaca(solicitud.ObtenerPlacas())
 	obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroMarca(solicitud.ObtenerMarca())
 	obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroModelo(solicitud.ObtenerModelo())
-
+	obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroTipoDeRegistro(solicitud.ObtenerTipoDeRegistro())
+	
 	if fechaLanzamiento, err := strconv.Atoi(solicitud.ObtenerFechaDeLanzamiento()); err == nil {
 		obtenerRegistrosConVehiculosFiltradosSolicitud.AsignarFiltroFechaDeLanzamiento(fechaLanzamiento)
 	} else {

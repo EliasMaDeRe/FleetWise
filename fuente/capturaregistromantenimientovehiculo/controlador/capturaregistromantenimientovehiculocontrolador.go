@@ -82,7 +82,7 @@ func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *capturaRegis
 
 func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) error {
 
-	_, err := time.Parse("02/01/2006", solicitud.ObtenerFecha()) // DD/MM/AAAA
+	_, err := time.Parse("02-01-2006", solicitud.ObtenerFecha()) // DD/MM/AAAA
 	if err != nil {
 		return errors.New(constantes.ERROR_FECHA_FORMATO_INVALIDO)
 	}

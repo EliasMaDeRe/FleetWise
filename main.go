@@ -130,7 +130,7 @@ func main() {
 		c.HTML(http.StatusOK, "registromantenimientovehiculo.html", gin.H{})
 	})
 
-	router.POST("/AgregarRegistroMantenimientoVehicular", func(ctx *gin.Context) {
+	router.POST("/AgregarRegistroMantenimientoVehiculo", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "capturista")
 	}, func(ctx *gin.Context) {
 		controlador.CapturaRegistroMantenimientoVehiculoManejador.AgregarRegistroMantemientoVehiculo(ctx)
