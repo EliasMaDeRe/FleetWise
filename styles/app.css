@@ -28,6 +28,13 @@ body {
   line-height: 1.5;
   font-family: var(--fuente-principal);
   margin: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 a {
@@ -50,6 +57,7 @@ p {
 
 [class*="heading"] {
   text-align: center;
+  font-weight: 600;
 }
 
 /*
@@ -78,31 +86,30 @@ INICIO HEADER
   gap: 2rem;
 }
 
-.navbar__enlace {
-  color: var(--primario);
-  font-size: 14px;
-  background-color: var(--blanco);
-  padding: 1rem 4rem;
-  border-radius: 3rem;
-}
-
-.navbar__enlace:hover {
-  background-color: rgb(238, 238, 238);
-  cursor: pointer;
-}
-
+.navbar__enlace,
 .navbar__enlace--logout {
   color: var(--primario);
   background-color: var(--blanco);
-  padding: 1rem 4rem;
   border-radius: 3rem;
+  white-space: nowrap;
+}
+.navbar__enlace {
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
 }
 
+.navbar__enlace:hover,
 .navbar__enlace--logout:hover {
   background-color: rgb(238, 238, 238);
   cursor: pointer;
 }
 
+.navbar__enlace--logout {
+  font-size: 1.5rem;
+  padding: 1rem 4rem;
+  font-weight: 600;
+  text-decoration: underline;
+}
 /*
 =============================
 FIN HEADER
@@ -268,10 +275,10 @@ FIN SELECCIONAR-VEHICULO
 INICIO CAPTURA-REGISTRO-MANTENIMIENTO-VEHICULO
 ==============================================
 */
-.captura-registro-mantenimiento-vehiculo__placas-contenedor{
+.captura-registro-mantenimiento-vehiculo__placas-contenedor {
   text-align: center;
   font-size: large;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .captura-registro-mantenimiento-vehiculo__heading {
@@ -372,9 +379,9 @@ INICIO FOOTER
 .footer {
   background-color: var(--primario);
   color: var(--blanco);
-  margin-top: 6.5rem;
   padding-block: 6rem;
   font-size: 1.5rem;
+  margin-top: auto;
 }
 
 .footer__nav {
@@ -398,6 +405,7 @@ INICIO FOOTER
 .footer__logo {
   font-size: 4rem;
   font-weight: 700;
+  color: var(--blanco);
 }
 
 .footer__redes {
@@ -516,7 +524,7 @@ HISTORIAL REGISTROS MANTENIMIENTO VEHICULAR
 }
 
 .historial-registros__contenedor-registros {
-  margin-top: 5rem;
+  margin-block: 5rem;
 }
 
 .registros th {
