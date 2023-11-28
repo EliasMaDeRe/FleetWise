@@ -345,7 +345,7 @@ func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro(solici
 	return registro, vehiculoAsociado
 }
 
-func (c *Controlador) ActualizarRegistroMantenimientoVehiculo(solicitud *conectorBDModelos.ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) *conectorBDModelos.ActualizarRegistroMantenimientoVehiculoRespuesta {
+func (c *Controlador) EditarRegistroDeMantenimientoDeVehiculo(solicitud *conectorBDModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) *conectorBDModelos.ActualizarRegistroMantenimientoVehiculoRespuesta {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
