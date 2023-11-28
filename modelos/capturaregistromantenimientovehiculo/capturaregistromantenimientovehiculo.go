@@ -135,7 +135,7 @@ func (r *RegistroDeMantenimientoDeVehiculo) AsignarPlacasVehiculo(placasVehiculo
 
 type AgregarRegistroMantenimientoVehiculoSolicitud struct {
 	NumeroDeRegistro string `json:"numeroderegistro"`
-	TipoDeRegistro   string `json:"TipoDeRegistro"`
+	TipoDeRegistro   string `json:"tiporegistro"`
 	Fecha            string `json:"fecha"`
 	LitrosDeGasolina string `json:"litrosdegasolina"`
 	Kilometraje      string `json:"kilometraje"`
