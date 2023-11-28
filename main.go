@@ -158,11 +158,11 @@ func main() {
 	})
 
 	// Visualizacion Historial Registro Mantenimiento Vehiculo
-	router.GET("/HistorialRegistrosMantenimientoVehicular", func(c *gin.Context) {
+	router.GET("/HistorialRegistrosMantenimientoVehiculo", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
 	})
 
-	router.POST("/HistorialRegistrosMantenimientoVehicular", func(ctx *gin.Context) {
+	router.POST("/HistorialRegistrosMantenimientoVehiculo", func(ctx *gin.Context) {
 		controlador.VisualizacionHistorialRegistrosManejador.ObtenerRegistrosYVehiculosFiltrados(ctx)
 	})
 
@@ -182,6 +182,6 @@ func main() {
 	router.GET("/ResumenMantenimientoVehiculos", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "resumenmantenimientovehiculos.html", gin.H{})
 	})
-	
+
 	router.Run("localhost:8080")
 }
