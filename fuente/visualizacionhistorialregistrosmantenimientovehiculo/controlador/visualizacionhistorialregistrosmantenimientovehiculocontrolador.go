@@ -18,12 +18,17 @@ func (c *Controlador) ObtenerRegistrosFiltradosConVehiculos(solicitud *visualiza
 	if solicitud == nil || validarSolicitudSinFiltros(solicitud) {
 		return c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociados()
 	}
-
+	
 	obtenerRegistrosConVehiculosFiltradosSolicitud := c.HistorialRegistrosMapeador.ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud(solicitud)
 
 	return c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociadosFiltrados(obtenerRegistrosConVehiculosFiltradosSolicitud)
 }
 
 func validarSolicitudSinFiltros(solicitud *visualizacionHistorialRegistrosMantenimientoVehiculoModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud) bool {
-	return solicitud == &visualizacionHistorialRegistrosMantenimientoVehiculoModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud{}
+	if(solicitud.ObtenerFechaDeLanzamiento() != ""){ return false}
+	if(solicitud.ObtenerMarca() != ""){ return false}
+	if(solicitud.ObtenerModelo() != ""){ return false}
+	if(solicitud.ObtenerPlacas() != ""){ return false}
+	if(solicitud.ObtenerTipoDeRegistro() != ""){ return false}
+	return true
 }

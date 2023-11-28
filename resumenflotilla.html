@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="styles/normalize.css" />
 
     <link rel="stylesheet" href="styles/app.css" />
+
     <title>FleetWise | Resumen Mantenimiento Vehiculos</title>
   </head>
   <body>
@@ -44,51 +45,17 @@
       </nav>
     </header>
 
-    <main>
-      <h1 class="resumen__titulo">Resumen de Flotilla</h1>
+    <main class="resumen-flotilla">
 
-      <div class="resumen-flotilla">
+      <h1 class="resumen-flotilla__titulo">
+        Resumen de Flotillas
+      </h1>
+
+      <div class="resumen-flotilla__contenedor-registros">
         <table
-          class="flotillas hover row-border order-column stripe"
-          id="tabla-flotillas"
+          class="resumen hover row-border order-column stripe"
+          id="tabla-resumen"
         >
-<<<<<<< HEAD
-        <thead>
-          <tr>
-            <th>Placa</th>
-            <th>Serie</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Año</th>
-            <th>Gasto de Combustible</th>
-            <th>Gasto en Mantenimiento</th>
-            <th>Rendimiento KM/L</th>
-            <th>Kilometraje Inicial</th>
-            <th>Último Kilometraje</th>
-            <th>Kilómetros Totales Recorridos</th>
-            <th>Kilómetros Promedio Diarios Recorridos</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>
-                <a href="/editarResumen">Editar</a>
-              </td>
-=======
           <thead>
             <tr>
               <th>Fecha</th>
@@ -97,14 +64,13 @@
               <th>Modelo</th>
               <th>Año</th>
               <th>Gasto de Combustible</th>
-              <th>Gasto en Mantenimiento</th>
+              <th>Gasto de Mantenimiento</th>
               <th>Rendimiento KM/L</th>
-              <th>Kilometraje Inicial</th>
+              <th>Kilometraje Incial</th>
               <th>Último Kilometraje</th>
-              <th>Kilómetros Totales Recorridos</th>
-              <th>Kilómetros Promedio Diarios Recorridos</th>
+              <th>KM Totales Recorridos</th>
+              <th>KM Promedio Diario</th>
               <th>Editar</th>
->>>>>>> main
             </tr>
           </thead>
 
@@ -112,37 +78,19 @@
 
           <tfoot>
             <tr>
-<<<<<<< HEAD
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>
-                <a href="/editarResumen">Editar</a>
-              </td>
-=======
               <th>Fecha</th>
               <th>Placa</th>
               <th>Marca</th>
               <th>Modelo</th>
               <th>Año</th>
               <th>Gasto de Combustible</th>
-              <th>Gasto en Mantenimiento</th>
+              <th>Gasto de Mantenimiento</th>
               <th>Rendimiento KM/L</th>
-              <th>Kilometraje Inicial</th>
+              <th>Kilometraje Incial</th>
               <th>Último Kilometraje</th>
-              <th>Kilómetros Totales Recorridos</th>
-              <th>Kilómetros Promedio Diarios Recorridos</th>
+              <th>KM Totales Recorridos</th>
+              <th>KM Promedio Diario</th>
               <th>Editar</th>
->>>>>>> main
             </tr>
           </tfoot>
         </table>
@@ -264,6 +212,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-    <script src="js/resumenFlotillas.js"></script>
+    <script src="js/resumenflotilla.js"></script>
+    
   </body>
 </html>

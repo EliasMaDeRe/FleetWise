@@ -3,9 +3,9 @@ package controlador
 import (
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	visualizacionHistorialRegistrosControlador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehiculo/controlador"
+	"example/fleetwise/fuente/visualizacionresumenmantenimientovehiculos/constantes"
 	capturaRegistroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
-	visualizacionHistorialRegistroMantenimientoVehiculosModelos "example/fleetwise/modelos/visualizacionhistorialregistrosmantenimientovehiculo"
 	"sort"
 	"time"
 )
@@ -16,7 +16,8 @@ type Controlador struct {
 }
 
 func (c *Controlador) ObtenerMetricasVehiculares() ([]capturaVehiculosModelos.Vehiculo, []float64, []float64, []float64, []int, []int, []int, []float64){
-	registrosMantenimientoVehiculo, vehiculos := c.VisualizacionHistorialRegistrosControlador.ObtenerRegistrosFiltradosConVehiculos(&visualizacionHistorialRegistroMantenimientoVehiculosModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud{});
+	registrosMantenimientoVehiculo, vehiculos := c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociados()
+
 
 	vehiculosSinRepetirse := c.filtrarVehiculosRepetidos(vehiculos)
 
@@ -30,6 +31,7 @@ func (c *Controlador) ObtenerMetricasVehiculares() ([]capturaVehiculosModelos.Ve
 	
 	
 	for _, vehiculo := range vehiculosSinRepetirse{
+
 		registrosDelVehiculo := c.obtenerRegistrosPorPlacaOrdenadosPorFecha(vehiculo.ObtenerPlacas(), registrosMantenimientoVehiculo)
 		
 		gastosDeCombustiblePorVehiculo = append(gastosDeCombustiblePorVehiculo, c.calcularGastoDeCombustible(*registrosDelVehiculo))
@@ -50,8 +52,8 @@ func (c *Controlador) ObtenerMetricasVehiculares() ([]capturaVehiculosModelos.Ve
 	return vehiculosSinRepetirse, gastosDeCombustiblePorVehiculo, gastosEnMantenimientoPorVehiculo, rendimientoKilometroLitroPorVehiculo, kilometrajeInicialPorVehiculo, ultimoKilometrajePorVehiculo, kilometrosTotalesRecorridosPorVehiculo, kilometrosPromedioDiariosRecorridosPorVehiculo
 }
  
-func (c *Controlador) obtenerRegistrosPorPlacaOrdenadosPorFecha(placa string, registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) *[]capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
-	registrosFiltrados := []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}
+func (c *Controlador) obtenerRegistrosPorPlacaOrdenadosPorFecha(placa string, registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) *[]capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{
+	registrosFiltrados := []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
 
 	for _,registroMantenimientoVehiculo := range registros{
 		if(registroMantenimientoVehiculo.ObtenerPlacasVehiculo() == placa){
@@ -62,7 +64,7 @@ func (c *Controlador) obtenerRegistrosPorPlacaOrdenadosPorFecha(placa string, re
 	sort.Slice(registrosFiltrados, func(i,j int) bool{
 		return registrosFiltrados[i].ObtenerFecha() < registrosFiltrados[j].ObtenerFecha()
 	})
-	
+
 	return &registrosFiltrados
 }
 
@@ -80,11 +82,11 @@ func (c *Controlador) filtrarVehiculosRepetidos(vehiculos []capturaVehiculosMode
 	return vehiculosNoRepetidos
 }
 
-func (c *Controlador) calcularGastoDeCombustible(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) float64{
+func (c *Controlador) calcularGastoDeCombustible(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) float64{
 	var gastoCombustibleTotal float64 = 0
 
 	for _, registro := range registros{
-		if(registro.ObtenerTipo() == "carga de combustible"){
+		if(registro.ObtenerTipo() == constantes.TIPO_CARGA_DE_COMBUSTIBLE){
 			gastoCombustibleTotal += registro.ObtenerImporte()
 		}
 	}
@@ -92,11 +94,11 @@ func (c *Controlador) calcularGastoDeCombustible(registros []capturaRegistroMant
 	return gastoCombustibleTotal
 }
 
-func (c *Controlador) calcularGastoEnMantenimiento(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) float64{
+func (c *Controlador) calcularGastoEnMantenimiento(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) float64{
 	var gastoMantenimientoTotal float64 = 0
 
 	for _, registro := range registros{
-		if(registro.ObtenerTipo() != "carga de combustible"){
+		if(registro.ObtenerTipo() != constantes.TIPO_CARGA_DE_COMBUSTIBLE){
 			gastoMantenimientoTotal += registro.ObtenerImporte()
 		}
 	}
@@ -104,11 +106,15 @@ func (c *Controlador) calcularGastoEnMantenimiento(registros []capturaRegistroMa
 	return gastoMantenimientoTotal
 }
 
-func (c *Controlador) calcularRendimientoKilometrosLitros(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) float64{
+func (c *Controlador) calcularRendimientoKilometrosLitros(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) float64{
 	var litrosTotales float64 = 0
 
+	if(len(registros) == 1){
+		return litrosTotales;
+	}
+
 	for _, registro := range registros {
-		if(registro.ObtenerTipo() == "carga de combustible"){
+		if(registro.ObtenerTipo() == constantes.TIPO_CARGA_DE_COMBUSTIBLE){
 			litrosTotales += registro.ObtenerLitrosDeGasolina()
 		}
 	}
@@ -118,51 +124,56 @@ func (c *Controlador) calcularRendimientoKilometrosLitros(registros []capturaReg
 	return rendimientoKilometrosLitros
 }
 
-func (c *Controlador) obtenerKilometrajeInicial(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) int{
-	var kilometrajeInicial int = 0
-
+func (c *Controlador) obtenerKilometrajeInicial(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) int{
 	primerRegistro := registros[0]
-	kilometrajeInicial = primerRegistro.ObtenerKilometraje()
-
-	return kilometrajeInicial
+	return primerRegistro.ObtenerKilometraje()
 }
 
-func (c *Controlador) obtenerUltimoKilometraje(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) int{
-	var ultimoKilometraje int = 0
+func (c *Controlador) obtenerUltimoKilometraje(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) int{
 
-	ultimoIndice := len(registros) - 1
-	ultimoRegistro := registros[ultimoIndice]
-	ultimoKilometraje = ultimoRegistro.ObtenerKilometraje()
+	if(len(registros) == 1){
+		unicoRegistro := registros[0]
+		return unicoRegistro.ObtenerKilometraje()
+	}
+
+	indiceUltimoRegistro := len(registros) - 1
+	ultimoRegistro := registros[indiceUltimoRegistro]
+	ultimoKilometraje := ultimoRegistro.ObtenerKilometraje()
 
 	return ultimoKilometraje
 }
 
-func (c *Controlador) calcularKilometrosTotalesRecorridos(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) int{
+func (c *Controlador) calcularKilometrosTotalesRecorridos(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) int{
 	var kilometrosTotalesRecorridos int = 0
+
+	if(len(registros)==1){
+		return kilometrosTotalesRecorridos
+	} 
 
 	var kilometrajeInicial = c.obtenerKilometrajeInicial(registros)
 	var ultimoKilometraje = c.obtenerUltimoKilometraje(registros)
 
 	kilometrosTotalesRecorridos = ultimoKilometraje - kilometrajeInicial
-
 	return kilometrosTotalesRecorridos
 }
 
-func (c *Controlador) calcularKilometrosPromedioDiariosRecorridos(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) float64{
-	formatoFecha:= "2006-01-02"
+func (c *Controlador) calcularKilometrosPromedioDiariosRecorridos(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) float64{
+
+	if(len(registros) == 1){
+
+		return 0;
+	}
 
 	primerRegistro := registros[0]
 	ultimoRegistro := registros[len(registros)-1]
 
-	fechaInicial, _ := time.Parse(formatoFecha, primerRegistro.ObtenerFecha())
-	fechaFinal, _ := time.Parse(formatoFecha, ultimoRegistro.ObtenerFecha())
-
+	fechaInicial, _ := time.Parse(constantes.FORMATO_FECHA, primerRegistro.ObtenerFecha())
+	fechaFinal, _ := time.Parse(constantes.FORMATO_FECHA, ultimoRegistro.ObtenerFecha())
 	diasTotales := fechaFinal.Sub(fechaInicial).Hours() / 24;
 
 	kilometroTotalesRecorridos := ultimoRegistro.ObtenerKilometraje() - primerRegistro.ObtenerKilometraje()
-
 	promedioKilometrosDiariosRecorridos := float64(kilometroTotalesRecorridos) / diasTotales
-
+	
 	return promedioKilometrosDiariosRecorridos
 
 }

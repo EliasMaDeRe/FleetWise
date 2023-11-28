@@ -280,10 +280,12 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociados() ([]capturaRegistroMa
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
+	registro :=&capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
+
 	registros := []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
 	vehiculos := []capturaVehiculosModelos.Vehiculo{}
 
-	tablaDeRegistrosConVehiculosFiltrados := baseDeDatos.Select("*").Model(&capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}).Joins("JOIN vehiculos on vehiculos.placas = placas_de_vehiculo")
+	tablaDeRegistrosConVehiculosFiltrados := baseDeDatos.Select("*").Table(registro.TableName()).Joins(constantes.CONSULTA_REGISTROS_CON_VEHICULOS)
 
 	if tablaDeRegistrosConVehiculosFiltrados.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
@@ -309,7 +311,7 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociadosFiltrados(solicitud *co
 	filtroRegistro := &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{TipoDeRegistro: solicitud.ObtenerFiltroTipoDeRegistro(), PlacasDeVehiculo: solicitud.ObtenerFiltroPlaca()}
 	filtroVehiculo := &capturaVehiculosModelos.Vehiculo{FechaLanzamiento: solicitud.ObtenerFiltroFechaDeLanzamiento(), Marca: solicitud.ObtenerFiltroMarca(), Modelo: solicitud.ObtenerFiltroModelo()}
 
-	tablaDeRegistrosConVehiculosFiltrados := baseDeDatos.Select("*").Table(filtroRegistro.TableName()).Joins("JOIN vehiculos on vehiculos.placas = registros_de_mantenimiento_de_vehiculo.placas_de_vehiculo").Where(&filtroRegistro).Where(&filtroVehiculo)
+	tablaDeRegistrosConVehiculosFiltrados := baseDeDatos.Select("*").Table(filtroRegistro.TableName()).Joins(constantes.CONSULTA_REGISTROS_CON_VEHICULOS).Where(&filtroRegistro).Where(&filtroVehiculo)
 
 	if tablaDeRegistrosConVehiculosFiltrados.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
