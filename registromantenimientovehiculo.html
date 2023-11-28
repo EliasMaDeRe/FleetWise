@@ -16,44 +16,56 @@
   <body>
     <header class="header">
       <div class="header__logo">
-        <p>Logo</p>
+        <a href="/"><img src="img/Logo.png"></a>
       </div>
       <nav class="navbar">
-        <a href="#" class="navbar__enlace">Texto</a>
-        <a href="#" class="navbar__enlace">Texto</a>
-        <a href="#" class="navbar__enlace">Texto</a>
-        <a href="#" class="navbar__enlace">Texto</a>
-        <a href="#" class="navbar__enlace--logout">Cerrar Sesión</a>
+        <a href="/AgregarVehiculo" class="navbar__enlace">Capturar Vehiculos</a>
+        <a href="/AgregarServicioVehicular" class="navbar__enlace">Capturar Conceptos</a>
+        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace">Agregar Registro</a>
+        <a href="/HistorialRegistrosMantenimientoVehicular" class="navbar__enlace">Historial Registro</a>
+        <a href="/Logout" class="navbar__enlace--logout">Cerrar Sesión</a>
       </nav>
     </header>
     <body>
       <main class="captura-registro-mantenimiento-vehiculo__contenedor">
-        <h1 class="captura-registro-mantenimiento-vehiculo__heading">Nuevo Registro de Mantenimiento del Veh&iacute;culo</h1>
-        <div class="captura-registro-mantenimiento-vehiculo__formulario-contenedor">
+        <h1 class="captura-registro-mantenimiento-vehiculo__heading">
+          Nuevo Registro de Mantenimiento del Veh&iacute;culo
+        </h1>
+        <div
+          class="captura-registro-mantenimiento-vehiculo__formulario-contenedor"
+        >
           <form class="formulario">
-            <div class="captura-registro-mantenimiento-vehiculo__placas-contenedor"></div>
+            <div
+              class="captura-registro-mantenimiento-vehiculo__placas-contenedor"
+            ></div>
             <div class="formulario__campo">
-              <p>Tipo de Registro:
+              <p>
+                Tipo de Registro:
                 <select id="tiporegistro" class="formulario__input">
-                <option value="servicio" selected="selected">Servicio</option>
-                <option value="carga_combustible">Carga de Combustible</option>
-                <option value="afinacion">Afinación</option>
-                <option value="reaparacion">Reparaci&oacute;n</option>
-                <option value="reemplazo">Reemplazo</option>
-              </select></p>
+                  <option value="servicio" selected="selected">Servicio</option>
+                  <option value="carga de combustible">
+                    Carga de Combustible
+                  </option>
+                  <option value="afinacion">Afinación</option>
+                  <option value="reaparacion">Reparaci&oacute;n</option>
+                  <option value="reemplazo">Reemplazo</option>
+                </select>
+              </p>
             </div>
             <div class="formulario__campo">
               <label for="fecha" class="formulario__label">*Fecha:</label>
               <input
                 class="formulario__input"
-                type="text"
+                type="date"
                 name="fecha"
                 id="fecha"
                 placeholder="DD/MM/YYYY"
               />
             </div>
             <div class="formulario__campo">
-              <label for="kilometraje" class="formulario__label">*Kilometraje:</label>
+              <label for="kilometraje" class="formulario__label">
+                *Kilometraje:
+              </label>
               <input
                 class="formulario__input"
                 type="text"
@@ -63,7 +75,14 @@
               />
             </div>
             <div class="formulario__campo">
-              <label for="litros_gasolina" class="formulario__label" id="litros_gasolina_label" hidden>*Litros de Gasolina:</label>
+              <label
+                for="litros_gasolina"
+                class="formulario__label"
+                id="litros_gasolina_label"
+                hidden
+              >
+                *Litros de Gasolina:
+              </label>
               <input
                 class="formulario__input"
                 type="text"
@@ -84,21 +103,28 @@
               />
             </div>
             <div class="formulario__campo">
-                <label for="observaciones" class="formulario__label">*Observaciones:</label>
-                <input
-                  class="formulario__input"
-                  type="text"
-                  name="observaciones"
-                  id="observaciones"
-                  placeholder="Observaciones"
-                />
-              </div>
-            <div class="formulario__campo">
-              <p id="concepto">Concepto:
-                <select name="conceptoregistro" id="conceptoregistro" class="formulario__input">
-              </select></p>
+              <label for="observaciones" class="formulario__label"
+                >*Observaciones:</label
+              >
+              <input
+                class="formulario__input"
+                type="text"
+                name="observaciones"
+                id="observaciones"
+                placeholder="Observaciones"
+              />
             </div>
-              <input type="submit" class="formulario__submit" value="Enviar" />
+            <div class="formulario__campo">
+              <p id="concepto">
+                Concepto:
+                <select
+                  name="conceptoregistro"
+                  id="conceptoregistro"
+                  class="formulario__input"
+                ></select>
+              </p>
+            </div>
+            <input type="submit" class="formulario__submit" value="Enviar" />
           </form>
         </div>
       </main>
@@ -121,7 +147,7 @@
         </nav>
 
         <div class="footer__barra">
-          <p class="footer__logo">Logo</p>
+          <p class="footer__logo">FleetWise</p>
 
           <div class="footer__redes">
             <a href="https://facebook.com" class="footer__social--logo">

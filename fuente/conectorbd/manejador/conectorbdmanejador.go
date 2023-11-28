@@ -1,18 +1,18 @@
 package Manejador
 
 import (
-	conectorControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 
 	"github.com/gin-gonic/gin"
 )
 
 type Manejador struct {
-	ConectorControlador *conectorControlador.Controlador
+	ConectorControlador *conectorBDControlador.Controlador
 }
 
 func NuevoManejador() (c *Manejador) {
 	return &Manejador{
-		ConectorControlador: &conectorControlador.Controlador{},
+		ConectorControlador: &conectorBDControlador.Controlador{},
 	}
 }
 
