@@ -1,8 +1,8 @@
 package manejador
 
 import (
-	servicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
-	servicioVehicularMapeador "example/fleetwise/fuente/capturaserviciovehicular/mapeador"
+	capturaServicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
+	capturaServicioVehicularMapeador "example/fleetwise/fuente/capturaserviciovehicular/mapeador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	"net/http"
 
@@ -10,20 +10,20 @@ import (
 )
 
 type Manejador struct {
-	ServicioVehicularControlador *servicioVehicularControlador.Controlador
+	ServicioVehicularControlador *capturaServicioVehicularControlador.Controlador
 }
 
 func NuevoManejador() (c *Manejador) {
 	return &Manejador{
-		ServicioVehicularControlador: &servicioVehicularControlador.Controlador{
-			ServicioVehicularMapeador: &servicioVehicularMapeador.Mapeador{},
+		ServicioVehicularControlador: &capturaServicioVehicularControlador.Controlador{
+			CapturaServicioVehicularMapeador: &capturaServicioVehicularMapeador.Mapeador{},
 			ConectorBDControlador:     &conectorBDControlador.Controlador{},
 		},
 	}
 }
 
 func (m *Manejador) AgregarServicioVehicular(contexto *gin.Context) {
-	solicitud := m.ServicioVehicularControlador.ServicioVehicularMapeador.GinContextAAgregarServicioVehicularSolicitud(contexto)
+	solicitud := m.ServicioVehicularControlador.CapturaServicioVehicularMapeador.GinContextAAgregarServicioVehicularSolicitud(contexto)
 	respuesta := m.ServicioVehicularControlador.AgregarServicioVehicular(solicitud)
 	status := http.StatusOK
 	if respuesta.ObtenerOk() == false {
@@ -37,7 +37,7 @@ func (m *Manejador) AgregarServicioVehicular(contexto *gin.Context) {
 }
 
 func (m *Manejador) EliminarServicioVehicular(contexto *gin.Context) {
-	solicitud := m.ServicioVehicularControlador.ServicioVehicularMapeador.GinContextAEliminarServicioVehicularSolicitud(contexto)
+	solicitud := m.ServicioVehicularControlador.CapturaServicioVehicularMapeador.GinContextAEliminarServicioVehicularSolicitud(contexto)
 	respuesta := m.ServicioVehicularControlador.EliminarServicioVehicular(solicitud)
 	status := http.StatusOK
 	if respuesta.ObtenerOk() == false {
@@ -51,7 +51,7 @@ func (m *Manejador) EliminarServicioVehicular(contexto *gin.Context) {
 }
 
 func (m *Manejador) EditarServicioVehicular(contexto *gin.Context) {
-	solicitud := m.ServicioVehicularControlador.ServicioVehicularMapeador.GinContextAEditarServicioVehicularSolicitud(contexto)
+	solicitud := m.ServicioVehicularControlador.CapturaServicioVehicularMapeador.GinContextAEditarServicioVehicularSolicitud(contexto)
 	respuesta := m.ServicioVehicularControlador.EditarServicioVehicular(solicitud)
 	status := http.StatusOK
 	if respuesta.ObtenerOk() == false {

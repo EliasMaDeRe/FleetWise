@@ -3,19 +3,19 @@ package controlador
 import (
 	"errors"
 	"example/fleetwise/fuente/capturaserviciovehicular/constantes"
-	servicioVehicularMapeador "example/fleetwise/fuente/capturaserviciovehicular/mapeador"
+	capturaServicioVehicularMapeador "example/fleetwise/fuente/capturaserviciovehicular/mapeador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
-	"example/fleetwise/modelos/capturaserviciovehicular"
-	conectorBDmodelos "example/fleetwise/modelos/conectorbd"
+	capturaServicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
+	conectorBDModelos "example/fleetwise/modelos/conectorbd"
 )
 
 type Controlador struct {
 	ConectorBDControlador     *conectorBDControlador.Controlador
-	ServicioVehicularMapeador *servicioVehicularMapeador.Mapeador
+	CapturaServicioVehicularMapeador *capturaServicioVehicularMapeador.Mapeador
 }
 
-func (c *Controlador) AgregarServicioVehicular(solicitud *capturaserviciovehicular.AgregarServicioVehicularSolicitud) *capturaserviciovehicular.AgregarServicioVehicularRespuesta {
-	respuesta := &capturaserviciovehicular.AgregarServicioVehicularRespuesta{}
+func (c *Controlador) AgregarServicioVehicular(solicitud *capturaServicioVehicularModelos.AgregarServicioVehicularSolicitud) *capturaServicioVehicularModelos.AgregarServicioVehicularRespuesta {
+	respuesta := &capturaServicioVehicularModelos.AgregarServicioVehicularRespuesta{}
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
@@ -29,7 +29,7 @@ func (c *Controlador) AgregarServicioVehicular(solicitud *capturaserviciovehicul
 		return respuesta
 	}
 
-	servicioVehicular := c.ServicioVehicularMapeador.AgregarServicioVehicularSolicitudAServicioVehicular(solicitud)
+	servicioVehicular := c.CapturaServicioVehicularMapeador.AgregarServicioVehicularSolicitudAServicioVehicular(solicitud)
 
 	if guardarServicioVehicularRespuesta := c.ConectorBDControlador.GuardarServicioVehicular(servicioVehicular); guardarServicioVehicularRespuesta.ObtenerErr() != nil {
 		respuesta.AsignarOk(false)
@@ -43,9 +43,9 @@ func (c *Controlador) AgregarServicioVehicular(solicitud *capturaserviciovehicul
 	return respuesta
 }
 
-func (c *Controlador) validarAgregarServicioVehicularSolicitud(solicitud *capturaserviciovehicular.AgregarServicioVehicularSolicitud) error {
+func (c *Controlador) validarAgregarServicioVehicularSolicitud(solicitud *capturaServicioVehicularModelos.AgregarServicioVehicularSolicitud) error {
 
-	obtenerServicioVehicularPorNombreSolicitud := &conectorBDmodelos.ObtenerServicioVehicularPorNombreSolicitud{}
+	obtenerServicioVehicularPorNombreSolicitud := &conectorBDModelos.ObtenerServicioVehicularPorNombreSolicitud{}
 	obtenerServicioVehicularPorNombreSolicitud.AsignarNombre(solicitud.ObtenerNombre())
 
 	if c.ConectorBDControlador.ObtenerServicioVehicularPorNombre(obtenerServicioVehicularPorNombreSolicitud) != nil {
@@ -55,8 +55,8 @@ func (c *Controlador) validarAgregarServicioVehicularSolicitud(solicitud *captur
 	return nil
 }
 
-func (c *Controlador) EliminarServicioVehicular(solicitud *capturaserviciovehicular.EliminarServicioVehicularSolicitud) *capturaserviciovehicular.EliminarServicioVehicularRespuesta {
-	respuesta := &capturaserviciovehicular.EliminarServicioVehicularRespuesta{}
+func (c *Controlador) EliminarServicioVehicular(solicitud *capturaServicioVehicularModelos.EliminarServicioVehicularSolicitud) *capturaServicioVehicularModelos.EliminarServicioVehicularRespuesta {
+	respuesta := &capturaServicioVehicularModelos.EliminarServicioVehicularRespuesta{}
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
@@ -64,7 +64,7 @@ func (c *Controlador) EliminarServicioVehicular(solicitud *capturaserviciovehicu
 		return respuesta
 	}
 
-	servicioVehicular := c.ServicioVehicularMapeador.EliminarServicioVehicularSolicitudAServicioVehicular(solicitud)
+	servicioVehicular := c.CapturaServicioVehicularMapeador.EliminarServicioVehicularSolicitudAServicioVehicular(solicitud)
 
 	c.ConectorBDControlador.EliminarServicioVehicular(servicioVehicular)
 
@@ -74,8 +74,8 @@ func (c *Controlador) EliminarServicioVehicular(solicitud *capturaserviciovehicu
 	return respuesta
 }
 
-func (c *Controlador) EditarServicioVehicular(solicitud *capturaserviciovehicular.EditarServicioVehicularSolicitud) *capturaserviciovehicular.EditarServicioVehicularRespuesta {
-	respuesta := &capturaserviciovehicular.EditarServicioVehicularRespuesta{}
+func (c *Controlador) EditarServicioVehicular(solicitud *capturaServicioVehicularModelos.EditarServicioVehicularSolicitud) *capturaServicioVehicularModelos.EditarServicioVehicularRespuesta {
+	respuesta := &capturaServicioVehicularModelos.EditarServicioVehicularRespuesta{}
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
@@ -83,7 +83,7 @@ func (c *Controlador) EditarServicioVehicular(solicitud *capturaserviciovehicula
 		return respuesta
 	}
 
-	editarServicioVehicularSolicitudDeConectorBD := c.ServicioVehicularMapeador.EditarServicioVehicularSolicitudAServicioVehicularDeConectorBD(solicitud)
+	editarServicioVehicularSolicitudDeConectorBD := c.CapturaServicioVehicularMapeador.EditarServicioVehicularSolicitudAServicioVehicularDeConectorBD(solicitud)
 
 	c.ConectorBDControlador.EditarServicioVehicular(editarServicioVehicularSolicitudDeConectorBD)
 
@@ -93,6 +93,6 @@ func (c *Controlador) EditarServicioVehicular(solicitud *capturaserviciovehicula
 	return respuesta
 }
 
-func (c *Controlador) ObtenerServiciosVehiculares() []capturaserviciovehicular.ServicioVehicular {
+func (c *Controlador) ObtenerServiciosVehiculares() []capturaServicioVehicularModelos.ServicioVehicular {
 	return c.ConectorBDControlador.ObtenerServiciosVehiculares()
 }

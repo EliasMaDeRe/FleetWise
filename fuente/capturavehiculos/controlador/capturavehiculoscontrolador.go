@@ -6,18 +6,18 @@ import (
 	"strconv"
 
 	"example/fleetwise/fuente/capturavehiculos/constantes"
-	vehiculosMapeador "example/fleetwise/fuente/capturavehiculos/mapeador"
-	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
-	"example/fleetwise/modelos/conectorbd"
+	capturaVehiculosMapeador "example/fleetwise/fuente/capturavehiculos/mapeador"
+	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
+	conectorBDModelos "example/fleetwise/modelos/conectorbd"
 )
 
 type Controlador struct {
 	ConectorBDControlador *conectorBDControlador.Controlador
-	VehiculosMapeador     *vehiculosMapeador.Mapeador
+	CapturaVehiculosMapeador     *capturaVehiculosMapeador.Mapeador
 }
 
-func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) *vehiculosModelos.AgregarVehiculoRespuesta {
-	respuesta := &vehiculosModelos.AgregarVehiculoRespuesta{}
+func (c *Controlador) AgregarVehiculo(solicitud *capturaVehiculosModelos.AgregarVehiculosSolicitud) *capturaVehiculosModelos.AgregarVehiculoRespuesta {
+	respuesta := &capturaVehiculosModelos.AgregarVehiculoRespuesta{}
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)
@@ -31,7 +31,7 @@ func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehicul
 		return respuesta
 	}
 
-	vehiculo := c.VehiculosMapeador.AgregarVehiculosSolicitudAVehiculo(solicitud)
+	vehiculo := c.CapturaVehiculosMapeador.AgregarVehiculosSolicitudAVehiculo(solicitud)
 
 	if guardarVehiculoRespuesta := c.ConectorBDControlador.GuardarVehiculo(vehiculo); guardarVehiculoRespuesta.ObtenerErr() != nil {
 		respuesta.AsignarOk(false)
@@ -45,13 +45,13 @@ func (c *Controlador) AgregarVehiculo(solicitud *vehiculosModelos.AgregarVehicul
 	return respuesta
 }
 
-func (c *Controlador) validarAgregarVehiculosSolicitud(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) error {
+func (c *Controlador) validarAgregarVehiculosSolicitud(solicitud *capturaVehiculosModelos.AgregarVehiculosSolicitud) error {
 	if fechalanzamiento, err := strconv.Atoi(solicitud.ObtenerFechaLanzamiento()); err != nil || fechalanzamiento <= 0 {
 		return errors.New(constantes.ERROR_FECHALANZAMIENTO_NO_NATURAL)
 	}
-	obtenerVehiculoPorPlacasSolicitud := &conectorbd.ObtenerVehiculoPorPlacasSolicitud{}
+	obtenerVehiculoPorPlacasSolicitud := &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
-	obtenerVehiculoPorSerieSolicitud := &conectorbd.ObtenerVehiculoPorSerieSolicitud{}
+	obtenerVehiculoPorSerieSolicitud := &conectorBDModelos.ObtenerVehiculoPorSerieSolicitud{}
 	obtenerVehiculoPorSerieSolicitud.AsignarSerie(solicitud.ObtenerSerie())
 	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) != nil {
 		return errors.New(constantes.ERROR_PLACAS_EXISTENTES_EN_BD)
