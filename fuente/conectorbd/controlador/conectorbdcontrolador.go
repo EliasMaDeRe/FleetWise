@@ -280,7 +280,7 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociados() ([]capturaRegistroMa
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	registro :=&capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
+	registro := &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
 
 	registros := []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
 	vehiculos := []capturaVehiculosModelos.Vehiculo{}
@@ -411,4 +411,18 @@ func (c *Controlador) obtenerConexionABd() string {
 	dbPuerto := os.Getenv("dbPuerto")
 	conexionDb := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUsuario, dbContrasena, dbHost, dbPuerto, dbNombre)
 	return conexionDb
+}
+
+func (c *Controlador) EliminarVehiculo(vehiculo *capturaVehiculosModelos.Vehiculo) {
+
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	baseDeDatos.AutoMigrate(&vehiculo)
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	baseDeDatos.Where("Placas = ?", vehiculo.ObtenerPlacas()).Delete(vehiculo)
+
 }
