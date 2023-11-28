@@ -194,7 +194,7 @@ func main() {
 	router.GET("/ResumenMantenimientoVehiculos", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "resumenmantenimientovehiculos.html", gin.H{})
+		c.HTML(http.StatusOK, "resumenflotilla.html", gin.H{})
 	})
 
 	router.Run("localhost:8080")
