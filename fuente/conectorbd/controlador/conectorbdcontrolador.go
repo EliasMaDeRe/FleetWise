@@ -113,17 +113,8 @@ func (c *Controlador) GuardarRegistro(registro *capturaRegistroMantenimientoVehi
 
 	baseDeDatos.AutoMigrate(&registro)
 
-	resultadoGuardarRegistro := baseDeDatos.Create(
-		&capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
-			NumeroDeRegistro: registro.ObtenerNumeroDeRegistro(),
-			TipoDeRegistro:   registro.ObtenerTipo(),
-			Fecha:            registro.ObtenerFecha(),
-			LitrosDeGasolina: registro.ObtenerLitrosDeGasolina(),
-			Kilometraje:      registro.ObtenerKilometraje(),
-			Importe:          registro.ObtenerImporte(),
-			Observaciones:    registro.ObtenerObservaciones(),
-			Concepto:         registro.ObtenerConcepto(),
-		})
+	resultadoGuardarRegistro := baseDeDatos.Create(&registro)
+	
 	respuesta := &conectorBDModelos.GuardarRegistroMantenimientoVehiculoRespuesta{}
 	if resultadoGuardarRegistro.Error != nil {
 		respuesta.AsignarOk(false)
