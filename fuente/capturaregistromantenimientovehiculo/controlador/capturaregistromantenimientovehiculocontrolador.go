@@ -51,7 +51,7 @@ func (c *Controlador) validarSeleccionarVehiculoParaRegistro(solicitud *capturaR
 	return nil
 }
 
-func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoRespuesta {
+func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroDeMantenimientoDeVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoRespuesta {
 	respuesta := &capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoRespuesta{}
 
 	if solicitud == nil {
@@ -80,7 +80,7 @@ func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *capturaRegis
 	return respuesta
 }
 
-func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) error {
+func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroDeMantenimientoDeVehiculoSolicitud) error {
 
 	_, err := time.Parse("2006-01-02", solicitud.ObtenerFecha()) // AAAA/MM/DD
 	if err != nil {
