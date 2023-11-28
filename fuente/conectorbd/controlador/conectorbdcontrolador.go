@@ -382,6 +382,27 @@ func (c *Controlador) EditarRegistroDeMantenimientoDeVehiculo(solicitud *conecto
 	return respuesta
 }
 
+func (c *Controlador) EditarVehiculo(solicitud *conectorBDModelos.EditarVehiculoSolicitud) {
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	vehiculoNuevo := &capturaVehiculosModelos.Vehiculo{}
+	vehiculoNuevo.AsignarFechaLanzamiento(solicitud.ObtenerFechaDeLanzamientoNueva())
+	vehiculoNuevo.AsignarMarca(solicitud.ObtenerMarcaNueva())
+	vehiculoNuevo.AsignarModelo(solicitud.ObtenerModeloNuevo())
+	vehiculoNuevo.AsignarPlacas(solicitud.ObtenerPlacasNuevas())
+	vehiculoNuevo.AsignarSerie(solicitud.ObtenerSerieNuevo())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	baseDeDatos.Model(vehiculoNuevo).Where("Placas = ?", solicitud.ObtenerPlacasActuales()).Update("FechaLanzamiento", vehiculoNuevo.ObtenerFechaLanzamiento())
+	baseDeDatos.Model(vehiculoNuevo).Where("Placas = ?", solicitud.ObtenerPlacasActuales()).Update("Marca", vehiculoNuevo.ObtenerMarca())
+	baseDeDatos.Model(vehiculoNuevo).Where("Placas = ?", solicitud.ObtenerPlacasActuales()).Update("Modelo", vehiculoNuevo.ObtenerModelo())
+	baseDeDatos.Model(vehiculoNuevo).Where("Placas = ?", solicitud.ObtenerPlacasActuales()).Update("Serie", vehiculoNuevo.ObtenerSerie())
+	baseDeDatos.Model(vehiculoNuevo).Where("Placas = ?", solicitud.ObtenerPlacasActuales()).Update("Placas", vehiculoNuevo.ObtenerPlacas())
+}
+
 func (c *Controlador) obtenerConexionABd() string {
 	dbHost := os.Getenv("dbHost")
 	dbNombre := os.Getenv("dbNombre")
