@@ -250,7 +250,8 @@ INICIO SELECCIONAR-VEHICULO
 }
 
 .seleccionar_vehiculo__formulario-contenedor {
-  margin-block: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 20rem;
   background-color: var(--azul_claro);
   border-radius: 2rem;
   display: flex;
@@ -706,6 +707,10 @@ RESUMEN FLOTILLA
 ================
 */
 
+.resumen-flotilla {
+  margin: 0 auto;
+}
+
 .resumen-flotilla__titulo {
   margin-top: 5rem;
   margin-bottom: 5rem;
@@ -713,7 +718,7 @@ RESUMEN FLOTILLA
 }
 
 .resumen-flotilla__contenedor-registros {
-  margin: 1rem;
+  margin: 0 auto 15rem auto;
 }
 
 .resumen th {
@@ -724,4 +729,10 @@ RESUMEN FLOTILLA
 .resumen td {
   text-align: center;
   font-size: 1.7rem;
+}
+
+.resumen__acciones {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 }
