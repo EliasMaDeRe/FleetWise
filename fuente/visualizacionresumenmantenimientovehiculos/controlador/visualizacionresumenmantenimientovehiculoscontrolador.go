@@ -15,7 +15,7 @@ type Controlador struct {
 	VisualizacionHistorialRegistrosControlador *visualizacionHistorialRegistrosControlador.Controlador
 }
 
-func (c *Controlador) CalcularMetricasVehiculares() ([]capturaVehiculosModelos.Vehiculo, []float64, []float64, []float64, []int, []int, []int, []float64){
+func (c *Controlador) ObtenerMetricasVehiculares() ([]capturaVehiculosModelos.Vehiculo, []float64, []float64, []float64, []int, []int, []int, []float64){
 	registrosMantenimientoVehiculo, vehiculos := c.VisualizacionHistorialRegistrosControlador.ObtenerRegistrosFiltradosConVehiculos(&visualizacionHistorialRegistroMantenimientoVehiculosModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud{});
 
 	vehiculosSinRepetirse := c.filtrarVehiculosRepetidos(vehiculos)
@@ -42,7 +42,7 @@ func (c *Controlador) CalcularMetricasVehiculares() ([]capturaVehiculosModelos.V
 
 		ultimoKilometrajePorVehiculo = append(ultimoKilometrajePorVehiculo, c.obtenerUltimoKilometraje(*registrosDelVehiculo))
 
-		kilometrosTotalesRecorridosPorVehiculo = append(kilometrosTotalesRecorridosPorVehiculo, c.obtenerkilometrosTotalesRecorridos(*registrosDelVehiculo))
+		kilometrosTotalesRecorridosPorVehiculo = append(kilometrosTotalesRecorridosPorVehiculo, c.calcularKilometrosTotalesRecorridos(*registrosDelVehiculo))
 		
 		kilometrosPromedioDiariosRecorridosPorVehiculo = append(kilometrosPromedioDiariosRecorridosPorVehiculo, c.calcularKilometrosPromedioDiariosRecorridos(*registrosDelVehiculo))
 	}
@@ -113,7 +113,7 @@ func (c *Controlador) calcularRendimientoKilometrosLitros(registros []capturaReg
 		}
 	}
 	
-	rendimientoKilometrosLitros := float64(c.obtenerkilometrosTotalesRecorridos(registros)) / litrosTotales
+	rendimientoKilometrosLitros := float64(c.calcularKilometrosTotalesRecorridos(registros)) / litrosTotales
 
 	return rendimientoKilometrosLitros
 }
@@ -137,7 +137,7 @@ func (c *Controlador) obtenerUltimoKilometraje(registros []capturaRegistroManten
 	return ultimoKilometraje
 }
 
-func (c *Controlador) obtenerkilometrosTotalesRecorridos(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) int{
+func (c *Controlador) calcularKilometrosTotalesRecorridos(registros []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) int{
 	var kilometrosTotalesRecorridos int = 0
 
 	var kilometrajeInicial = c.obtenerKilometrajeInicial(registros)
