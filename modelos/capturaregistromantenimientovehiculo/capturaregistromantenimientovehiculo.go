@@ -9,7 +9,7 @@ type RegistroMantenimientoVehiculo struct {
 	Importe          float64
 	Observaciones    string
 	Concepto         string
-	PlacasVehiculo 	 string
+	PlacasVehiculo   string
 }
 
 func (RegistroMantenimientoVehiculo) TableName() string {
@@ -142,7 +142,7 @@ type AgregarRegistroMantenimientoVehiculoSolicitud struct {
 	Importe          string `json:"importe"`
 	Observaciones    string `json:"observaciones"`
 	Concepto         string `json:"conceptoregistro"`
-	PlacasVehiculo 	 string `json:"placasVehiculo"`
+	PlacasVehiculo   string `json:"placasVehiculo"`
 }
 
 func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerNumeroDeRegistro() (o string) {
@@ -293,40 +293,40 @@ func (r *AgregarRegistroMantenimientoVehiculoRespuesta) AsignarErr(err error) {
 	}
 }
 
-type EditarRegistroMantenimientoVehiculoSolicitud struct{
-	PlacaNueva string
-	TipoDeRegistroNuevo string
-	ImporteNuevo float32
+type EditarRegistroMantenimientoVehiculoSolicitud struct {
+	PlacaNueva             string
+	TipoDeRegistroNuevo    string
+	ImporteNuevo           float32
 	ServicioVehicularNuevo string
 }
 
 func (editarSolicitud *EditarRegistroMantenimientoVehiculoSolicitud) ObtenerPlacaNueva() (placa string) {
-	if(editarSolicitud != nil){
+	if editarSolicitud != nil {
 		placa = editarSolicitud.PlacaNueva
 	}
 	return
-} 
+}
 
 func (editarSolicitud *EditarRegistroMantenimientoVehiculoSolicitud) ObtenerTipoDeRegistro() (tipoDeRegistro string) {
-	if(editarSolicitud != nil){
+	if editarSolicitud != nil {
 		tipoDeRegistro = editarSolicitud.TipoDeRegistroNuevo
 	}
 	return
-} 
+}
 
 func (editarSolicitud *EditarRegistroMantenimientoVehiculoSolicitud) ObtenerImporteNuevo() (importe float32) {
-	if(editarSolicitud != nil){
+	if editarSolicitud != nil {
 		importe = editarSolicitud.ImporteNuevo
 	}
 	return
-} 
+}
 
 func (editarSolicitud *EditarRegistroMantenimientoVehiculoSolicitud) ObtenerServicioVehicularNuevo() (servicioVehicular string) {
-	if(editarSolicitud != nil){
+	if editarSolicitud != nil {
 		servicioVehicular = editarSolicitud.ServicioVehicularNuevo
 	}
 	return
-} 
+}
 
 type EditarRegistroMantenimientoVehiculoRespuesta struct {
 	ok  bool
@@ -390,19 +390,19 @@ func (b *BorrarRegistroMantenimientoVehiculoRespuesta) AsignarErr(err error) {
 	}
 }
 
-type SeleccionarRegistroMantenimientoVehicularSolicitud struct{
+type SeleccionarRegistroMantenimientoVehiculoSolicitud struct {
 	NumeroDeRegistro int
 }
 
-func (seleccionarRegistroSolicitud *SeleccionarRegistroMantenimientoVehicularSolicitud) ObtenerNumRegistro() (numRegistro int){
-	if(seleccionarRegistroSolicitud != nil){
+func (seleccionarRegistroSolicitud *SeleccionarRegistroMantenimientoVehiculoSolicitud) ObtenerNumRegistro() (numRegistro int) {
+	if seleccionarRegistroSolicitud != nil {
 		numRegistro = seleccionarRegistroSolicitud.NumeroDeRegistro
 	}
 	return
 }
 
-type SeleccionarRegistroMantenimientoVehiculoRespuesta struct{
-	Ok bool
+type SeleccionarRegistroMantenimientoVehiculoRespuesta struct {
+	Ok       bool
 	Registro map[string]interface{}
 }
 
@@ -413,8 +413,6 @@ type SeleccionarVehiculoSolicitud struct {
 type SeleccionarVehiculoParaNuevoRegistroSolicitud struct {
 	Placas string `json:"placas"`
 }
-
-
 
 func (s *SeleccionarVehiculoParaNuevoRegistroSolicitud) ObtenerPlacas() (o string) {
 	if s != nil {
@@ -469,8 +467,8 @@ type ObtenerRegistroDeMantenimientoDelVehiculoPorNumeroDeRegistroSolicitud struc
 	NumDeRegistro int `json:"NumDeRegistro"`
 }
 
-func (obtenerRegistroSolicitud *ObtenerRegistroDeMantenimientoDelVehiculoPorNumeroDeRegistroSolicitud) ObtenerNumDeRegistro()  (numDeRegistro int){
-	if(obtenerRegistroSolicitud != nil){
+func (obtenerRegistroSolicitud *ObtenerRegistroDeMantenimientoDelVehiculoPorNumeroDeRegistroSolicitud) ObtenerNumDeRegistro() (numDeRegistro int) {
+	if obtenerRegistroSolicitud != nil {
 		numDeRegistro = obtenerRegistroSolicitud.NumDeRegistro
 	}
 	return
@@ -480,15 +478,15 @@ type ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud struct {
 	NumDeRegistro int
 }
 
-func (obtenerRegistroYVehiculoAsociadoSolicitud *ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) ObtenerNumDeRegistro()  (numDeRegistro int){
-	if(obtenerRegistroYVehiculoAsociadoSolicitud != nil){
+func (obtenerRegistroYVehiculoAsociadoSolicitud *ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) ObtenerNumDeRegistro() (numDeRegistro int) {
+	if obtenerRegistroYVehiculoAsociadoSolicitud != nil {
 		numDeRegistro = obtenerRegistroYVehiculoAsociadoSolicitud.NumDeRegistro
 	}
 	return
 }
 
-func (obtenerRegistroYVehiculoAsociadoSolicitud *ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) AsignarNumDeRegistro(numDeRegistro int){
-	if(obtenerRegistroYVehiculoAsociadoSolicitud != nil){
+func (obtenerRegistroYVehiculoAsociadoSolicitud *ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) AsignarNumDeRegistro(numDeRegistro int) {
+	if obtenerRegistroYVehiculoAsociadoSolicitud != nil {
 		obtenerRegistroYVehiculoAsociadoSolicitud.NumDeRegistro = numDeRegistro
 	}
 }
@@ -619,36 +617,5 @@ func (editarRegistroSolicitud *EditarRegistroDeMantenimientoDelVehiculoSolicitud
 func (editarRegistroSolicitud *EditarRegistroDeMantenimientoDelVehiculoSolicitud) AsignarPlacasVehiculo(placasVehiculo string) {
 	if editarRegistroSolicitud != nil {
 		editarRegistroSolicitud.PlacasVehiculo = placasVehiculo
-	}
-}
-
-type EditarRegistroMantenimientoVehicularRespuesta struct{
-	Ok bool;
-	Err error;
-}
-
-func (editarRegistroRespuesta *EditarRegistroMantenimientoVehicularRespuesta) ObtenerOk() (ok bool){
-	if(editarRegistroRespuesta != nil){
-		ok = editarRegistroRespuesta.Ok
-	}
-	return
-}
-
-func (editarRegistroRespuesta *EditarRegistroMantenimientoVehicularRespuesta) AsignarOk(ok bool){
-	if(editarRegistroRespuesta != nil){
-		editarRegistroRespuesta.Ok = ok
-	}
-}
-
-func (editarRegistroRespuesta *EditarRegistroMantenimientoVehicularRespuesta) ObtenerError() (err error){
-	if(editarRegistroRespuesta !=nil){
-		err = editarRegistroRespuesta.Err
-	}
-	return
-}
-
-func (editarRegistroRespuesta *EditarRegistroMantenimientoVehicularRespuesta) AsignarError(err error){
-	if(editarRegistroRespuesta != nil){
-		editarRegistroRespuesta.Err = err
 	}
 }
