@@ -120,6 +120,19 @@ func (r *RegistroMantenimientoVehiculo) AsignarConcepto(concepto string) {
 	}
 }
 
+func (r *RegistroMantenimientoVehiculo) ObtenerPlacasVehiculo() (placasVehiculo string) {
+	if r != nil {
+		placasVehiculo = r.PlacasVehiculo
+	}
+	return
+}
+
+func (r *RegistroMantenimientoVehiculo) AsignarPlacasVehiculo(placasVehiculo string) {
+	if r != nil {
+		r.PlacasVehiculo = placasVehiculo
+	}
+}
+
 type AgregarRegistroMantenimientoVehiculoSolicitud struct {
 	NumeroDeRegistro string `json:"numeroderegistro"`
 	TipoDeRegistro   string `json:"TipoDeRegistro"`
@@ -129,6 +142,7 @@ type AgregarRegistroMantenimientoVehiculoSolicitud struct {
 	Importe          string `json:"importe"`
 	Observaciones    string `json:"observaciones"`
 	Concepto         string `json:"conceptoregistro"`
+	PlacasVehiculo 	 string `json:"placasVehiculo"`
 }
 
 func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerNumeroDeRegistro() (o string) {
@@ -232,6 +246,19 @@ func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerConcepto() (o str
 func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarConcepto(concepto string) {
 	if r != nil {
 		r.Concepto = concepto
+	}
+}
+
+func (agregarRegistroSolicitud *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerPlacasVehiculo() (placasVehiculo string) {
+	if agregarRegistroSolicitud != nil {
+		placasVehiculo = agregarRegistroSolicitud.PlacasVehiculo
+	}
+	return
+}
+
+func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarPlacasVehiculo(placasVehiculo string) {
+	if r != nil {
+		r.PlacasVehiculo = placasVehiculo
 	}
 }
 
