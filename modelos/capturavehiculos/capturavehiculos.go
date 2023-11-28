@@ -311,3 +311,51 @@ func (v *ObtenerVehiculoPorPlacasSolicitud) AsignarPlacas(placas string) {
 		v.Placas = placas
 	}
 }
+
+type EliminarVehiculoSolicitud struct {
+	Placas string `json:"placas"`
+}
+
+func (v *EliminarVehiculoSolicitud) ObtenerPlacas() (o string) {
+	if v != nil {
+		o = v.Placas
+	}
+	return
+}
+
+func (v *EliminarVehiculoSolicitud) AsignarPlacas(placas string) {
+	if v != nil {
+		v.Placas = placas
+	}
+}
+
+type EliminarVehiculoRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *EliminarVehiculoRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *EliminarVehiculoRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *EliminarVehiculoRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *EliminarVehiculoRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}

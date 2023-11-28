@@ -55,3 +55,17 @@ func (m *Manejador) ObtenerVehiculoPorPlacas(contexto *gin.Context) {
 	respuesta := m.CapturaVehiculosControlador.ObtenerVehiculoPorPlacas(solicitud)
 	contexto.IndentedJSON(http.StatusOK, gin.H{"Vehiculo": respuesta})
 }
+
+func (m *Manejador) EliminarVehiculo(contexto *gin.Context) {
+	solicitud := m.CapturaVehiculosControlador.CapturaVehiculosMapeador.GinContextAEliminarVehiculoSolicitud(contexto)
+	respuesta := m.CapturaVehiculosControlador.EliminarVehiculo(solicitud)
+	status := http.StatusOK
+	if respuesta.ObtenerOk() == false {
+		status = http.StatusBadRequest
+	}
+	var mensajeError string
+	if respuesta.ObtenerErr() != nil {
+		mensajeError = respuesta.ObtenerErr().Error()
+	}
+	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk(), "err": mensajeError})
+}
