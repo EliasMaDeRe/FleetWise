@@ -283,7 +283,7 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociados() ([]capturaRegistroMa
 	registros := []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
 	vehiculos := []capturaVehiculosModelos.Vehiculo{}
 
-	tablaDeRegistrosConVehiculosFiltrados := baseDeDatos.Select("*").Model(&capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}).Joins("JOIN vehiculos on vehiculos.placas = placas_vehiculo")
+	tablaDeRegistrosConVehiculosFiltrados := baseDeDatos.Select("*").Model(&capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}).Joins("JOIN vehiculos on vehiculos.placas = placas_de_vehiculo")
 
 	if tablaDeRegistrosConVehiculosFiltrados.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
@@ -309,7 +309,7 @@ func (c *Controlador) ObtenerRegistrosYVehiculosAsociadosFiltrados(solicitud *co
 	filtroRegistro := &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{TipoDeRegistro: solicitud.ObtenerFiltroTipoDeRegistro(), PlacasDeVehiculo: solicitud.ObtenerFiltroPlaca()}
 	filtroVehiculo := &capturaVehiculosModelos.Vehiculo{FechaLanzamiento: solicitud.ObtenerFiltroFechaDeLanzamiento(), Marca: solicitud.ObtenerFiltroMarca(), Modelo: solicitud.ObtenerFiltroModelo()}
 
-	tablaDeRegistrosConVehiculosFiltrados := baseDeDatos.Select("*").Model(filtroRegistro).Joins("JOIN vehiculos on vehiculos.placas = registros_mantenimiento_vehicular.placas_vehiculo").Where(&filtroRegistro).Where(&filtroVehiculo)
+	tablaDeRegistrosConVehiculosFiltrados := baseDeDatos.Select("*").Table(filtroRegistro.TableName()).Joins("JOIN vehiculos on vehiculos.placas = registros_de_mantenimiento_de_vehiculo.placas_de_vehiculo").Where(&filtroRegistro).Where(&filtroVehiculo)
 
 	if tablaDeRegistrosConVehiculosFiltrados.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
@@ -331,7 +331,7 @@ func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro(solici
 	registro := &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{NumeroDeRegistro: solicitud.ObtenerNumDeRegistro()}
 	vehiculoAsociado := &capturaVehiculosModelos.Vehiculo{}
 
-	consultaRegistroConNumeroDeRegistro := baseDeDatos.Select("*").Model(registro).Joins("JOIN vehiculos on vehiculos.placas = registros_mantenimiento_vehicular.placas_vehiculo").Where(registro)
+	consultaRegistroConNumeroDeRegistro := baseDeDatos.Select("*").Table(registro.TableName()).Joins("JOIN vehiculos on vehiculos.placas = registros_de_mantenimiento_de_vehiculo.placas_de_vehiculo").Where(registro)
 
 	if consultaRegistroConNumeroDeRegistro.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
@@ -366,7 +366,7 @@ func (c *Controlador) ActualizarRegistroMantenimientoVehiculo(solicitud *conecto
 		return respuesta
 	}
 
-	respuestaActualizacionRegistro := baseDeDatos.Table("registros_mantenimiento_vehicular").Where("numero_de_registro = ?", solicitud.ObtenerNumeroDeRegistro()).Update(registroMantenimientoVehiculoActualizado)
+	respuestaActualizacionRegistro := baseDeDatos.Table(registroMantenimientoVehiculoActualizado.TableName()).Where("numero_de_registro = ?", solicitud.ObtenerNumeroDeRegistro()).Update(registroMantenimientoVehiculoActualizado)
 
 	if respuestaActualizacionRegistro.Error != nil {
 		respuesta.AsignarOk(false)
