@@ -15,10 +15,10 @@ import (
 )
 
 type ControladorMain struct {
-	CapturaVehiculosManejador         *capturaVehiculosManejador.Manejador
-	CapturaServicioVehicularManejador *capturaServicioVehicularManejador.Manejador
-	InicioSesionManejador            *inicioSesionManejador.Manejador
-	VisualizacionHistorialRegistrosManejador *visualizacionHistorialRegistrosManejador.Manejador
+	CapturaVehiculosManejador                     *capturaVehiculosManejador.Manejador
+	CapturaServicioVehicularManejador             *capturaServicioVehicularManejador.Manejador
+	InicioSesionManejador                         *inicioSesionManejador.Manejador
+	VisualizacionHistorialRegistrosManejador      *visualizacionHistorialRegistrosManejador.Manejador
 	CapturaRegistroMantenimientoVehiculoManejador *capturaRegistroMantenimientoVehiculoManejador.Manejador
 }
 
@@ -33,11 +33,11 @@ func main() {
 	loadEnvFile()
 
 	controlador := &ControladorMain{
-		CapturaVehiculosManejador:                      capturaVehiculosManejador.NuevoManejador(),
-		CapturaServicioVehicularManejador:              capturaServicioVehicularManejador.NuevoManejador(),
+		CapturaVehiculosManejador:                     capturaVehiculosManejador.NuevoManejador(),
+		CapturaServicioVehicularManejador:             capturaServicioVehicularManejador.NuevoManejador(),
 		CapturaRegistroMantenimientoVehiculoManejador: capturaRegistroMantenimientoVehiculoManejador.NuevoManejador(),
 		InicioSesionManejador:                         inicioSesionManejador.NuevoManejador(),
-		VisualizacionHistorialRegistrosManejador: visualizacionHistorialRegistrosManejador.NuevoManejador(),
+		VisualizacionHistorialRegistrosManejador:      visualizacionHistorialRegistrosManejador.NuevoManejador(),
 	}
 
 	router := gin.Default()
@@ -46,16 +46,15 @@ func main() {
 	router.Static("/styles", "./styles/")
 	router.Static("/js", "./js/")
 	router.Static("/img", "./img/")
-	
 
 	// Login
-	
+
 	router.GET("/", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "capturista")
 	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{})
 	})
-	
+
 	router.GET("/Login", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "capturista")
 	}, func(c *gin.Context) {
@@ -92,7 +91,7 @@ func main() {
 	}, func(ctx *gin.Context) {
 		controlador.CapturaVehiculosManejador.AgregarVehiculo(ctx)
 	})
-	
+
 	// Captura servicio vehicular
 	router.GET("/AgregarServicioVehicular", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
@@ -155,8 +154,8 @@ func main() {
 	})
 
 	router.POST("/ObtenerRegistroPorNumeroDeRegistro", func(ctx *gin.Context) {
-		controlador.CapturaRegistroMantenimientoVehiculoManejador.ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistro(ctx)
-	})	
+		controlador.CapturaRegistroMantenimientoVehiculoManejador.ObtenerRegistroMantenimientoVehiculoPorNumeroDeRegistro(ctx)
+	})
 
 	// Visualizacion Historial Registro Mantenimiento Vehiculo
 	router.GET("/HistorialRegistrosMantenimientoVehicular", func(c *gin.Context) {
@@ -164,20 +163,20 @@ func main() {
 	})
 
 	router.POST("/HistorialRegistrosMantenimientoVehicular", func(ctx *gin.Context) {
-		controlador.VisualizacionHistorialRegistrosManejador.ObtenerRegistrosYVehiculosFiltrados(ctx);
+		controlador.VisualizacionHistorialRegistrosManejador.ObtenerRegistrosYVehiculosFiltrados(ctx)
 	})
-	
-	router.GET("/EditarRegistroMantenimientoVehicular", func(c *gin.Context) {
+
+	router.GET("/EditarRegistroMantenimientoVehiculo", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
 	})
 
-	router.POST("/EditarRegistroMantenimientoVehicular",func(ctx *gin.Context) {
+	router.POST("/EditarRegistroMantenimientoVehiculo", func(ctx *gin.Context) {
 		controlador.CapturaRegistroMantenimientoVehiculoManejador.EditarRegistroDeMantenimientoDelVehiculo(ctx)
 	})
 
 	router.GET("/RegistroEditado", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "registroEditado.html", gin.H{})
 	})
-	
+
 	router.Run("localhost:8080")
 }

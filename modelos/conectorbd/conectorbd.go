@@ -275,92 +275,90 @@ func (v *ObtenerUsuarioPorNombreUsuarioSolicitud) AsignarNombre(nombre string) {
 	}
 }
 
-type ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud struct{
-	filtroPlaca string
-	filtroMarca string
-	filtroModelo string
+type ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud struct {
+	filtroPlaca              string
+	filtroMarca              string
+	filtroModelo             string
 	filtroFechaDeLanzamiento int
-	filtroTipoDeRegistro string
+	filtroTipoDeRegistro     string
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroPlaca() (filtroPlaca string){
-	if registrosFiltradosSolicitud != nil{
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroPlaca() (filtroPlaca string) {
+	if registrosFiltradosSolicitud != nil {
 		filtroPlaca = registrosFiltradosSolicitud.filtroPlaca
 	}
 	return
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroMarca() (filtroMarca string){
-	if registrosFiltradosSolicitud != nil{
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroMarca() (filtroMarca string) {
+	if registrosFiltradosSolicitud != nil {
 		filtroMarca = registrosFiltradosSolicitud.filtroMarca
 	}
 	return
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroModelo() (filtroModelo string){
-	if registrosFiltradosSolicitud != nil{
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroModelo() (filtroModelo string) {
+	if registrosFiltradosSolicitud != nil {
 		filtroModelo = registrosFiltradosSolicitud.filtroModelo
 	}
 	return
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroFechaDeLanzamiento() (filtroFechaDeLanzamiento int){
-	if registrosFiltradosSolicitud != nil{
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroFechaDeLanzamiento() (filtroFechaDeLanzamiento int) {
+	if registrosFiltradosSolicitud != nil {
 		filtroFechaDeLanzamiento = registrosFiltradosSolicitud.filtroFechaDeLanzamiento
 	}
 	return
 }
 
-func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroTipoDeRegistro() (tipoDeRegistro string){
-	if registrosFiltradosSolicitud != nil{
+func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) ObtenerFiltroTipoDeRegistro() (tipoDeRegistro string) {
+	if registrosFiltradosSolicitud != nil {
 		tipoDeRegistro = registrosFiltradosSolicitud.filtroTipoDeRegistro
 	}
 	return
 }
 
 func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroPlaca(filtroPlaca string) {
-	if registrosFiltradosSolicitud != nil{
-		registrosFiltradosSolicitud.filtroPlaca = filtroPlaca 
+	if registrosFiltradosSolicitud != nil {
+		registrosFiltradosSolicitud.filtroPlaca = filtroPlaca
 	}
 }
 
 func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroMarca(filtroMarca string) {
-	if registrosFiltradosSolicitud != nil{
-		registrosFiltradosSolicitud.filtroMarca = filtroMarca 
+	if registrosFiltradosSolicitud != nil {
+		registrosFiltradosSolicitud.filtroMarca = filtroMarca
 	}
 }
 
 func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroModelo(filtroModelo string) {
-	if registrosFiltradosSolicitud != nil{
-		registrosFiltradosSolicitud.filtroModelo = filtroModelo 
+	if registrosFiltradosSolicitud != nil {
+		registrosFiltradosSolicitud.filtroModelo = filtroModelo
 	}
 }
 
 func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroFechaDeLanzamiento(filtroFechaDeLanzamiento int) {
-	if registrosFiltradosSolicitud != nil{
-		registrosFiltradosSolicitud.filtroFechaDeLanzamiento = filtroFechaDeLanzamiento 
+	if registrosFiltradosSolicitud != nil {
+		registrosFiltradosSolicitud.filtroFechaDeLanzamiento = filtroFechaDeLanzamiento
 	}
 }
 
 func (registrosFiltradosSolicitud *ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud) AsignarFiltroTipoDeRegistro(filtroTipoDeRegistro string) {
-	if registrosFiltradosSolicitud != nil{
-		registrosFiltradosSolicitud.filtroTipoDeRegistro = filtroTipoDeRegistro 
+	if registrosFiltradosSolicitud != nil {
+		registrosFiltradosSolicitud.filtroTipoDeRegistro = filtroTipoDeRegistro
 	}
 }
 
-
 type ActualizarRegistroDeMantenimientoDelVehiculoSolicitud struct {
-	NumeroDeRegistro int     
-	Tipo             string  
-	Fecha            string  
-	LitrosDeGasolina float64 
-	Kilometraje      int     
-	Importe          float64 
-	Observaciones    string  
-	Concepto         string  
-	PlacasVehiculo   string  
+	NumeroDeRegistro int
+	Tipo             string
+	Fecha            string
+	LitrosDeGasolina float64
+	Kilometraje      int
+	Importe          float64
+	Observaciones    string
+	Concepto         string
+	PlacasVehiculo   string
 }
-
 
 func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) ObtenerNumeroDeRegistro() (numeroDeRegistro int) {
 	if actualizarRegistroSolicitud != nil {
@@ -479,34 +477,33 @@ func (actualizarRegistroSolicitud *ActualizarRegistroDeMantenimientoDelVehiculoS
 	}
 }
 
-type ActualizarRegistroMantenimientoVehicularRespuesta struct{
-	Ok bool;
-	Err error;
+type ActualizarRegistroMantenimientoVehiculoRespuesta struct {
+	Ok  bool
+	Err error
 }
 
-
-func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehicularRespuesta) ObtenerOk() (ok bool){
-	if(editarRegistroRespuesta != nil){
+func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehiculoRespuesta) ObtenerOk() (ok bool) {
+	if editarRegistroRespuesta != nil {
 		ok = editarRegistroRespuesta.Ok
 	}
 	return
 }
 
-func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehicularRespuesta) AsignarOk(ok bool){
-	if(editarRegistroRespuesta != nil){
+func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehiculoRespuesta) AsignarOk(ok bool) {
+	if editarRegistroRespuesta != nil {
 		editarRegistroRespuesta.Ok = ok
 	}
 }
 
-func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehicularRespuesta) ObtenerError() (err error){
-	if(editarRegistroRespuesta !=nil){
+func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehiculoRespuesta) ObtenerErr() (err error) {
+	if editarRegistroRespuesta != nil {
 		err = editarRegistroRespuesta.Err
 	}
 	return
 }
 
-func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehicularRespuesta) AsignarError(err error){
-	if(editarRegistroRespuesta != nil){
+func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehiculoRespuesta) AsignarErr(err error) {
+	if editarRegistroRespuesta != nil {
 		editarRegistroRespuesta.Err = err
 	}
 }
