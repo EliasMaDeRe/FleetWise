@@ -57,7 +57,13 @@ func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemien
 	}
 
 	registro.AsignarObservaciones(solicitud.ObtenerObservaciones())
-	registro.AsignarConcepto(solicitud.ObtenerConcepto())
+
+	if tipoDeRegistro == "carga de combustible" {
+		registro.AsignarConcepto("N/A")
+	} else {
+		registro.AsignarConcepto(solicitud.ObtenerConcepto())
+	}
+
 	registro.AsignarPlacasVehiculo(solicitud.ObtenerPlacasVehiculo())
 
 	return registro
@@ -93,6 +99,11 @@ func (m *Mapeador) EditarRegistroDeMantenimientoDelVehiculoSolicitudAActualizarR
 		Observaciones:    solicitud.ObtenerObservaciones(),
 		Concepto:         solicitud.ObtenerConcepto(),
 		PlacasVehiculo:   solicitud.ObtenerPlacasVehiculo(),
+	}
+	if actualizarRegistroSolicitud.ObtenerTipo() == "carga de combustible" {
+		actualizarRegistroSolicitud.AsignarConcepto("N/A")
+	} else {
+		actualizarRegistroSolicitud.AsignarLitrosDeGasolina(0)
 	}
 	return actualizarRegistroSolicitud
 }
