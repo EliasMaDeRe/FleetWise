@@ -6,6 +6,7 @@ import (
 	capturaVehiculosManejador "example/fleetwise/fuente/capturavehiculos/manejador"
 	inicioSesionManejador "example/fleetwise/fuente/iniciosesion/manejador"
 	visualizacionHistorialRegistrosManejador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehiculo/manejador"
+	visualizacionResumenMantenimientoVehiculosManejador "example/fleetwise/fuente/visualizacionresumenmantenimientovehiculos/manejador"
 	"log"
 
 	"net/http"
@@ -15,11 +16,12 @@ import (
 )
 
 type ControladorMain struct {
-	CapturaVehiculosManejador                     *capturaVehiculosManejador.Manejador
-	CapturaServicioVehicularManejador             *capturaServicioVehicularManejador.Manejador
-	InicioSesionManejador                         *inicioSesionManejador.Manejador
-	VisualizacionHistorialRegistrosManejador      *visualizacionHistorialRegistrosManejador.Manejador
-	CapturaRegistroMantenimientoVehiculoManejador *capturaRegistroMantenimientoVehiculoManejador.Manejador
+	CapturaVehiculosManejador                     			*capturaVehiculosManejador.Manejador
+	CapturaServicioVehicularManejador             			*capturaServicioVehicularManejador.Manejador
+	InicioSesionManejador                         			*inicioSesionManejador.Manejador
+	VisualizacionHistorialRegistrosManejador      			*visualizacionHistorialRegistrosManejador.Manejador
+	CapturaRegistroMantenimientoVehiculoManejador 			*capturaRegistroMantenimientoVehiculoManejador.Manejador
+	VisualizacionResumenMantenimientoVehiculosManejador		*visualizacionResumenMantenimientoVehiculosManejador.Manejador
 }
 
 func loadEnvFile() {
@@ -33,11 +35,12 @@ func main() {
 	loadEnvFile()
 
 	controlador := &ControladorMain{
-		CapturaVehiculosManejador:                     capturaVehiculosManejador.NuevoManejador(),
-		CapturaServicioVehicularManejador:             capturaServicioVehicularManejador.NuevoManejador(),
-		CapturaRegistroMantenimientoVehiculoManejador: capturaRegistroMantenimientoVehiculoManejador.NuevoManejador(),
-		InicioSesionManejador:                         inicioSesionManejador.NuevoManejador(),
-		VisualizacionHistorialRegistrosManejador:      visualizacionHistorialRegistrosManejador.NuevoManejador(),
+		CapturaVehiculosManejador:                     			capturaVehiculosManejador.NuevoManejador(),
+		CapturaServicioVehicularManejador:             			capturaServicioVehicularManejador.NuevoManejador(),
+		CapturaRegistroMantenimientoVehiculoManejador: 			capturaRegistroMantenimientoVehiculoManejador.NuevoManejador(),
+		InicioSesionManejador:                         			inicioSesionManejador.NuevoManejador(),
+		VisualizacionHistorialRegistrosManejador:      			visualizacionHistorialRegistrosManejador.NuevoManejador(),
+		VisualizacionResumenMantenimientoVehiculosManejador:	visualizacionResumenMantenimientoVehiculosManejador.NuevoManejador(),
 	}
 
 	router := gin.Default()
@@ -195,6 +198,10 @@ func main() {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
 	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "resumenflotilla.html", gin.H{})
+	})
+	
+	router.POST("/ObtenerMetricasVehiculos", func(ctx *gin.Context) {
+		controlador.VisualizacionResumenMantenimientoVehiculosManejador.ObtenerMetricasVehiculares(ctx);
 	})
 
 	router.Run("localhost:8080")
