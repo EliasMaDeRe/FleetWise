@@ -27,16 +27,19 @@
     const textoBotones = {
         Vehiculos: 'Capturar Vehiculos',
         Servicios: 'Capturar Conceptos',
+        Registros: 'Agregar Registro',
     }
 
     const urlBotones = {
         Vehiculos: "/AgregarVehiculo",
         Servicios: "/AgregarServicioVehicular",
+        Registros: "/SeleccionarVehiculoParaNuevoRegistro",
     }
 
     if(barraNavegacion){
         crearBoton("Vehiculos");
         crearBoton("Servicios");
+        crearBoton("Registros")
         crearBotonCerrarSesion();
     }
 
