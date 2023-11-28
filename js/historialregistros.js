@@ -56,7 +56,7 @@
 	}
 
 	async function obtenerRegistrosConVehiculosAsociadosFiltrados() {
-		const peticionUrl = "/HistorialRegistrosMantenimientoVehicular";
+		const peticionUrl = "/HistorialRegistrosMantenimientoVehiculo";
 
 		const resultado = await fetch(peticionUrl, {
 			method: "POST",

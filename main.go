@@ -154,34 +154,48 @@ func main() {
 	})
 
 	router.POST("/ObtenerRegistroPorNumeroDeRegistro", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
+	}, func(ctx *gin.Context) {
 		controlador.CapturaRegistroMantenimientoVehiculoManejador.ObtenerRegistroMantenimientoVehiculoPorNumeroDeRegistro(ctx)
 	})
 
 	// Visualizacion Historial Registro Mantenimiento Vehiculo
-	router.GET("/HistorialRegistrosMantenimientoVehicular", func(c *gin.Context) {
+	router.GET("/HistorialRegistrosMantenimientoVehiculo", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "supervisor")
+	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "historialregistros.html", gin.H{})
 	})
 
-	router.POST("/HistorialRegistrosMantenimientoVehicular", func(ctx *gin.Context) {
+	router.POST("/HistorialRegistrosMantenimientoVehiculo", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "supervisor")
+	}, func(ctx *gin.Context) {
 		controlador.VisualizacionHistorialRegistrosManejador.ObtenerRegistrosYVehiculosFiltrados(ctx)
 	})
 
-	router.GET("/EditarRegistroMantenimientoVehiculo", func(c *gin.Context) {
+	router.GET("/EditarRegistroMantenimientoVehiculo", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
+	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "editarRegistro.html", gin.H{})
 	})
 
 	router.POST("/EditarRegistroMantenimientoVehiculo", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
+	}, func(ctx *gin.Context) {
 		controlador.CapturaRegistroMantenimientoVehiculoManejador.EditarRegistroDeMantenimientoDelVehiculo(ctx)
 	})
 
-	router.GET("/RegistroEditado", func(c *gin.Context) {
+	router.GET("/RegistroEditado", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
+	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "registroEditado.html", gin.H{})
 	})
 
 	// Visualizacion Resumen Mantenimiento Vehiculos
-	router.GET("/ResumenMantenimientoVehiculos", func(c *gin.Context) {
+	router.GET("/ResumenMantenimientoVehiculos", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
+	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "resumenmantenimientovehiculos.html", gin.H{})
 	})
-	
+
 	router.Run("localhost:8080")
 }

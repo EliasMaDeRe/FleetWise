@@ -71,8 +71,14 @@
 			e.preventDefault();
 			const inputsFormulario = obtenerInputsDelFormulario();
 			enviarFormulario(inputsFormulario);
+			resetearFormulario();
+			
 		});
 
+		function resetearFormulario() {
+			const formulario = document.querySelector(".formulario");
+			formulario.reset(); 
+		}
 		function obtenerInputsDelFormulario() {
 			return document.querySelectorAll(".formulario__input");
 		}
@@ -81,7 +87,7 @@
 			const datosFormulario = construirPeticionFormulario(inputsFormulario);
 			const datosFormularioJSON = JSON.stringify(Object.fromEntries(datosFormulario));
 			console.log(datosFormularioJSON);
-			agregarRegistroURL = "/AgregarRegistroMantenimientoVehiculo";
+			const agregarRegistroURL = "/AgregarRegistroMantenimientoVehiculo";
 			const peticion = await fetch(agregarRegistroURL, {
 				method: "POST",
 				body: datosFormularioJSON,

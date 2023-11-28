@@ -23,14 +23,14 @@ func (m *Mapeador) GinContextASeleccionarVehiculoParaNuevoRegistroSolicitud(cont
 	return solicitud
 }
 
-func (m *Mapeador) GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contexto *gin.Context) *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud {
-	solicitud := &capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud{}
+func (m *Mapeador) GinContextAAgregarRegistroMantemientoVehiculoSolicitud(contexto *gin.Context) *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroDeMantenimientoDeVehiculoSolicitud {
+	solicitud := &capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroDeMantenimientoDeVehiculoSolicitud{}
 	contexto.BindJSON(solicitud)
 	return solicitud
 }
 
-func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroMantenimientoVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo {
-	registro := &capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}
+func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.AgregarRegistroDeMantenimientoDeVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo {
+	registro := &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}
 
 	tipoDeRegistro := solicitud.ObtenerTipo()
 	registro.AsignarTipo(tipoDeRegistro)
@@ -56,8 +56,14 @@ func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemien
 		registro.AsignarImporte(0)
 	}
 
-	concepto := solicitud.ObtenerConcepto()
-	registro.AsignarConcepto(concepto)
+	registro.AsignarObservaciones(solicitud.ObtenerObservaciones())
+
+	if tipoDeRegistro == "carga de combustible" {
+		registro.AsignarConcepto("N/A")
+	} else {
+		registro.AsignarConcepto(solicitud.ObtenerConcepto())
+	}
+
 	registro.AsignarPlacasVehiculo(solicitud.ObtenerPlacasVehiculo())
 
 	return registro
@@ -94,12 +100,10 @@ func (m *Mapeador) EditarRegistroDeMantenimientoDelVehiculoSolicitudAActualizarR
 		Concepto:         solicitud.ObtenerConcepto(),
 		PlacasVehiculo:   solicitud.ObtenerPlacasVehiculo(),
 	}
+	if actualizarRegistroSolicitud.ObtenerTipo() == "carga de combustible" {
+		actualizarRegistroSolicitud.AsignarConcepto("N/A")
+	} else {
+		actualizarRegistroSolicitud.AsignarLitrosDeGasolina(0)
+	}
 	return actualizarRegistroSolicitud
-}
-
-func (m *Mapeador) ActualizarRegistroMantenimientoVehiculoRespuestaAEditarRegistroMantenimientoVehiculoRespuesta(actualizarRegistroRespuesta *conectorBDModelos.ActualizarRegistroMantenimientoVehiculoRespuesta) *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta {
-	editarRegistroRespuesta := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
-	editarRegistroRespuesta.AsignarErr(actualizarRegistroRespuesta.ObtenerErr())
-	editarRegistroRespuesta.AsignarOk(actualizarRegistroRespuesta.ObtenerOk())
-	return editarRegistroRespuesta
 }

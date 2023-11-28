@@ -3,9 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles/normalize.css" />
+
     <link rel="stylesheet" href="styles/app.css" />
-    <title>FleetWise | Editar Historial Registros</title>
+    <title>FleetWise | Editar Registro</title>
   </head>
 
   <body>
@@ -15,20 +22,21 @@
       </div>
       <nav class="navbar">
         <a href="/AgregarVehiculo" class="navbar__enlace">Capturar Vehiculos</a>
-        <a href="/AgregarServicioVehicular" class="navbar__enlace"
-          >Capturar Conceptos</a
-        >
-        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace"
-          >Agregar Registro</a
-        >
+        <a href="/AgregarServicioVehicular" class="navbar__enlace">
+          Capturar Conceptos
+        </a>
+        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace">
+          Capturar Registros
+        </a>
         <a
-          href="/HistorialRegistrosMantenimientoVehicular"
+          href="/HistorialRegistrosMantenimientoVehiculo"
           class="navbar__enlace"
-          >Historial Registro</a
         >
-        <a href="/ResumenMantenimientoVehiculos" class="navbar__enlace"
-          >Resumen Flotillas</a
-        >
+          Historial de Registros
+        </a>
+        <a href="/ResumenMantenimientoVehiculos" class="navbar__enlace">
+          Resumen de Flotillas
+        </a>
         <a href="/Logout" class="navbar__enlace--logout">Cerrar Sesión</a>
       </nav>
     </header>
@@ -166,7 +174,7 @@
 
         <div class="editar-registro__contenedor-botones">
           <a
-            href="/HistorialRegistrosMantenimientoVehicular"
+            href="/HistorialRegistrosMantenimientoVehiculo"
             class="editar-registro__volver"
           >
             Volver
@@ -184,22 +192,8 @@
 
     <footer class="footer">
       <div class="footer__contenedor">
-        <nav class="footer__nav">
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-          <a href="#" class="footer__enlace">Texto</a>
-        </nav>
-
         <div class="footer__barra">
-          <p class="footer__logo">FleetWise</p>
-
+          <a href="/" class="footer__logo"> FleetWise </a>
           <div class="footer__redes">
             <a href="https://facebook.com" class="footer__social--logo">
               <svg

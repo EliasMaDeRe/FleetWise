@@ -1,6 +1,6 @@
 package capturaregistromantenimientovehiculo
 
-type RegistroMantenimientoVehiculo struct {
+type RegistroDeMantenimientoDeVehiculo struct {
 	NumeroDeRegistro int
 	TipoDeRegistro   string
 	Fecha            string
@@ -9,133 +9,133 @@ type RegistroMantenimientoVehiculo struct {
 	Importe          float64
 	Observaciones    string
 	Concepto         string
-	PlacasVehiculo   string
+	PlacasDeVehiculo string
 }
 
-func (RegistroMantenimientoVehiculo) TableName() string {
-	return "registros_mantenimiento_vehicular"
+func (RegistroDeMantenimientoDeVehiculo) TableName() string {
+	return "registros_de_mantenimiento_de_vehiculo"
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerNumeroDeRegistro() (o int) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerNumeroDeRegistro() (o int) {
 	if r != nil {
 		o = r.NumeroDeRegistro
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarNumeroDeRegistro(NumeroDeRegistro int) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarNumeroDeRegistro(NumeroDeRegistro int) {
 	if r != nil {
 		r.NumeroDeRegistro = NumeroDeRegistro
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerTipo() (o string) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerTipo() (o string) {
 	if r != nil {
 		o = r.TipoDeRegistro
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarTipo(TipoDeRegistro string) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarTipo(TipoDeRegistro string) {
 	if r != nil {
 		r.TipoDeRegistro = TipoDeRegistro
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerFecha() (o string) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerFecha() (o string) {
 	if r != nil {
 		o = r.Fecha
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarFecha(fecha string) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarFecha(fecha string) {
 	if r != nil {
 		r.Fecha = fecha
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerLitrosDeGasolina() (o float64) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerLitrosDeGasolina() (o float64) {
 	if r != nil {
 		o = r.LitrosDeGasolina
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarLitrosDeGasolina(LitrosDeGasolina float64) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarLitrosDeGasolina(LitrosDeGasolina float64) {
 	if r != nil {
 		r.LitrosDeGasolina = LitrosDeGasolina
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerKilometraje() (o int) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerKilometraje() (o int) {
 	if r != nil {
 		o = r.Kilometraje
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarKilometraje(kilometraje int) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarKilometraje(kilometraje int) {
 	if r != nil {
 		r.Kilometraje = kilometraje
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerImporte() (o float64) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerImporte() (o float64) {
 	if r != nil {
 		o = r.Importe
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarImporte(importe float64) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarImporte(importe float64) {
 	if r != nil {
 		r.Importe = importe
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerObservaciones() (o string) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerObservaciones() (o string) {
 	if r != nil {
 		o = r.Observaciones
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarObservaciones(observaciones string) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarObservaciones(observaciones string) {
 	if r != nil {
 		r.Observaciones = observaciones
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerConcepto() (o string) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerConcepto() (o string) {
 	if r != nil {
 		o = r.Concepto
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarConcepto(concepto string) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarConcepto(concepto string) {
 	if r != nil {
 		r.Concepto = concepto
 	}
 }
 
-func (r *RegistroMantenimientoVehiculo) ObtenerPlacasVehiculo() (placasVehiculo string) {
+func (r *RegistroDeMantenimientoDeVehiculo) ObtenerPlacasVehiculo() (placasVehiculo string) {
 	if r != nil {
-		placasVehiculo = r.PlacasVehiculo
+		placasVehiculo = r.PlacasDeVehiculo
 	}
 	return
 }
 
-func (r *RegistroMantenimientoVehiculo) AsignarPlacasVehiculo(placasVehiculo string) {
+func (r *RegistroDeMantenimientoDeVehiculo) AsignarPlacasVehiculo(placasVehiculo string) {
 	if r != nil {
-		r.PlacasVehiculo = placasVehiculo
+		r.PlacasDeVehiculo = placasVehiculo
 	}
 }
 
-type AgregarRegistroMantenimientoVehiculoSolicitud struct {
+type AgregarRegistroDeMantenimientoDeVehiculoSolicitud struct {
 	NumeroDeRegistro string `json:"numeroderegistro"`
-	TipoDeRegistro   string `json:"TipoDeRegistro"`
+	TipoDeRegistro   string `json:"tiporegistro"`
 	Fecha            string `json:"fecha"`
 	LitrosDeGasolina string `json:"litrosdegasolina"`
 	Kilometraje      string `json:"kilometraje"`
@@ -145,118 +145,118 @@ type AgregarRegistroMantenimientoVehiculoSolicitud struct {
 	PlacasVehiculo   string `json:"placasVehiculo"`
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerNumeroDeRegistro() (o string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerNumeroDeRegistro() (o string) {
 	if r != nil {
 		o = r.NumeroDeRegistro
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarNumeroDeRegistro(NumeroDeRegistro string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarNumeroDeRegistro(NumeroDeRegistro string) {
 	if r != nil {
 		r.NumeroDeRegistro = NumeroDeRegistro
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerTipo() (o string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerTipo() (o string) {
 	if r != nil {
 		o = r.TipoDeRegistro
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarTipo(TipoDeRegistro string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarTipo(TipoDeRegistro string) {
 	if r != nil {
 		r.TipoDeRegistro = TipoDeRegistro
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerFecha() (o string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerFecha() (o string) {
 	if r != nil {
 		o = r.Fecha
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarFecha(fecha string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarFecha(fecha string) {
 	if r != nil {
 		r.Fecha = fecha
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerLitrosDeGasolina() (o string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerLitrosDeGasolina() (o string) {
 	if r != nil {
 		o = r.LitrosDeGasolina
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarLitrosDeGasolina(LitrosDeGasolina string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarLitrosDeGasolina(LitrosDeGasolina string) {
 	if r != nil {
 		r.LitrosDeGasolina = LitrosDeGasolina
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerKilometraje() (o string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerKilometraje() (o string) {
 	if r != nil {
 		o = r.Kilometraje
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarKilometraje(kilometraje string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarKilometraje(kilometraje string) {
 	if r != nil {
 		r.Kilometraje = kilometraje
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerImporte() (o string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerImporte() (o string) {
 	if r != nil {
 		o = r.Importe
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarImporte(importe string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarImporte(importe string) {
 	if r != nil {
 		r.Importe = importe
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerObservaciones() (o string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerObservaciones() (o string) {
 	if r != nil {
 		o = r.Observaciones
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarObservaciones(observaciones string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarObservaciones(observaciones string) {
 	if r != nil {
 		r.Observaciones = observaciones
 	}
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerConcepto() (o string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerConcepto() (o string) {
 	if r != nil {
 		o = r.Concepto
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarConcepto(concepto string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarConcepto(concepto string) {
 	if r != nil {
 		r.Concepto = concepto
 	}
 }
 
-func (agregarRegistroSolicitud *AgregarRegistroMantenimientoVehiculoSolicitud) ObtenerPlacasVehiculo() (placasVehiculo string) {
+func (agregarRegistroSolicitud *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) ObtenerPlacasVehiculo() (placasVehiculo string) {
 	if agregarRegistroSolicitud != nil {
 		placasVehiculo = agregarRegistroSolicitud.PlacasVehiculo
 	}
 	return
 }
 
-func (r *AgregarRegistroMantenimientoVehiculoSolicitud) AsignarPlacasVehiculo(placasVehiculo string) {
+func (r *AgregarRegistroDeMantenimientoDeVehiculoSolicitud) AsignarPlacasVehiculo(placasVehiculo string) {
 	if r != nil {
 		r.PlacasVehiculo = placasVehiculo
 	}
