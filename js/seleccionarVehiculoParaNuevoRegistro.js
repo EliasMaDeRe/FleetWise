@@ -30,7 +30,7 @@
         } else {
           desplegarAlerta("exito", "Vehículo encontrado exitosamente");
           setTimeout(() => {
-            window.location.href = '/AgregarRegistroMantenimientoVehicular?placas='+datosFormulario.get("placas");
+            window.location.href = '/AgregarRegistroMantenimientoVehiculo?placas='+datosFormulario.get("placas");
           },1000);
         }
       }

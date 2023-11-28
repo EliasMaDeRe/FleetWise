@@ -3,11 +3,11 @@ package controlador
 import (
 	"errors"
 	"example/fleetwise/fuente/conectorbd/constantes"
-	registroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
-	servicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
-	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
-	conectorModelos "example/fleetwise/modelos/conectorbd"
-	sesionModelos "example/fleetwise/modelos/iniciosesion"
+	capturaRegistroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
+	capturaServicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
+	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
+	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+	inicioSesionModelos "example/fleetwise/modelos/iniciosesion"
 	"fmt"
 	"log"
 	"os"
@@ -19,7 +19,7 @@ import (
 type Controlador struct {
 }
 
-func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.ObtenerVehiculoPorPlacasSolicitud) *vehiculosModelos.Vehiculo {
+func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud) *capturaVehiculosModelos.Vehiculo {
 	var errConectarBD error
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
@@ -28,15 +28,15 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	vehiculos := []vehiculosModelos.Vehiculo{}
+	vehiculos := []capturaVehiculosModelos.Vehiculo{}
 
-	resultadoBusqueda := baseDeDatos.Where(&vehiculosModelos.Vehiculo{Placas: solicitud.ObtenerPlacas()}).Find(&vehiculos)
+	resultadoBusqueda := baseDeDatos.Where(&capturaVehiculosModelos.Vehiculo{Placas: solicitud.ObtenerPlacas()}).Find(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
 	}
 
-	var vehiculoEncontrado *vehiculosModelos.Vehiculo
+	var vehiculoEncontrado *capturaVehiculosModelos.Vehiculo
 
 	if len(vehiculos) != 0 {
 		vehiculoEncontrado = &vehiculos[0]
@@ -45,7 +45,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorModelos.Obtene
 	return vehiculoEncontrado
 }
 
-func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.ObtenerVehiculoPorSerieSolicitud) *vehiculosModelos.Vehiculo {
+func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorBDModelos.ObtenerVehiculoPorSerieSolicitud) *capturaVehiculosModelos.Vehiculo {
 	var errConectarBD error
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
@@ -54,15 +54,15 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	vehiculos := []vehiculosModelos.Vehiculo{}
+	vehiculos := []capturaVehiculosModelos.Vehiculo{}
 
-	resultadoBusqueda := baseDeDatos.Where(&vehiculosModelos.Vehiculo{Serie: solicitud.ObtenerSerie()}).Find(&vehiculos)
+	resultadoBusqueda := baseDeDatos.Where(&capturaVehiculosModelos.Vehiculo{Serie: solicitud.ObtenerSerie()}).Find(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_SERIE_INEXISTENTES_EN_BD)
 	}
 
-	var vehiculoEncontrado *vehiculosModelos.Vehiculo
+	var vehiculoEncontrado *capturaVehiculosModelos.Vehiculo
 
 	if len(vehiculos) != 0 {
 		vehiculoEncontrado = &vehiculos[0]
@@ -71,7 +71,7 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorModelos.Obtener
 	return vehiculoEncontrado
 }
 
-func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *conectorModelos.GuardarVehiculoRespuesta {
+func (c *Controlador) GuardarVehiculo(vehiculo *capturaVehiculosModelos.Vehiculo) *conectorBDModelos.GuardarVehiculoRespuesta {
 	var errConectarBD error
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
@@ -83,14 +83,14 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 	baseDeDatos.AutoMigrate(&vehiculo)
 
 	resultGuardarVehiculo := baseDeDatos.Create(
-		&vehiculosModelos.Vehiculo{
+		&capturaVehiculosModelos.Vehiculo{
 			FechaLanzamiento: vehiculo.ObtenerFechaLanzamiento(),
 			Marca:            vehiculo.ObtenerMarca(),
 			Modelo:           vehiculo.ObtenerModelo(),
 			Placas:           vehiculo.ObtenerPlacas(),
 			Serie:            vehiculo.ObtenerSerie(),
 		})
-	respuesta := &conectorModelos.GuardarVehiculoRespuesta{}
+	respuesta := &conectorBDModelos.GuardarVehiculoRespuesta{}
 	if resultGuardarVehiculo.Error != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
@@ -102,7 +102,7 @@ func (c *Controlador) GuardarVehiculo(vehiculo *vehiculosModelos.Vehiculo) *cone
 	return respuesta
 }
 
-func (c *Controlador) GuardarRegistro(registro *registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) *conectorModelos.GuardarRegistroMantenimientoVehiculoRespuesta {
+func (c *Controlador) GuardarRegistro(registro *capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo) *conectorBDModelos.GuardarRegistroMantenimientoVehiculoRespuesta {
 	var errConectarBD error
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
@@ -114,9 +114,9 @@ func (c *Controlador) GuardarRegistro(registro *registroMantenimientoVehiculoMod
 	baseDeDatos.AutoMigrate(&registro)
 
 	resultadoGuardarRegistro := baseDeDatos.Create(
-		&registroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
+		&capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
 			NumeroDeRegistro: registro.ObtenerNumeroDeRegistro(),
-			Tipo:             registro.ObtenerTipo(),
+			TipoDeRegistro:   registro.ObtenerTipo(),
 			Fecha:            registro.ObtenerFecha(),
 			LitrosDeGasolina: registro.ObtenerLitrosDeGasolina(),
 			Kilometraje:      registro.ObtenerKilometraje(),
@@ -124,7 +124,7 @@ func (c *Controlador) GuardarRegistro(registro *registroMantenimientoVehiculoMod
 			Observaciones:    registro.ObtenerObservaciones(),
 			Concepto:         registro.ObtenerConcepto(),
 		})
-	respuesta := &conectorModelos.GuardarRegistroMantenimientoVehiculoRespuesta{}
+	respuesta := &conectorBDModelos.GuardarRegistroMantenimientoVehiculoRespuesta{}
 	if resultadoGuardarRegistro.Error != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
@@ -136,7 +136,7 @@ func (c *Controlador) GuardarRegistro(registro *registroMantenimientoVehiculoMod
 	return respuesta
 }
 
-func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModelos.ObtenerServicioVehicularPorNombreSolicitud) *servicioVehicularModelos.ServicioVehicular {
+func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorBDModelos.ObtenerServicioVehicularPorNombreSolicitud) *capturaServicioVehicularModelos.ServicioVehicular {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -144,15 +144,15 @@ func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModel
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	serviciosVehiculares := []servicioVehicularModelos.ServicioVehicular{}
+	serviciosVehiculares := []capturaServicioVehicularModelos.ServicioVehicular{}
 
-	resultadoBusqueda := baseDeDatos.Where(&servicioVehicularModelos.ServicioVehicular{Nombre: solicitud.ObtenerNombre()}).Find(&serviciosVehiculares)
+	resultadoBusqueda := baseDeDatos.Where(&capturaServicioVehicularModelos.ServicioVehicular{Nombre: solicitud.ObtenerNombre()}).Find(&serviciosVehiculares)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
 	}
 
-	var servicioVehicularEncontrado *servicioVehicularModelos.ServicioVehicular
+	var servicioVehicularEncontrado *capturaServicioVehicularModelos.ServicioVehicular
 
 	if len(serviciosVehiculares) != 0 {
 		servicioVehicularEncontrado = &serviciosVehiculares[0]
@@ -161,7 +161,7 @@ func (c *Controlador) ObtenerServicioVehicularPorNombre(solicitud *conectorModel
 	return servicioVehicularEncontrado
 }
 
-func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicularModelos.ServicioVehicular) *conectorModelos.GuardarServicioVehicularRespuesta {
+func (c *Controlador) GuardarServicioVehicular(servicioVehicular *capturaServicioVehicularModelos.ServicioVehicular) *conectorBDModelos.GuardarServicioVehicularRespuesta {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -172,10 +172,10 @@ func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicu
 	baseDeDatos.AutoMigrate(&servicioVehicular)
 
 	resultadoGuardarServicioVehicular := baseDeDatos.Create(
-		&servicioVehicularModelos.ServicioVehicular{
+		&capturaServicioVehicularModelos.ServicioVehicular{
 			Nombre: servicioVehicular.ObtenerNombre(),
 		})
-	respuesta := &conectorModelos.GuardarServicioVehicularRespuesta{}
+	respuesta := &conectorBDModelos.GuardarServicioVehicularRespuesta{}
 	if resultadoGuardarServicioVehicular.Error != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
@@ -187,7 +187,7 @@ func (c *Controlador) GuardarServicioVehicular(servicioVehicular *servicioVehicu
 	return respuesta
 }
 
-func (c *Controlador) ObtenerServiciosVehiculares() []servicioVehicularModelos.ServicioVehicular {
+func (c *Controlador) ObtenerServiciosVehiculares() []capturaServicioVehicularModelos.ServicioVehicular {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -195,7 +195,7 @@ func (c *Controlador) ObtenerServiciosVehiculares() []servicioVehicularModelos.S
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	serviciosVehiculares := []servicioVehicularModelos.ServicioVehicular{}
+	serviciosVehiculares := []capturaServicioVehicularModelos.ServicioVehicular{}
 
 	resultadoBusqueda := baseDeDatos.Find(&serviciosVehiculares)
 
@@ -206,7 +206,7 @@ func (c *Controlador) ObtenerServiciosVehiculares() []servicioVehicularModelos.S
 	return serviciosVehiculares
 }
 
-func (c *Controlador) EliminarServicioVehicular(servicioVehicular *servicioVehicularModelos.ServicioVehicular) {
+func (c *Controlador) EliminarServicioVehicular(servicioVehicular *capturaServicioVehicularModelos.ServicioVehicular) {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -218,14 +218,13 @@ func (c *Controlador) EliminarServicioVehicular(servicioVehicular *servicioVehic
 
 	baseDeDatos.Where("Nombre = ?", servicioVehicular.ObtenerNombre()).Delete(servicioVehicular)
 
-	return
 }
 
-func (c *Controlador) EditarServicioVehicular(solicitud *conectorModelos.EditarServicioVehicularSolicitud) error {
+func (c *Controlador) EditarServicioVehicular(solicitud *conectorBDModelos.EditarServicioVehicularSolicitud) error {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
-	servicioVehicularNuevo := &servicioVehicularModelos.ServicioVehicular{}
+	servicioVehicularNuevo := &capturaServicioVehicularModelos.ServicioVehicular{}
 	servicioVehicularNuevo.AsignarNombre(solicitud.ObtenerNuevoNombre())
 
 	if errConectarBD != nil {
@@ -237,7 +236,7 @@ func (c *Controlador) EditarServicioVehicular(solicitud *conectorModelos.EditarS
 	return nil
 }
 
-func (c *Controlador) GuardarUsuario(usuario *sesionModelos.Usuario) *conectorModelos.GuardarUsuarioRespuesta {
+func (c *Controlador) GuardarUsuario(usuario *inicioSesionModelos.Usuario) *conectorBDModelos.GuardarUsuarioRespuesta {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -248,7 +247,7 @@ func (c *Controlador) GuardarUsuario(usuario *sesionModelos.Usuario) *conectorMo
 	baseDeDatos.AutoMigrate(&usuario)
 
 	resultadoGuardarUsuario := baseDeDatos.Create(usuario)
-	respuesta := &conectorModelos.GuardarUsuarioRespuesta{}
+	respuesta := &conectorBDModelos.GuardarUsuarioRespuesta{}
 	if resultadoGuardarUsuario.Error != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_GUARDAR_FILA_BD))
@@ -260,7 +259,7 @@ func (c *Controlador) GuardarUsuario(usuario *sesionModelos.Usuario) *conectorMo
 	return respuesta
 }
 
-func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorModelos.ObtenerUsuarioPorNombreUsuarioSolicitud) *sesionModelos.Usuario {
+func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorBDModelos.ObtenerUsuarioPorNombreUsuarioSolicitud) *inicioSesionModelos.Usuario {
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -268,19 +267,127 @@ func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorModelos.
 		log.Fatal(constantes.ERROR_CONECTAR_BD)
 	}
 
-	usuario := sesionModelos.Usuario{}
+	usuario := inicioSesionModelos.Usuario{}
 
-	resultadoBusqueda := baseDeDatos.Where(&sesionModelos.Usuario{NombreUsuario: solicitud.ObtenerNombre()}).Find(&usuario)
+	resultadoBusqueda := baseDeDatos.Where(&inicioSesionModelos.Usuario{NombreUsuario: solicitud.ObtenerNombre()}).Find(&usuario)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
 	}
 
-	if (usuario == sesionModelos.Usuario{}) {
+	if (usuario == inicioSesionModelos.Usuario{}) {
 		return nil
 	}
 
 	return &usuario
+}
+
+func (c *Controlador) ObtenerRegistrosYVehiculosAsociados() ([]capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, []capturaVehiculosModelos.Vehiculo){
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	registros := []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}
+	vehiculos := []capturaVehiculosModelos.Vehiculo{}
+
+	tablaDeRegistrosConVehiculosFiltrados:= baseDeDatos.Select("*").Table("registros_mantenimiento_vehicular").Joins("JOIN vehiculos on vehiculos.placas = placas_vehiculo")
+
+	if(tablaDeRegistrosConVehiculosFiltrados.Error != nil){
+		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+	}
+
+	tablaDeRegistrosConVehiculosFiltrados.Find(&registros)
+	tablaDeRegistrosConVehiculosFiltrados.Find(&vehiculos)
+
+ 	return registros, vehiculos;
+}
+
+func (c *Controlador) ObtenerRegistrosYVehiculosAsociadosFiltrados(solicitud *conectorBDModelos.ObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud)  ([]capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, []capturaVehiculosModelos.Vehiculo) {
+
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	registrosFiltrados := []capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}
+	vehiculosFiltrados := []capturaVehiculosModelos.Vehiculo{}
+
+	filtroRegistro := &capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{TipoDeRegistro: solicitud.ObtenerFiltroTipoDeRegistro(),PlacasVehiculo: solicitud.ObtenerFiltroPlaca()}
+	filtroVehiculo := &capturaVehiculosModelos.Vehiculo{FechaLanzamiento: solicitud.ObtenerFiltroFechaDeLanzamiento(), Marca: solicitud.ObtenerFiltroMarca(), Modelo: solicitud.ObtenerFiltroModelo()}
+
+	tablaDeRegistrosConVehiculosFiltrados:= baseDeDatos.Select("*").Table("registros_mantenimiento_vehicular").Joins("JOIN vehiculos on vehiculos.placas = registros_mantenimiento_vehicular.placas_vehiculo").Where(&filtroRegistro).Where(&filtroVehiculo)
+
+	if(tablaDeRegistrosConVehiculosFiltrados.Error != nil){
+		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+	}
+
+	tablaDeRegistrosConVehiculosFiltrados.Find(&registrosFiltrados)
+	tablaDeRegistrosConVehiculosFiltrados.Find(&vehiculosFiltrados)
+
+ 	return registrosFiltrados, vehiculosFiltrados;
+}
+
+func (c *Controlador) ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud) (*capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturaVehiculosModelos.Vehiculo){
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+	if errConectarBD != nil {
+		log.Fatal(constantes.ERROR_CONECTAR_BD)
+	}
+
+	registro := &capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{NumeroDeRegistro: solicitud.ObtenerNumDeRegistro()}
+	vehiculoAsociado := &capturaVehiculosModelos.Vehiculo{}
+
+	consultaRegistroConNumeroDeRegistro:= baseDeDatos.Select("*").Table("registros_mantenimiento_vehicular").Joins("JOIN vehiculos on vehiculos.placas = registros_mantenimiento_vehicular.placas_vehiculo").Where(registro)
+
+	if(consultaRegistroConNumeroDeRegistro.Error != nil){
+		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+	}
+
+	consultaRegistroConNumeroDeRegistro.Find(&registro)
+	consultaRegistroConNumeroDeRegistro.Find(&vehiculoAsociado)
+
+ 	return registro, vehiculoAsociado;
+}
+
+func (c *Controlador) ActualizarRegistroMantenimientoVehicular(solicitud *conectorBDModelos.ActualizarRegistroDeMantenimientoDelVehiculoSolicitud) *conectorBDModelos.ActualizarRegistroMantenimientoVehicularRespuesta{
+	
+	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
+
+
+	registroMantenimientoVehicularActualizado := &capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{
+		TipoDeRegistro: 	solicitud.ObtenerTipo(),
+		Fecha: 			solicitud.ObtenerFecha(),
+		LitrosDeGasolina: solicitud.ObtenerLitrosDeGasolina(),	
+		Kilometraje: 	solicitud.ObtenerKilometraje(),
+		Importe: 		solicitud.ObtenerImporte(),
+		Observaciones:  solicitud.ObtenerObservaciones(),
+		Concepto:       solicitud.ObtenerConcepto(),
+		PlacasVehiculo: solicitud.ObtenerPlacasVehiculo(),	
+	}
+	
+	respuesta := &conectorBDModelos.ActualizarRegistroMantenimientoVehicularRespuesta{}
+
+	if errConectarBD != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarError(errConectarBD)
+		return respuesta
+	}
+
+	respuestaActualizacionRegistro := baseDeDatos.Table("registros_mantenimiento_vehicular").Where("numero_de_registro = ?", solicitud.ObtenerNumeroDeRegistro()).Update(registroMantenimientoVehicularActualizado)
+
+	if(respuestaActualizacionRegistro.Error != nil){
+		respuesta.AsignarOk(false)
+		respuesta.AsignarError(respuestaActualizacionRegistro.Error)
+		return respuesta
+	}
+
+	respuesta.AsignarOk(true);
+	respuesta.AsignarError(nil)
+
+	return respuesta
 }
 
 func (c *Controlador) obtenerConexionABd() string {
@@ -289,5 +396,6 @@ func (c *Controlador) obtenerConexionABd() string {
 	dbUsuario := os.Getenv("dbUsuario")
 	dbContrasena := os.Getenv("dbContrasena")
 	dbPuerto := os.Getenv("dbPuerto")
-	return fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUsuario, dbContrasena, dbHost, dbPuerto, dbNombre)
+	conexionDb := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUsuario, dbContrasena, dbHost, dbPuerto, dbNombre)
+	return conexionDb
 }

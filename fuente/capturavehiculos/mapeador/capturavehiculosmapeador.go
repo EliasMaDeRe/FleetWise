@@ -1,7 +1,7 @@
 package mapeador
 
 import (
-	vehiculosModelos "example/fleetwise/modelos/capturavehiculos"
+	CapturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -10,14 +10,14 @@ import (
 type Mapeador struct {
 }
 
-func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(contexto *gin.Context) *vehiculosModelos.AgregarVehiculosSolicitud {
-	solicitud := &vehiculosModelos.AgregarVehiculosSolicitud{}
+func (m *Mapeador) GinContextAAgregarVehiculoSolicitud(contexto *gin.Context) *CapturaVehiculosModelos.AgregarVehiculosSolicitud {
+	solicitud := &CapturaVehiculosModelos.AgregarVehiculosSolicitud{}
 	contexto.BindJSON(solicitud)
 	return solicitud
 }
 
-func (m *Mapeador) AgregarVehiculosSolicitudAVehiculo(solicitud *vehiculosModelos.AgregarVehiculosSolicitud) *vehiculosModelos.Vehiculo {
-	vehiculo := &vehiculosModelos.Vehiculo{}
+func (m *Mapeador) AgregarVehiculosSolicitudAVehiculo(solicitud *CapturaVehiculosModelos.AgregarVehiculosSolicitud) *CapturaVehiculosModelos.Vehiculo {
+	vehiculo := &CapturaVehiculosModelos.Vehiculo{}
 	if fechaLanzamiento, err := strconv.Atoi(solicitud.ObtenerFechaLanzamiento()); err == nil {
 		vehiculo.AsignarFechaLanzamiento(fechaLanzamiento)
 	} else {

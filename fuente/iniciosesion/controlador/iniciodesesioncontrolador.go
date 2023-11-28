@@ -57,7 +57,7 @@ func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *inicioSesionMode
 	return usuarioEncontrado
 }
 
-func (c *Controlador) RegistrarUsuario(nombreUsuario string, claveUsuario string) bool {
+func (c *Controlador) RegistrarUsuario(nombreUsuario string, claveUsuario string, cargo string) bool {
 
 	claveUsuarioEncriptada, err := bcrypt.GenerateFromPassword([]byte(claveUsuario), 10)
 	if err != nil {
@@ -65,7 +65,7 @@ func (c *Controlador) RegistrarUsuario(nombreUsuario string, claveUsuario string
 	}
 
 	usuarioARegistrar := &inicioSesionModelos.Usuario{
-		Cargo:         "administrador",
+		Cargo:         cargo,
 		NombreUsuario: nombreUsuario,
 		ClaveUsuario:  string(claveUsuarioEncriptada),
 	}
@@ -90,4 +90,18 @@ func (c *Controlador) crearJSONWebToken(usuario *inicioSesionModelos.Usuario) (s
 	}
 
 	return tokenCadena, nil
+}
+
+func (c *Controlador) UsuarioTieneAutorizacion(usuario *inicioSesionModelos.Usuario, cargoRequerido string) bool {
+
+	codigoDeCargos := map[string]int{
+		"capturista":    0,
+		"supervisor":    1,
+		"administrador": 2,
+	}
+
+	if codigoDeCargos[usuario.Cargo] < codigoDeCargos[cargoRequerido] {
+		return false
+	}
+	return true
 }
