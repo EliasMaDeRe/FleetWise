@@ -8,22 +8,22 @@ import (
 	visualizacionHistorialRegistrosMantenimientoVehiculoModelos "example/fleetwise/modelos/visualizacionhistorialregistrosmantenimientovehiculo"
 )
 
-type Controlador struct{
+type Controlador struct {
 	HistorialRegistrosMapeador *visualizacionHistorialRegistrosMapeador.Mapeador
-	ConectorBDControlador *conectorBDControlador.Controlador 
+	ConectorBDControlador      *conectorBDControlador.Controlador
 }
 
-func (c *Controlador) ObtenerRegistrosFiltradosConVehiculos(solicitud *visualizacionHistorialRegistrosMantenimientoVehiculoModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud) ([]capturaRegistrosMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, []capturaVehiculosModelos.Vehiculo){
+func (c *Controlador) ObtenerRegistrosFiltradosConVehiculos(solicitud *visualizacionHistorialRegistrosMantenimientoVehiculoModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud) ([]capturaRegistrosMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo, []capturaVehiculosModelos.Vehiculo) {
 
-	if(solicitud == nil || validarSolicitudSinFiltros(solicitud)){
+	if solicitud == nil || validarSolicitudSinFiltros(solicitud) {
 		return c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociados()
 	}
 
 	obtenerRegistrosConVehiculosFiltradosSolicitud := c.HistorialRegistrosMapeador.ObtenerRegistrosFiltradosConVehiculosSolicitudAObtenerRegistrosYVehiculosAsociadosFiltradosSolicitud(solicitud)
 
 	return c.ConectorBDControlador.ObtenerRegistrosYVehiculosAsociadosFiltrados(obtenerRegistrosConVehiculosFiltradosSolicitud)
-} 
+}
 
-func validarSolicitudSinFiltros(solicitud *visualizacionHistorialRegistrosMantenimientoVehiculoModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud) bool{
+func validarSolicitudSinFiltros(solicitud *visualizacionHistorialRegistrosMantenimientoVehiculoModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud) bool {
 	return solicitud == &visualizacionHistorialRegistrosMantenimientoVehiculoModelos.ObtenerRegistrosFiltradosConVehiculosSolicitud{}
 }

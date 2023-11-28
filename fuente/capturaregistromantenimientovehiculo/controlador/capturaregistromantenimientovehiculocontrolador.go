@@ -110,9 +110,9 @@ func (c *Controlador) ObtenerServiciosVehicularesParaNuevoRegistro() []capturaSe
 	return c.CapturaServicioVehicularControlador.ObtenerServiciosVehiculares()
 }
 
-func (c *Controlador) ObtenerRegistroMantenimientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.ObtenerRegistroDeMantenimientoDelVehiculoPorNumeroDeRegistroSolicitud) (*capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo, *capturaVehiculoModelos.Vehiculo) {
+func (c *Controlador) ObtenerRegistroMantenimientoVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.ObtenerRegistroDeMantenimientoDelVehiculoPorNumeroDeRegistroSolicitud) (*capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo, *capturaVehiculoModelos.Vehiculo) {
 	if solicitud == nil || c.esSolicitudVacia(solicitud) {
-		return &capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{}, &capturaVehiculoModelos.Vehiculo{}
+		return &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{}, &capturaVehiculoModelos.Vehiculo{}
 	}
 
 	ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud := c.CapturaRegistroMantenimientoVehiculoMapeador.ObtenerRegistroMantenimientoVehiculoSolicitudAObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistroSolicitud(solicitud)
@@ -166,7 +166,7 @@ func (c *Controlador) numeroDeRegistroExistente(numeroDeRegistro int) bool {
 
 	registro, vehiculo := c.ConectorBDControlador.ObtenerRegistroYVehiculoAsociadoPorNumeroDeRegistro(solicitud)
 
-	return registro != &capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{} && vehiculo != &capturaVehiculoModelos.Vehiculo{}
+	return registro != &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{} && vehiculo != &capturaVehiculoModelos.Vehiculo{}
 }
 
 func (c *Controlador) validarSolicitudEditarRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) error {

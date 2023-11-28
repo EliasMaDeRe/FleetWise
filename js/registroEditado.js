@@ -7,7 +7,7 @@
 		const registroYVehiculoAsociado = await ObtenerDatosDelRegistro();
 
 		if (respuestaVacia(registroYVehiculoAsociado.registro, registroYVehiculoAsociado.vehiculo)) {
-			window.location.href = "/HistorialRegistrosMantenimientoVehicular";
+			window.location.href = "/HistorialRegistrosMantenimientoVehiculo";
 			return;
 		}
 

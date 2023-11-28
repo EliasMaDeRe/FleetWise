@@ -1,4 +1,4 @@
-package visualizacionhistorialregistrosmantenimientovehicular
+package visualizacionhistorialregistrosmantenimientovehiculo
 
 type ObtenerRegistrosFiltradosConVehiculosSolicitud struct {
 	Placas           string `json:"placas"`
