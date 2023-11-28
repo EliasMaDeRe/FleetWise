@@ -58,6 +58,7 @@ func (m *Mapeador) AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemien
 
 	concepto := solicitud.ObtenerConcepto()
 	registro.AsignarConcepto(concepto)
+	registro.AsignarPlacasVehiculo(solicitud.ObtenerPlacasVehiculo())
 
 	return registro
 }
