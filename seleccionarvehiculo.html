@@ -16,18 +16,33 @@
   <body>
     <header class="header">
       <div class="header__logo">
-        <p>Logo</p>
+        <a href="/"><img src="img/Logo.png" /></a>
       </div>
       <nav class="navbar">
-        <a href="#" class="navbar__enlace">Texto</a>
-        <a href="#" class="navbar__enlace">Texto</a>
-        <a href="#" class="navbar__enlace">Texto</a>
-        <a href="#" class="navbar__enlace">Texto</a>
-        <a href="#" class="navbar__enlace--logout">Cerrar Sesión</a>
+        <a href="/AgregarVehiculo" class="navbar__enlace">Capturar Vehiculos</a>
+        <a href="/AgregarServicioVehicular" class="navbar__enlace">
+          Capturar Conceptos
+        </a>
+        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace">
+          Agregar Registro
+        </a>
+        <a
+          href="/HistorialRegistrosMantenimientoVehicular"
+          class="navbar__enlace"
+        >
+          Historial Registro
+        </a>
+        <a href="/ResumenMantenimientoVehiculos" class="navbar__enlace">
+          Resumen Flotillas
+        </a>
+        <a href="/Logout" class="navbar__enlace--logout">Cerrar Sesión</a>
       </nav>
     </header>
+
     <main class="seleccionar_vehiculo__contenedor">
-      <h1 class="seleccionar_vehiculo__heading">Selecciona Vehiculo Para Nuevo Registro</h1>
+      <h1 class="seleccionar_vehiculo__heading">
+        Selecciona Vehiculo Para Nuevo Registro
+      </h1>
       <div class="seleccionar_vehiculo__formulario-contenedor">
         <form class="formulario">
           <div class="formulario__campo">
@@ -45,8 +60,6 @@
       </div>
     </main>
 
-    <script src="js/seleccionarVehiculoParaNuevoRegistro.js"></script>
-
     <footer class="footer">
       <div class="footer__contenedor">
         <nav class="footer__nav">
@@ -63,7 +76,7 @@
         </nav>
 
         <div class="footer__barra">
-          <p class="footer__logo">Logo</p>
+          <p class="footer__logo">FleetWise</p>
 
           <div class="footer__redes">
             <a href="https://facebook.com" class="footer__social--logo">
@@ -173,5 +186,7 @@
         </div>
       </div>
     </footer>
+
+    <script src="js/seleccionarVehiculoParaNuevoRegistro.js"></script>
   </body>
 </html>

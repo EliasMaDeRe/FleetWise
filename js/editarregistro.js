@@ -33,7 +33,7 @@
 			registro["concepto"] = obtenerCampoDelFormulario("concepto");
 		}
 
-		const respuestaEditarRegistro = await enviarSolicitudEditarRegistro("/EditarRegistroMantenimientoVehicular", registro);
+		const respuestaEditarRegistro = await enviarSolicitudEditarRegistro("/EditarRegistroMantenimientoVehiculo", registro);
 
 		if (respuestaEditarRegistro.OK) {
 			window.location.href = "/RegistroEditado?numRegistro=" + obtenerNumDeRegistro();

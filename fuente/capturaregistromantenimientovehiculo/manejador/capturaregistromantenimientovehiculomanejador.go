@@ -20,8 +20,8 @@ func NuevoManejador() (c *Manejador) {
 	return &Manejador{
 		CapturaRegistroMantenimientoVehiculoControlador: &capturaRegistroMantenimientoVehiculoControlador.Controlador{
 			CapturaRegistroMantenimientoVehiculoMapeador: &capturaRegistroMantenimientoVehiculoMapeador.Mapeador{},
-			ConectorBDControlador: &conectorBDControlador.Controlador{},
-			CapturaServicioVehicularControlador: &capturaServicioVehicularControlador.Controlador{},
+			ConectorBDControlador:                        &conectorBDControlador.Controlador{},
+			CapturaServicioVehicularControlador:          &capturaServicioVehicularControlador.Controlador{},
 		},
 	}
 }
@@ -69,27 +69,27 @@ func (m *Manejador) ObtenerServiciosVehiculares(contexto *gin.Context) {
 	contexto.IndentedJSON(http.StatusOK, gin.H{"ServiciosVehiculares": respuesta})
 }
 
-func (m *Manejador) ObtenerRegistroMantenimientoVehicularPorNumeroDeRegistro(contexto *gin.Context){
-	solicitud := m.CapturaRegistroMantenimientoVehiculoControlador.CapturaRegistroMantenimientoVehiculoMapeador.GinContextAObtenerRegistroMantenimientoVehicularPorNumeroDeRegistroSolicitud(contexto)
-	registro, vehiculo := m.CapturaRegistroMantenimientoVehiculoControlador.ObtenerRegistroMantenimientoVehicular(solicitud)
-	
-	contexto.IndentedJSON(http.StatusOK,gin.H{"registro": registro, "vehiculo": vehiculo})
+func (m *Manejador) ObtenerRegistroMantenimientoVehiculoPorNumeroDeRegistro(contexto *gin.Context) {
+	solicitud := m.CapturaRegistroMantenimientoVehiculoControlador.CapturaRegistroMantenimientoVehiculoMapeador.GinContextAObtenerRegistroMantenimientoVehiculoPorNumeroDeRegistroSolicitud(contexto)
+	registro, vehiculo := m.CapturaRegistroMantenimientoVehiculoControlador.ObtenerRegistroMantenimientoVehiculo(solicitud)
+
+	contexto.IndentedJSON(http.StatusOK, gin.H{"registro": registro, "vehiculo": vehiculo})
 }
 
-func (m *Manejador) EditarRegistroDeMantenimientoDelVehiculo(contexto *gin.Context){
-	solicitud := m.CapturaRegistroMantenimientoVehiculoControlador.CapturaRegistroMantenimientoVehiculoMapeador.GinContextAEditarRegistroDeMantenimientoDelVehiculoSolicitud(contexto);
-	
+func (m *Manejador) EditarRegistroDeMantenimientoDelVehiculo(contexto *gin.Context) {
+	solicitud := m.CapturaRegistroMantenimientoVehiculoControlador.CapturaRegistroMantenimientoVehiculoMapeador.GinContextAEditarRegistroDeMantenimientoDelVehiculoSolicitud(contexto)
+
 	respuesta := m.CapturaRegistroMantenimientoVehiculoControlador.EditarRegistroDeMantenimientoDelVehiculo(solicitud)
-	
+
 	status := http.StatusOK
 	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
 	}
 
 	mensajeError := ""
-	if respuesta.ObtenerError() != nil {
-		mensajeError = respuesta.ObtenerError().Error()
+	if respuesta.ObtenerErr() != nil {
+		mensajeError = respuesta.ObtenerErr().Error()
 	}
-	
+
 	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk(), "mensajeError": mensajeError})
 }
