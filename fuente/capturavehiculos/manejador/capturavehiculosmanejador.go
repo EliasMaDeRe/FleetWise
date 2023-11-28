@@ -17,7 +17,7 @@ func NuevoManejador() (c *Manejador) {
 	return &Manejador{
 		CapturaVehiculosControlador: &capturaVehiculosControlador.Controlador{
 			CapturaVehiculosMapeador: &capturaVehiculosMapeador.Mapeador{},
-			ConectorBDControlador: &conectorBDControlador.Controlador{},
+			ConectorBDControlador:    &conectorBDControlador.Controlador{},
 		},
 	}
 }
@@ -36,4 +36,22 @@ func (m *Manejador) AgregarVehiculo(contexto *gin.Context) {
 	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk(), "err": mensajeError})
 }
 
+func (m *Manejador) EditarVehiculo(contexto *gin.Context) {
+	solicitud := m.CapturaVehiculosControlador.CapturaVehiculosMapeador.GinContextAEditarVehiculoSolicitud(contexto)
+	respuesta := m.CapturaVehiculosControlador.EditarVehiculo(solicitud)
+	status := http.StatusOK
+	if respuesta.ObtenerOk() == false {
+		status = http.StatusBadRequest
+	}
+	var mensajeError string
+	if respuesta.ObtenerErr() != nil {
+		mensajeError = respuesta.ObtenerErr().Error()
+	}
+	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk(), "err": mensajeError})
+}
 
+func (m *Manejador) ObtenerVehiculoPorPlacas(contexto *gin.Context) {
+	solicitud := m.CapturaVehiculosControlador.CapturaVehiculosMapeador.GinContextAObtenerVehiculoPorPlacasSolicitud(contexto)
+	respuesta := m.CapturaVehiculosControlador.ObtenerVehiculoPorPlacas(solicitud)
+	contexto.IndentedJSON(http.StatusOK, gin.H{"Vehiculo": respuesta})
+}

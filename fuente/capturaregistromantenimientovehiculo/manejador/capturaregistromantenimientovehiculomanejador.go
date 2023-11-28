@@ -79,7 +79,7 @@ func (m *Manejador) ObtenerRegistroMantenimientoVehiculoPorNumeroDeRegistro(cont
 func (m *Manejador) EditarRegistroDeMantenimientoDelVehiculo(contexto *gin.Context) {
 	solicitud := m.CapturaRegistroMantenimientoVehiculoControlador.CapturaRegistroMantenimientoVehiculoMapeador.GinContextAEditarRegistroDeMantenimientoDelVehiculoSolicitud(contexto)
 
-	respuesta := m.CapturaRegistroMantenimientoVehiculoControlador.EditarRegistroDeMantenimientoDelVehiculo(solicitud)
+	respuesta := m.CapturaRegistroMantenimientoVehiculoControlador.EditarRegistroDeMantenimientoDeVehiculo(solicitud)
 
 	status := http.StatusOK
 	if !respuesta.ObtenerOk() {

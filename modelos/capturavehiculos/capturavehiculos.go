@@ -73,7 +73,7 @@ func (v *Vehiculo) AsignarSerie(serie string) {
 	}
 }
 
-type AgregarVehiculosSolicitud struct {
+type AgregarVehiculoSolicitud struct {
 	FechaLanzamiento string `json:"fechalanzamiento"` // año del vehiculo
 	Marca            string `json:"marca"`
 	Modelo           string `json:"modelo"`
@@ -81,66 +81,66 @@ type AgregarVehiculosSolicitud struct {
 	Serie            string `json:"serie"`
 }
 
-func (v *AgregarVehiculosSolicitud) ObtenerFechaLanzamiento() (o string) {
+func (v *AgregarVehiculoSolicitud) ObtenerFechaLanzamiento() (o string) {
 	if v != nil {
 		o = v.FechaLanzamiento
 	}
 	return
 }
 
-func (v *AgregarVehiculosSolicitud) AsignarFechaLanzamiento(fechaLanzamiento string) {
+func (v *AgregarVehiculoSolicitud) AsignarFechaLanzamiento(fechaLanzamiento string) {
 	if v != nil {
 		v.FechaLanzamiento = fechaLanzamiento
 	}
 }
 
-func (v *AgregarVehiculosSolicitud) ObtenerMarca() (o string) {
+func (v *AgregarVehiculoSolicitud) ObtenerMarca() (o string) {
 	if v != nil {
 		o = v.Marca
 	}
 	return
 }
 
-func (v *AgregarVehiculosSolicitud) AsignarMarca(marca string) {
+func (v *AgregarVehiculoSolicitud) AsignarMarca(marca string) {
 	if v != nil {
 		v.Marca = marca
 	}
 }
 
-func (v *AgregarVehiculosSolicitud) ObtenerModelo() (o string) {
+func (v *AgregarVehiculoSolicitud) ObtenerModelo() (o string) {
 	if v != nil {
 		o = v.Modelo
 	}
 	return
 }
 
-func (v *AgregarVehiculosSolicitud) AsignarModelo(modelo string) {
+func (v *AgregarVehiculoSolicitud) AsignarModelo(modelo string) {
 	if v != nil {
 		v.Modelo = modelo
 	}
 }
 
-func (v *AgregarVehiculosSolicitud) ObtenerPlacas() (o string) {
+func (v *AgregarVehiculoSolicitud) ObtenerPlacas() (o string) {
 	if v != nil {
 		o = v.Placas
 	}
 	return
 }
 
-func (v *AgregarVehiculosSolicitud) AsignarPlacas(placas string) {
+func (v *AgregarVehiculoSolicitud) AsignarPlacas(placas string) {
 	if v != nil {
 		v.Placas = placas
 	}
 }
 
-func (v *AgregarVehiculosSolicitud) ObtenerSerie() (o string) {
+func (v *AgregarVehiculoSolicitud) ObtenerSerie() (o string) {
 	if v != nil {
 		o = v.Serie
 	}
 	return
 }
 
-func (v *AgregarVehiculosSolicitud) AsignarSerie(serie string) {
+func (v *AgregarVehiculoSolicitud) AsignarSerie(serie string) {
 	if v != nil {
 		v.Serie = serie
 	}
@@ -174,5 +174,140 @@ func (v *AgregarVehiculoRespuesta) ObtenerErr() (o error) {
 func (v *AgregarVehiculoRespuesta) AsignarErr(err error) {
 	if v != nil {
 		v.err = err
+	}
+}
+
+type EditarVehiculoSolicitud struct {
+	PlacasActuales        string `json:"placasactuales"`
+	PlacasNuevas          string `json:"placasnuevas"`
+	FechaLanzamientoNueva string `json:"fechalanzamientonueva"`
+	MarcaNueva            string `json:"marcanueva"`
+	ModeloNuevo           string `json:"modelonuevo"`
+	SerieNuevo            string `json:"serienuevo"`
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerPlacasActuales() (o string) {
+	if v != nil {
+		o = v.PlacasActuales
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarPlacasActuales(placasActuales string) {
+	if v != nil {
+		v.PlacasActuales = placasActuales
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerPlacasNuevas() (o string) {
+	if v != nil {
+		o = v.PlacasNuevas
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarPlacasNuevas(placasNuevas string) {
+	if v != nil {
+		v.PlacasNuevas = placasNuevas
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerFechaDeLanzamientoNueva() (o string) {
+	if v != nil {
+		o = v.FechaLanzamientoNueva
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarFechaDeLanzamientoNueva(fechaDeLanzamientoNueva string) {
+	if v != nil {
+		v.FechaLanzamientoNueva = fechaDeLanzamientoNueva
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerMarcaNueva() (o string) {
+	if v != nil {
+		o = v.MarcaNueva
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarMarcaNueva(marcaNueva string) {
+	if v != nil {
+		v.MarcaNueva = marcaNueva
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerModeloNuevo() (o string) {
+	if v != nil {
+		o = v.ModeloNuevo
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarModeloNuevo(modeloNuevo string) {
+	if v != nil {
+		v.ModeloNuevo = modeloNuevo
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerSerieNuevo() (o string) {
+	if v != nil {
+		o = v.SerieNuevo
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarSerieNuevo(serieNuevo string) {
+	if v != nil {
+		v.SerieNuevo = serieNuevo
+	}
+}
+
+type EditarVehiculoRespuesta struct {
+	ok  bool
+	err error
+}
+
+func (v *EditarVehiculoRespuesta) ObtenerOk() (o bool) {
+	if v != nil {
+		o = v.ok
+	}
+	return
+}
+
+func (v *EditarVehiculoRespuesta) AsignarOk(ok bool) {
+	if v != nil {
+		v.ok = ok
+	}
+}
+
+func (v *EditarVehiculoRespuesta) ObtenerErr() (o error) {
+	if v != nil {
+		o = v.err
+	}
+	return
+}
+
+func (v *EditarVehiculoRespuesta) AsignarErr(err error) {
+	if v != nil {
+		v.err = err
+	}
+}
+
+type ObtenerVehiculoPorPlacasSolicitud struct {
+	Placas string `json:"placas"`
+}
+
+func (v *ObtenerVehiculoPorPlacasSolicitud) ObtenerPlacas() (o string) {
+	if v != nil {
+		o = v.Placas
+	}
+	return
+}
+
+func (v *ObtenerVehiculoPorPlacasSolicitud) AsignarPlacas(placas string) {
+	if v != nil {
+		v.Placas = placas
 	}
 }

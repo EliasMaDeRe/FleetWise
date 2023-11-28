@@ -82,14 +82,14 @@ func (m *Mapeador) ObtenerRegistroMantenimientoVehiculoSolicitudAObtenerRegistro
 	return solicitudBD
 }
 
-func (m *Mapeador) GinContextAEditarRegistroDeMantenimientoDelVehiculoSolicitud(contexto *gin.Context) *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud {
-	solicitud := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud{}
+func (m *Mapeador) GinContextAEditarRegistroDeMantenimientoDelVehiculoSolicitud(contexto *gin.Context) *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDeVehiculoSolicitud {
+	solicitud := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDeVehiculoSolicitud{}
 	contexto.BindJSON(solicitud)
 	return solicitud
 }
 
-func (m *Mapeador) EditarRegistroDeMantenimientoDelVehiculoSolicitudAActualizarRegistroDeMantenimientoDelVehiculoSolicitud(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) *conectorBDModelos.ActualizarRegistroDeMantenimientoDelVehiculoSolicitud {
-	actualizarRegistroSolicitud := &conectorBDModelos.ActualizarRegistroDeMantenimientoDelVehiculoSolicitud{
+func (m *Mapeador) EditarRegistroDeMantenimientoDeVehiculoSolicitudASolicitudBD(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDeVehiculoSolicitud) *conectorBDModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud {
+	actualizarRegistroSolicitud := &conectorBDModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud{
 		NumeroDeRegistro: solicitud.ObtenerNumeroDeRegistro(),
 		Tipo:             solicitud.ObtenerTipo(),
 		Fecha:            solicitud.ObtenerFecha(),

@@ -135,8 +135,9 @@
 					enlaceEditarRegistro.outerHTML,
 				];
 
-				tablaRegistros.row.add(filaNueva).draw();
+				tablaRegistros.row.add(filaNueva);
 			}
+			tablaRegistros.draw();
 		}
 	}
 

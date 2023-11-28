@@ -124,7 +124,7 @@ func (c *Controlador) esSolicitudVacia(solicitud *capturaRegistroMantenimientoVe
 	return solicitud == &capturaRegistroMantenimientoVehiculoModelos.ObtenerRegistroDeMantenimientoDelVehiculoPorNumeroDeRegistroSolicitud{}
 }
 
-func (c *Controlador) EditarRegistroDeMantenimientoDelVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta {
+func (c *Controlador) EditarRegistroDeMantenimientoDeVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDeVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta {
 	respuesta := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
 	if c.solicitudEditarRegistroVacia(solicitud) {
 		respuesta.AsignarOk(false)
@@ -137,17 +137,17 @@ func (c *Controlador) EditarRegistroDeMantenimientoDelVehiculo(solicitud *captur
 		return respuesta
 	}
 
-	actualizarRegistroSolicitud := c.CapturaRegistroMantenimientoVehiculoMapeador.EditarRegistroDeMantenimientoDelVehiculoSolicitudAActualizarRegistroDeMantenimientoDelVehiculoSolicitud(solicitud)
+	actualizarRegistroSolicitud := c.CapturaRegistroMantenimientoVehiculoMapeador.EditarRegistroDeMantenimientoDeVehiculoSolicitudASolicitudBD(solicitud)
 
-	c.ConectorBDControlador.ActualizarRegistroMantenimientoVehiculo(actualizarRegistroSolicitud)
+	c.ConectorBDControlador.EditarRegistroDeMantenimientoDeVehiculo(actualizarRegistroSolicitud)
 
 	respuesta.AsignarOk(true)
 	respuesta.AsignarErr(nil)
 	return respuesta
 }
 
-func (c *Controlador) solicitudEditarRegistroVacia(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) bool {
-	return solicitud == nil || solicitud == &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud{}
+func (c *Controlador) solicitudEditarRegistroVacia(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDeVehiculoSolicitud) bool {
+	return solicitud == nil || solicitud == &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDeVehiculoSolicitud{}
 }
 
 func (c *Controlador) existePlaca(placa string) bool {
@@ -169,7 +169,7 @@ func (c *Controlador) numeroDeRegistroExistente(numeroDeRegistro int) bool {
 	return registro != &capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo{} && vehiculo != &capturaVehiculoModelos.Vehiculo{}
 }
 
-func (c *Controlador) validarSolicitudEditarRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) error {
+func (c *Controlador) validarSolicitudEditarRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDeVehiculoSolicitud) error {
 
 	if !c.existePlaca(solicitud.ObtenerPlacasVehiculo()) {
 		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
