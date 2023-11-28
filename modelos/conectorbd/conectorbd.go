@@ -507,3 +507,90 @@ func (editarRegistroRespuesta *ActualizarRegistroMantenimientoVehiculoRespuesta)
 		editarRegistroRespuesta.Err = err
 	}
 }
+
+type EditarVehiculoSolicitud struct {
+	PlacasActuales        string
+	PlacasNuevas          string
+	FechaLanzamientoNueva int
+	MarcaNueva            string
+	ModeloNuevo           string
+	SerieNuevo            string
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerPlacasActuales() (o string) {
+	if v != nil {
+		o = v.PlacasActuales
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarPlacasActuales(placasActuales string) {
+	if v != nil {
+		v.PlacasActuales = placasActuales
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerPlacasNuevas() (o string) {
+	if v != nil {
+		o = v.PlacasNuevas
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarPlacasNuevas(placasNuevas string) {
+	if v != nil {
+		v.PlacasNuevas = placasNuevas
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerFechaDeLanzamientoNueva() (o int) {
+	if v != nil {
+		o = v.FechaLanzamientoNueva
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarFechaDeLanzamientoNueva(fechaDeLanzamientoNueva int) {
+	if v != nil {
+		v.FechaLanzamientoNueva = fechaDeLanzamientoNueva
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerMarcaNueva() (o string) {
+	if v != nil {
+		o = v.MarcaNueva
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarMarcaNueva(marcaNueva string) {
+	if v != nil {
+		v.MarcaNueva = marcaNueva
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerModeloNuevo() (o string) {
+	if v != nil {
+		o = v.ModeloNuevo
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarModeloNuevo(modeloNuevo string) {
+	if v != nil {
+		v.ModeloNuevo = modeloNuevo
+	}
+}
+
+func (v *EditarVehiculoSolicitud) ObtenerSerieNuevo() (o string) {
+	if v != nil {
+		o = v.SerieNuevo
+	}
+	return
+}
+
+func (v *EditarVehiculoSolicitud) AsignarSerieNuevo(serieNuevo string) {
+	if v != nil {
+		v.SerieNuevo = serieNuevo
+	}
+}
