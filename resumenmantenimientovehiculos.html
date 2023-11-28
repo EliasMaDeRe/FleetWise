@@ -7,88 +7,81 @@
       rel="stylesheet"
       href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"
     />
+    <link rel="stylesheet" href="styles/normalize.css" />
     <link rel="stylesheet" href="styles/app.css" />
     <title>FleetWise | Resumen Mantenimiento Vehiculos</title>
   </head>
   <body>
     <header class="header">
       <div class="header__logo">
-        <a href="/"><img src="img/Logo.png"></a>
+        <a href="/"><img src="img/Logo.png" /></a>
       </div>
       <nav class="navbar">
         <a href="/AgregarVehiculo" class="navbar__enlace">Capturar Vehiculos</a>
-        <a href="/AgregarServicioVehicular" class="navbar__enlace">Capturar Conceptos</a>
-        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace">Agregar Registro</a>
-        <a href="/HistorialRegistrosMantenimientoVehicular" class="navbar__enlace">Historial Registro</a>
+        <a href="/AgregarServicioVehicular" class="navbar__enlace">
+          Capturar Conceptos
+        </a>
+        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace">
+          Agregar Registro
+        </a>
+        <a
+          href="/HistorialRegistrosMantenimientoVehicular"
+          class="navbar__enlace"
+        >
+          Historial Registro
+        </a>
+        <a href="/ResumenMantenimientoVehiculos" class="navbar__enlace">
+          Resumen Flotillas
+        </a>
         <a href="/Logout" class="navbar__enlace--logout">Cerrar Sesión</a>
       </nav>
     </header>
 
     <main>
-      <h1 class="resumen__titulo">
-        Resumen de Flotilla
-      </h1>
+      <h1 class="resumen__titulo">Resumen de Flotilla</h1>
 
-      <div>
+      <div class="resumen-flotilla">
         <table
-          class="registros hover row-border order-column stripe"
-          id="tabla-registros"
+          class="flotillas hover row-border order-column stripe"
+          id="tabla-flotillas"
         >
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Placa</th>
-            <th>Marca</th>
-            <th>Modelo</th>
-            <th>Año</th>
-            <th>Gasto de Combustible</th>
-            <th>Gasto en Mantenimiento</th>
-            <th>Rendimiento KM/L</th>
-            <th>Kilometraje Inicial</th>
-            <th>Último Kilometraje</th>
-            <th>Kilómetros Totales Recorridos</th>
-            <th>Kilómetros Promedio Diarios Recorridos</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>test1</td>
-            <td>
-                <a href="/EditarResumenMantenimientoVehicular">Editar</a>
-              </td>
-            </tr>
-
+          <thead>
             <tr>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>Texto2</td>
-              <td>
-                <a href="/EditarResumenMantenimientoVehicular">Editar</a>
-              </td>
+              <th>Fecha</th>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Año</th>
+              <th>Gasto de Combustible</th>
+              <th>Gasto en Mantenimiento</th>
+              <th>Rendimiento KM/L</th>
+              <th>Kilometraje Inicial</th>
+              <th>Último Kilometraje</th>
+              <th>Kilómetros Totales Recorridos</th>
+              <th>Kilómetros Promedio Diarios Recorridos</th>
+              <th>Editar</th>
             </tr>
-          </tbody>
+          </thead>
+
+          <tbody></tbody>
+
+          <tfoot>
+            <tr>
+              <th>Fecha</th>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Año</th>
+              <th>Gasto de Combustible</th>
+              <th>Gasto en Mantenimiento</th>
+              <th>Rendimiento KM/L</th>
+              <th>Kilometraje Inicial</th>
+              <th>Último Kilometraje</th>
+              <th>Kilómetros Totales Recorridos</th>
+              <th>Kilómetros Promedio Diarios Recorridos</th>
+              <th>Editar</th>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </main>
@@ -220,11 +213,8 @@
       </div>
     </footer>
 
-    <script
-      type="text/javascript"
-      src="http://code.jquery.com/jquery-latest.min.js"
-    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-    <script src="js/historialregistros.js"></script>
+    <script src="js/resumenFlotillas.js"></script>
   </body>
 </html>
