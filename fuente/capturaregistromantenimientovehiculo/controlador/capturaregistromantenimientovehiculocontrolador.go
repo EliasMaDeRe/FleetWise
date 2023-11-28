@@ -125,44 +125,25 @@ func (c *Controlador) esSolicitudVacia(solicitud *capturaRegistroMantenimientoVe
 }
 
 func (c *Controlador) EditarRegistroDeMantenimientoDelVehiculo(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta {
-
+	respuesta := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
 	if c.solicitudEditarRegistroVacia(solicitud) {
-		respuesta := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(errors.New(constantes.ERROR_SOLICITUD_NULA))
 		return respuesta
 	}
-
-	if !c.existePlaca(solicitud.ObtenerPlacasVehiculo()) {
-		respuesta := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
+	if err := c.validarSolicitudEditarRegistro(solicitud); err != nil {
 		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD))
-		return respuesta
-	}
-
-	if !c.numeroDeRegistroExistente(solicitud.ObtenerNumeroDeRegistro()) {
-		respuesta := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
-		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(errors.New(constantes.ERROR_NUMERO_REGISTRO_NO_EXISTENTE))
-		return respuesta
-	}
-
-	mensajeError, solicitudValida := c.validarSolicitudEditarRegistro(solicitud)
-
-	if !solicitudValida {
-		respuesta := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
-		respuesta.AsignarOk(false)
-		respuesta.AsignarErr(errors.New(mensajeError))
+		respuesta.AsignarErr(err)
 		return respuesta
 	}
 
 	actualizarRegistroSolicitud := c.CapturaRegistroMantenimientoVehiculoMapeador.EditarRegistroDeMantenimientoDelVehiculoSolicitudAActualizarRegistroDeMantenimientoDelVehiculoSolicitud(solicitud)
 
-	actualizarRegistroRespuesta := c.ConectorBDControlador.ActualizarRegistroMantenimientoVehiculo(actualizarRegistroSolicitud)
+	c.ConectorBDControlador.ActualizarRegistroMantenimientoVehiculo(actualizarRegistroSolicitud)
 
-	editarRegistroRespuesta := c.CapturaRegistroMantenimientoVehiculoMapeador.ActualizarRegistroMantenimientoVehiculoRespuestaAEditarRegistroMantenimientoVehiculoRespuesta(actualizarRegistroRespuesta)
-
-	return editarRegistroRespuesta
+	respuesta.AsignarOk(true)
+	respuesta.AsignarErr(nil)
+	return respuesta
 }
 
 func (c *Controlador) solicitudEditarRegistroVacia(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) bool {
@@ -188,36 +169,44 @@ func (c *Controlador) numeroDeRegistroExistente(numeroDeRegistro int) bool {
 	return registro != &capturaRegistroMantenimientoVehiculoModelos.RegistroMantenimientoVehiculo{} && vehiculo != &capturaVehiculoModelos.Vehiculo{}
 }
 
-func (c *Controlador) validarSolicitudEditarRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) (string, bool) {
+func (c *Controlador) validarSolicitudEditarRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDelVehiculoSolicitud) error {
+
+	if !c.existePlaca(solicitud.ObtenerPlacasVehiculo()) {
+		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
+	}
+
+	if !c.numeroDeRegistroExistente(solicitud.ObtenerNumeroDeRegistro()) {
+		return errors.New(constantes.ERROR_NUMERO_REGISTRO_NO_EXISTENTE)
+	}
 
 	if solicitud.ObtenerFecha() == "" {
-		return constantes.ERROR_FECHA_VACIA, false
+		return errors.New(constantes.ERROR_FECHA_VACIA)
 	}
 
 	if solicitud.ObtenerTipo() == "" {
-		return constantes.ERROR_TIPO_REGISTRO_VACIO, false
+		return errors.New(constantes.ERROR_TIPO_REGISTRO_VACIO)
 	}
 
 	if solicitud.ObtenerKilometraje() == 0 {
-		return constantes.ERROR_KILOMETRAJE_NO_VALIDO, false
+		return errors.New(constantes.ERROR_KILOMETRAJE_NO_VALIDO)
 	}
 
 	if solicitud.ObtenerImporte() == 0 {
-		return constantes.ERROR_IMPORTE_NO_VALIDO, false
+		return errors.New(constantes.ERROR_IMPORTE_NO_VALIDO)
 	}
 
 	if solicitud.ObtenerObservaciones() == "" {
-		return constantes.ERROR_OBSERVACIONES_VACIO, false
+		return errors.New(constantes.ERROR_OBSERVACIONES_VACIO)
 	}
 
 	if solicitud.ObtenerTipo() == "carga de combustible" && solicitud.ObtenerLitrosDeGasolina() == 0 {
 
-		return constantes.ERROR_LIBROS_GASOLINA_VACIO, false
+		return errors.New(constantes.ERROR_LIBROS_GASOLINA_VACIO)
 	}
 
 	if solicitud.ObtenerTipo() != "carga de combustible" && solicitud.ObtenerConcepto() == "" {
-		return constantes.ERROR_CONCEPTO_VACIO, false
+		return errors.New(constantes.ERROR_CONCEPTO_VACIO)
 	}
 
-	return "", true
+	return nil
 }

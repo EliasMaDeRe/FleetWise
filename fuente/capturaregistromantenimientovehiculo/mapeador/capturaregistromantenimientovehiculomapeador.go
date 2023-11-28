@@ -96,10 +96,3 @@ func (m *Mapeador) EditarRegistroDeMantenimientoDelVehiculoSolicitudAActualizarR
 	}
 	return actualizarRegistroSolicitud
 }
-
-func (m *Mapeador) ActualizarRegistroMantenimientoVehiculoRespuestaAEditarRegistroMantenimientoVehiculoRespuesta(actualizarRegistroRespuesta *conectorBDModelos.ActualizarRegistroMantenimientoVehiculoRespuesta) *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta {
-	editarRegistroRespuesta := &capturaRegistroMantenimientoVehiculoModelos.EditarRegistroMantenimientoVehiculoRespuesta{}
-	editarRegistroRespuesta.AsignarErr(actualizarRegistroRespuesta.ObtenerErr())
-	editarRegistroRespuesta.AsignarOk(actualizarRegistroRespuesta.ObtenerOk())
-	return editarRegistroRespuesta
-}
