@@ -29,8 +29,7 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorBDModelos.Obte
 	}
 
 	vehiculos := []capturaVehiculosModelos.Vehiculo{}
-
-	resultadoBusqueda := baseDeDatos.Where(&capturaVehiculosModelos.Vehiculo{Placas: solicitud.ObtenerPlacas()}).Find(&vehiculos)
+	resultadoBusqueda := baseDeDatos.Table(capturaVehiculosModelos.Vehiculo{}.TableName()).Where("placas = ?", solicitud.ObtenerPlacas()).Find(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)

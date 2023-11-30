@@ -8,6 +8,11 @@ type Vehiculo struct {
 	Serie            string
 }
 
+func (Vehiculo) TableName() string {
+
+	return "vehiculos"
+}
+
 func (v *Vehiculo) ObtenerFechaLanzamiento() (o int) {
 	if v != nil {
 		o = v.FechaLanzamiento
