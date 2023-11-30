@@ -2,7 +2,6 @@ package manejador
 
 import (
 	visualizacionResumenMantenimientoVehiculosControlador "example/fleetwise/fuente/visualizacionresumenmantenimientovehiculos/controlador"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,7 +19,6 @@ func NuevoManejador() (c *Manejador) {
 
 func (m *Manejador) ObtenerMetricasVehiculares(contexto *gin.Context) {
 	vehiculos, gastosDeCombustible, gastosEnMantenimiento, rendimientosKilometroLitro, kilometrajesIniciales, ultimosKilometrajes, kilometrosTotalesRecorridos, kilometrosPromedioDiariosRecorridos := m.visualizacionResumenMantenimientoVehiculosControlador.ObtenerMetricasVehiculares()
-	fmt.Println(vehiculos, gastosDeCombustible, gastosEnMantenimiento, rendimientosKilometroLitro, kilometrajesIniciales, ultimosKilometrajes, kilometrosTotalesRecorridos, kilometrosPromedioDiariosRecorridos)
 	contexto.IndentedJSON(http.StatusOK, gin.H{
 		"vehiculos":                                      vehiculos,
 		"gastosDeCombustiblePorVehiculo":                 gastosDeCombustible,
