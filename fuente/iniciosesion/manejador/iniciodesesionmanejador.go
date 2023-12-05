@@ -52,7 +52,7 @@ func (m *Manejador) ValidarSesion(contexto *gin.Context, cargoRequerido string) 
 	tokenCadena, err := contexto.Cookie("autorizacion")
 
 	if err != nil {
-		contexto.HTML(http.StatusUnauthorized, "login.html", gin.H{})
+		contexto.HTML(http.StatusUnauthorized, "login", gin.H{})
 		contexto.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
@@ -65,7 +65,7 @@ func (m *Manejador) ValidarSesion(contexto *gin.Context, cargoRequerido string) 
 	})
 
 	if err != nil {
-		contexto.HTML(http.StatusUnauthorized, "login.html", gin.H{})
+		contexto.HTML(http.StatusUnauthorized, "login", gin.H{})
 		contexto.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
@@ -73,7 +73,7 @@ func (m *Manejador) ValidarSesion(contexto *gin.Context, cargoRequerido string) 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 
 		if float64(time.Now().Unix()) > claims["expiracion"].(float64) {
-			contexto.HTML(http.StatusUnauthorized, "login.html", gin.H{})
+			contexto.HTML(http.StatusUnauthorized, "login", gin.H{})
 			contexto.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
@@ -81,7 +81,7 @@ func (m *Manejador) ValidarSesion(contexto *gin.Context, cargoRequerido string) 
 		nombreUsuarioEnClaims := m.InicioSesionControlador.InicioSesionMapeador.TokenClaimsAObtenerUsuarioPorNombreUsuarioSolicitud(claims)
 		usuarioEncontrado := m.InicioSesionControlador.ObtenerUsuarioPorNombreUsuario(nombreUsuarioEnClaims)
 		if usuarioEncontrado == nil {
-			contexto.HTML(http.StatusUnauthorized, "login.html", gin.H{})
+			contexto.HTML(http.StatusUnauthorized, "login", gin.H{})
 			contexto.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
@@ -93,7 +93,7 @@ func (m *Manejador) ValidarSesion(contexto *gin.Context, cargoRequerido string) 
 
 		contexto.Set("usuario", usuarioEncontrado)
 	} else {
-		contexto.HTML(http.StatusUnauthorized, "login.html", gin.H{})
+		contexto.HTML(http.StatusUnauthorized, "login", gin.H{})
 		contexto.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}

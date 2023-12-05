@@ -1,0 +1,41 @@
+{{ define "vehiculos/editar" }}
+
+<!DOCTYPE html>
+<html lang="es">
+  {{template "componentes/head" . }}
+  <body>
+    {{template "componentes/header" -}}
+
+    <main class="captura-vehiculo__contenedor">
+      <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
+
+      <div class="captura-vehiculo__formulario-contenedor">
+        <form action="" class="formulario">
+          {{template "vehiculos/formularioCaptura" -}}
+
+          <div class="editar-vehiculo__contenedor-botones">
+            <a
+              href="/ResumentMantenimientoVehiculos"
+              class="editar-registro__volver"
+            >
+              Volver
+            </a>
+
+            <input
+              type="submit"
+              id="editar-vehiculo"
+              class="registros__enviar"
+              value="Guardar Cambios"
+            />
+          </div>
+        </form>
+      </div>
+    </main>
+
+    {{template "componentes/footer"}}
+
+    <script src="js/editarVehiculo.js"></script>
+  </body>
+</html>
+
+{{end}}

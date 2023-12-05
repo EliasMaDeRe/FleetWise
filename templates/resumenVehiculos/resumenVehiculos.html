@@ -1,0 +1,63 @@
+{{define "resumenVehiculos"}}
+
+<!DOCTYPE html>
+<html lang="es">
+  {{template "componentes/headDataTables" . -}}
+  <body>
+    {{template "componentes/header" -}}
+
+    <main class="resumen-flotilla">
+      <h1 class="resumen-flotilla__titulo">Resumen de Flotillas</h1>
+
+      <div class="resumen-flotilla__contenedor-registros">
+        <table
+          class="resumen hover row-border order-column display nowrap dt-center"
+          id="tabla-resumen"
+        >
+          <thead>
+            <tr>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Año</th>
+              <th>Gasto de Combustible</th>
+              <th>Gasto de Mantenimiento</th>
+              <th>Rendimiento KM/L</th>
+              <th>Kilometraje Incial</th>
+              <th>Último Kilometraje</th>
+              <th>KM Totales Recorridos</th>
+              <th>KM Promedio Diario</th>
+              <th>Editar</th>
+            </tr>
+          </thead>
+
+          <tbody></tbody>
+
+          <tfoot>
+            <tr>
+              <th>Placa</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Año</th>
+              <th>Gasto de Combustible</th>
+              <th>Gasto de Mantenimiento</th>
+              <th>Rendimiento KM/L</th>
+              <th>Kilometraje Incial</th>
+              <th>Último Kilometraje</th>
+              <th>KM Totales Recorridos</th>
+              <th>KM Promedio Diario</th>
+              <th>Editar</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </main>
+
+    {{template "componentes/footer" -}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="js/resumenflotilla.js"></script>
+  </body>
+</html>
+
+{{end}}

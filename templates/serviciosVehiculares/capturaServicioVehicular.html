@@ -1,0 +1,38 @@
+{{ define "capturaServicioVehicular" }}
+
+<!DOCTYPE html>
+<html lang="es">
+  {{template "componentes/head" . -}}
+
+  <body>
+    {{template "componentes/header" -}}
+
+    <main class="captura-servicio-vehicular__contenedor">
+      <h1 class="captura-servicio-vehicular__heading">
+        Capturar Tipos de Servicios Vehiculares
+      </h1>
+      <div class="captura-servicio-vehicular__formulario-contenedor">
+        <form action="serviciovehicular.html" class="formulario">
+          <div class="formulario__campo">
+            <label for="nombre" class="formulario__label">*Nombre del tipo de servicio vehicular:</label>
+            <input
+              class="formulario__input"
+              type="text"
+              name="nombre"
+              id="nombre"
+              placeholder="Ej: Llantas"
+            />
+          </div>
+          <input type="submit" class="formulario__submit" value="Registrar Tipo de Servicio Vehicular" />
+        </form>
+      </div>
+      <div class="captura-servicio-vehicular__card-container"></div>
+    </main>
+
+    {{template "componentes/footer"}}
+
+    <script src="js/capturaServicioVehicular.js"></script>
+  </body>
+</html>
+
+{{ end }}
