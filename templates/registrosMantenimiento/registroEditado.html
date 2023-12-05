@@ -1,0 +1,66 @@
+{{ define "registrosMantenimiento/registroEditado"}}
+<!DOCTYPE html>
+<html lang="es">
+  {{template "componentes/head" . -}}
+
+  <body>
+    {{template "componentes/header" -}}
+    <div class="confirmacion-edicion">
+      <div class="confirmacion-edicion__contenedor">
+        <h1 class="confirmacion-edicion__titulo">
+          ¡Registro Editado con Éxito!
+        </h1>
+
+        <p class="confirmacion-edicion__texto">
+          Placa: <span id="placa"></span>
+        </p>
+
+        <p class="confirmacion-edicion__texto">
+          Marca: <span id="marca"></span>
+        </p>
+
+        <p class="confirmacion-edicion__texto">
+          Modelo: <span id="modelo"></span>
+        </p>
+
+        <p class="confirmacion-edicion__texto">
+          Año: <span id="fechaDeLanzamiento"></span>
+        </p>
+
+        <p class="confirmacion-edicion__texto">
+          Fecha: <span id="fecha"></span>
+        </p>
+
+        <p class="confirmacion-edicion__texto">
+          Tipo de Registro: <span id="tipoRegistro"></span>
+        </p>
+
+        <p class="confirmacion-edicion__texto">
+          Kilometraje: <span id="kilometraje"></span>
+        </p>
+
+        <p id="campo-cambiante" class="confirmacion-edicion__texto"></p>
+
+        <p class="confirmacion-edicion__texto">
+          Importe: <span id="importe"></span>
+        </p>
+
+        <p class="confirmacion-edicion__texto">
+          Observaciones: <span id="observaciones"></span>
+        </p>
+
+        <a
+          href="/HistorialRegistrosMantenimientoVehiculo"
+          class="confirmacion-edicion__volver"
+        >
+          Volver
+        </a>
+      </div>
+    </div>
+
+    {{template "componentes/footer" -}}
+    <script src="js/registroEditado.js"></script>
+  </body>
+</html>
+
+{{ end }}
