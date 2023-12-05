@@ -77,7 +77,7 @@ func main() {
 	})
 
 	router.POST("/Logout", func(ctx *gin.Context) {
-		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "capturista")
 	}, func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.CerrarSesion(ctx)
 	}, func(c *gin.Context) {
