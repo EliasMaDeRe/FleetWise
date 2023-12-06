@@ -10,6 +10,8 @@ import (
 	"example/fleetwise/modelos/capturavehiculos"
 	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
 	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+
+	"github.com/microcosm-cc/bluemonday"
 )
 
 type Controlador struct {
@@ -47,6 +49,13 @@ func (c *Controlador) AgregarVehiculo(solicitud *capturaVehiculosModelos.Agregar
 }
 
 func (c *Controlador) validarAgregarVehiculosSolicitud(solicitud *capturaVehiculosModelos.AgregarVehiculoSolicitud) error {
+
+	solicitud.AsignarFechaLanzamiento(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerFechaLanzamiento()))
+	solicitud.AsignarMarca(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerMarca()))
+	solicitud.AsignarModelo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerModelo()))
+	solicitud.AsignarPlacas(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerPlacas()))
+	solicitud.AsignarSerie(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerSerie()))
+
 	if fechalanzamiento, err := strconv.Atoi(solicitud.ObtenerFechaLanzamiento()); err != nil || fechalanzamiento <= 0 {
 		return errors.New(constantes.ERROR_FECHALANZAMIENTO_NO_NATURAL)
 	}
@@ -92,6 +101,14 @@ func (c *Controlador) validarEditarVehiculosSolicitud(solicitud *capturaVehiculo
 	if fechalanzamiento, err := strconv.Atoi(solicitud.ObtenerFechaDeLanzamientoNueva()); err != nil || fechalanzamiento <= 0 {
 		return errors.New(constantes.ERROR_FECHALANZAMIENTO_NO_NATURAL)
 	}
+
+	solicitud.AsignarFechaDeLanzamientoNueva(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerFechaDeLanzamientoNueva()))
+	solicitud.AsignarMarcaNueva(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerMarcaNueva()))
+	solicitud.AsignarModeloNuevo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerModeloNuevo()))
+	solicitud.AsignarPlacasActuales(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerPlacasActuales()))
+	solicitud.AsignarPlacasNuevas(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerPlacasNuevas()))
+	solicitud.AsignarSerieNuevo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerSerieNuevo()))
+
 	obtenerVehiculoPorPlacasSolicitud := &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacasNuevas())
 	obtenerVehiculoPorSerieSolicitud := &conectorBDModelos.ObtenerVehiculoPorSerieSolicitud{}

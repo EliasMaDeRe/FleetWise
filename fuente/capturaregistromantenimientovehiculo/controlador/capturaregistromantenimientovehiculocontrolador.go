@@ -13,6 +13,8 @@ import (
 	capturaServicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
 	capturaVehiculoModelos "example/fleetwise/modelos/capturavehiculos"
 	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+
+	"github.com/microcosm-cc/bluemonday"
 )
 
 type Controlador struct {
@@ -43,6 +45,9 @@ func (c *Controlador) SeleccionarVehiculoParaNuevoRegistro(solicitud *capturaReg
 }
 
 func (c *Controlador) validarSeleccionarVehiculoParaRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.SeleccionarVehiculoParaNuevoRegistroSolicitud) error {
+
+	solicitud.AsignarPlacas(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerPlacas()))
+
 	obtenerVehiculoPorPlacasSolicitud := &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
 	if c.CapturaServicioVehicularControlador.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
@@ -102,6 +107,16 @@ func (c *Controlador) validarAgregarRegistroMantemientoVehiculo(solicitud *captu
 	if importe, err := strconv.ParseFloat(solicitud.ObtenerImporte(), 64); err != nil || importe <= 0 {
 		return errors.New(constantes.ERROR_IMPORTE_NO_VALIDO)
 	}
+
+	solicitud.AsignarConcepto(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerConcepto()))
+	solicitud.AsignarFecha(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerFecha()))
+	solicitud.AsignarImporte(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerImporte()))
+	solicitud.AsignarKilometraje(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerKilometraje()))
+	solicitud.AsignarLitrosDeGasolina(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerLitrosDeGasolina()))
+	solicitud.AsignarNumeroDeRegistro(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerNumeroDeRegistro()))
+	solicitud.AsignarObservaciones(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerObservaciones()))
+	solicitud.AsignarPlacasVehiculo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerPlacasVehiculo()))
+	solicitud.AsignarTipo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerTipo()))
 
 	return nil
 }
@@ -170,6 +185,12 @@ func (c *Controlador) numeroDeRegistroExistente(numeroDeRegistro int) bool {
 }
 
 func (c *Controlador) validarSolicitudEditarRegistro(solicitud *capturaRegistroMantenimientoVehiculoModelos.EditarRegistroDeMantenimientoDeVehiculoSolicitud) error {
+
+	solicitud.AsignarConcepto(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerConcepto()))
+	solicitud.AsignarFecha(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerFecha()))
+	solicitud.AsignarObservaciones(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerObservaciones()))
+	solicitud.AsignarPlacasVehiculo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerPlacasVehiculo()))
+	solicitud.AsignarTipo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerTipo()))
 
 	if !c.existePlaca(solicitud.ObtenerPlacasVehiculo()) {
 		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)

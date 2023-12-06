@@ -17,7 +17,7 @@ func NuevoManejador() (c *Manejador) {
 	return &Manejador{
 		ServicioVehicularControlador: &capturaServicioVehicularControlador.Controlador{
 			CapturaServicioVehicularMapeador: &capturaServicioVehicularMapeador.Mapeador{},
-			ConectorBDControlador:     &conectorBDControlador.Controlador{},
+			ConectorBDControlador:            &conectorBDControlador.Controlador{},
 		},
 	}
 }
