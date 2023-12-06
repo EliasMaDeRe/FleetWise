@@ -5,6 +5,10 @@
 		cargarPagina();
 	});
 
+	window.addEventListener("hashchange", () => {
+		desplegarVentanaEliminarVehiculo();
+	});
+
 	function cargarPluginDataTable() {
 		let table = new DataTable("#tabla-resumen", {
 			responsive: true,
@@ -28,7 +32,11 @@
 
 		const resultado = await respuesta.json();
 
-		desplegarInformacionEnLaPagina(resultado);
+		await desplegarInformacionEnLaPagina(resultado);
+
+		if (window.location.hash) {
+			desplegarVentanaEliminarVehiculo();
+		}
 	}
 
 	async function desplegarInformacionEnLaPagina(resumenFlotilla) {
@@ -90,8 +98,68 @@
 	function construirEnlaceEliminarVehiculo(placasVehiculo) {
 		const enlaceEliminarVehiculo = document.createElement("A");
 		enlaceEliminarVehiculo.innerText = "Eliminar";
-		enlaceEliminarVehiculo.href = "#" + placasVehiculo;
+		enlaceEliminarVehiculo.href = "#eliminar:" + placasVehiculo;
 
 		return enlaceEliminarVehiculo;
+	}
+
+	function desplegarVentanaEliminarVehiculo() {
+		if (!window.location.hash.includes("#eliminar")) {
+			return;
+		}
+		const placaVehiculo = window.location.hash.replace("#eliminar:", "");
+
+		if (!document.querySelector(`a[href='#eliminar:${placaVehiculo}']`)) {
+			return;
+		}
+
+		Swal.fire({
+			title: "¿Deseas eliminar el vehiculo con placa '" + placaVehiculo + "' ?",
+			showCancelButton: true,
+			confirmButtonText: "Eliminar",
+			denyButtonText: `Cancelar`,
+		}).then((result) => {
+			if (result.isConfirmed) {
+				eliminarVehiculo(placaVehiculo);
+			} else {
+				recargarPagina();
+			}
+		});
+	}
+
+	async function eliminarVehiculo(placa) {
+		const urlEliminarVehiculo = "/EliminarVehiculo";
+		const peticionEliminarVehiculo = {
+			placas: placa,
+		};
+
+		const resultado = await fetch(urlEliminarVehiculo, {
+			method: "DELETE",
+			body: JSON.stringify(peticionEliminarVehiculo),
+		});
+
+		const respuesta = await resultado.json();
+
+		if (respuesta.OK) {
+			Swal.fire({
+				title: "Vehiculo Eliminado",
+				text: "Vehiculo eliminado correctamente",
+				icon: "success",
+			}).then(() => {
+				recargarPagina();
+			});
+		} else {
+			Swal.fire({
+				title: "Error!",
+				text: "Ha ocurrido un error al intentar eliminar el vehiculo, por favor inténtelo mas tarde",
+				icon: "error",
+			}).then(() => {
+				recargarPagina();
+			});
+		}
+	}
+
+	function recargarPagina() {
+		window.location.href = window.location.href.replace(window.location.hash, "");
 	}
 })();
