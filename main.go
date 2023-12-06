@@ -96,6 +96,12 @@ func main() {
 		controlador.CapturaVehiculosManejador.AgregarVehiculo(ctx)
 	})
 
+	router.DELETE("/EliminarVehiculo", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
+	}, func(ctx *gin.Context) {
+		controlador.CapturaVehiculosManejador.EliminarVehiculo(ctx)
+	})
+
 	// Captura servicio vehicular
 	router.GET("/AgregarServicioVehicular", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
