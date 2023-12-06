@@ -37,31 +37,15 @@
 		}
 
 		function desplegarAlerta(tipoDeAlerta, mensajeAlerta) {
-			const contenedorPrincipal = document.querySelector(".captura-vehiculo__contenedor");
-			const alertaExistente = contenedorPrincipal.querySelector(".alerta");
-			if (alertaExistente) {
-				contenedorPrincipal.removeChild(alertaExistente);
-			}
-			contenedorPrincipal.appendChild(construirAlerta(tipoDeAlerta, mensajeAlerta));
-		}
-
-		function construirAlerta(tipoDeAlerta, mensajeDeAlerta) {
-			const contenedorAlerta = crearContenedorAlerta(tipoDeAlerta);
-			contenedorAlerta.append(crearTextoAlerta(mensajeDeAlerta));
-			return contenedorAlerta;
-		}
-
-		function crearContenedorAlerta(tipoDeAlerta) {
-			const contenedorAlerta = document.createElement("DIV");
-			contenedorAlerta.classList.add("alerta");
-			contenedorAlerta.classList.add(`alerta--${tipoDeAlerta}`);
-			return contenedorAlerta;
-		}
-
-		function crearTextoAlerta(mensajeDeAlerta) {
-			const textoAlerta = document.createElement("P");
-			textoAlerta.textContent = mensajeDeAlerta;
-			return textoAlerta;
+			Swal.fire({
+				title: tipoDeAlerta === "error" ? "¡Error!" : "¡Éxito!",
+				text: mensajeAlerta,
+				icon: tipoDeAlerta === "error" ? "error" : "success",
+			}).then(() => {
+				if (tipoDeAlerta !== "error") {
+					window.location.reload();
+				}
+			});
 		}
 	}
 })();
