@@ -10,11 +10,15 @@
 
 		let table = new DataTable("#tabla-resumen", {
 			responsive: true,
-			scrollX: true,
 			language: {
 				url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json",
 				emptyTable: "Ningún registro coincide con los filtros establecidos.",
 			},
+			exportOptions: {
+				columns: ":visible",
+			},
+			dom: "Bfrtip",
+			buttons: ["print"],
 		});
 		return table;
 	}
