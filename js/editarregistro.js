@@ -38,7 +38,7 @@
 		if (respuestaEditarRegistro.OK) {
 			window.location.href = "/RegistroEditado?numRegistro=" + obtenerNumDeRegistro();
 		} else {
-			desplegarAlertaError(respuestaEditarRegistro.mensajeError);
+			desplegarAlerta("error", respuestaEditarRegistro.mensajeError);
 		}
 	});
 
@@ -181,25 +181,11 @@
 		return resultado;
 	}
 
-	function desplegarAlertaError(mensajeError) {
-		const contenedorPrincipal = document.querySelector("main.editar-registro");
-
-		const contenedorAlerta = document.querySelector("div.alerta");
-
-		if (contenedorAlerta) {
-			const textoAlerta = contenedorAlerta.querySelector("p");
-			textoAlerta.textContent = mensajeError;
-		} else {
-			const contenedorAlerta = document.createElement("DIV");
-			contenedorAlerta.classList.add("alerta");
-			contenedorAlerta.classList.add("alerta--error");
-
-			const textoAlerta = document.createElement("P");
-			textoAlerta.textContent = mensajeError;
-
-			contenedorAlerta.appendChild(textoAlerta);
-
-			contenedorPrincipal.appendChild(contenedorAlerta);
-		}
+	function desplegarAlerta(tipoDeAlerta, mensajeAlerta) {
+		Swal.fire({
+			title: tipoDeAlerta === "error" ? "¡Error!" : "¡Éxito!",
+			text: mensajeAlerta,
+			icon: tipoDeAlerta === "error" ? "error" : "success",
+		});
 	}
 })();

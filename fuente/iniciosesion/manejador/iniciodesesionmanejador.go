@@ -12,6 +12,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/microcosm-cc/bluemonday"
 )
 
 type Manejador struct {
@@ -50,6 +51,8 @@ func (m *Manejador) IniciarSesion(contexto *gin.Context) {
 func (m *Manejador) ValidarSesion(contexto *gin.Context, cargoRequerido string) {
 
 	tokenCadena, err := contexto.Cookie("autorizacion")
+
+	tokenCadena = (bluemonday.StrictPolicy().Sanitize(tokenCadena))
 
 	if err != nil {
 		contexto.HTML(http.StatusUnauthorized, "login", gin.H{})

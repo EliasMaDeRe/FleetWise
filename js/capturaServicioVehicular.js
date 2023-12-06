@@ -49,48 +49,26 @@
 			return urlDetectado;
 		}
 
-		function construirPeticionFormulario(inputsFormulario) {
-			const datosFormulario = new FormData();
+		function construirPeticionFormulario() {
+			const nombreServicio = document.getElementById("nombre").value;
 
-			if (document.querySelector(".captura-servicio-vehicular__card-editor")) {
-				datosFormulario.append("nombreactual", document.querySelector(".captura-servicio-vehicular__card-editor").name);
-				inputsFormulario.forEach((inputFormulario) => {
-					datosFormulario.append("nuevonombre", inputFormulario.value);
-				});
-			} else {
-				inputsFormulario.forEach((inputFormulario) => {
-					datosFormulario.append(inputFormulario.id, inputFormulario.value);
-				});
+			if (nombreServicio === "") {
+				desplegarAlerta("error", "Campo de nombre vacío");
+				return;
 			}
+
+			const datosFormulario = new FormData();
+			datosFormulario.append("nombre", nombreServicio);
+
 			return datosFormulario;
 		}
 
 		function desplegarAlerta(tipoDeAlerta, mensajeAlerta) {
-			const contenedorPrincipal = document.querySelector(".captura-servicio-vehicular__contenedor");
-			const alertaExistente = contenedorPrincipal.querySelector(".alerta");
-			if (alertaExistente) {
-				contenedorPrincipal.removeChild(alertaExistente);
-			}
-			contenedorPrincipal.appendChild(construirAlerta(tipoDeAlerta, mensajeAlerta));
-		}
-
-		function construirAlerta(tipoDeAlerta, mensajeDeAlerta) {
-			const contenedorAlerta = crearContenedorAlerta(tipoDeAlerta);
-			contenedorAlerta.append(crearTextoAlerta(mensajeDeAlerta));
-			return contenedorAlerta;
-		}
-
-		function crearContenedorAlerta(tipoDeAlerta) {
-			const contenedorAlerta = document.createElement("DIV");
-			contenedorAlerta.classList.add("alerta");
-			contenedorAlerta.classList.add(`alerta--${tipoDeAlerta}`);
-			return contenedorAlerta;
-		}
-
-		function crearTextoAlerta(mensajeDeAlerta) {
-			const textoAlerta = document.createElement("P");
-			textoAlerta.textContent = mensajeDeAlerta;
-			return textoAlerta;
+			Swal.fire({
+				title: tipoDeAlerta === "error" ? "¡Error!" : "¡Éxito!",
+				text: mensajeAlerta,
+				icon: tipoDeAlerta === "error" ? "error" : "success",
+			});
 		}
 	}
 

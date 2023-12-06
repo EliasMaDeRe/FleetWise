@@ -3,7 +3,6 @@
 		const selectConcepto = document.getElementById("conceptoregistro");
 		obtenerServicios();
 
-		const placasVehiculo = document.querySelector(".captura-registro-mantenimiento-vehiculo__placas-contenedor");
 		desplegarPlacas();
 
 		function obtenerServicios() {
@@ -31,14 +30,11 @@
 				selectConcepto.appendChild(optionTipoDeRegistro);
 			});
 		}
-
-		function desplegarPlacas() {
-			const placas = obtenerPlacasVehiculo();
-			const elementoTarjeta = document.createElement("p");
-			elementoTarjeta.textContent = "Placas del vehiculo a registrar: " + placas;
-			placasVehiculo.appendChild(elementoTarjeta);
-		}
 	});
+
+	function desplegarPlacas() {
+		document.querySelector("#placasVehiculo").value = obtenerPlacasVehiculo();
+	}
 
 	function obtenerPlacasVehiculo() {
 		var urlActual = new URL(window.location.href);
@@ -52,15 +48,19 @@
 	selectTipoServicioVehicular.addEventListener("change", function () {
 		const gasolina_label = document.getElementById("litros_gasolina_label");
 		const gasolina_input = document.getElementById("litrosdegasolina");
-		const concepto = document.getElementById("concepto");
+		const concepto_label = document.getElementById("concepto");
+		const concepto_select = document.getElementById("conceptoregistro");
+
 		if (selectTipoServicioVehicular.value == "carga de combustible") {
 			gasolina_label.removeAttribute("hidden");
 			gasolina_input.removeAttribute("hidden");
-			concepto.setAttribute("hidden", "hidden");
+			concepto_label.setAttribute("hidden", "hidden");
+			concepto_select.setAttribute("hidden", "hidden");
 		} else {
 			gasolina_label.setAttribute("hidden", "hidden");
 			gasolina_input.setAttribute("hidden", "hidden");
-			concepto.removeAttribute("hidden");
+			concepto_label.removeAttribute("hidden");
+			concepto_select.removeAttribute("hidden");
 		}
 	});
 
@@ -72,12 +72,11 @@
 			const inputsFormulario = obtenerInputsDelFormulario();
 			enviarFormulario(inputsFormulario);
 			resetearFormulario();
-			
 		});
 
 		function resetearFormulario() {
 			const formulario = document.querySelector(".formulario");
-			formulario.reset(); 
+			formulario.reset();
 		}
 		function obtenerInputsDelFormulario() {
 			return document.querySelectorAll(".formulario__input");
@@ -86,13 +85,14 @@
 		async function enviarFormulario(inputsFormulario) {
 			const datosFormulario = construirPeticionFormulario(inputsFormulario);
 			const datosFormularioJSON = JSON.stringify(Object.fromEntries(datosFormulario));
-			console.log(datosFormularioJSON);
+
 			const agregarRegistroURL = "/AgregarRegistroMantenimientoVehiculo";
 			const peticion = await fetch(agregarRegistroURL, {
 				method: "POST",
 				body: datosFormularioJSON,
 			});
 			const respuesta = await peticion.json();
+
 			if (!respuesta.OK) {
 				desplegarAlerta("error", respuesta.err);
 			} else {
@@ -110,31 +110,17 @@
 		}
 
 		function desplegarAlerta(tipoDeAlerta, mensajeAlerta) {
-			const contenedorPrincipal = document.querySelector(".captura-registro-mantenimiento-vehiculo__contenedor");
-			const alertaExistente = contenedorPrincipal.querySelector(".alerta");
-			if (alertaExistente) {
-				contenedorPrincipal.removeChild(alertaExistente);
-			}
-			contenedorPrincipal.appendChild(construirAlerta(tipoDeAlerta, mensajeAlerta));
-		}
-
-		function construirAlerta(tipoDeAlerta, mensajeDeAlerta) {
-			const contenedorAlerta = crearContenedorAlerta(tipoDeAlerta);
-			contenedorAlerta.append(crearTextoAlerta(mensajeDeAlerta));
-			return contenedorAlerta;
-		}
-
-		function crearContenedorAlerta(tipoDeAlerta) {
-			const contenedorAlerta = document.createElement("DIV");
-			contenedorAlerta.classList.add("alerta");
-			contenedorAlerta.classList.add(`alerta--${tipoDeAlerta}`);
-			return contenedorAlerta;
-		}
-
-		function crearTextoAlerta(mensajeDeAlerta) {
-			const textoAlerta = document.createElement("P");
-			textoAlerta.textContent = mensajeDeAlerta;
-			return textoAlerta;
+			Swal.fire({
+				title: tipoDeAlerta === "error" ? "¡Error!" : "¡Éxito!",
+				text: mensajeAlerta,
+				icon: tipoDeAlerta === "error" ? "error" : "success",
+			}).then(() => {
+				if (tipoDeAlerta !== "error") {
+					window.location.href = "/SeleccionarVehiculoParaNuevoRegistro";
+				} else {
+					desplegarPlacas();
+				}
+			});
 		}
 	}
 })();

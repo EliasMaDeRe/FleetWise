@@ -5,7 +5,7 @@
   <body>
     {{template "componentes/header" -}}
     <main class="historial-registros">
-      <h1 class="historial-registros__titulo">
+      <h1 class="historial-registros__heading">
         Historial de Registros de Mantenimientos
       </h1>
 
@@ -13,7 +13,7 @@
         <form action="" class="filtros">
           <div class="filtros__campos">
             <div class="filtros__campo">
-              <label for="placa" class="filtros__etiqueta">Placa</label>
+              <label for="placa" class="filtros__etiqueta"> Placas </label>
               <select id="placa" name="placa" class="filtros__desplegable">
                 <option value="" selected>No Filtrar</option>
               </select>
@@ -25,14 +25,14 @@
               </select>
             </div>
             <div class="filtros__campo">
-              <label for="modelo" class="filtros__etiqueta">Modelo</label>
+              <label for="modelo" class="filtros__etiqueta">Modelo </label>
               <select id="modelo" name="modelo" class="filtros__desplegable">
                 <option value="" selected>No Filtrar</option>
               </select>
             </div>
             <div class="filtros__campo">
               <label for="fechaDeLanzamiento" class="filtros__etiqueta">
-                Año
+                Año del vehículo
               </label>
               <select
                 id="fechaDeLanzamiento"
@@ -73,12 +73,12 @@
 
       <div class="historial-registros__contenedor-registros">
         <table
-          class="registros hover row-border order-column stripe"
+          class="registros hover row-border order-column stripe display-responsive"
           id="tabla-registros"
         >
           <thead>
             <tr>
-              <th>Fecha</th>
+              <th>Fecha del mantenimiento</th>
               <th>Placa</th>
               <th>Marca</th>
               <th>Modelo</th>
@@ -116,6 +116,9 @@
     {{template "componentes/footer" -}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="js/historialregistros.js"></script>
   </body>
 </html>

@@ -7,10 +7,12 @@ import (
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	capturaServicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
 	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+
+	"github.com/microcosm-cc/bluemonday"
 )
 
 type Controlador struct {
-	ConectorBDControlador     *conectorBDControlador.Controlador
+	ConectorBDControlador            *conectorBDControlador.Controlador
 	CapturaServicioVehicularMapeador *capturaServicioVehicularMapeador.Mapeador
 }
 
@@ -44,6 +46,8 @@ func (c *Controlador) AgregarServicioVehicular(solicitud *capturaServicioVehicul
 }
 
 func (c *Controlador) validarAgregarServicioVehicularSolicitud(solicitud *capturaServicioVehicularModelos.AgregarServicioVehicularSolicitud) error {
+
+	solicitud.AsignarNombre(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerNombre()))
 
 	obtenerServicioVehicularPorNombreSolicitud := &conectorBDModelos.ObtenerServicioVehicularPorNombreSolicitud{}
 	obtenerServicioVehicularPorNombreSolicitud.AsignarNombre(solicitud.ObtenerNombre())

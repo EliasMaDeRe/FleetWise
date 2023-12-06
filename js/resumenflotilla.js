@@ -6,15 +6,17 @@
 	});
 
 	function cargarPluginDataTable() {
-		console.log("Visca Barça");
-
 		let table = new DataTable("#tabla-resumen", {
 			responsive: true,
-			scrollX: true,
 			language: {
 				url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json",
 				emptyTable: "Ningún registro coincide con los filtros establecidos.",
 			},
+			exportOptions: {
+				columns: ":visible",
+			},
+			dom: "Bfrtip",
+			buttons: ["print"],
 		});
 		return table;
 	}
@@ -29,7 +31,7 @@
 		desplegarInformacionEnLaPagina(resultado);
 	}
 
-	async function desplegarInformacionEnLaPagina(resumenesFlotillas) {
+	async function desplegarInformacionEnLaPagina(resumenFlotilla) {
 		const {
 			vehiculos,
 			gastosDeCombustiblePorVehiculo,
@@ -39,7 +41,7 @@
 			rendimientosKilometroLitroPorVehiculo,
 			ultimosKilometrajesPorVehiculo,
 			kilometrajesInicialesPorVehiculo,
-		} = resumenesFlotillas;
+		} = resumenFlotilla;
 
 		for (let indiceVehiculo = 0; indiceVehiculo < vehiculos.length; indiceVehiculo++) {
 			vehiculo = vehiculos[indiceVehiculo];
@@ -47,14 +49,9 @@
 			const accionesContenedor = document.createElement("DIV");
 			accionesContenedor.classList.add("resumen__acciones");
 
-			const enlaceEditarVehiculo = document.createElement("A");
-			enlaceEditarVehiculo.innerText = "Editar";
-			enlaceEditarVehiculo.href = `/EditarVehiculo?placas=${vehiculo.Placas}`;
-			enlaceEditarVehiculo.target = "_blank";
+			const enlaceEditarVehiculo = construirEnlaceEditarVehiculo(vehiculo.Placas);
 
-			const enlaceEliminarVehiculo = document.createElement("A");
-			enlaceEliminarVehiculo.innerText = "Eliminar";
-			enlaceEliminarVehiculo.href = `/EliminarVehiculo?placas=${vehiculo.Placas}`;
+			const enlaceEliminarVehiculo = construirEnlaceEliminarVehiculo(vehiculo.Placas);
 
 			accionesContenedor.appendChild(enlaceEditarVehiculo);
 			accionesContenedor.appendChild(enlaceEliminarVehiculo);
@@ -64,6 +61,7 @@
 				vehiculo.Marca,
 				vehiculo.Modelo,
 				vehiculo.FechaLanzamiento,
+				vehiculo.Serie,
 				gastosDeCombustiblePorVehiculo[indiceVehiculo] == 0 ? "N/A" : gastosDeCombustiblePorVehiculo[indiceVehiculo],
 				gastosEnMantenimientoPorVehiculo[indiceVehiculo] == 0 ? "N/A" : gastosEnMantenimientoPorVehiculo[indiceVehiculo],
 				rendimientosKilometroLitroPorVehiculo[indiceVehiculo] == 0 ? "N/A" : rendimientosKilometroLitroPorVehiculo[indiceVehiculo],
@@ -76,6 +74,24 @@
 
 			tablaResumen.row.add(resumenFlotilla);
 		}
+
 		tablaResumen.draw();
+	}
+
+	function construirEnlaceEditarVehiculo(placasVehiculo) {
+		const enlaceEditarVehiculo = document.createElement("A");
+		enlaceEditarVehiculo.innerText = "Editar";
+		enlaceEditarVehiculo.href = `/EditarVehiculo?placas=${placasVehiculo}`;
+		enlaceEditarVehiculo.target = "_blank";
+
+		return enlaceEditarVehiculo;
+	}
+
+	function construirEnlaceEliminarVehiculo(placasVehiculo) {
+		const enlaceEliminarVehiculo = document.createElement("A");
+		enlaceEliminarVehiculo.innerText = "Eliminar";
+		enlaceEliminarVehiculo.href = "#" + placasVehiculo;
+
+		return enlaceEliminarVehiculo;
 	}
 })();
