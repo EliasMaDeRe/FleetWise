@@ -113,15 +113,21 @@ func (c *Controlador) validarEditarVehiculosSolicitud(solicitud *capturaVehiculo
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacasNuevas())
 	obtenerVehiculoPorSerieSolicitud := &conectorBDModelos.ObtenerVehiculoPorSerieSolicitud{}
 	obtenerVehiculoPorSerieSolicitud.AsignarSerie(solicitud.ObtenerSerieNuevo())
-	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) != nil {
+	if solicitud.ObtenerPlacasActuales() != solicitud.ObtenerPlacasNuevas() &&
+		c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) != nil {
 		return errors.New(constantes.ERROR_PLACAS_EXISTENTES_EN_BD)
 	}
 	obtenerVehiculoPorPlacasSolicitud = &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacasActuales())
-	if c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
+
+	var vehiculo *capturavehiculos.Vehiculo
+
+	if vehiculo = c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud); vehiculo == nil {
 		return errors.New(constantes.ERROR_VEHICULO_A_EDITAR_NO_EXISTE)
 	}
-	if c.ConectorBDControlador.ObtenerVehiculoPorSerie(obtenerVehiculoPorSerieSolicitud) != nil {
+
+	if vehiculo.ObtenerSerie() != solicitud.ObtenerSerieNuevo() &&
+		c.ConectorBDControlador.ObtenerVehiculoPorSerie(obtenerVehiculoPorSerieSolicitud) != nil {
 		return errors.New(constantes.ERROR_SERIE_EXISTENTE_EN_BD)
 	}
 	return nil
