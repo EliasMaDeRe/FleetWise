@@ -29,7 +29,9 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorBDModelos.Obte
 	}
 
 	vehiculos := []capturaVehiculosModelos.Vehiculo{}
-	resultadoBusqueda := baseDeDatos.Table(capturaVehiculosModelos.Vehiculo{}.TableName()).Where("placas = ?", solicitud.ObtenerPlacas()).Find(&vehiculos)
+
+	// Llamada al procedimiento almacenado
+	resultadoBusqueda := baseDeDatos.Raw("CALL obtenerVehiculosPorPlacas(?)", solicitud.ObtenerPlacas()).Find(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
@@ -43,7 +45,6 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorBDModelos.Obte
 
 	return vehiculoEncontrado
 }
-
 func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorBDModelos.ObtenerVehiculoPorSerieSolicitud) *capturaVehiculosModelos.Vehiculo {
 	var errConectarBD error
 
@@ -55,7 +56,8 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorBDModelos.Obten
 
 	vehiculos := []capturaVehiculosModelos.Vehiculo{}
 
-	resultadoBusqueda := baseDeDatos.Where(&capturaVehiculosModelos.Vehiculo{Serie: solicitud.ObtenerSerie()}).Find(&vehiculos)
+	// Llamada al procedimiento almacenado
+	resultadoBusqueda := baseDeDatos.Raw("CALL obtenerVehiculoPorSerie(?)", solicitud.ObtenerSerie()).Scan(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_SERIE_INEXISTENTES_EN_BD)
@@ -250,6 +252,7 @@ func (c *Controlador) GuardarUsuario(usuario *inicioSesionModelos.Usuario) *cone
 }
 
 func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorBDModelos.ObtenerUsuarioPorNombreUsuarioSolicitud) *inicioSesionModelos.Usuario {
+	var errConectarBD error
 
 	baseDeDatos, errConectarBD := gorm.Open("mysql", c.obtenerConexionABd())
 
@@ -259,7 +262,8 @@ func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorBDModelo
 
 	usuario := inicioSesionModelos.Usuario{}
 
-	resultadoBusqueda := baseDeDatos.Where(&inicioSesionModelos.Usuario{NombreUsuario: solicitud.ObtenerNombre()}).Find(&usuario)
+	// Llamada al procedimiento almacenado
+	resultadoBusqueda := baseDeDatos.Raw("CALL obtenerUsuariosPorNombreUsuario(?)", solicitud.ObtenerNombre()).Find(&usuario)
 
 	if resultadoBusqueda.Error != nil {
 		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
