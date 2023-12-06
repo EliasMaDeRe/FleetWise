@@ -4,9 +4,12 @@ import (
 	capturaVehiculosControlador "example/fleetwise/fuente/capturavehiculos/controlador"
 	capturaVehiculosMapeador "example/fleetwise/fuente/capturavehiculos/mapeador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	"fmt"
 	"net/http"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 type Manejador struct {
@@ -34,6 +37,32 @@ func (m *Manejador) AgregarVehiculo(contexto *gin.Context) {
 		mensajeError = respuesta.ObtenerErr().Error()
 	}
 	contexto.IndentedJSON(status, gin.H{"OK": respuesta.ObtenerOk(), "err": mensajeError})
+}
+
+func (m *Manejador) AgregarImagenVehiculo(contexto *gin.Context) {
+	archivo, err := contexto.FormFile("archivo")
+
+	if err != nil {
+		contexto.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"err": "No se recupero el archivo",
+		})
+		return
+	}
+
+	fmt.Println(archivo.Filename)
+	extension := filepath.Ext(archivo.Filename)
+	nuevoNombreArchivo := uuid.New().String() + extension
+
+	if err := contexto.SaveUploadedFile(archivo, "/img/uploads/"+nuevoNombreArchivo); err != nil {
+		contexto.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"err": "No se guardo el archivo",
+		})
+		return
+	}
+
+	contexto.JSON(http.StatusOK, gin.H{
+		"OK": true,
+	})
 }
 
 func (m *Manejador) EditarVehiculo(contexto *gin.Context) {
