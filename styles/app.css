@@ -2,6 +2,7 @@
   --primario: rgb(16, 155, 253);
   --azul_claro: #eaf5fe;
   --blanco: white;
+  --morado: #656ed3;
   --fuente-principal: "Poppins", sans-serif;
   --rgb_card: rgba(0, 0, 0, 0.2);
 }
@@ -888,3 +889,87 @@ RESUMEN FLOTILLA
   flex-direction: column;
   row-gap: 1rem;
 }
+
+/*
+=============================
+INICIO LOGIN
+=============================
+*/
+
+.login__contenedor {
+  margin: 0;
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+  align-items: center;
+}
+
+@media (max-width: 820px) {
+  .login__contenedor {
+    grid-template-columns: 1fr;
+    margin-bottom: 4rem;
+  }
+}
+
+.login__contenedor-formulario {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__formulario {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  min-width: 90%;
+}
+
+.login__campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__input {
+  text-indent: 2rem;
+}
+
+.login__input,
+.login__submit {
+  padding: 1rem;
+  border: 1px solid var(--morado);
+  border-radius: 2rem;
+}
+
+.login__submit {
+  background-color: var(--morado);
+  color: var(--blanco);
+}
+
+.login__submit:hover {
+  background-color: #1c2161;
+  cursor: pointer;
+}
+
+.login__coches {
+  display: flex;
+  justify-content: right;
+  min-width: 100%;
+}
+
+.login__coches svg {
+  height: auto;
+}
+
+@media (max-width: 820px) {
+  .login__coches {
+    display: none;
+  }
+}
+
+/*
+=============================
+FIN LOGIN
+=============================
+*/
