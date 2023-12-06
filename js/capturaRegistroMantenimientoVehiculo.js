@@ -3,7 +3,7 @@
 		const selectConcepto = document.getElementById("conceptoregistro");
 		obtenerServicios();
 
-		const placasVehiculo = document.querySelector(".captura-registro-mantenimiento-vehiculo__placas-contenedor");
+		const placasVehiculo = document.querySelector("#placasVehiculo");
 		desplegarPlacas();
 
 		function obtenerServicios() {
@@ -33,10 +33,7 @@
 		}
 
 		function desplegarPlacas() {
-			const placas = obtenerPlacasVehiculo();
-			const elementoTarjeta = document.createElement("p");
-			elementoTarjeta.textContent = "Placas del vehiculo a registrar: " + placas;
-			placasVehiculo.appendChild(elementoTarjeta);
+			placasVehiculo.value = obtenerPlacasVehiculo();
 		}
 	});
 
@@ -52,15 +49,19 @@
 	selectTipoServicioVehicular.addEventListener("change", function () {
 		const gasolina_label = document.getElementById("litros_gasolina_label");
 		const gasolina_input = document.getElementById("litrosdegasolina");
-		const concepto = document.getElementById("concepto");
+		const concepto_label = document.getElementById("concepto");
+		const concepto_select = document.getElementById("conceptoregistro");
+
 		if (selectTipoServicioVehicular.value == "carga de combustible") {
 			gasolina_label.removeAttribute("hidden");
 			gasolina_input.removeAttribute("hidden");
-			concepto.setAttribute("hidden", "hidden");
+			concepto_label.setAttribute("hidden", "hidden");
+			concepto_select.setAttribute("hidden", "hidden");
 		} else {
 			gasolina_label.setAttribute("hidden", "hidden");
 			gasolina_input.setAttribute("hidden", "hidden");
-			concepto.removeAttribute("hidden");
+			concepto_label.removeAttribute("hidden");
+			concepto_select.removeAttribute("hidden");
 		}
 	});
 
@@ -72,12 +73,11 @@
 			const inputsFormulario = obtenerInputsDelFormulario();
 			enviarFormulario(inputsFormulario);
 			resetearFormulario();
-			
 		});
 
 		function resetearFormulario() {
 			const formulario = document.querySelector(".formulario");
-			formulario.reset(); 
+			formulario.reset();
 		}
 		function obtenerInputsDelFormulario() {
 			return document.querySelectorAll(".formulario__input");
@@ -86,13 +86,14 @@
 		async function enviarFormulario(inputsFormulario) {
 			const datosFormulario = construirPeticionFormulario(inputsFormulario);
 			const datosFormularioJSON = JSON.stringify(Object.fromEntries(datosFormulario));
-			console.log(datosFormularioJSON);
+
 			const agregarRegistroURL = "/AgregarRegistroMantenimientoVehiculo";
 			const peticion = await fetch(agregarRegistroURL, {
 				method: "POST",
 				body: datosFormularioJSON,
 			});
 			const respuesta = await peticion.json();
+
 			if (!respuesta.OK) {
 				desplegarAlerta("error", respuesta.err);
 			} else {

@@ -14,25 +14,33 @@
       >
         <form class="formulario">
           <fieldset class="formulario__campos">
-            <div
-              class="captura-registro-mantenimiento-vehiculo__placas-contenedor"
-            ></div>
             <div class="formulario__campo">
-              <p>
-                Tipo de Registro:
-                <select id="tiporegistro" class="formulario__input">
-                  <option value="servicio" selected="selected">Servicio</option>
-                  <option value="carga de combustible">
-                    Carga de Combustible
-                  </option>
-                  <option value="afinacion">Afinación</option>
-                  <option value="reaparacion">Reparaci&oacute;n</option>
-                  <option value="reemplazo">Reemplazo</option>
-                </select>
-              </p>
+              <label for="placasVehiculo" class="formulario__label">
+                Placas del vehículo a registrar:
+              </label>
+              <input
+                id="placasVehiculo"
+                type="text"
+                class="formulario__input"
+                disabled
+              />
             </div>
             <div class="formulario__campo">
-              <label for="fecha" class="formulario__label">*Fecha:</label>
+              <label class="formulario__label">Tipo de Registro:</label>
+              <select id="tiporegistro" class="formulario__input">
+                <option value="servicio" selected="selected">Servicio</option>
+                <option value="carga de combustible">
+                  Carga de Combustible
+                </option>
+                <option value="afinacion">Afinación</option>
+                <option value="reaparacion">Reparaci&oacute;n</option>
+                <option value="reemplazo">Reemplazo</option>
+              </select>
+            </div>
+            <div class="formulario__campo">
+              <label for="fecha" class="formulario__label"
+                >*Fecha del mantenimiento:</label
+              >
               <input
                 class="formulario__input"
                 type="date"
@@ -94,14 +102,12 @@
               />
             </div>
             <div class="formulario__campo">
-              <p id="concepto">
-                Concepto:
-                <select
-                  name="conceptoregistro"
-                  id="conceptoregistro"
-                  class="formulario__input"
-                ></select>
-              </p>
+              <label class="formulario__label" id="concepto">Concepto:</label>
+              <select
+                name="conceptoregistro"
+                id="conceptoregistro"
+                class="formulario__input"
+              ></select>
             </div>
           </fieldset>
           <input type="submit" class="formulario__submit" value="Enviar" />

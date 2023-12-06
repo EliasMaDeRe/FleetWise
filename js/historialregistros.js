@@ -27,6 +27,8 @@
 				url: "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json",
 				emptyTable: "Ningún registro coincide con los filtros establecidos.",
 			},
+			dom: "Bfrtip",
+			buttons: ["print"],
 		});
 		return table;
 	}

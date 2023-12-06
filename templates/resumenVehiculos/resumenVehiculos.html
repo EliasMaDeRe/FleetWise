@@ -7,11 +7,11 @@
     {{template "componentes/header" -}}
 
     <main class="resumen-flotilla">
-      <h1 class="resumen-flotilla__titulo">Resumen de Flotillas</h1>
+      <h1 class="resumen-flotilla__heading">Resumen de Flotillas</h1>
 
       <div class="resumen-flotilla__contenedor-registros">
         <table
-          class="resumen hover row-border order-column display nowrap dt-center"
+          class="resumen hover row-border order-column stripe display-responsive"
           id="tabla-resumen"
         >
           <thead>
@@ -27,7 +27,7 @@
               <th>Último Kilometraje</th>
               <th>KM Totales Recorridos</th>
               <th>KM Promedio Diario</th>
-              <th>Editar</th>
+              <th>Acciones</th>
             </tr>
           </thead>
 
@@ -46,7 +46,7 @@
               <th>Último Kilometraje</th>
               <th>KM Totales Recorridos</th>
               <th>KM Promedio Diario</th>
-              <th>Editar</th>
+              <th>Acciones</th>
             </tr>
           </tfoot>
         </table>
@@ -56,6 +56,9 @@
     {{template "componentes/footer" -}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="js/resumenflotilla.js"></script>
   </body>
 </html>
