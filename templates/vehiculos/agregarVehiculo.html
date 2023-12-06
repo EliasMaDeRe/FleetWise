@@ -1,0 +1,29 @@
+{{define "vehiculos/agregar"}}
+
+<!DOCTYPE html>
+<html lang="es">
+  {{template "componentes/head" . }}
+  <body>
+    {{template "componentes/header" -}}
+
+    <main class="captura-vehiculo__contenedor">
+      <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
+
+      <div class="captura-vehiculo__formulario-contenedor">
+        <form action="" class="formulario">
+          {{template "vehiculos/formularioCaptura" -}}
+          <input
+            type="submit"
+            class="formulario__submit"
+            value="Registrar Vehículo"
+          />
+        </form>
+      </div>
+    </main>
+
+    {{template "componentes/footer"}}
+
+    <script src="js/capturaVehiculo.js"></script>
+  </body>
+</html>
+{{ end }}

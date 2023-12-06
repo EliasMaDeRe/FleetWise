@@ -19,14 +19,13 @@ func NuevoManejador() (c *Manejador) {
 
 func (m *Manejador) ObtenerMetricasVehiculares(contexto *gin.Context) {
 	vehiculos, gastosDeCombustible, gastosEnMantenimiento, rendimientosKilometroLitro, kilometrajesIniciales, ultimosKilometrajes, kilometrosTotalesRecorridos, kilometrosPromedioDiariosRecorridos := m.visualizacionResumenMantenimientoVehiculosControlador.ObtenerMetricasVehiculares()
-
 	contexto.IndentedJSON(http.StatusOK, gin.H{
-		"vehiculos":vehiculos,
-		"gastosDeCombustiblePorVehiculo": gastosDeCombustible,
-		"gastosEnMantenimientoPorVehiculo": gastosEnMantenimiento,
-		"rendimientosKilometroLitroPorVehiculo": rendimientosKilometroLitro,
-		"kilometrajesInicialesPorVehiculo" : kilometrajesIniciales,
-		"ultimosKilometrajesPorVehiculo": ultimosKilometrajes,
-		"kilometrosTotalesRecorridosPorVehiculo": kilometrosTotalesRecorridos,
+		"vehiculos":                                      vehiculos,
+		"gastosDeCombustiblePorVehiculo":                 gastosDeCombustible,
+		"gastosEnMantenimientoPorVehiculo":               gastosEnMantenimiento,
+		"rendimientosKilometroLitroPorVehiculo":          rendimientosKilometroLitro,
+		"kilometrajesInicialesPorVehiculo":               kilometrajesIniciales,
+		"ultimosKilometrajesPorVehiculo":                 ultimosKilometrajes,
+		"kilometrosTotalesRecorridosPorVehiculo":         kilometrosTotalesRecorridos,
 		"kilometrosPromedioDiariosRecorridosPorVehiculo": kilometrosPromedioDiariosRecorridos})
 }
