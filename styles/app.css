@@ -173,6 +173,59 @@ INICIO CAPTURA-VEHÍCULO
   width: 70%;
 }
 
+.area-imagen__contenedor{
+  border: 2px dashed #fff;
+  height: 500px;
+  width: 700px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.area-imagen__contenedor.activo{
+  border: 2px solid #fff;
+}
+
+.area-imagen__encabezado{
+  font-size: 30px;
+  font-weight: 500;
+  color: #656ed3;
+}
+
+.area-imagen__encabezado span{
+  font-size: 25px;
+  font-weight: 500;
+  color: #fff;
+  margin: 10px 0 15px 0;
+}
+
+.area-imagen__boton{
+  padding: 10px 25px;
+  font-size: 20px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: #fff;
+  color:#656ed3;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.area-imagen__boton:hover{
+  background: rgb(228,220,220);
+
+}
+
+.area-imagen__contenedor img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
 /*
 =============================
 FIN CREAR-VEHÍCULO
@@ -219,6 +272,23 @@ INICIO CAPTURA-SERVICIO-VEHICULAR
 @media (max-width: 850px) {
   .captura-servicio-vehicular__card-container {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 745px){
+  .area-imagen__boton{
+    padding: 8px 20px;
+    font-size: 18px;
+    font-weight: 450;
+  }
+  .area-imagen__contenedor{
+    height: 400px;
+    width: 450px;
+  }
+  .area-imagen__encabezado{
+    font-size: 25px;
+    font-weight: 450;
+    color: #fff;
   }
 }
 
