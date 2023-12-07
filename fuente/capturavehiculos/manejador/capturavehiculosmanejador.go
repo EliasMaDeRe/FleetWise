@@ -4,7 +4,6 @@ import (
 	capturaVehiculosControlador "example/fleetwise/fuente/capturavehiculos/controlador"
 	capturaVehiculosMapeador "example/fleetwise/fuente/capturavehiculos/mapeador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
-	"fmt"
 	"net/http"
 	"path/filepath"
 
@@ -49,11 +48,10 @@ func (m *Manejador) AgregarImagenVehiculo(contexto *gin.Context) {
 		return
 	}
 
-	fmt.Println(archivo.Filename)
 	extension := filepath.Ext(archivo.Filename)
 	nuevoNombreArchivo := uuid.New().String() + extension
 
-	if err := contexto.SaveUploadedFile(archivo, "/img/uploads/"+nuevoNombreArchivo); err != nil {
+	if err := contexto.SaveUploadedFile(archivo, "./img/uploads/"+nuevoNombreArchivo); err != nil {
 		contexto.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"err": "No se guardo el archivo",
 		})

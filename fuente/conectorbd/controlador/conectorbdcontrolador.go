@@ -29,20 +29,24 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *conectorBDModelos.Obte
 	}
 
 	vehiculos := []capturaVehiculosModelos.Vehiculo{}
-
+	fmt.Println(solicitud)
 	// Llamada al procedimiento almacenado
-	resultadoBusqueda := baseDeDatos.Raw("CALL obtenerVehiculosPorPlacas(?)", solicitud.ObtenerPlacas()).Find(&vehiculos)
+	resultadoBusqueda := baseDeDatos.Raw("CALL obtenerVehiculoPorPlacas(?)", solicitud.ObtenerPlacas()).Scan(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
-		log.Fatal(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
+		return nil
 	}
 
 	var vehiculoEncontrado *capturaVehiculosModelos.Vehiculo
+	vehiculoCeros := &capturaVehiculosModelos.Vehiculo{}
 
 	if len(vehiculos) != 0 {
 		vehiculoEncontrado = &vehiculos[0]
+		if vehiculoEncontrado == vehiculoCeros {
+			vehiculoEncontrado = nil
+		}
 	}
-
+	fmt.Println(vehiculoEncontrado)
 	return vehiculoEncontrado
 }
 func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorBDModelos.ObtenerVehiculoPorSerieSolicitud) *capturaVehiculosModelos.Vehiculo {
@@ -60,13 +64,17 @@ func (c *Controlador) ObtenerVehiculoPorSerie(solicitud *conectorBDModelos.Obten
 	resultadoBusqueda := baseDeDatos.Raw("CALL obtenerVehiculoPorSerie(?)", solicitud.ObtenerSerie()).Scan(&vehiculos)
 
 	if resultadoBusqueda.Error != nil {
-		log.Fatal(constantes.ERROR_SERIE_INEXISTENTES_EN_BD)
+		return nil
 	}
 
 	var vehiculoEncontrado *capturaVehiculosModelos.Vehiculo
+	vehiculoCeros := &capturaVehiculosModelos.Vehiculo{}
 
 	if len(vehiculos) != 0 {
 		vehiculoEncontrado = &vehiculos[0]
+		if vehiculoEncontrado == vehiculoCeros {
+			vehiculoEncontrado = nil
+		}
 	}
 
 	return vehiculoEncontrado
@@ -263,10 +271,10 @@ func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *conectorBDModelo
 	usuario := inicioSesionModelos.Usuario{}
 
 	// Llamada al procedimiento almacenado
-	resultadoBusqueda := baseDeDatos.Raw("CALL obtenerUsuariosPorNombreUsuario(?)", solicitud.ObtenerNombre()).Find(&usuario)
+	resultadoBusqueda := baseDeDatos.Raw("CALL obtenerUsuarioPorNombreUsuario(?)", solicitud.ObtenerNombre()).Find(&usuario)
 
 	if resultadoBusqueda.Error != nil {
-		log.Fatal(constantes.ERROR_BUSQUEDA_EN_BD)
+		return nil
 	}
 
 	if (usuario == inicioSesionModelos.Usuario{}) {

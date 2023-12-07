@@ -87,6 +87,12 @@ func (c *Controlador) EditarServicioVehicular(solicitud *capturaServicioVehicula
 		return respuesta
 	}
 
+	if err := c.validarEditarServicioVehicularSolicitud(solicitud); err != nil {
+		respuesta.AsignarOk(false)
+		respuesta.AsignarErr(err)
+		return respuesta
+	}
+
 	editarServicioVehicularSolicitudDeConectorBD := c.CapturaServicioVehicularMapeador.EditarServicioVehicularSolicitudAServicioVehicularDeConectorBD(solicitud)
 
 	c.ConectorBDControlador.EditarServicioVehicular(editarServicioVehicularSolicitudDeConectorBD)
@@ -95,6 +101,21 @@ func (c *Controlador) EditarServicioVehicular(solicitud *capturaServicioVehicula
 	respuesta.AsignarErr(nil)
 
 	return respuesta
+}
+
+func (c *Controlador) validarEditarServicioVehicularSolicitud(solicitud *capturaServicioVehicularModelos.EditarServicioVehicularSolicitud) error {
+
+	solicitud.AsignarNombreActual(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerNombreActual()))
+	solicitud.AsignarNuevoNombre(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerNuevoNombre()))
+
+	obtenerServicioVehicularPorNombreSolicitud := &conectorBDModelos.ObtenerServicioVehicularPorNombreSolicitud{}
+	obtenerServicioVehicularPorNombreSolicitud.AsignarNombre(solicitud.ObtenerNuevoNombre())
+
+	if c.ConectorBDControlador.ObtenerServicioVehicularPorNombre(obtenerServicioVehicularPorNombreSolicitud) != nil {
+		return errors.New(constantes.ERROR_NOMBRE_DE_SERVICIO_VEHICULAR_EXISTE_EN_BD)
+	}
+
+	return nil
 }
 
 func (c *Controlador) ObtenerServiciosVehiculares() []capturaServicioVehicularModelos.ServicioVehicular {

@@ -4,6 +4,7 @@ import (
 	"errors"
 	capturaServicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -171,7 +172,7 @@ func (c *Controlador) existePlaca(placa string) bool {
 
 	vehiculo := c.ConectorBDControlador.ObtenerVehiculoPorPlacas(solicitudObtenerVehiculoPorPlaca)
 
-	return vehiculo != nil && vehiculo != &capturaVehiculoModelos.Vehiculo{}
+	return vehiculo != nil
 }
 
 func (c *Controlador) numeroDeRegistroExistente(numeroDeRegistro int) bool {
@@ -191,7 +192,7 @@ func (c *Controlador) validarSolicitudEditarRegistro(solicitud *capturaRegistroM
 	solicitud.AsignarObservaciones(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerObservaciones()))
 	solicitud.AsignarPlacasVehiculo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerPlacasVehiculo()))
 	solicitud.AsignarTipo(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerTipo()))
-
+	fmt.Println(solicitud.ObtenerPlacasVehiculo())
 	if !c.existePlaca(solicitud.ObtenerPlacasVehiculo()) {
 		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
 	}
@@ -214,10 +215,6 @@ func (c *Controlador) validarSolicitudEditarRegistro(solicitud *capturaRegistroM
 
 	if solicitud.ObtenerImporte() == 0 {
 		return errors.New(constantes.ERROR_IMPORTE_NO_VALIDO)
-	}
-
-	if solicitud.ObtenerObservaciones() == "" {
-		return errors.New(constantes.ERROR_OBSERVACIONES_VACIO)
 	}
 
 	if solicitud.ObtenerTipo() == "carga de combustible" && solicitud.ObtenerLitrosDeGasolina() == 0 {

@@ -43,7 +43,6 @@
 	async function enviarFormulario(inputsFormulario) {
 		const datosFormulario = construirPeticionFormulario(inputsFormulario);
 		const editarVehiculoURL = "/EditarVehiculo";
-		console.log(datosFormulario);
 		const peticion = await fetch(editarVehiculoURL, {
 			method: "POST",
 			body: datosFormulario,

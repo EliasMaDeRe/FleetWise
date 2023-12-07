@@ -58,6 +58,8 @@
 	}
 
 	async function mostrarDatosDelRegistroEnElFormulario(registro, vehiculoAsociado) {
+		console.log(registro);
+		console.log(vehiculoAsociado);
 		cargarCampoEnElFormulario("placa", vehiculoAsociado.Placas);
 		cargarCampoEnElFormulario("marca", vehiculoAsociado.Marca);
 		cargarCampoEnElFormulario("modelo", vehiculoAsociado.Modelo);

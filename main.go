@@ -45,6 +45,10 @@ func main() {
 
 	router := gin.Default()
 
+	controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("admin", "admin", "administrador")
+	controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("supervisor", "supervisor", "supervisor")
+	controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("capturista", "capturista", "capturista")
+
 	router.LoadHTMLGlob("templates/**/*")
 	router.Static("/styles", "./styles/")
 	router.Static("/js", "./js/")

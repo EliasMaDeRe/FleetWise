@@ -4,18 +4,18 @@
 	if (botonEnviarFormularioCapturarServicioVehicular) {
 		botonEnviarFormularioCapturarServicioVehicular.addEventListener("click", (e) => {
 			e.preventDefault();
-			const inputsFormulario = obtenerInputsDelFormulario();
-			enviarFormulario(inputsFormulario);
+			enviarFormulario();
 		});
 
 		function obtenerInputsDelFormulario() {
 			return document.querySelectorAll(".formulario__input");
 		}
 
-		async function enviarFormulario(inputsFormulario) {
-			const datosFormulario = construirPeticionFormulario(inputsFormulario);
+		async function enviarFormulario() {
+			const URLAEnviar = detectarURL();
+			const datosFormulario = construirPeticionFormulario(URLAEnviar);
 			const datosFormularioJSON = JSON.stringify(Object.fromEntries(datosFormulario));
-			const peticion = await fetch(detectarURL(), {
+			const peticion = await fetch(URLAEnviar, {
 				method: "POST",
 				body: datosFormularioJSON,
 			});
@@ -49,17 +49,20 @@
 			return urlDetectado;
 		}
 
-		function construirPeticionFormulario() {
+		function construirPeticionFormulario(URLAEnviar) {
 			const nombreServicio = document.getElementById("nombre").value;
-
 			if (nombreServicio === "") {
 				desplegarAlerta("error", "Campo de nombre vacío");
 				return;
 			}
-
 			const datosFormulario = new FormData();
-			datosFormulario.append("nombre", nombreServicio);
-
+			if(URLAEnviar == "/EditarServicioVehicular"){
+				const nombreActual = document.querySelector(".captura-servicio-vehicular__card-editor").name;
+				datosFormulario.append("nombreactual", nombreActual);	
+				datosFormulario.append("nuevonombre", nombreServicio);	
+			}else{
+				datosFormulario.append("nombre", nombreServicio);				
+			}
 			return datosFormulario;
 		}
 
