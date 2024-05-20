@@ -1,4 +1,4 @@
 .env
 .vscode
 .prettierrc
-nodemodules
+node_modules
