@@ -192,10 +192,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `v_registros_y_vehiculos_aociados`
+-- Estructura Stand-in para la vista `v_registros_y_vehiculos_asociados`
 -- (Véase abajo para la vista actual)
 --
-CREATE TABLE `v_registros_y_vehiculos_aociados` (
+CREATE TABLE `v_registros_y_vehiculos_asociados` (
 `fecha_lanzamiento` int(11)
 ,`marca` varchar(255)
 ,`modelo` varchar(255)
