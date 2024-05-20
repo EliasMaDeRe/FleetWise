@@ -40,26 +40,26 @@ func main() {
 		CapturaRegistroMantenimientoVehiculoManejador:       capturaRegistroMantenimientoVehiculoManejador.NuevoManejador(),
 		InicioSesionManejador:                               inicioSesionManejador.NuevoManejador(),
 		VisualizacionHistorialRegistrosManejador:            visualizacionHistorialRegistrosManejador.NuevoManejador(),
-		VisualizacionResumenMantenimientoVehiculosManejador: visualizacionResumenMantenimientoVehiculosManejador.NuevoManejador(),
+		VisualizacionResumenMantenimientoVehiculosManejador: visualizacionResumenMantenimientoVehiculosManejador.
+		NuevoManejador(),
 	}
 
 	router := gin.Default()
 
-	controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("admin", "admin", "administrador")
-	controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("supervisor", "supervisor", "supervisor")
-	controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("capturista", "capturista", "capturista")
+	// controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("admin", "admin", "administrador")
+	// controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("supervisor", "supervisor", "supervisor")
+	// controlador.InicioSesionManejador.InicioSesionControlador.RegistrarUsuario("capturista", "capturista", "capturista")
 
 	router.LoadHTMLGlob("templates/**/*")
 	router.Static("/styles", "./styles/")
 	router.Static("/js", "./js/")
 	router.Static("/img", "./img/")
 
-	// Login
-
+	// ====================================================Login
 	router.GET("/", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "capturista")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index", gin.H{"title": "FleetWise | Inicio"})
+		c.HTML(http.StatusOK, "index", gin.H{"title": "FleetWise | Inicio", "usuario":c.Keys["usuario"]})
 	})
 
 	router.GET("/Login", func(ctx *gin.Context) {
@@ -67,17 +67,15 @@ func main() {
 	}, func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index", gin.H{})
 	})
-
 	router.POST("/Login", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.IniciarSesion(ctx)
 	})
-
 	router.GET("/Logout", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "capturista")
 	}, func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.CerrarSesion(ctx)
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "login", gin.H{})
+		c.Redirect(http.StatusFound, "/")
 	})
 
 	router.POST("/Logout", func(ctx *gin.Context) {
@@ -85,14 +83,14 @@ func main() {
 	}, func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.CerrarSesion(ctx)
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "login", gin.H{})
+		c.Redirect(http.StatusNoContent, "/")
 	})
 
-	//Captura vehiculos
+	// ==================================================== Captura vehiculos
 	router.GET("/AgregarVehiculo", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "vehiculos/agregar", gin.H{"title": "FleetWise | Capturar Vehículo"})
+		c.HTML(http.StatusOK, "vehiculos/agregar", gin.H{"title": "FleetWise | Capturar Vehículo", "usuario":c.Keys["usuario"]})
 	})
 	router.POST("/AgregarVehiculo", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
@@ -111,11 +109,11 @@ func main() {
 		controlador.CapturaVehiculosManejador.EliminarVehiculo(ctx)
 	})
 
-	// Captura servicio vehicular
+	// ==================================================== Captura servicio vehicular
 	router.GET("/AgregarServicioVehicular", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "capturaServicioVehicular", gin.H{"title": "FleetWise | Captura Tipos de Servicios Vehiculares"})
+		c.HTML(http.StatusOK, "capturaServicioVehicular", gin.H{"title": "FleetWise | Captura Tipos de Servicios Vehiculares", "usuario":c.Keys["usuario"]})
 	})
 	router.POST("/AgregarServicioVehicular", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
@@ -139,12 +137,12 @@ func main() {
 		controlador.CapturaServicioVehicularManejador.EliminarServicioVehicular(ctx)
 	})
 
-	// Captura Registro Mantenimiento Vehiculo
+	// ==================================================== Captura Registro Mantenimiento Vehiculo
 
 	router.GET("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "capturista")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "registrosMantenimiento/seleccionarVehiculo", gin.H{"title": "FleetWise | Ingrese la placa de un vehiculo"})
+		c.HTML(http.StatusOK, "registrosMantenimiento/seleccionarVehiculo", gin.H{"title": "FleetWise | Ingrese la placa de un vehiculo", "usuario":c.Keys["usuario"]})
 	})
 
 	router.POST("/SeleccionarVehiculoParaNuevoRegistro", func(ctx *gin.Context) {
@@ -158,7 +156,7 @@ func main() {
 	}, func(ctx *gin.Context) {
 		controlador.CapturaRegistroMantenimientoVehiculoManejador.SeleccionarVehiculoParaNuevoRegistro(ctx)
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "registrosMantenimiento/agregar", gin.H{})
+		c.HTML(http.StatusOK, "registrosMantenimiento/agregar", gin.H{"usuario":c.Keys["usuario"]})
 	})
 
 	router.POST("/AgregarRegistroMantenimientoVehiculo", func(ctx *gin.Context) {
@@ -179,11 +177,11 @@ func main() {
 		controlador.CapturaRegistroMantenimientoVehiculoManejador.ObtenerRegistroMantenimientoVehiculoPorNumeroDeRegistro(ctx)
 	})
 
-	// Visualizacion Historial Registro Mantenimiento Vehiculo
+	// ==================================================== Visualizacion Historial Registro Mantenimiento Vehiculo
 	router.GET("/HistorialRegistrosMantenimientoVehiculo", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "supervisor")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "historialRegistros", gin.H{"title": "FleetWise | Historial de Registros de Mantenimiento"})
+		c.HTML(http.StatusOK, "historialRegistros", gin.H{"title": "FleetWise | Historial de Registros de Mantenimiento", "usuario":c.Keys["usuario"]})
 	})
 
 	router.POST("/HistorialRegistrosMantenimientoVehiculo", func(ctx *gin.Context) {
@@ -195,7 +193,7 @@ func main() {
 	router.GET("/EditarRegistroMantenimientoVehiculo", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "registrosMantenimiento/editar", gin.H{"title": "FleetWise | Editar Registro de Mantenimiento Vehicular"})
+		c.HTML(http.StatusOK, "registrosMantenimiento/editar", gin.H{"title": "FleetWise | Editar Registro de Mantenimiento Vehicular", "usuario":c.Keys["usuario"]})
 	})
 
 	router.POST("/EditarRegistroMantenimientoVehiculo", func(ctx *gin.Context) {
@@ -207,14 +205,14 @@ func main() {
 	router.GET("/RegistroEditado", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "registrosMantenimiento/registroEditado", gin.H{"title": "FleetWise | Registro Editado Correctamente"})
+		c.HTML(http.StatusOK, "registrosMantenimiento/registroEditado", gin.H{"title": "FleetWise | Registro Editado Correctamente", "usuario":c.Keys["usuario"]})
 	})
 
-	// Visualizacion Resumen Mantenimiento Vehiculos
+	// ==================================================== Visualizacion Resumen Mantenimiento Vehiculos
 	router.GET("/ResumenMantenimientoVehiculos", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "resumenVehiculos", gin.H{"title": "FleetWise | Resumen Mantenimiento Vehiculos"})
+		c.HTML(http.StatusOK, "resumenVehiculos", gin.H{"title": "FleetWise | Resumen Mantenimiento Vehiculos", "usuario":c.Keys["usuario"]})
 	})
 
 	router.POST("/ObtenerMetricasVehiculos", func(ctx *gin.Context) {
@@ -238,7 +236,7 @@ func main() {
 	router.GET("/EditarVehiculo", func(ctx *gin.Context) {
 		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
 	}, func(c *gin.Context) {
-		c.HTML(http.StatusOK, "vehiculos/editar", gin.H{"title": "FleetWise | Editar Vehículo"})
+		c.HTML(http.StatusOK, "vehiculos/editar", gin.H{"title": "FleetWise | Editar Vehículo", "usuario":c.Keys["usuario"]})
 	})
 
 	router.Run("localhost:8080")

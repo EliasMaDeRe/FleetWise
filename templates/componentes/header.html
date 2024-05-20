@@ -1,25 +1,27 @@
 {{ define "componentes/header"}}
 
 <header class="header">
-  <div class="header__logo">
-    <a href="/"><img src="img/Logo.png" /></a>
-  </div>
-  <nav class="navbar">
-    <a href="/AgregarVehiculo" class="navbar__enlace">Capturar Vehiculos</a>
-    <a href="/AgregarServicioVehicular" class="navbar__enlace"
-      >Capturar Conceptos</a
-    >
-    <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace"
-      >Capturar Registros</a
-    >
-    <a href="/HistorialRegistrosMantenimientoVehiculo" class="navbar__enlace"
-      >Historial de Registros</a
-    >
-    <a href="/ResumenMantenimientoVehiculos" class="navbar__enlace"
-      >Resumen de Flotillas</a
-    >
-    <a href="/Logout" class="navbar__enlace--logout">Cerrar Sesión</a>
-  </nav>
+    <div class="header__logo">
+        <a href="/"><img src="img/Logo.png" /></a>
+    </div>
+    <nav class="navbar">
+        <a href="/SeleccionarVehiculoParaNuevoRegistro" class="navbar__enlace">Capturar Registros</a>
+        {{ if ne .usuario.Cargo "capturista" }}
+            <a href="/HistorialRegistrosMantenimientoVehiculo" class="navbar__enlace">
+                Historial de Registros
+            </a>
+
+            {{if eq .usuario.Cargo "administrador"}}
+                <a href="/AgregarVehiculo" class="navbar__enlace">Capturar Vehiculos</a>
+                
+                <a href="/AgregarServicioVehicular" class="navbar__enlace">Capturar Conceptos</a>
+                
+                <a href="/ResumenMantenimientoVehiculos" class="navbar__enlace">Resumen de Flotillas</a>
+            {{ end }}
+        {{ end }}
+        
+        <a href="/Logout" class="navbar__enlace--logout">Cerrar Sesión</a>
+    </nav>
 </header>
 
 {{ end }}

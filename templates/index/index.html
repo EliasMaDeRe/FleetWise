@@ -4,10 +4,10 @@
 <html lang="es">
   {{template "componentes/head" . }}
   <body>
-    {{template "componentes/header" -}}
+    {{template "componentes/header" .}}
 
     <main class="menu__contenedor">
-      <h1 class="menu__heading">Bienvenido</h1>
+      <h1 class="menu__heading">Bienvenido  {{ .usuario.Cargo }}</h1>
     </main>
 
     {{template "componentes/footer" -}}

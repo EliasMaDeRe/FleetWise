@@ -4,7 +4,7 @@
 <html lang="es">
   {{template "componentes/head" . }}
   <body>
-    {{template "componentes/header" -}}
+    {{template "componentes/header" .}}
 
     <main class="captura-vehiculo__contenedor">
       <h1 class="captura-vehiculo__heading">Captura de Vehículo</h1>
@@ -18,12 +18,6 @@
             value="Registrar Vehículo"
           />
         </form>
-      </div>
-      <div class="area-imagen__contenedor" ondrop="upload_file(event)" ondragover="return false">
-        <div class="area-imagen__encabezado">Arrastra y suelta para subir imagen</div>
-        <span>O prueba</span>
-        <button class="area-imagen__boton">Buscar un archivo</button>
-        <input class="area-imagen__input" type="file" name="file" id="file" hidden>
       </div>
     </main>
 

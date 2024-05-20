@@ -57,6 +57,34 @@ func (c *Controlador) ObtenerUsuarioPorNombreUsuario(solicitud *inicioSesionMode
 	return usuarioEncontrado
 }
 
+func (c *Controlador) crearJSONWebToken(usuario *inicioSesionModelos.Usuario) (string, error) {
+	token := jwt.New(jwt.SigningMethodHS256)
+	claims := token.Claims.(jwt.MapClaims)
+	
+	claims["expiracion"] = time.Now().Add(time.Hour * 2).Unix()
+	claims["nombreUsuario"] = usuario.NombreUsuario
+	claims["cargo"] = usuario.Cargo
+	
+	tokenCadena, err := token.SignedString([]byte(os.Getenv("llaveSecretaDeAutenticacion")))
+	
+	if err != nil {
+		return "", err
+	}
+	
+	return tokenCadena, nil
+}
+
+func (c *Controlador) UsuarioTieneAutorizacion(usuario *inicioSesionModelos.Usuario, cargoRequerido string) bool {
+	
+	codigoDeCargos := map[string]int{
+		"capturista":    0,
+		"supervisor":    1,
+		"administrador": 2,
+	}
+	
+	return codigoDeCargos[usuario.Cargo] >= codigoDeCargos[cargoRequerido]
+}
+
 func (c *Controlador) RegistrarUsuario(nombreUsuario string, claveUsuario string, cargo string) bool {
 
 	claveUsuarioEncriptada, err := bcrypt.GenerateFromPassword([]byte(claveUsuario), 10)
@@ -73,35 +101,4 @@ func (c *Controlador) RegistrarUsuario(nombreUsuario string, claveUsuario string
 	guardarUsuarioRespuesta := c.ConectorBDControlador.GuardarUsuario(usuarioARegistrar)
 
 	return guardarUsuarioRespuesta.ObtenerOk()
-}
-
-func (c *Controlador) crearJSONWebToken(usuario *inicioSesionModelos.Usuario) (string, error) {
-	token := jwt.New(jwt.SigningMethodHS256)
-	claims := token.Claims.(jwt.MapClaims)
-
-	claims["expiracion"] = time.Now().Add(time.Hour * 2).Unix()
-	claims["nombreUsuario"] = usuario.NombreUsuario
-	claims["cargo"] = usuario.Cargo
-
-	tokenCadena, err := token.SignedString([]byte(os.Getenv("llaveSecretaDeAutenticacion")))
-
-	if err != nil {
-		return "", err
-	}
-
-	return tokenCadena, nil
-}
-
-func (c *Controlador) UsuarioTieneAutorizacion(usuario *inicioSesionModelos.Usuario, cargoRequerido string) bool {
-
-	codigoDeCargos := map[string]int{
-		"capturista":    0,
-		"supervisor":    1,
-		"administrador": 2,
-	}
-
-	if codigoDeCargos[usuario.Cargo] < codigoDeCargos[cargoRequerido] {
-		return false
-	}
-	return true
 }
