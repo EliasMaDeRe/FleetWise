@@ -2,10 +2,11 @@ package manejador
 
 import (
 	"errors"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdiniciosesion/controlador"
 	"example/fleetwise/fuente/iniciosesion/constantes"
 	inicioSesionControlador "example/fleetwise/fuente/iniciosesion/controlador"
 	inicioSesionMapeador "example/fleetwise/fuente/iniciosesion/mapeador"
+	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -30,6 +31,7 @@ func NuevoManejador() (c *Manejador) {
 
 func (m *Manejador) IniciarSesion(contexto *gin.Context) {
 	solicitud := m.InicioSesionControlador.InicioSesionMapeador.GinContextAIniciarSesionSolicitud(contexto)
+	fmt.Println(solicitud)
 	tokenCadena, err := m.InicioSesionControlador.IniciarSesion(solicitud)
 	status := http.StatusOK
 	ok := true
@@ -44,14 +46,14 @@ func (m *Manejador) IniciarSesion(contexto *gin.Context) {
 	if err != nil {
 		mensajeError = err.Error()
 	}
-
+	fmt.Println(status)
 	contexto.IndentedJSON(status, gin.H{"OK": ok, "err": mensajeError})
 }
 
 func (m *Manejador) ValidarSesion(contexto *gin.Context, cargoRequerido string) {
 
 	tokenCadena, err := contexto.Cookie("autorizacion")
-
+	
 	tokenCadena = (bluemonday.StrictPolicy().Sanitize(tokenCadena))
 
 	if err != nil {

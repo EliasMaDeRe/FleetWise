@@ -1,7 +1,7 @@
 package mapeador
 
 import (
-	modelosBd "example/fleetwise/modelos/conectorbd"
+	modelosBd "example/fleetwise/modelos/conectorbdvisualizacionhistorialregistrosmantenimientovehiculo"
 	historialRegistrosModelo "example/fleetwise/modelos/visualizacionhistorialregistrosmantenimientovehiculo"
 	"strconv"
 

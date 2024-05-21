@@ -4,7 +4,7 @@ import (
 	capturaRegistroMantenimientoVehiculoControlador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/controlador"
 	capturaRegistroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
 	capturaServicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdcapturaregistromantenimientovehiculo/controlador"
 	"strings"
 
 	"net/http"

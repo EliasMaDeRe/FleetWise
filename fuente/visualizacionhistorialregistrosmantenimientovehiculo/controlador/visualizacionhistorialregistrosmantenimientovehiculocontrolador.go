@@ -1,7 +1,7 @@
 package controlador
 
 import (
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdvisualizacionhistorialregistrosmantenimientovehiculo/controlador"
 	visualizacionHistorialRegistrosMapeador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehiculo/mapeador"
 	capturaRegistrosMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"

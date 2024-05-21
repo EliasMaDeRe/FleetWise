@@ -3,7 +3,8 @@ package controlador
 import (
 	"errors"
 	capturaServicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	capturaVehiculosControlador "example/fleetwise/fuente/capturavehiculos/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdcapturaregistromantenimientovehiculo/controlador"
 	"fmt"
 	"strconv"
 	"time"
@@ -13,7 +14,7 @@ import (
 	capturaRegistroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	capturaServicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
 	capturaVehiculoModelos "example/fleetwise/modelos/capturavehiculos"
-	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+	conectorBDCapturaVehiculosModelos "example/fleetwise/modelos/conectorbdcapturavehiculos"
 
 	"github.com/microcosm-cc/bluemonday"
 )
@@ -21,6 +22,7 @@ import (
 type Controlador struct {
 	ConectorBDControlador                        *conectorBDControlador.Controlador
 	CapturaRegistroMantenimientoVehiculoMapeador *capturaRegistroMantenimientoVehiculoMapeador.Mapeador
+	CapturaVehiculosControlador          *capturaVehiculosControlador.Controlador
 	CapturaServicioVehicularControlador          *capturaServicioVehicularControlador.Controlador
 }
 
@@ -49,9 +51,9 @@ func (c *Controlador) validarSeleccionarVehiculoParaRegistro(solicitud *capturaR
 
 	solicitud.AsignarPlacas(bluemonday.StrictPolicy().Sanitize(solicitud.ObtenerPlacas()))
 
-	obtenerVehiculoPorPlacasSolicitud := &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
+	obtenerVehiculoPorPlacasSolicitud := &conectorBDCapturaVehiculosModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacas())
-	if c.CapturaServicioVehicularControlador.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
+	if c.CapturaVehiculosControlador.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud) == nil {
 		return errors.New(constantes.ERROR_PLACAS_INEXISTENTES_EN_BD)
 	}
 	return nil
@@ -74,7 +76,7 @@ func (c *Controlador) AgregarRegistroMantemientoVehiculo(solicitud *capturaRegis
 
 	registro := c.CapturaRegistroMantenimientoVehiculoMapeador.AgregarRegistroMantemientoVehiculoSolicitudARegistroMantemientoVehiculo(solicitud)
 
-	if guardarRegistroMantenimientoVehiculoRespuesta := c.CapturaServicioVehicularControlador.ConectorBDControlador.GuardarRegistro(registro); guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr() != nil {
+	if guardarRegistroMantenimientoVehiculoRespuesta := c.ConectorBDControlador.GuardarRegistro(registro); guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr() != nil {
 		respuesta.AsignarOk(false)
 		respuesta.AsignarErr(guardarRegistroMantenimientoVehiculoRespuesta.ObtenerErr())
 		return respuesta
@@ -167,10 +169,10 @@ func (c *Controlador) solicitudEditarRegistroVacia(solicitud *capturaRegistroMan
 }
 
 func (c *Controlador) existePlaca(placa string) bool {
-	solicitudObtenerVehiculoPorPlaca := &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
+	solicitudObtenerVehiculoPorPlaca := &conectorBDCapturaVehiculosModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	solicitudObtenerVehiculoPorPlaca.AsignarPlacas(placa)
 
-	vehiculo := c.ConectorBDControlador.ObtenerVehiculoPorPlacas(solicitudObtenerVehiculoPorPlaca)
+	vehiculo := c.CapturaVehiculosControlador.ConectorBDControlador.ObtenerVehiculoPorPlacas(solicitudObtenerVehiculoPorPlaca)
 
 	return vehiculo != nil
 }

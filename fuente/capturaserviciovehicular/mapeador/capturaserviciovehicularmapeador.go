@@ -2,7 +2,7 @@ package mapeador
 
 import (
 	capturaServicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
-	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+	conectorBDModelos "example/fleetwise/modelos/conectorbdcapturaserviciovehicular"
 
 	"github.com/gin-gonic/gin"
 )

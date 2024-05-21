@@ -3,7 +3,7 @@ package manejador
 import (
 	capturaVehiculosControlador "example/fleetwise/fuente/capturavehiculos/controlador"
 	capturaVehiculosMapeador "example/fleetwise/fuente/capturavehiculos/mapeador"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdcapturavehiculos/controlador"
 	"net/http"
 	"path/filepath"
 

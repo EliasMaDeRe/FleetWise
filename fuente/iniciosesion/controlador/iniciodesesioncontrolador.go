@@ -2,11 +2,12 @@ package controladores
 
 import (
 	"errors"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdiniciosesion/controlador"
 	"example/fleetwise/fuente/iniciosesion/constantes"
 	inicioSesionMapeador "example/fleetwise/fuente/iniciosesion/mapeador"
-	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+	conectorBDModelos "example/fleetwise/modelos/conectorbdiniciosesion"
 	inicioSesionModelos "example/fleetwise/modelos/iniciosesion"
+	"fmt"
 	"os"
 	"time"
 
@@ -29,7 +30,7 @@ func (c *Controlador) IniciarSesion(solicitud *inicioSesionModelos.IniciarSesion
 	obtenerUsuarioPorNombreUsuarioSolicitud.AsignarNombre(solicitud.ObtenerNombreUsuario())
 
 	usuarioEncontrado := c.ConectorBDControlador.ObtenerUsuarioPorNombreUsuario(obtenerUsuarioPorNombreUsuarioSolicitud)
-
+	fmt.Print(usuarioEncontrado)
 	if usuarioEncontrado == nil {
 		return tokenCadena, errors.New(constantes.ERROR_CREDENCIALES_INVALIDAS)
 	}

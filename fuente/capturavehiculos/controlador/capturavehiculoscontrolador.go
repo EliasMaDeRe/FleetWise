@@ -2,14 +2,13 @@ package controlador
 
 import (
 	"errors"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdcapturavehiculos/controlador"
 	"strconv"
 
 	"example/fleetwise/fuente/capturavehiculos/constantes"
 	capturaVehiculosMapeador "example/fleetwise/fuente/capturavehiculos/mapeador"
-	"example/fleetwise/modelos/capturavehiculos"
 	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
-	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+	conectorBDModelos "example/fleetwise/modelos/conectorbdcapturavehiculos"
 
 	"github.com/microcosm-cc/bluemonday"
 )
@@ -120,7 +119,7 @@ func (c *Controlador) validarEditarVehiculosSolicitud(solicitud *capturaVehiculo
 	obtenerVehiculoPorPlacasSolicitud = &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	obtenerVehiculoPorPlacasSolicitud.AsignarPlacas(solicitud.ObtenerPlacasActuales())
 
-	var vehiculo *capturavehiculos.Vehiculo
+	var vehiculo *capturaVehiculosModelos.Vehiculo
 
 	if vehiculo = c.ConectorBDControlador.ObtenerVehiculoPorPlacas(obtenerVehiculoPorPlacasSolicitud); vehiculo == nil {
 		return errors.New(constantes.ERROR_VEHICULO_A_EDITAR_NO_EXISTE)
@@ -133,7 +132,7 @@ func (c *Controlador) validarEditarVehiculosSolicitud(solicitud *capturaVehiculo
 	return nil
 }
 
-func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *capturaVehiculosModelos.ObtenerVehiculoPorPlacasSolicitud) *capturavehiculos.Vehiculo {
+func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *capturaVehiculosModelos.ObtenerVehiculoPorPlacasSolicitud) *capturaVehiculosModelos.Vehiculo {
 
 	solicitudConectorBD := &conectorBDModelos.ObtenerVehiculoPorPlacasSolicitud{}
 	solicitudConectorBD.AsignarPlacas(solicitud.ObtenerPlacas())
@@ -141,8 +140,8 @@ func (c *Controlador) ObtenerVehiculoPorPlacas(solicitud *capturaVehiculosModelo
 	return c.ConectorBDControlador.ObtenerVehiculoPorPlacas(solicitudConectorBD)
 }
 
-func (c *Controlador) EliminarVehiculo(solicitud *capturavehiculos.EliminarVehiculoSolicitud) *capturavehiculos.EliminarVehiculoRespuesta {
-	respuesta := &capturavehiculos.EliminarVehiculoRespuesta{}
+func (c *Controlador) EliminarVehiculo(solicitud *capturaVehiculosModelos.EliminarVehiculoSolicitud) *capturaVehiculosModelos.EliminarVehiculoRespuesta {
+	respuesta := &capturaVehiculosModelos.EliminarVehiculoRespuesta{}
 
 	if solicitud == nil {
 		respuesta.AsignarOk(false)

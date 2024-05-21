@@ -2,7 +2,7 @@ package mapeador
 
 import (
 	capturaRegistroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
-	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+	conectorBDModelos "example/fleetwise/modelos/conectorbdcapturaregistromantenimientovehiculo"
 	"strconv"
 	"strings"
 

@@ -4,9 +4,9 @@ import (
 	"errors"
 	"example/fleetwise/fuente/capturaserviciovehicular/constantes"
 	capturaServicioVehicularMapeador "example/fleetwise/fuente/capturaserviciovehicular/mapeador"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdcapturaserviciovehicular/controlador"
 	capturaServicioVehicularModelos "example/fleetwise/modelos/capturaserviciovehicular"
-	conectorBDModelos "example/fleetwise/modelos/conectorbd"
+	conectorBDModelos "example/fleetwise/modelos/conectorbdcapturaserviciovehicular"
 
 	"github.com/microcosm-cc/bluemonday"
 )

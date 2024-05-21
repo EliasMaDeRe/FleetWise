@@ -3,7 +3,7 @@ package manejador
 import (
 	capturaServicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
 	capturaServicioVehicularMapeador "example/fleetwise/fuente/capturaserviciovehicular/mapeador"
-	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
+	conectorBDControlador "example/fleetwise/fuente/conectorbdcapturaserviciovehicular/controlador"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -26,7 +26,7 @@ func (m *Manejador) AgregarServicioVehicular(contexto *gin.Context) {
 	solicitud := m.ServicioVehicularControlador.CapturaServicioVehicularMapeador.GinContextAAgregarServicioVehicularSolicitud(contexto)
 	respuesta := m.ServicioVehicularControlador.AgregarServicioVehicular(solicitud)
 	status := http.StatusOK
-	if respuesta.ObtenerOk() == false {
+	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
 	}
 	var mensajeError string
@@ -40,7 +40,7 @@ func (m *Manejador) EliminarServicioVehicular(contexto *gin.Context) {
 	solicitud := m.ServicioVehicularControlador.CapturaServicioVehicularMapeador.GinContextAEliminarServicioVehicularSolicitud(contexto)
 	respuesta := m.ServicioVehicularControlador.EliminarServicioVehicular(solicitud)
 	status := http.StatusOK
-	if respuesta.ObtenerOk() == false {
+	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
 	}
 	var mensajeError string
@@ -54,7 +54,8 @@ func (m *Manejador) EditarServicioVehicular(contexto *gin.Context) {
 	solicitud := m.ServicioVehicularControlador.CapturaServicioVehicularMapeador.GinContextAEditarServicioVehicularSolicitud(contexto)
 	respuesta := m.ServicioVehicularControlador.EditarServicioVehicular(solicitud)
 	status := http.StatusOK
-	if respuesta.ObtenerOk() == false {
+	
+	if !respuesta.ObtenerOk() {
 		status = http.StatusBadRequest
 	}
 	var mensajeError string
