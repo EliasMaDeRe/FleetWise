@@ -112,8 +112,16 @@
 	function desplegarRegistrosConVehiculosAsociadosFiltrados(registrosFiltrados, vehiculosFiltrados) {
 		tablaRegistros.clear();
 
-		let cantidadRegistros = registrosFiltrados.length;
-		if (cantidadRegistros > 0) {
+        if (document.getElementById("editar")){
+            generarTablaAdministrador(registrosFiltrados, vehiculosFiltrados);
+        } else {
+            generarTablaSupervisor(registrosFiltrados, vehiculosFiltrados);
+        }
+	}
+
+    function generarTablaAdministrador(registrosFiltrados, vehiculosFiltrados) {
+        let cantidadRegistros = registrosFiltrados.length;
+        if (cantidadRegistros > 0) {
 			for (let i = 0; i < cantidadRegistros; i++) {
 				let registro = registrosFiltrados[i];
 				let vehiculo = vehiculosFiltrados[i];
@@ -134,14 +142,40 @@
 					registro.TipoDeRegistro == "carga de combustible" ? registro.LitrosDeGasolina : "N/A",
 					registro.Importe,
 					registro.Concepto,
-					enlaceEditarRegistro.outerHTML,
+                    enlaceEditarRegistro.outerHTML,
 				];
 
 				tablaRegistros.row.add(filaNueva);
 			}
 			tablaRegistros.draw();
 		}
-	}
+    }
+
+    function generarTablaSupervisor(registrosFiltrados, vehiculosFiltrados) {
+        let cantidadRegistros = registrosFiltrados.length;
+        if (cantidadRegistros > 0) {
+			for (let i = 0; i < cantidadRegistros; i++) {
+				let registro = registrosFiltrados[i];
+				let vehiculo = vehiculosFiltrados[i];
+
+				let filaNueva = [
+					registro.Fecha,
+					vehiculo.Placas,
+					vehiculo.Marca,
+					vehiculo.Modelo,
+					vehiculo.FechaLanzamiento,
+					registro.TipoDeRegistro,
+					registro.Kilometraje,
+					registro.TipoDeRegistro == "carga de combustible" ? registro.LitrosDeGasolina : "N/A",
+					registro.Importe,
+					registro.Concepto,
+				];
+
+				tablaRegistros.row.add(filaNueva);
+			}
+			tablaRegistros.draw();
+		} 
+    }
 
 	function desplegarMensajeVacioTablaRegistros() {
 		tablaRegistros.clear().draw();

@@ -4,7 +4,9 @@ import (
 	capturaRegistroMantenimientoVehiculoControlador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/controlador"
 	capturaRegistroMantenimientoVehiculoMapeador "example/fleetwise/fuente/capturaregistromantenimientovehiculo/mapeador"
 	capturaServicioVehicularControlador "example/fleetwise/fuente/capturaserviciovehicular/controlador"
+	capturaVehiculosControlador "example/fleetwise/fuente/capturavehiculos/controlador"
 	conectorBDControlador "example/fleetwise/fuente/conectorbdcapturaregistromantenimientovehiculo/controlador"
+
 	"strings"
 
 	"net/http"
@@ -22,6 +24,7 @@ func NuevoManejador() (c *Manejador) {
 			CapturaRegistroMantenimientoVehiculoMapeador: &capturaRegistroMantenimientoVehiculoMapeador.Mapeador{},
 			ConectorBDControlador:                        &conectorBDControlador.Controlador{},
 			CapturaServicioVehicularControlador:          &capturaServicioVehicularControlador.Controlador{},
+			CapturaVehiculosControlador:          &capturaVehiculosControlador.Controlador{},
 		},
 	}
 }

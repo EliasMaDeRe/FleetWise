@@ -88,7 +88,9 @@
               <th>Litros</th>
               <th>Importe</th>
               <th>Concepto</th>
-              <th>Editar</th>
+              {{ if eq .usuario.Cargo  "administrador" }}
+                <th id="editar">Editar</th>
+              {{ end }}
             </tr>
           </thead>
 
@@ -106,7 +108,9 @@
               <th>Litros</th>
               <th>Importe</th>
               <th>Concepto</th>
-              <th>Editar</th>
+              {{ if eq .usuario.Cargo  "administrador" }}
+                <th id="editar">Editar</th>
+              {{ end }}
             </tr>
           </tfoot>
         </table>
