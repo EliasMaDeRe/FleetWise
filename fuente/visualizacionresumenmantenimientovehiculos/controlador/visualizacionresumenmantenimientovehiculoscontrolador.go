@@ -4,16 +4,21 @@ import (
 	conectorBDControlador "example/fleetwise/fuente/conectorbd/controlador"
 	visualizacionHistorialRegistrosControlador "example/fleetwise/fuente/visualizacionhistorialregistrosmantenimientovehiculo/controlador"
 	"example/fleetwise/fuente/visualizacionresumenmantenimientovehiculos/constantes"
+	resumenFlotillaMapeador "example/fleetwise/fuente/visualizacionresumenmantenimientovehiculos/mapeador"
 	capturaRegistroMantenimientoVehiculoModelos "example/fleetwise/modelos/capturaregistromantenimientovehiculo"
 	capturaVehiculosModelos "example/fleetwise/modelos/capturavehiculos"
+	"fmt"
 	"sort"
 	"strings"
 	"time"
+
+	"github.com/xuri/excelize/v2"
 )
 
 type Controlador struct {
 	ConectorBDControlador                      *conectorBDControlador.Controlador
 	VisualizacionHistorialRegistrosControlador *visualizacionHistorialRegistrosControlador.Controlador
+	ResumenFlotillaMapeador                    *resumenFlotillaMapeador.Mapeador
 }
 
 func (c *Controlador) ObtenerMetricasVehiculares() ([]capturaVehiculosModelos.Vehiculo, []float64, []float64, []float64, []int, []int, []int, []float64) {
@@ -49,6 +54,57 @@ func (c *Controlador) ObtenerMetricasVehiculares() ([]capturaVehiculosModelos.Ve
 	}
 
 	return vehiculosSinRepetirse, gastosDeCombustiblePorVehiculo, gastosEnMantenimientoPorVehiculo, rendimientoKilometroLitroPorVehiculo, kilometrajeInicialPorVehiculo, ultimoKilometrajePorVehiculo, kilometrosTotalesRecorridosPorVehiculo, kilometrosPromedioDiariosRecorridosPorVehiculo
+}
+
+func (c *Controlador) ExportarResumenFlotilla(formato string) (archivo *excelize.File, err *error) {
+
+	vehiculos, gastosDeCombustible, gastosEnMantenimiento, rendimientosKilometroLitro, kilometrajesIniciales, ultimosKilometrajes, kilometrosTotalesRecorridos, kilometrosPromedioDiariosRecorridos := c.ObtenerMetricasVehiculares()
+	err = nil
+	archivo = nil
+
+	if formato == constantes.FORMATO_EXCEL {
+		archivo = excelize.NewFile()
+
+		defer func() {
+			if archivoErr := archivo.Close(); err != nil {
+				err = &archivoErr
+			}
+		}()
+
+		nombreDeHoja := "Hoja1"
+		archivo.SetSheetName("Sheet1", nombreDeHoja)
+
+		archivo.SetCellValue(nombreDeHoja, "A1", "Placa")
+		archivo.SetCellValue(nombreDeHoja, "B1", "Marca")
+		archivo.SetCellValue(nombreDeHoja, "C1", "Modelo")
+		archivo.SetCellValue(nombreDeHoja, "D1", "Año")
+		archivo.SetCellValue(nombreDeHoja, "E1", "Serie")
+		archivo.SetCellValue(nombreDeHoja, "F1", "Gasto de Combustible")
+		archivo.SetCellValue(nombreDeHoja, "G1", "Gasto de Mantenimiento")
+		archivo.SetCellValue(nombreDeHoja, "H1", "Rendimiendo KM/L")
+		archivo.SetCellValue(nombreDeHoja, "I1", "Kilometraje Inicial")
+		archivo.SetCellValue(nombreDeHoja, "J1", "Último Kilometraje")
+		archivo.SetCellValue(nombreDeHoja, "K1", "KM Totales Recorridos")
+		archivo.SetCellValue(nombreDeHoja, "L1", "KM Promedio Diario")
+
+		for indice, vehiculo := range vehiculos {
+			indiceFila := indice + 2
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("A%d", indiceFila), vehiculo.ObtenerPlacas())
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("B%d", indiceFila), vehiculo.ObtenerMarca())
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("C%d", indiceFila), vehiculo.ObtenerModelo())
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("D%d", indiceFila), vehiculo.ObtenerFechaLanzamiento())
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("E%d", indiceFila), vehiculo.ObtenerSerie())
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("F%d", indiceFila), gastosDeCombustible[indice])
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("G%d", indiceFila), gastosEnMantenimiento[indice])
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("H%d", indiceFila), rendimientosKilometroLitro[indice])
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("I%d", indiceFila), kilometrajesIniciales[indice])
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("J%d", indiceFila), ultimosKilometrajes[indice])
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("K%d", indiceFila), kilometrosTotalesRecorridos[indice])
+			archivo.SetCellValue(nombreDeHoja, fmt.Sprintf("L%d", indiceFila), kilometrosPromedioDiariosRecorridos[indice])
+
+		}
+	}
+	return archivo, err
 }
 
 func (c *Controlador) obtenerRegistrosPorPlacaOrdenadosPorFecha(placa string, registros []capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo) *[]capturaRegistroMantenimientoVehiculoModelos.RegistroDeMantenimientoDeVehiculo {

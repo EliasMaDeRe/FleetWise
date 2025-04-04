@@ -241,5 +241,11 @@ func main() {
 		c.HTML(http.StatusOK, "vehiculos/editar", gin.H{"title": "FleetWise | Editar Vehículo"})
 	})
 
+	router.GET("/ExportarFlotilla", func(ctx *gin.Context) {
+		controlador.InicioSesionManejador.ValidarSesion(ctx, "administrador")
+	}, func(c *gin.Context) {
+		controlador.VisualizacionResumenMantenimientoVehiculosManejador.ExportarResumenFlotilla(c)
+	})
+
 	router.Run("localhost:8080")
 }
