@@ -83,7 +83,31 @@
 			tablaResumen.row.add(resumenFlotilla);
 		}
 
+		prepararBotonExportarAExcel();
 		tablaResumen.draw();
+	}
+
+	function prepararBotonExportarAExcel(){
+		document.getElementById('ExportExcelButton').addEventListener('click', () => {
+			fetch('/ExportarFlotilla?Formato=excel')
+			  .then(response => {
+				if (!response.ok) throw new Error('Error en la descarga');
+				return response.blob(); 
+			  })
+			  .then(blob => {
+				const url = window.URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'ResumenFlotilla.xlsx'; 
+				document.body.appendChild(a);
+				a.click();
+				a.remove();
+				window.URL.revokeObjectURL(url);
+			  })
+			  .catch(error => {
+				console.error('Error:', error);
+			  });
+		  });
 	}
 
 	function construirEnlaceEditarVehiculo(placasVehiculo) {
